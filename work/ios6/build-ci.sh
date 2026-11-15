@@ -70,75 +70,53 @@ src, dst, min_ios = sys.argv[1], sys.argv[2], sys.argv[3]
 sdk = os.environ["SDK_PATH"]
 spec = json.load(open(src))
 
-# armv7s = ARMv7 + A6 的 Swift 扩展；A5 及更早不认 → 退回通用 armv7
+# --- 代码生成：通用 armv7（兼容 A4/A5，无 sctl NEON）---
+# cpu=generic + 显式 features 确保不生成 A6-only 指令。
+# llvm-target 保持 armv7s-apple-ios 不改：
+#   代码生成由 cpu+features 完全控制（LLVM setCPU("generic") 后
+#   显式 features 决定最终指令集），triple 的 arch 部分不影响。
+#   保留 armv7s 是因为如果未来有代码路径读到 llvm_arch，
+#   armv7s 在 rustc 白名单里而 armv7 不在（bug!）。
 spec["cpu"] = "generic"
 spec["features"] = "+v7,+thumb2,+vfp3,+vfp3d16,+neon"
-for k in ("llvm-target", "llvm-abiname"):
-    if isinstance(spec.get(k), str):
-        spec[k] = spec[k].replace("armv7s", "armv7")
 
-# 新版 rustc 的 linker flavour 白名单（旧的 "cc" 已废）
-VALID = {
-    "gnu", "gnu-lld", "gnu-cc", "gnu-lld-cc",
-    "darwin", "darwin-lld", "darwin-cc", "darwin-lld-cc",
-    "wasm-lld", "wasm-lld-cc", "unix", "unix-cc",
-    "msvc", "msvc-lld", "em-cc", "bpf", "llbc", "gcc",
-    "ld", "ld.lld", "ld64.lld", "lld-link", "wasm-ld", "em",
-}
+# --- 链接器 flavor：gnu-cc（不是 darwin-cc）---
+# darwin-cc 会触发 rustc 的 add_apple_link_args()：
+#   1. 从 llvm-target 提取 arch 做 match → armv7 不在白名单 → bug!
+#   2. os=macos 时加 -arch + -mmacosx-version-min（与我们的 iOS flag 冲突）
+# gnu-cc 跳过所有 Apple 专属逻辑，所有平台参数完全由 pre-link-args 控制。
+# gnu-cc 仍然调用 clang 做 cc 驱动（与 darwin-cc 相同的进程），
+# 只是不注入额外的 Apple 后处理。
+spec["linker-flavor"] = "gnu-cc"
 
-def patch_args(args):
-    """-arch armv7s → armv7；缺 -isysroot 就补上（只影响目标侧链接）。"""
-    out, i = [], 0
-    while i < len(args):
-        a = args[i]
-        if a == "-arch" and i + 1 < len(args):
-            out += ["-arch", "armv7"]
-            i += 2
-            continue
-        if a == "armv7s":
-            out.append("armv7")
-            i += 1
-            continue
-        out.append(a)
-        i += 1
-    if "-isysroot" not in out:
-        out += ["-isysroot", sdk]
-    return out
-
-pla = spec.get("pre-link-args")
-if isinstance(pla, dict) and pla and all(k in VALID for k in pla):
-    spec["pre-link-args"] = {k: patch_args(list(v)) for k, v in pla.items()}
-else:
-    # 原 spec 没有可用的 pre-link-args → 用 darwin-cc（不是 "cc"）
-    spec["pre-link-args"] = {
-        "darwin-cc": patch_args(["-arch", "armv7",
-                                 "-miphoneos-version-min=" + min_ios])
-    }
-
-# ---------------------------------------------------------------
-# target_os 覆盖：
-#   libc 只对 target_os="macos" 暴露 utun 需要的
-#   sockaddr_ctl / SYSPROTO_CONTROL / UTUN_OPT_IFNAME / AF_SYS_CONTROL，
-#   而 nix（tun crate 依赖）在 ios 分支里照样引用它们 → 直接用 os="ios" 编不过。
-#   本 daemon 的核心就是 utun，所以让编译期按 macOS 语义走（Darwin 共用 libSystem），
-#   但**链接参数强制 iOS 平台 + 最低 6.0**，产物仍是 iOS 二进制。
-#   用 TARGET_OS_OVERRIDE=ios 可退回原始语义。
-# ---------------------------------------------------------------
+# --- target_os 覆盖 ---
+# libc 0.2.191 把 sockaddr_ctl / AF_SYS_CONTROL / SYSPROTO_CONTROL /
+# UTUN_OPT_IFNAME / ctl_info / CTLIOCGINFO 全部挡在 #[cfg(target_os="macos")]
+# 后面，os="ios" 下 nix/tun 直接编译失败。
+# 本 daemon 的核心就是 utun，所以编译期按 macOS 语义走（Darwin 共用 libSystem），
+# 链接期强制 iOS 平台（见 pre-link-args），产物仍是 iOS 二进制。
 os_override = os.environ.get("TARGET_OS_OVERRIDE", "macos")
 spec["os"] = os_override
-if os_override == "macos":
-    args = ["-arch", "armv7",
-            "-platform_version", "ios", min_ios, "6.1",
-            "-isysroot", sdk]
-    spec["pre-link-args"] = {"darwin-cc": args}
-    spec.pop("post-link-args", None)
 
-post = spec.get("post-link-args")
-if isinstance(post, dict) and post and not all(k in VALID for k in post):
-    spec.pop("post-link-args", None)
+# --- pre-link-args：唯一的 Apple 平台参数来源 ---
+# -arch armv7s：ld64 白名单里的 arch（armv7 不在），产物 V7S thin binary
+#   armv7s ⊇ armv7 超集，所有 armv7 iOS 6 设备（3GS/4/4s/5）可执行。
+# -platform_version ios 6.0 6.1：写入 LC_VERSION_MIN_IPHONEOS min=6.0 sdk=6.1
+# -isysroot <6.1 SDK>：链接器找库/headers 用我们的 iOS 6.1 SDK
+spec["pre-link-args"] = {
+    "gnu-cc": [
+        "-arch", "armv7s",
+        "-platform_version", "ios", min_ios, "6.1",
+        "-isysroot", sdk
+    ]
+}
+spec.pop("post-link-args", None)
 
 json.dump(spec, open(dst, "w"), indent=2, sort_keys=True)
 print("    arch=%s cpu=%s" % (spec.get("arch"), spec.get("cpu")))
+print("    llvm-target=%s (保留 armv7s, 代码生成由 cpu+features 控制)" % spec.get("llvm-target"))
+print("    linker-flavor=%s (绕过 add_apple_link_args 的 armv7 bug!)" % spec.get("linker-flavor"))
+print("    os=%s" % spec.get("os"))
 print("    pre-link-args: %s" % json.dumps(spec["pre-link-args"])[:300])
 PY
 [ -f "$SPEC" ] || die "target JSON 生成失败"
