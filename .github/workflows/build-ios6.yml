@@ -106,7 +106,7 @@ jobs:
         run: |
           if [ -f dist/astral-tund ]; then
             file dist/astral-tund
-            otool -l dist/astral-tund | grep -A3 LC_VERSION_MIN_IPHONEOS || true
+            otool -l dist/astral-tund | grep -A4 -E 'LC_VERSION_MIN_IPHONEOS|LC_BUILD_VERSION' || true
             otool -L dist/astral-tund | head -20 || true
             lipo -info dist/astral-tund || true
           else
@@ -145,7 +145,7 @@ jobs:
             gzip -9 -c dist/astral-tund > ci-out/astral-tund.gz
             shasum -a 256 dist/astral-tund | awk '{print $1}' > ci-out/astral-tund.sha256
             file dist/astral-tund > ci-out/artifact-info.txt 2>&1 || true
-            ( otool -l dist/astral-tund | grep -A3 LC_VERSION_MIN_IPHONEOS >> ci-out/artifact-info.txt ) 2>&1 || true
+            ( otool -l dist/astral-tund | grep -A4 -E 'LC_VERSION_MIN_IPHONEOS|LC_BUILD_VERSION' >> ci-out/artifact-info.txt ) 2>&1 || true
           fi
           if [ "${CI_BUILD_FAILED:-0}" = "1" ] || [ ! -f dist/astral-tund ]; then
             STATUS="$([ -f dist/astral-tund ] && echo success || echo failure)"

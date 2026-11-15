@@ -16,7 +16,7 @@ HERE="$(cd "$(dirname "$0")" && pwd)"
 REPO_ROOT="${REPO_ROOT:-$(cd "$HERE/../.." && pwd)}"
 CRATE="${CRATE:-$REPO_ROOT/work/astral-tund}"
 OUT="${OUT:-$REPO_ROOT/dist}"
-MIN_IOS="${MIN_IOS:-6.0}"
+MIN_IOS="${MIN_IOS:-8.0}"
 
 say()  { printf "\033[1;34m==> %s\033[0m\n" "$*"; }
 warn() { printf "\033[1;33m!!  %s\033[0m\n" "$*"; }
@@ -137,11 +137,26 @@ spec.pop("is_like_darwin", None)  # 该字段不存在于 JSON，误加会报错
 #   注意 **不能** 用 -platform_version：那是 ld64 的 flag，clang 驱动不认
 #   （报 "unknown argument: '-platform_version'"，且会把后面的 ios/6.0 当文件）。
 # -isysroot <6.1 SDK>：链接器找库/headers 用我们的 iOS 6.1 SDK
+#
+# 下面的 -Wl,-U,<sym>：放行"iOS 8+ dyld 原生提供、但 6.1 SDK 的 tbd 没列出"
+# 的符号。rustc 1.102 的 std 是按 iOS 10 的 API 面编译的，会引用它们：
+#   __tlv_bootstrap / __tlv_atexit  → 线程局部存储（iOS 8 起有）
+#   openat/fstatat/renameat/unlinkat → POSIX.1-2008 的 *at 系列（iOS 8 起有）
+# 运行时这些符号在 iOS 8+ 上都能解析到，所以放行是安全的。
+# 另外两个由 src/shim.rs 自己实现（不依赖额外库）：
+#   clock_gettime         → iOS 10 才有的，不能放行
+#   CCRandomGenerateBytes → 用 libSystem 的 arc4random_buf 替代
 spec["pre-link-args"] = {
     "darwin-cc": [
         "-arch", "armv7s",
         "-miphoneos-version-min=" + min_ios,
-        "-isysroot", sdk
+        "-isysroot", sdk,
+        "-Wl,-U,__tlv_bootstrap",
+        "-Wl,-U,__tlv_atexit",
+        "-Wl,-U,_openat",
+        "-Wl,-U,_fstatat",
+        "-Wl,-U,_renameat",
+        "-Wl,-U,_unlinkat",
     ]
 }
 spec.pop("post-link-args", None)
@@ -213,6 +228,19 @@ python3 "$HERE/patch_crate_types.py" \
   "$HOME/.cargo/registry/src" \
   "$HOME/.cargo/git/checkouts" || warn "crate-type 修补脚本失败（继续尝试编译）"
 
+# 关键：清掉所有 build script 的输出目录，强制 C/汇编依赖按当前的
+# -arch armv7s 重新编译。
+# 原因：rust-cache 会把 target/.../build 缓存下来，里面 ring 的
+# libring_core_*.a 可能是早先用 -arch armv7 编的；ld64 遇到架构不符的
+# 归档成员会**静默丢弃**，最后表现成
+#   ld: symbol(s) not found ... _ring_core_*__sha512_block_data_order_nohw
+# 这类"加密符号莫名缺失"，很难排查。清掉最省事。
+BUILD_DIR="$CRATE/target/armv7-apple-ios/release/build"
+if [ -d "$BUILD_DIR" ]; then
+  rm -rf "$BUILD_DIR"
+  echo "    已清理 target/.../build（强制 C 依赖按 armv7s 重编）"
+fi
+
 say "编译"
 cargo +nightly -Zjson-target-spec -Z build-std=std,panic_abort \
   build --release --target "$SPEC"
@@ -230,7 +258,7 @@ BIN="$CRATE/target/armv7-apple-ios/release/astral-tund"
 # `-target armv7s-apple-ios10.0.0`，覆盖我们给 clang 的 -miphoneos-version-min=6.0，
 # 产物会被标成 min=10.0。这里改回 6.0（必须在 ldid 签名之前）。
 say "修正 Mach-O 最低版本 -> iOS $MIN_IOS"
-python3 "$HERE/fix_macho_ver.py" "$BIN" "$MIN_IOS" "6.1" || warn "版本修正失败（继续）"
+python3 "$HERE/fix_macho_ver.py" "$BIN" "$MIN_IOS" "$MIN_IOS" || warn "版本修正失败（继续）"
 
 say "校验产物"
 file "$BIN" | sed 's/^/    /'

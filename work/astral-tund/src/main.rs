@@ -14,6 +14,7 @@
 //!   astral-tund --name ... --dry-run               # 只打印 TOML 与命令，不建设备
 
 mod bridge;
+mod shim;
 mod utun;
 
 use anyhow::{bail, Context, Result};
