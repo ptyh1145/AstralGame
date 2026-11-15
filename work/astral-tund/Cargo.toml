@@ -8,9 +8,14 @@ publish = false
 name = "astral-tund"
 path = "src/main.rs"
 
-# 用 vendored libc 补 utun 符号给 iOS 用（详见 work/vendor/libc-0.2.191/README）
+# 用 vendored 副本覆盖两个上游问题（详见 work/ios6/README.md 的「坑」表）：
+#  * libc：utun 的 6 个符号被 cfg(target_os="macos") 挡住，iOS 编不过
+#  * ring：32 位 arm 的 ASM_TARGETS 缺 Apple 条目 + poly1305 的 neon2
+#          汇编是 ELF 语法，导致 17 个 _ring_core_* 符号链接期 undefined
+# 用 path 依赖还有个好处：不走 registry 指纹缓存，build script 一定会重跑。
 [patch.crates-io]
 libc = { path = "../vendor/libc-0.2.191" }
+ring = { path = "../vendor/ring-0.17.14" }
 
 [dependencies]
 anyhow = "1"

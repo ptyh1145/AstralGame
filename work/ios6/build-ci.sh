@@ -249,14 +249,13 @@ python3 "$HERE/patch_crate_types.py" \
   "$HOME/.cargo/registry/src" \
   "$HOME/.cargo/git/checkouts" || warn "crate-type 修补脚本失败（继续尝试编译）"
 
-# ring 0.17 的 ASM_TARGETS 里 32 位 arm 只配了 Linux/Horizon，没有 Apple：
-# iOS/armv7 上 asm_target=None → 汇编完全不编译 → 链接期
-# _ring_core_*_sha256_block_data_order_nohw 等 17 个符号全部 undefined。
-# 这里补上 arm+APPLE_ABI+"ios32"，并强制走 perl 现场生成（只生成当前
-# target，不会去碰 nasm）。
-say "修补 ring 的 iOS 32 位汇编支持"
-python3 "$HERE/patch_ring_asm.py" "$HOME/.cargo/registry/src" \
-  || warn "ring 汇编补丁失败（继续尝试编译）"
+# ring 的 32 位 iOS 汇编问题已经**预先在 vendored 副本里修好**了
+# （work/vendor/ring-0.17.14：加 arm + APPLE_ABI + "ios32" 汇编目标、
+#  预生成 7 个 *_ios32.S、iOS 下改用 poly1305 的通用 C 实现），
+# 通过 [patch.crates-io] 以 path 依赖接入，所以这里不需要再运行时打补丁。
+# 之前"改 registry 源码"的方式始终不生效：cargo 的 .fingerprint 认定了
+# 旧的 build script，补丁永远没被跑过（日志里连 build/ring 目录都没有）。
+say "ring 使用 vendored 副本（已内置 iOS 32 位汇编修复）"
 
 # 关键：强制 ring 重新跑 build script。
 #
