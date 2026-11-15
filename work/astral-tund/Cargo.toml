@@ -8,6 +8,14 @@ publish = false
 # （绕开 ring 那个在本 target 上不可靠的 build script，见 build.rs 注释）
 build = "build.rs"
 
+# lib：把联机核心暴露成 C ABI，给原生 UI（Objective-C）用；
+# 同时 CLI(bin) 也复用它。
+#   staticlib = 给 ObjC 链接的 libastral_tund.a
+#   rlib      = 给下面的 bin 用
+[lib]
+name = "astral_tund"
+crate-type = ["staticlib", "rlib"]
+
 [[bin]]
 name = "astral-tund"
 path = "src/main.rs"

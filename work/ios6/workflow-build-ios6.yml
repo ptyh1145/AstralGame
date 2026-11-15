@@ -131,6 +131,8 @@ jobs:
           path: |
             dist/astral-tund
             dist/astral-tund.sha256
+            dist/AstralGame.ipa
+            dist/AstralGame.ipa.sha256
           if-no-files-found: warn
 
       # 关键一步：把结果写回仓库，供无 token 的观察者读取

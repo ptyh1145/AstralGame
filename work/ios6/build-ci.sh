@@ -365,3 +365,57 @@ cp "$BIN" "$OUT/astral-tund"
 ( cd "$OUT" && shasum -a 256 astral-tund > astral-tund.sha256 )
 say "产物: $OUT/astral-tund"
 cat "$OUT/astral-tund.sha256"
+
+# ---------------------------------------------------------------- 5. GUI (.app / .ipa)
+# 用原生 UIKit 界面 + 上面的 Rust 静态库，打包成越狱设备可装的 .ipa。
+# （原版 Flutter 界面跑不了：Flutter 引擎只有 arm64、最低 iOS 13）
+say "编译原生界面并打包 .ipa"
+UI_DIR="$REPO_ROOT/work/ios-ui"
+LIB="$CRATE/target/armv7-apple-ios/release/libastral_tund.a"
+if [ ! -f "$LIB" ]; then
+  warn "找不到 libastral_tund.a（[lib] crate-type 是否含 staticlib？）—— 跳过 .ipa"
+else
+  APP="$OUT/AstralGame.app"
+  rm -rf "$APP" "$OUT/Payload" "$OUT/main.o"
+  mkdir -p "$APP"
+
+  UI_CFLAGS=(-arch armv7s "-miphoneos-version-min=$MIN_IOS" -isysroot "$SDK_PATH"
+             -O2 -fobjc-arc -Wno-deprecated-declarations -Wno-unused-parameter)
+
+  echo "    [1/4] 编译 main.m"
+  clang "${UI_CFLAGS[@]}" -c "$UI_DIR/main.m" -o "$OUT/main.o" \
+    || die "ObjC 编译失败"
+
+  echo "    [2/4] 链接 App（含 Rust 静态库）"
+  clang "${UI_CFLAGS[@]}" \
+    "$OUT/main.o" \
+    -Wl,-force_load,"$LIB" \
+    -framework UIKit -framework Foundation -framework CoreGraphics \
+    -framework CoreFoundation -framework SystemConfiguration -framework Security \
+    -lc -lm -liconv -lresolv \
+    -Wl,-U,__tlv_bootstrap -Wl,-U,__tlv_atexit \
+    -o "$APP/AstralGame" \
+    || die "链接 App 失败"
+
+  echo "    [3/4] 修正版本 + 签名"
+  python3 "$HERE/fix_macho_ver.py" "$APP/AstralGame" "$MIN_IOS" "$MIN_IOS" \
+    || warn "版本修正失败（继续）"
+  if command -v ldid >/dev/null; then
+    ldid -S "$APP/AstralGame" && echo "        ldid -S 完成"
+  else
+    warn "没有 ldid，App 未签名"
+  fi
+  cp "$UI_DIR/Info.plist" "$APP/"
+
+  echo "    [4/4] 打包 ipa"
+  mkdir -p "$OUT/Payload"
+  cp -R "$APP" "$OUT/Payload/"
+  rm -f "$OUT/AstralGame.ipa"
+  ( cd "$OUT" && zip -qr AstralGame.ipa Payload )
+  ( cd "$OUT" && shasum -a 256 AstralGame.ipa > AstralGame.ipa.sha256 )
+  say "GUI 产物: $OUT/AstralGame.ipa"
+  cat "$OUT/AstralGame.ipa.sha256"
+  file "$APP/AstralGame" | sed 's/^/    /'
+  otool -l "$APP/AstralGame" | grep -A4 -E 'LC_VERSION_MIN_IPHONEOS|LC_BUILD_VERSION' | sed 's/^/    /' || true
+  otool -L "$APP/AstralGame" | head -12 | sed 's/^/    /'
+fi

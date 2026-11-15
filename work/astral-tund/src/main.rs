@@ -13,9 +13,11 @@
 //!   astral-tund --config /var/root/astral.toml     # 直接吃 App 导出的 TOML
 //!   astral-tund --name ... --dry-run               # 只打印 TOML 与命令，不建设备
 
-mod bridge;
+// 只保留 shim（clock_gettime 等老系统缺失符号），
+// bridge/utun 现在由 lib.rs 提供，供 CLI 和原生 UI（静态库）共用。
 mod shim;
-mod utun;
+
+use astral_tund::{bridge, utun};
 
 use anyhow::{bail, Context, Result};
 use std::path::PathBuf;
