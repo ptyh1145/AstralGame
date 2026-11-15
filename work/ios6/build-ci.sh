@@ -74,6 +74,13 @@ alias_lib libm      "$SDK_PATH/usr/lib/system/libsystem_m.tbd"
 alias_lib libpthread "$SDK_PATH/usr/lib/libSystem.tbd"
 alias_lib libdl     "$SDK_PATH/usr/lib/libSystem.tbd"
 
+# 修补旧式 tbd 的 platform 字段。
+# 这批 6.1 SDK 的 tbd 是 tapi-tbd-v3，platform 写成 `(null)`，
+# Xcode 16 的 ld64 直接报 `error: unknown platform`（连 libSystem 都不放过）。
+# 把 v3 tbd 的 `platform: (null)` 统一改成 `platform: ios`。
+say "修补 SDK 的 tbd platform 字段（(null) -> ios）"
+python3 "$HERE/fix_sdk_tbd.py" "$SDK_PATH" || warn "tbd 修补失败（继续）"
+
 # ---------------------------------------------------------------- 2. target JSON
 say "派生纯 armv7 目标（基于 armv7s spec，注入 SDK 链接参数）"
 export RUSTC_BOOTSTRAP=1
