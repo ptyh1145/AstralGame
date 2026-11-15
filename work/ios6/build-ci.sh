@@ -201,7 +201,8 @@ fi
 say "编译"
 cargo +nightly -Zjson-target-spec -Z build-std=std,panic_abort \
   build --release --target "$SPEC"
-RC=$?if [ $RC -ne 0 ]; then
+RC=$?
+if [ $RC -ne 0 ]; then
   die "cargo build 失败 (exit $RC)"
 fi
 
