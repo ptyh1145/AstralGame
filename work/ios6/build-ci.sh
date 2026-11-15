@@ -168,7 +168,10 @@ export CARGO_PROFILE_RELEASE_DEBUG=0
 export CARGO_INCREMENTAL=0
 # cc-rs 的 env 变量名基于 TARGET triple（可能解析成多种形态），
 # 保险起见把 armv7s/armv7 × apple-ios/ios 的组合都设上同一组 CFLAGS。
-C_CFLAGS="-O2 -fPIC -arch armv7 -miphoneos-version-min=$MIN_IOS -isysroot $SDK_PATH -Qunused-arguments"
+# 注意 -arch 必须是 **armv7s**：最终链接用 -arch armv7s（ld64 已不支持
+# 纯 armv7），若 C 目标文件编成 armv7，ld64 会报
+# "archive member 'xxx.o' ... is not mach-o ... for architecture armv7s"。
+C_CFLAGS="-O2 -fPIC -arch armv7s -miphoneos-version-min=$MIN_IOS -isysroot $SDK_PATH -Qunused-arguments"
 export CC_armv7s_apple_ios="$CLANG";   export CFLAGS_armv7s_apple_ios="$C_CFLAGS"
 export CC_armv7s_ios="$CLANG";         export CFLAGS_armv7s_ios="$C_CFLAGS"
 export CC_armv7_apple_ios="$CLANG";    export CFLAGS_armv7_apple_ios="$C_CFLAGS"
