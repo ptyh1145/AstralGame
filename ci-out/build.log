@@ -42,9 +42,9 @@
   Downloaded getopts v0.2.24
   Downloaded gimli v0.34.0
   Downloaded miniz_oxide v0.9.1
-  Downloaded object v0.39.1
   Downloaded rustc-demangle v0.1.28
   Downloaded rustc-literal-escaper v0.0.8
+  Downloaded object v0.39.1
    Compiling compiler_builtins v0.1.160 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/compiler-builtins/compiler-builtins)
    Compiling core v0.0.0 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/core)
    Compiling object v0.39.1
@@ -58,17 +58,17 @@
    Compiling parking_lot_core v0.9.12
    Compiling crossbeam-utils v0.8.23
    Compiling zerocopy v0.8.63
-   Compiling icu_normalizer_data v2.4.0
    Compiling icu_properties_data v2.4.0
-   Compiling getrandom v0.4.3
    Compiling thiserror v2.0.21
+   Compiling getrandom v0.4.3
+   Compiling icu_normalizer_data v2.4.0
    Compiling getrandom v0.3.4
    Compiling num-traits v0.2.19
+   Compiling rustix v1.1.6
    Compiling typeid v1.0.3
    Compiling libm v0.2.16
-   Compiling rustix v1.1.6
-   Compiling erased-serde v0.4.11
    Compiling crossbeam-epoch v0.9.21
+   Compiling erased-serde v0.4.11
    Compiling curve25519-dalek v4.1.3
    Compiling zmij v1.0.23
    Compiling httparse v1.10.1
@@ -79,15 +79,15 @@
    Compiling system-configuration-sys v0.6.0
    Compiling parking_lot_core v0.8.6
    Compiling anyhow v1.0.104
-   Compiling rustix v0.38.44
    Compiling heapless v0.9.3
+   Compiling rustix v0.38.44
    Compiling memoffset v0.9.1
    Compiling encoding_rs v0.8.44
-   Compiling crossbeam-deque v0.8.8
    Compiling reed-solomon-erasure v6.0.0
    Compiling smoltcp v0.14.0
-   Compiling quinn-udp v0.5.16
+   Compiling crossbeam-deque v0.8.8
    Compiling nix v0.31.3
+   Compiling quinn-udp v0.5.16
    Compiling snow v0.10.0
    Compiling quinn v0.11.12
    Compiling rust-i18n v4.2.4
@@ -630,17 +630,17 @@ warning: astral-tund@0.1.0: 2 warnings generated.
    Compiling alloc v0.0.0 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/alloc)
    Compiling memchr v2.8.3
    Compiling adler2 v2.0.1
-   Compiling cfg-if v1.0.4
    Compiling unwind v0.0.0 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/unwind)
    Compiling rustc-demangle v0.1.28
+   Compiling cfg-if v1.0.4
    Compiling rustc-literal-escaper v0.0.8
    Compiling rustc-std-workspace-alloc v1.99.0 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/rustc-std-workspace-alloc)
    Compiling panic_unwind v0.0.0 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/panic_unwind)
-   Compiling panic_abort v0.0.0 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/panic_abort)
    Compiling gimli v0.34.0
-   Compiling std_detect v0.1.5 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/std_detect)
    Compiling miniz_oxide v0.9.1
    Compiling hashbrown v0.17.1
+   Compiling std_detect v0.1.5 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/std_detect)
+   Compiling panic_abort v0.0.0 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/panic_abort)
    Compiling addr2line v0.27.1
    Compiling proc_macro v0.0.0 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/proc_macro)
 warning: deployment target in IPHONEOS_DEPLOYMENT_TARGET was set to 8.0, but the minimum supported by `rustc` is 10.0
@@ -660,8 +660,8 @@ warning: `libc` (lib) generated 1 warning
    Compiling subtle v2.6.1
    Compiling stable_deref_trait v1.2.1
    Compiling zeroize v1.9.1
-   Compiling crypto-common v0.1.7
    Compiling bitflags v2.13.2
+   Compiling crypto-common v0.1.7
    Compiling futures-core v0.3.34
    Compiling parking_lot v0.12.5
    Compiling zerofrom v0.1.8
@@ -670,27 +670,27 @@ warning: `libc` (lib) generated 1 warning
    Compiling signal-hook-registry v1.4.8
    Compiling mio v1.2.5
    Compiling core-foundation-sys v0.8.7
-   Compiling zerovec v0.11.9
-   Compiling slab v0.4.12
    Compiling tokio v1.54.1
+   Compiling zerovec v0.11.9
    Compiling futures-sink v0.3.34
+   Compiling slab v0.4.12
    Compiling log v0.4.35
    Compiling futures-channel v0.3.34
-   Compiling futures-task v0.3.34
    Compiling futures-io v0.3.34
-   Compiling tinystr v0.8.5
+   Compiling futures-task v0.3.34
    Compiling futures-util v0.3.34
+   Compiling tinystr v0.8.5
    Compiling tracing-core v0.1.36
-   Compiling rand_core v0.10.1
    Compiling utf_types v1.0.0
    Compiling litemap v0.8.3
    Compiling writeable v0.6.4
+   Compiling rand_core v0.10.1
    Compiling icu_locale_core v2.4.0
    Compiling utf8_iter v1.1.0
    Compiling potential_utf v0.1.6
    Compiling zerotrie v0.2.5
-   Compiling icu_provider v2.4.0
    Compiling icu_collections v2.4.0
+   Compiling icu_provider v2.4.0
    Compiling block-buffer v0.10.4
    Compiling itoa v1.0.19
    Compiling untrusted v0.9.0
@@ -781,7 +781,6 @@ help: use `'_` for type paths
 48 |     ) -> Result<AsChunksMut<'_, Limb, LIMBS_PER_CHUNK>, LenMismatchError> {
    |                             +++
 
-   Compiling tracing v0.1.44
 warning: hiding a lifetime that's elided elsewhere is confusing
   --> /Users/runner/work/AstralGame/AstralGame/work/vendor/ring-0.17.14/src/pkcs8.rs:56:21
    |
@@ -823,58 +822,59 @@ help: use `'_` for type paths
    |                                                                                +++
 
    Compiling chacha20 v0.10.2
+   Compiling tracing v0.1.44
    Compiling rustls-pki-types v1.16.0
-warning: `ring` (lib) generated 10 warnings (1 duplicate) (run `cargo fix --lib -p ring` to apply 9 suggestions)
    Compiling equivalent v1.0.3
-   Compiling icu_normalizer v2.4.0
    Compiling icu_properties v2.4.0
+warning: `ring` (lib) generated 10 warnings (1 duplicate) (run `cargo fix --lib -p ring` to apply 9 suggestions)
+   Compiling icu_normalizer v2.4.0
    Compiling ppv-lite86 v0.2.21
    Compiling rand v0.10.4
    Compiling inout v0.1.4
    Compiling ipnet v2.12.2
-   Compiling unicode-width v0.2.3
    Compiling byteorder v1.5.0
+   Compiling unicode-width v0.2.3
    Compiling cipher v0.4.4
    Compiling idna_adapter v1.2.2
    Compiling universal-hash v0.5.1
-   Compiling opaque-debug v0.3.1
    Compiling percent-encoding v2.3.2
+   Compiling opaque-debug v0.3.1
    Compiling form_urlencoded v1.2.2
    Compiling idna v1.1.0
    Compiling rand_core v0.9.5
    Compiling rustls-webpki v0.103.17
    Compiling tinyvec v1.13.3
-   Compiling rand_chacha v0.9.0
    Compiling url v2.5.8
+   Compiling rand_chacha v0.9.0
    Compiling http v1.5.0
-   Compiling utf8parse v0.2.2
-   Compiling sha1_smol v1.0.1
    Compiling parking v2.2.1
    Compiling deranged v0.5.9
    Compiling num-conv v0.2.2
    Compiling powerfmt v0.2.1
    Compiling time-core v0.1.9
-   Compiling event-listener v5.4.2
+   Compiling utf8parse v0.2.2
+   Compiling sha1_smol v1.0.1
    Compiling uuid v1.29.2
-   Compiling time v0.3.55
    Compiling anstyle-parse v1.0.0
+   Compiling time v0.3.55
+   Compiling event-listener v5.4.2
    Compiling rand v0.9.5
-   Compiling tokio-util v0.7.20
    Compiling hmac v0.12.1
+   Compiling tokio-util v0.7.20
    Compiling iana-time-zone v0.1.65
    Compiling aead v0.5.2
    Compiling prost v0.14.6
+   Compiling inventory v0.3.25
    Compiling data-encoding v2.11.1
+   Compiling foldhash v0.2.0
+   Compiling siphasher v1.0.4
    Compiling anstyle v1.0.14
    Compiling anstyle-query v1.1.5
    Compiling colorchoice v1.0.5
    Compiling is_terminal_polyfill v1.70.2
-   Compiling foldhash v0.2.0
-   Compiling siphasher v1.0.4
-   Compiling inventory v0.3.25
-   Compiling indexmap v2.14.2
    Compiling anstream v1.0.0
    Compiling hickory-proto v0.25.2
+   Compiling indexmap v2.14.2
    Compiling chrono v0.4.45
    Compiling event-listener-strategy v0.5.4
    Compiling terminal_size v0.4.4
@@ -886,19 +886,19 @@ warning: `ring` (lib) generated 10 warnings (1 duplicate) (run `cargo fix --lib 
    Compiling security-framework-sys v2.17.0
    Compiling instant v0.1.13
    Compiling arc-swap v1.9.5
+   Compiling base64 v0.23.1
+   Compiling base64 v0.22.1
+   Compiling bitflags v1.3.2
+   Compiling try-lock v0.2.5
    Compiling clap_lex v1.1.1
    Compiling strsim v0.11.1
-   Compiling unicase v2.10.0
-   Compiling try-lock v0.2.5
    Compiling allocator-api2 v0.2.21
-   Compiling base64 v0.22.1
    Compiling foldhash v0.1.5
+   Compiling unicase v2.10.0
    Compiling either v1.19.0
-   Compiling bitflags v1.3.2
-   Compiling base64 v0.23.1
    Compiling hashbrown v0.15.5
-   Compiling want v0.3.2
    Compiling clap_builder v4.6.7
+   Compiling want v0.3.2
    Compiling hashbrown v0.12.3
    Compiling security-framework v3.7.0
    Compiling chacha20poly1305 v0.10.1
@@ -910,26 +910,26 @@ warning: `ring` (lib) generated 10 warnings (1 duplicate) (run `cargo fix --lib 
    Compiling rand_chacha v0.3.1
    Compiling sha2 v0.10.9
    Compiling core-foundation v0.9.4
-   Compiling cidr v0.3.2
    Compiling spin v0.9.9
-   Compiling lazy_static v1.5.1
-   Compiling derive_more v2.1.1
+   Compiling cidr v0.3.2
    Compiling hashbrown v0.14.5
-   Compiling trackable v1.3.0
    Compiling atomic-waker v1.1.2
    Compiling option-ext v0.2.0
+   Compiling derive_more v2.1.1
    Compiling crc-catalog v2.5.0
    Compiling tagptr v0.2.0
    Compiling winnow v1.0.5
-   Compiling moka v0.12.16
+   Compiling lazy_static v1.5.1
+   Compiling trackable v1.3.0
+   Compiling bytecodec v0.5.0
    Compiling toml_parser v1.1.5+spec-1.1.0
-   Compiling dashmap v6.2.1
+   Compiling sharded-slab v0.1.7
+   Compiling moka v0.12.16
    Compiling crc v3.4.0
+   Compiling optionize v0.5.3
+   Compiling dashmap v6.2.1
    Compiling dirs-sys v0.5.0
    Compiling hyper v1.12.0
-   Compiling bytecodec v0.5.0
-   Compiling optionize v0.5.3
-   Compiling sharded-slab v0.1.7
    Compiling system-configuration v0.6.1
    Compiling rand v0.8.8
    Compiling clap v4.6.7
@@ -948,8 +948,8 @@ warning: `ring` (lib) generated 10 warnings (1 duplicate) (run `cargo fix --lib 
    Compiling webpki-roots v1.0.12
    Compiling sha1 v0.10.7
    Compiling futures-executor v0.3.34
-   Compiling tracing-log v0.2.0
    Compiling rand_pcg v0.10.2
+   Compiling tracing-log v0.2.0
    Compiling ringbuf v0.5.3
    Compiling quick-xml v0.42.0
    Compiling serde_spanned v1.1.3
@@ -957,11 +957,18 @@ warning: `ring` (lib) generated 10 warnings (1 duplicate) (run `cargo fix --lib 
    Compiling nibble_vec v0.1.0
    Compiling dirs-sys v0.3.7
    Compiling thread_local v1.1.10
+   Compiling strum v0.28.0
+   Compiling endian-type v0.1.2
+   Compiling md5 v0.7.0
+   Compiling resolv-conf v0.7.6
    Compiling toml_writer v1.2.0+spec-1.1.0
-   Compiling atomic-shim v0.2.0
    Compiling nu-ansi-term v0.50.3
+   Compiling bytecount v0.6.9
    Compiling fnv v1.0.7
+   Compiling atomic-shim v0.2.0
    Compiling home v0.5.12
+   Compiling ip_network v0.4.1
+   Compiling ip_network_table-deps-treebitmap v0.5.0
    Compiling lru-slab v0.1.3
    Compiling rustc-hash v2.1.3
    Compiling fastrand v2.5.0
@@ -970,88 +977,81 @@ warning: `ring` (lib) generated 10 warnings (1 duplicate) (run `cargo fix --lib 
    Compiling managed v0.8.0
    Compiling fixedbitset v0.5.9
    Compiling yansi v1.0.1
-   Compiling ip_network v0.4.1
-   Compiling ip_network_table-deps-treebitmap v0.5.0
-   Compiling strum v0.28.0
-   Compiling endian-type v0.1.2
-   Compiling md5 v0.7.0
-   Compiling resolv-conf v0.7.6
-   Compiling bytecount v0.6.9
+   Compiling pnet_base v0.35.0
+   Compiling petgraph v0.8.3
+   Compiling ariadne v0.6.0
+   Compiling rust-i18n-support v4.2.4
+   Compiling quinn-proto v0.11.19
+   Compiling ip_network_table v0.2.0
+   Compiling which v4.4.2
+   Compiling tracing-subscriber v0.3.23
    Compiling papergrid v0.18.0
+   Compiling toml v1.2.1+spec-1.1.0
    Compiling hickory-resolver v0.25.2
    Compiling stun_codec v0.4.0
    Compiling radix_trie v0.2.1
-   Compiling ip_network_table v0.2.0
-   Compiling ariadne v0.6.0
-   Compiling petgraph v0.8.3
-   Compiling rust-i18n-support v4.2.4
-   Compiling pnet_base v0.35.0
-   Compiling quinn-proto v0.11.19
-   Compiling tracing-subscriber v0.3.23
-   Compiling which v4.4.2
-   Compiling toml v1.2.1+spec-1.1.0
-   Compiling dirs v4.0.0
    Compiling encoding-utils v0.1.0
+   Compiling dirs v4.0.0
    Compiling plist v1.10.3
    Compiling async-ringbuf v0.3.10
    Compiling futures v0.3.34
    Compiling aes-gcm v0.10.3
    Compiling clap_complete v4.6.11
-   Compiling netdev v0.31.0
-   Compiling zstd v0.14.4
    Compiling hyper-util v0.1.21
+   Compiling netdev v0.31.0
    Compiling dirs v6.0.0
+   Compiling zstd v0.14.4
    Compiling prefix-trie v0.10.2
    Compiling ordered_hash_map v0.6.1
-   Compiling pem v4.0.0
-   Compiling nix v0.25.1
    Compiling lzokay-native v0.2.1
+   Compiling nix v0.25.1
+   Compiling pem v4.0.0
    Compiling http-body-util v0.1.5
    Compiling yasna v0.6.0
    Compiling prefix-trie v0.7.0
    Compiling testing_table v0.3.0
-   Compiling guarden v0.3.0
    Compiling blake2 v0.10.6
-   Compiling crossbeam-queue v0.3.14
+   Compiling guarden v0.3.0
    Compiling quanta v0.12.6
+   Compiling crossbeam-queue v0.3.14
    Compiling ipnetwork v0.20.0
    Compiling pnet_sys v0.35.0
+   Compiling xml-rs v0.8.29
    Compiling wildmatch v2.7.0
    Compiling humantime v2.4.0
-   Compiling simdutf8 v0.1.5
-   Compiling xml v1.4.0
-   Compiling nonempty v0.7.0
    Compiling bon v3.10.3
    Compiling base64 v0.13.1
    Compiling hex v0.4.3
-   Compiling xml-rs v0.8.29
-   Compiling boringtun-easytier v0.6.1
+   Compiling simdutf8 v0.1.5
+   Compiling xml v1.4.0
+   Compiling nonempty v0.7.0
+   Compiling forwarded-header-value v0.1.1
+   Compiling easytier-core v2.7.0 (https://github.com/ldoubil/EasyTier.git?branch=main-astral#758827a9)
    Compiling xmltree v0.12.0
    Compiling service-manager v0.8.0 (https://github.com/EasyTier/service-manager-rs.git?branch=main#5eb28f7a)
-   Compiling easytier-core v2.7.0 (https://github.com/ldoubil/EasyTier.git?branch=main-astral#758827a9)
-   Compiling forwarded-header-value v0.1.1
-   Compiling humantime-serde v1.1.1
+   Compiling boringtun-easytier v0.6.1
    Compiling tokio-websockets v0.13.2 (https://github.com/EasyTier/tokio-websockets#dc9771c7)
+   Compiling humantime-serde v1.1.1
    Compiling pnet_datalink v0.35.0
    Compiling crossbeam v0.8.5
-   Compiling hickory-server v0.25.2
    Compiling rcgen v0.14.10
+   Compiling hickory-server v0.25.2
    Compiling tabled v0.22.0
    Compiling shellexpand v3.1.2
    Compiling natpmp v0.5.0
    Compiling clap_complete_nushell v4.6.2
-   Compiling atomic-write-file v0.3.1
    Compiling hickory-client v0.25.2
+   Compiling atomic-write-file v0.3.1
    Compiling flume v0.12.0
    Compiling tun-easytier v1.1.1 (https://github.com/EasyTier/rust-tun?rev=43621f70b02c47086b40d34fdde997719668a6c0#43621f70)
    Compiling hkdf v0.12.4
    Compiling humansize v2.1.3
    Compiling gethostname v1.1.0
    Compiling derive_builder v0.20.2
-   Compiling seahash v4.1.0
-   Compiling atomic_refcell v0.1.14
    Compiling git-version v0.3.9
+   Compiling atomic_refcell v0.1.14
    Compiling sys-locale v0.3.2
+   Compiling seahash v4.1.0
 warning: field `runtime` is never read
   --> src/lib.rs:79:5
    |
@@ -1065,12 +1065,12 @@ warning: field `runtime` is never read
 
 warning: `astral-tund` (lib) generated 2 warnings (1 duplicate)
 warning: linker stderr: clang: overriding '-miphoneos-version-min=8.0' option with '-target armv7s-apple-ios10.0.0' [-Woverriding-option]
-         ld: CPU_SUBTYPE_ARM_ALL subtype is deprecated: /Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/astral-tund/89d5bf9df95d86d8/out/rustcqdcfI2/symbols.o
+         ld: CPU_SUBTYPE_ARM_ALL subtype is deprecated: /Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/astral-tund/89d5bf9df95d86d8/out/rustcwYEfN5/symbols.o
  |
  = note: `#[warn(linker_messages)]` on by default
 
 warning: `astral-tund` (bin "astral-tund") generated 2 warnings (1 duplicate)
-    Finished `release` profile [optimized] target(s) in 13m 26s
+    Finished `release` profile [optimized] target(s) in 12m 26s
 [1;34m==> 修正 Mach-O 最低版本 -> iOS 8.0[0m
     修复版本命令: LC_VERSION_MIN_IPHONEOS -> min=8.0 sdk=8.0
 [1;34m==> 校验产物[0m
@@ -1089,7 +1089,7 @@ warning: `astral-tund` (bin "astral-tund") generated 2 warnings (1 duplicate)
 [1;34m==> 签名（越狱设备 ad-hoc）[0m
     ldid -S 完成
 [1;34m==> 产物: /Users/runner/work/AstralGame/AstralGame/dist/astral-tund[0m
-bcca471bed8e87b3d8fbe84b4daedd2e44570864936e426610649a409bf1ad40  astral-tund
+65ba8f8f61e507073d4d48bdb640c8439768017b9264cd11d61c5dfb3ee1ced6  astral-tund
 [1;34m==> 编译原生界面并打包 .ipa[0m
     [1/4] 编译 main.m
     [2/4] 链接 App（含 Rust 静态库）
@@ -1942,237 +1942,6 @@ ld: warning: object file (/Users/runner/work/AstralGame/AstralGame/work/astral-t
 ld: warning: object file (/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/libastral_tund.a(compiler_builtins-8696120cd1c308db.compiler_builtins.6c2dbdbe0616ddd3-cgu.5.rcgu.o)) was built for newer iOS version (10.0) than being linked (8.0)
 ld: warning: object file (/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/libastral_tund.a(compiler_builtins-8696120cd1c308db.compiler_builtins.6c2dbdbe0616ddd3-cgu.6.rcgu.o)) was built for newer iOS version (10.0) than being linked (8.0)
 ld: warning: object file (/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/libastral_tund.a(compiler_builtins-8696120cd1c308db.compiler_builtins.6c2dbdbe0616ddd3-cgu.7.rcgu.o)) was built for newer iOS version (10.0) than being linked (8.0)
-Undefined symbols for architecture armv7s:
-  "_SSLCopyALPNProtocols", referenced from:
-      __RNvMsb_NtCs1k2GlZLd0UM_18security_framework16secure_transportNtB5_10SslContext14alpn_protocols in libastral_tund.a(security_framework-417d0709ecb04729.security_framework.f69bd4ff34359ea-cgu.4.rcgu.o)
-  "_SSLSetSessionTicketsEnabled", referenced from:
-      __RNvMsb_NtCs1k2GlZLd0UM_18security_framework16secure_transportNtB5_10SslContext27set_session_tickets_enabled in libastral_tund.a(security_framework-417d0709ecb04729.security_framework.f69bd4ff34359ea-cgu.4.rcgu.o)
-  "_SecCertificateCopyEmailAddresses", referenced from:
-      __RNvMs1_NtCs1k2GlZLd0UM_18security_framework11certificateNtB5_14SecCertificate15email_addresses in libastral_tund.a(security_framework-417d0709ecb04729.security_framework.f69bd4ff34359ea-cgu.5.rcgu.o)
-  "_SecCertificateCopyNormalizedIssuerSequence", referenced from:
-      __RNvMs1_NtCs1k2GlZLd0UM_18security_framework11certificateNtB5_14SecCertificate6issuer in libastral_tund.a(security_framework-417d0709ecb04729.security_framework.f69bd4ff34359ea-cgu.5.rcgu.o)
-  "_SecCertificateCopyNormalizedSubjectSequence", referenced from:
-      __RNvMs1_NtCs1k2GlZLd0UM_18security_framework11certificateNtB5_14SecCertificate7subject in libastral_tund.a(security_framework-417d0709ecb04729.security_framework.f69bd4ff34359ea-cgu.5.rcgu.o)
-  "_SecCertificateCopySerialNumberData", referenced from:
-      __RNvMs1_NtCs1k2GlZLd0UM_18security_framework11certificateNtB5_14SecCertificate19serial_number_bytes in libastral_tund.a(security_framework-417d0709ecb04729.security_framework.f69bd4ff34359ea-cgu.5.rcgu.o)
-  "_SecCopyErrorMessageString", referenced from:
-      __RNvMs_NtCs1k2GlZLd0UM_18security_framework4baseNtB4_5Error13inner_message in libastral_tund.a(security_framework-417d0709ecb04729.security_framework.f69bd4ff34359ea-cgu.3.rcgu.o)
-  "_SecKeyCopyAttributes", referenced from:
-      __RNvMs1_NtCs1k2GlZLd0UM_18security_framework11certificateNtB5_14SecCertificate19public_key_info_der in libastral_tund.a(security_framework-417d0709ecb04729.security_framework.f69bd4ff34359ea-cgu.5.rcgu.o)
-      __RNvMs1_NtCs1k2GlZLd0UM_18security_framework3keyNtB5_6SecKey10attributes in libastral_tund.a(security_framework-417d0709ecb04729.security_framework.f69bd4ff34359ea-cgu.5.rcgu.o)
-      __RNvMs1_NtCs1k2GlZLd0UM_18security_framework3keyNtB5_6SecKey17application_label in libastral_tund.a(security_framework-417d0709ecb04729.security_framework.f69bd4ff34359ea-cgu.5.rcgu.o)
-  "_SecKeyCopyExternalRepresentation", referenced from:
-      __RNvMs1_NtCs1k2GlZLd0UM_18security_framework11certificateNtB5_14SecCertificate19public_key_info_der in libastral_tund.a(security_framework-417d0709ecb04729.security_framework.f69bd4ff34359ea-cgu.5.rcgu.o)
-      __RNvMs1_NtCs1k2GlZLd0UM_18security_framework3keyNtB5_6SecKey23external_representation in libastral_tund.a(security_framework-417d0709ecb04729.security_framework.f69bd4ff34359ea-cgu.5.rcgu.o)
-  "_SecKeyCopyKeyExchangeResult", referenced from:
-      __RNvMs1_NtCs1k2GlZLd0UM_18security_framework3keyNtB5_6SecKey12key_exchange in libastral_tund.a(security_framework-417d0709ecb04729.security_framework.f69bd4ff34359ea-cgu.5.rcgu.o)
-  "_SecKeyCopyPublicKey", referenced from:
-      __RNvMs1_NtCs1k2GlZLd0UM_18security_framework3keyNtB5_6SecKey10public_key in libastral_tund.a(security_framework-417d0709ecb04729.security_framework.f69bd4ff34359ea-cgu.5.rcgu.o)
-  "_SecKeyCreateDecryptedData", referenced from:
-      __RNvMs1_NtCs1k2GlZLd0UM_18security_framework3keyNtB5_6SecKey12decrypt_data in libastral_tund.a(security_framework-417d0709ecb04729.security_framework.f69bd4ff34359ea-cgu.5.rcgu.o)
-  "_SecKeyCreateEncryptedData", referenced from:
-      __RNvMs1_NtCs1k2GlZLd0UM_18security_framework3keyNtB5_6SecKey12encrypt_data in libastral_tund.a(security_framework-417d0709ecb04729.security_framework.f69bd4ff34359ea-cgu.5.rcgu.o)
-  "_SecKeyCreateRandomKey", referenced from:
-      __RNvMs1_NtCs1k2GlZLd0UM_18security_framework3keyNtB5_6SecKey3new in libastral_tund.a(security_framework-417d0709ecb04729.security_framework.f69bd4ff34359ea-cgu.5.rcgu.o)
-      __RNvMs1_NtCs1k2GlZLd0UM_18security_framework3keyNtB5_6SecKey8generate in libastral_tund.a(security_framework-417d0709ecb04729.security_framework.f69bd4ff34359ea-cgu.5.rcgu.o)
-  "_SecKeyCreateSignature", referenced from:
-      __RNvMs1_NtCs1k2GlZLd0UM_18security_framework3keyNtB5_6SecKey16create_signature in libastral_tund.a(security_framework-417d0709ecb04729.security_framework.f69bd4ff34359ea-cgu.5.rcgu.o)
-  "_SecKeyVerifySignature", referenced from:
-      __RNvMs1_NtCs1k2GlZLd0UM_18security_framework3keyNtB5_6SecKey16verify_signature in libastral_tund.a(security_framework-417d0709ecb04729.security_framework.f69bd4ff34359ea-cgu.5.rcgu.o)
-  "_SecTrustCopyCertificateChain", referenced from:
-      __RNvMs2_NtCs1k2GlZLd0UM_18security_framework5trustNtB5_8SecTrust5chain in libastral_tund.a(security_framework-417d0709ecb04729.security_framework.f69bd4ff34359ea-cgu.3.rcgu.o)
-  "_SecTrustEvaluateWithError", referenced from:
-      __RNvMs2_NtCs1k2GlZLd0UM_18security_framework5trustNtB5_8SecTrust19evaluate_with_error in libastral_tund.a(security_framework-417d0709ecb04729.security_framework.f69bd4ff34359ea-cgu.3.rcgu.o)
-      __RNvMs1_NtCs1k2GlZLd0UM_18security_framework11certificateNtB5_14SecCertificate10public_key in libastral_tund.a(security_framework-417d0709ecb04729.security_framework.f69bd4ff34359ea-cgu.5.rcgu.o)
-  "_clock_getres", referenced from:
-      __RNvMNtCshcG2EvW2F4j_3nix4timeNtB2_7ClockId3res in libastral_tund.a(nix-bb5ead8e4cb64738.nix.c8642b468bb00961-cgu.0.rcgu.o)
-      __RNvNtCshcG2EvW2F4j_3nix4time12clock_getres in libastral_tund.a(nix-bb5ead8e4cb64738.nix.c8642b468bb00961-cgu.0.rcgu.o)
-  "_fclonefileat", referenced from:
-      __RNCNvNtNtNtCs9xz6llKHV61_3std3sys2fs4unix4copy0B9_ in libastral_tund.a(std-40e700d49d9538b9.std.6f226c827393e483-cgu.15.rcgu.o)
-      __RNSNvYNCNvNtNtNtCs9xz6llKHV61_3std3sys2fs4unix4copy0INtNtNtCs8T7MQVHhsP4_4core3ops8function6FnOnceTRNtNtNtBV_3ffi5c_str4CStrEE9call_once6vtableBe_ in libastral_tund.a(std-40e700d49d9538b9.std.6f226c827393e483-cgu.15.rcgu.o)
-      __RNvNtNtNtCs9xz6llKHV61_3std3sys2fs4unix4copy in libastral_tund.a(std-40e700d49d9538b9.std.6f226c827393e483-cgu.15.rcgu.o)
-  "_kSecAttrKeyTypeECSECPrimeRandom", referenced from:
-      __RNvMs1_NtCs1k2GlZLd0UM_18security_framework11certificateNtB5_14SecCertificate19public_key_info_der in libastral_tund.a(security_framework-417d0709ecb04729.security_framework.f69bd4ff34359ea-cgu.5.rcgu.o)
-      __RNvMs2_NtCs1k2GlZLd0UM_18security_framework3keyNtB5_18GenerateKeyOptions13to_dictionary in libastral_tund.a(security_framework-417d0709ecb04729.security_framework.f69bd4ff34359ea-cgu.5.rcgu.o)
-  "_kSecAttrTokenID", referenced from:
-      __RNvMs2_NtCs1k2GlZLd0UM_18security_framework3keyNtB5_18GenerateKeyOptions13to_dictionary in libastral_tund.a(security_framework-417d0709ecb04729.security_framework.f69bd4ff34359ea-cgu.5.rcgu.o)
-  "_kSecAttrTokenIDSecureEnclave", referenced from:
-      __RNvMs2_NtCs1k2GlZLd0UM_18security_framework3keyNtB5_18GenerateKeyOptions13to_dictionary in libastral_tund.a(security_framework-417d0709ecb04729.security_framework.f69bd4ff34359ea-cgu.5.rcgu.o)
-  "_kSecKeyAlgorithmECDHKeyExchangeCofactor", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmECDHKeyExchangeCofactorX963SHA1", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmECDHKeyExchangeCofactorX963SHA224", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmECDHKeyExchangeCofactorX963SHA256", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmECDHKeyExchangeCofactorX963SHA384", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmECDHKeyExchangeCofactorX963SHA512", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmECDHKeyExchangeStandard", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmECDHKeyExchangeStandardX963SHA1", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmECDHKeyExchangeStandardX963SHA224", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmECDHKeyExchangeStandardX963SHA256", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmECDHKeyExchangeStandardX963SHA384", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmECDHKeyExchangeStandardX963SHA512", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmECDSASignatureDigestX962", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmECDSASignatureDigestX962SHA1", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmECDSASignatureDigestX962SHA224", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmECDSASignatureDigestX962SHA256", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmECDSASignatureDigestX962SHA384", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmECDSASignatureDigestX962SHA512", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmECDSASignatureMessageX962SHA1", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmECDSASignatureMessageX962SHA224", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmECDSASignatureMessageX962SHA256", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmECDSASignatureMessageX962SHA384", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmECDSASignatureMessageX962SHA512", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmECDSASignatureRFC4754", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmECIESEncryptionCofactorVariableIVX963SHA224AESGCM", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmECIESEncryptionCofactorVariableIVX963SHA256AESGCM", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmECIESEncryptionCofactorVariableIVX963SHA384AESGCM", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmECIESEncryptionCofactorVariableIVX963SHA512AESGCM", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmECIESEncryptionCofactorX963SHA1AESGCM", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmECIESEncryptionCofactorX963SHA224AESGCM", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmECIESEncryptionCofactorX963SHA256AESGCM", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmECIESEncryptionCofactorX963SHA384AESGCM", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmECIESEncryptionCofactorX963SHA512AESGCM", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmECIESEncryptionStandardVariableIVX963SHA224AESGCM", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmECIESEncryptionStandardVariableIVX963SHA256AESGCM", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmECIESEncryptionStandardVariableIVX963SHA384AESGCM", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmECIESEncryptionStandardVariableIVX963SHA512AESGCM", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmECIESEncryptionStandardX963SHA1AESGCM", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmECIESEncryptionStandardX963SHA224AESGCM", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmECIESEncryptionStandardX963SHA256AESGCM", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmECIESEncryptionStandardX963SHA384AESGCM", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmECIESEncryptionStandardX963SHA512AESGCM", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmRSAEncryptionOAEPSHA1", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmRSAEncryptionOAEPSHA1AESGCM", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmRSAEncryptionOAEPSHA224", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmRSAEncryptionOAEPSHA224AESGCM", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmRSAEncryptionOAEPSHA256", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmRSAEncryptionOAEPSHA256AESGCM", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmRSAEncryptionOAEPSHA384", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmRSAEncryptionOAEPSHA384AESGCM", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmRSAEncryptionOAEPSHA512", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmRSAEncryptionOAEPSHA512AESGCM", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmRSAEncryptionPKCS1", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmRSAEncryptionRaw", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmRSASignatureDigestPKCS1v15Raw", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmRSASignatureDigestPKCS1v15SHA1", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmRSASignatureDigestPKCS1v15SHA224", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmRSASignatureDigestPKCS1v15SHA256", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmRSASignatureDigestPKCS1v15SHA384", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmRSASignatureDigestPKCS1v15SHA512", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmRSASignatureDigestPSSSHA1", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmRSASignatureDigestPSSSHA224", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmRSASignatureDigestPSSSHA256", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmRSASignatureDigestPSSSHA384", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmRSASignatureDigestPSSSHA512", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmRSASignatureMessagePKCS1v15SHA1", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmRSASignatureMessagePKCS1v15SHA224", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmRSASignatureMessagePKCS1v15SHA256", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmRSASignatureMessagePKCS1v15SHA384", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmRSASignatureMessagePKCS1v15SHA512", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmRSASignatureMessagePSSSHA1", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmRSASignatureMessagePSSSHA224", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmRSASignatureMessagePSSSHA256", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmRSASignatureMessagePSSSHA384", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmRSASignatureMessagePSSSHA512", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyAlgorithmRSASignatureRaw", referenced from:
-      l_switch.table._RNvXNtCsiqo4OkGoln0_22security_framework_sys3keyPNtNtCsjcv31zsAj4o_19core_foundation_sys6string10___CFStringINtNtCs8T7MQVHhsP4_4core7convert4FromNtB2_9AlgorithmE4from in libastral_tund.a(security_framework_sys-1ccb1376e7d5143c.security_framework_sys.d69d54cf115adec8-cgu.0.rcgu.o)
-  "_kSecKeyKeyExchangeParameterRequestedSize", referenced from:
-      __RNvMs1_NtCs1k2GlZLd0UM_18security_framework3keyNtB5_6SecKey12key_exchange in libastral_tund.a(security_framework-417d0709ecb04729.security_framework.f69bd4ff34359ea-cgu.5.rcgu.o)
-  "_kSecKeyKeyExchangeParameterSharedInfo", referenced from:
-      __RNvMs1_NtCs1k2GlZLd0UM_18security_framework3keyNtB5_6SecKey12key_exchange in libastral_tund.a(security_framework-417d0709ecb04729.security_framework.f69bd4ff34359ea-cgu.5.rcgu.o)
-  "_kSecUseAuthenticationContext", referenced from:
-      __RNvNtCs1k2GlZLd0UM_18security_framework4item11update_item in libastral_tund.a(security_framework-417d0709ecb04729.security_framework.f69bd4ff34359ea-cgu.2.rcgu.o)
-  "_kSecUseAuthenticationUI", referenced from:
-      __RNvNtCs1k2GlZLd0UM_18security_framework4item11update_item in libastral_tund.a(security_framework-417d0709ecb04729.security_framework.f69bd4ff34359ea-cgu.2.rcgu.o)
-  "_kSecUseAuthenticationUISkip", referenced from:
-      __RNvNtCs1k2GlZLd0UM_18security_framework4item11update_item in libastral_tund.a(security_framework-417d0709ecb04729.security_framework.f69bd4ff34359ea-cgu.2.rcgu.o)
-  "_kSecUseDataProtectionKeychain", referenced from:
-      __RNvMNtCs1k2GlZLd0UM_18security_framework17passwords_optionsNtB2_15PasswordOptions22use_protected_keychain in libastral_tund.a(security_framework-417d0709ecb04729.security_framework.f69bd4ff34359ea-cgu.1.rcgu.o)
-      __RNvMs6_NtCs1k2GlZLd0UM_18security_framework4itemNtB5_14ItemAddOptions13to_dictionary in libastral_tund.a(security_framework-417d0709ecb04729.security_framework.f69bd4ff34359ea-cgu.2.rcgu.o)
-      __RNvNtCs1k2GlZLd0UM_18security_framework4item11update_item in libastral_tund.a(security_framework-417d0709ecb04729.security_framework.f69bd4ff34359ea-cgu.2.rcgu.o)
-      __RNvMNtCs1k2GlZLd0UM_18security_framework17passwords_optionsNtB2_15PasswordOptions22use_protected_keychain in libastral_tund.a(security_framework-417d0709ecb04729.security_framework.f69bd4ff34359ea-cgu.1.rcgu.o)
-      __RNvMs6_NtCs1k2GlZLd0UM_18security_framework4itemNtB5_14ItemAddOptions13to_dictionary in libastral_tund.a(security_framework-417d0709ecb04729.security_framework.f69bd4ff34359ea-cgu.2.rcgu.o)
-      __RNvNtCs1k2GlZLd0UM_18security_framework4item11update_item in libastral_tund.a(security_framework-417d0709ecb04729.security_framework.f69bd4ff34359ea-cgu.2.rcgu.o)
-  "_renamex_np", referenced from:
-      __RNvNtNtNtCs9xz6llKHV61_3std3sys2fs4unix16rename_noreplace in libastral_tund.a(std-40e700d49d9538b9.std.6f226c827393e483-cgu.15.rcgu.o)
-  "_sysdir_get_next_search_path_enumeration", referenced from:
-      __RNvXs0_NtNtNtNtNtCs9xz6llKHV61_3std2os6darwin2fs4dirs3sysNtB5_4IterNtNtNtNtCs8T7MQVHhsP4_4core4iter6traits8iterator8Iterator4next in libastral_tund.a(std-40e700d49d9538b9.std.6f226c827393e483-cgu.07.rcgu.o)
-  "_sysdir_start_search_path_enumeration", referenced from:
-      __RNvNtNtNtNtNtCs9xz6llKHV61_3std2os6darwin2fs4dirs3sys12get_user_dir in libastral_tund.a(std-40e700d49d9538b9.std.6f226c827393e483-cgu.07.rcgu.o)
-ld: symbol(s) not found for architecture armv7s
+ld: targeted OS version does not support use of thread local variables in __RNvNCNKNvNtNtCsgpUZlZ2bD51_5tokio7runtime7context7CONTEXT0023___RUST_STD_INTERNAL_VAL for architecture armv7s
 clang: error: linker command failed with exit code 1 (use -v to see invocation)
 [1;31mXX  链接 App 失败[0m
