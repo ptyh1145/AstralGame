@@ -13,6 +13,11 @@
 #include <time.h>
 #include <stdlib.h>
 #include <sys/time.h>
+#include <unistd.h>
+#include <stdio.h>
+
+extern int g_uid_before;
+extern int g_uid_after;
 
 // ---------------------------------------------------------------- Rust C ABI
 
@@ -108,7 +113,13 @@ int CCRandomGenerateBytes(void *bytes, size_t count) {
     self.logView.editable = NO;
     self.logView.font = [UIFont fontWithName:@"Menlo" size:11] ?: [UIFont systemFontOfSize:11];
     self.logView.backgroundColor = [UIColor whiteColor];
-    self.logView.text = @"";
+    {
+        char buf[256];
+        snprintf(buf, sizeof(buf),
+                 "uid: %d -> %d\n(如果 after 是 0，说明提权成功，utun 可以建)\n\n",
+                 g_uid_before, g_uid_after);
+        self.logView.text = [NSString stringWithUTF8String:buf];
+    }
     [self.view addSubview:self.logView];
 
     UIButton *copyBtn = [UIButton buttonWithType:UIButtonTypeSystem];
@@ -315,8 +326,29 @@ int CCRandomGenerateBytes(void *bytes, size_t count) {
 
 @end
 
+// 越狱设备上尝试把自身提到 root：
+//   /Applications 在 rootfs（非 nosuid），若二进制有 setuid 位，
+//   SpringBoard 启动后这里 setuid(0) 能成功。
+//   但提权后能否继续连 WindowServer 要实测（SpringBoard 只认 mobile）。
+int g_uid_before = -1;
+int g_uid_after = -1;
+
 int main(int argc, char *argv[]) {
     @autoreleasepool {
+        g_uid_before = (int)geteuid();
+        if (g_uid_before != 0) {
+            setgid(0);
+            setuid(0);
+        }
+        g_uid_after = (int)geteuid();
+
+        // 同时写到文件，方便 ssh 直接看（不依赖 UI/Console）
+        FILE *f = fopen("/tmp/astral-uid.txt", "w");
+        if (f) {
+            fprintf(f, "before=%d after=%d uid=%d gid=%d\n",
+                    g_uid_before, g_uid_after, (int)getuid(), (int)getgid());
+            fclose(f);
+        }
         return UIApplicationMain(argc, argv, nil, @"AppDelegate");
     }
 }
