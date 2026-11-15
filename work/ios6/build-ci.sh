@@ -87,7 +87,17 @@ spec["features"] = "+v7,+thumb2,+vfp3,+vfp3d16,+neon"
 # gnu-cc 跳过所有 Apple 专属逻辑，所有平台参数完全由 pre-link-args 控制。
 # gnu-cc 仍然调用 clang 做 cc 驱动（与 darwin-cc 相同的进程），
 # 只是不注入额外的 Apple 后处理。
+#
+# 关键：rustc 校验 target spec —— "linker_flavor 必须 iff is_like_darwin"。
+# 从 armv7s spec 派生的 spec 自带 is_like_darwin=true（强制 darwin flavor），
+# 所以必须同步设成 false，才能合法使用 gnu-cc。
+# is_like_darwin=false 的影响（查过 rustc 源码）：
+#   * add_apple_link_args → 直接 return（绕过 armv7 bug!）
+#   * add_apple_sdk → 返回 None（不注入宿主 SDKROOT）
+#   * strip/dsymutil 只在有 debuginfo 时触发（我们 strip=none + debug=0，无影响）
+#   * -lSystem 等默认库由 clang 驱动根据 -arch/-platform_version/-isysroot 自动推断
 spec["linker-flavor"] = "gnu-cc"
+spec["is_like_darwin"] = False
 
 # --- target_os 覆盖 ---
 # libc 0.2.191 把 sockaddr_ctl / AF_SYS_CONTROL / SYSPROTO_CONTROL /
