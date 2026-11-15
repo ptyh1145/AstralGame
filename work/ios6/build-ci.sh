@@ -367,9 +367,17 @@ python3 "$HERE/fix_macho_ver.py" "$BIN32" "$MIN_IOS" "$MIN_IOS" || warn "armv7s 
 say "编译 arm64（64 位设备）"
 # aarch64-apple-ios 是 rustc 内置 target（tier 2），不需要自定义 spec，
 # 但仍用 build-std 保证 std 与 nightly 一致、且带 panic_abort。
+#
+# 关键：内置 target 的链接参数里没有 -Wl,-U,__tlv_bootstrap / __tlv_atexit。
+# 而 iOS 8 的 libSystem 不导出这两个符号（它们在 libdyld），
+# 所以必须用 CARGO_TARGET_<TARGET>_RUSTFLAGS 补上，否则链接期 undefined。
+export CARGO_TARGET_AARCH64_APPLE_IOS_RUSTFLAGS="\
+-C link-arg=-Wl,-U,__tlv_bootstrap \
+-C link-arg=-Wl,-U,__tlv_atexit"
 cargo +nightly -Zjson-target-spec -Z build-std=std,panic_abort \
   build --release --target aarch64-apple-ios \
   || die "arm64 编译失败"
+unset CARGO_TARGET_AARCH64_APPLE_IOS_RUSTFLAGS
 BIN64="$CRATE/target/aarch64-apple-ios/release/astral-tund"
 [ -f "$BIN64" ] || die "找不到 arm64 产物"
 
