@@ -379,8 +379,11 @@ else
   rm -rf "$APP" "$OUT/Payload" "$OUT/main.o"
   mkdir -p "$APP"
 
+  # 注意：不能用 -fobjc-arc —— ARC 需要 libarclite，而 Xcode 16 在
+  # 部署目标 < 10 时不再提供它（报 "SDK does not contain 'libarclite'"）。
+  # UI 对象数量很少、生命周期等同 App，MRC 下不释放也无害。
   UI_CFLAGS=(-arch armv7s "-miphoneos-version-min=$MIN_IOS" -isysroot "$SDK_PATH"
-             -O2 -fobjc-arc -Wno-deprecated-declarations -Wno-unused-parameter)
+             -O2 -fno-objc-arc -Wno-deprecated-declarations -Wno-unused-parameter)
 
   echo "    [1/4] 编译 main.m"
   clang "${UI_CFLAGS[@]}" -c "$UI_DIR/main.m" -o "$OUT/main.o" \
