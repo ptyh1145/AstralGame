@@ -63,6 +63,11 @@ alias_lib() {
   if [ ! -f "$SDK_PATH/usr/lib/$name.tbd" ]; then
     if [ -f "$srcfile" ]; then
       cp "$srcfile" "$SDK_PATH/usr/lib/$name.tbd"
+      # 删掉 parent-umbrella：带这个字段的 tbd 会被 ld64 认为是子库，
+      # 拒绝直接 -l 链接（报 "cannot link directly with ... Link against
+      # the umbrella framework 'System.framework' instead"）。
+      # 真实 Xcode iOS SDK 里的 libc/libm 别名没有这个字段。
+      sed -i '' '/^parent-umbrella:/d' "$SDK_PATH/usr/lib/$name.tbd"
       echo "    补 $name.tbd -> $(basename "$srcfile")"
     else
       warn "找不到 $(basename "$srcfile")，无法补 $name.tbd"
