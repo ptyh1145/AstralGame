@@ -96,12 +96,14 @@ spec.pop("is_like_darwin", None)  # 该字段不存在于 JSON，误加会报错
 # -arch armv7s：ld64 白名单里的 arch（armv7 不在）。
 #   ⚠ 注意：V7S 产物只在 A5+（iPhone 4S/iPad 2+）上跑；A4（iPhone 3GS/4）
 #   不会加载 V7S 二进制。这是现代 ld64 已移除 armv7 的代价。
-# -platform_version ios <min> 6.1：LC_VERSION_MIN_IPHONEOS min=<min> sdk=6.1
+# -miphoneos-version-min=<min>：clang 级别的 flag，明确 iOS 平台 + 最低版本。
+#   注意 **不能** 用 -platform_version：那是 ld64 的 flag，clang 驱动不认
+#   （报 "unknown argument: '-platform_version'"，且会把后面的 ios/6.0 当文件）。
 # -isysroot <6.1 SDK>：链接器找库/headers 用我们的 iOS 6.1 SDK
 spec["pre-link-args"] = {
     "darwin-cc": [
         "-arch", "armv7s",
-        "-platform_version", "ios", min_ios, "6.1",
+        "-miphoneos-version-min=" + min_ios,
         "-isysroot", sdk
     ]
 }
