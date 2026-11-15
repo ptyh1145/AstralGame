@@ -170,10 +170,38 @@ export CFLAGS_armv7_ios6="-O2 -fPIC -arch armv7 -miphoneos-version-min=$MIN_IOS 
 export CXX_armv7_ios6="$CLANG"
 export CXXFLAGS_armv7_ios6="$CFLAGS_armv7_ios6"
 
+# --- 先预取依赖，然后修补 easytier-core 的 crate-type -------------------------
+# easytier-core 声明了 crate-type = ["rlib","cdylib"]。darwin 上 cdylib 需要
+# 生成 install_name，自定义 target 会让 rustc 在 add_order_independent_options
+# 里 ICE（内部编译器错误）。我们只需要它的 rlib。
+# cargo 不会校验 git checkout 的工作树，所以就地改掉再编即可。
+say "预取依赖"
+cargo +nightly fetch || warn "cargo fetch 有警告，继续"
+
+say "修补 easytier-core（去掉 cdylib）"
+PATCHED=0
+for f in "$HOME"/.cargo/git/checkouts/easytier-*/*/easytier-core/Cargo.toml; do
+  [ -f "$f" ] || continue
+  if grep -q 'cdylib' "$f"; then
+    /usr/bin/sed -i '' 's/"rlib", "cdylib"/"rlib"/' "$f"
+    if grep -q 'cdylib' "$f"; then
+      /usr/bin/sed -i '' 's/"rlib","cdylib"/"rlib"/' "$f"
+    fi
+    echo "    patched: $f"
+    grep -n 'crate-type' "$f" | sed 's/^/      /'
+    PATCHED=1
+  fi
+done
+if [ "$PATCHED" = "0" ]; then
+  warn "没找到含 cdylib 的 easytier-core/Cargo.toml（路径可能变了）"
+else
+  echo "    ok: easytier-core 现在只编 rlib"
+fi
+
+say "编译"
 cargo +nightly -Zjson-target-spec -Z build-std=std,panic_abort \
   build --release --target "$SPEC"
-RC=$?
-if [ $RC -ne 0 ]; then
+RC=$?if [ $RC -ne 0 ]; then
   die "cargo build 失败 (exit $RC)"
 fi
 
