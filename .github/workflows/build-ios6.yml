@@ -42,6 +42,14 @@ jobs:
           rustup default nightly
           rustc --version
 
+      # 依赖树很大（EasyTier + build-std），没有缓存每次要十几分钟。
+      - name: Cache cargo & target
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: work/astral-tund
+          key: ios6-armv7-${{ hashFiles('work/ios6/build-ci.sh') }}
+          cache-targets: "true"
+
       - name: Install ldid
         run: brew install ldid || true
 
@@ -124,8 +132,10 @@ jobs:
         run: |
           set -u
           mkdir -p ci-out
+          # 截断超长行：ICE 之类会把整条 rustc 命令行 dump 进来（几十 KB/行）
           if [ -f /tmp/build.log ]; then
-            cp /tmp/build.log ci-out/build.log
+            awk 'length($0)>600 { printf "%s ...[truncated %d chars]\n", substr($0,1,600), length($0)-600; next } { print }' \
+              /tmp/build.log > ci-out/build.log
           else
             echo "(no build log captured)" > ci-out/build.log
           fi

@@ -159,6 +159,12 @@ unset RUSTFLAGS
 # 关掉它的默认旗标后，一切只由 CFLAGS_<target> 决定。
 CLANG="$(xcrun --sdk macosx -f clang)"
 export CRATE_CC_NO_DEFAULTS=1
+# 关掉 strip：`-C strip=debuginfo` + `-Z embed-metadata=no` 叠加 cdylib
+# （easytier-core 声明了 rlib+cdylib）在自定义 target 上会让 rustc
+# 在 add_order_independent_options 里 ICE。产物也不急着瘦身。
+export CARGO_PROFILE_RELEASE_STRIP=none
+export CARGO_PROFILE_RELEASE_DEBUG=0
+export CARGO_INCREMENTAL=0
 export CC_armv7_ios6="$CLANG"
 export CFLAGS_armv7_ios6="-O2 -fPIC -arch armv7 -miphoneos-version-min=$MIN_IOS -isysroot $SDK_PATH -Qunused-arguments"
 export CXX_armv7_ios6="$CLANG"
