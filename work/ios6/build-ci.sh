@@ -27,18 +27,29 @@ say "定位 iOS SDK"
 # 优先 8.1：rustc 1.102 的 std 是按 iOS 10 的 API 面编的，8.1 SDK 已经提供
 # 了 __tlv_bootstrap / openat / *at 系列，能省掉一堆 -Wl,-U 放行；
 # 6.1 SDK 作为后备（只有做 iOS 6/7 时才会用到）。
+# SDK_VER 可用环境变量指定（8.1 / 6.1），默认 8.1。
+# CI 的 matrix 用它来分别构建 iOS 8 版和 iOS 6 版。
+SDK_VER="${SDK_VER:-8.1}"
+
 SDK_PATH=""
 for cand in \
-  "$HERE/sdk/iPhoneOS8.1.sdk" \
-  "$REPO_ROOT/ios81-sdk/iPhoneOS8.1.sdk" \
-  "$REPO_ROOT/sdk/iPhoneOS8.1.sdk" \
-  "$HERE/sdk/iPhoneOS6.1.sdk" \
-  "$REPO_ROOT/ios6-sdk/iPhoneOS6.1.sdk" \
-  "$REPO_ROOT/sdk/iPhoneOS6.1.sdk"
+  "$HERE/sdk/iPhoneOS$SDK_VER.sdk" \
+  "$REPO_ROOT/ios${SDK_VER//./}-sdk/iPhoneOS$SDK_VER.sdk" \
+  "$REPO_ROOT/sdk/iPhoneOS$SDK_VER.sdk"
 do
   [ -z "$SDK_PATH" ] && [ -d "$cand" ] && SDK_PATH="$cand"
 done
-[ -n "$SDK_PATH" ] || die "找不到 iPhoneOS8.1.sdk / iPhoneOS6.1.sdk（见 README；runner 不带）"
+# 指定的版本找不到时，退化到任意可用的 SDK（并明确告警）
+if [ -z "$SDK_PATH" ]; then
+  for cand in "$HERE/sdk/iPhoneOS8.1.sdk" "$REPO_ROOT/sdk/iPhoneOS8.1.sdk" \
+              "$HERE/sdk/iPhoneOS6.1.sdk" "$REPO_ROOT/sdk/iPhoneOS6.1.sdk"; do
+    [ -z "$SDK_PATH" ] && [ -d "$cand" ] && SDK_PATH="$cand"
+  done
+  [ -n "$SDK_PATH" ] && warn "SDK_VER=$SDK_VER 没找到，退化到 $SDK_PATH"
+fi
+[ -n "$SDK_PATH" ] || die "找不到 iPhoneOS$SDK_VER.sdk（见 README；runner 不带）"
+say "目标 iOS $MIN_IOS / SDK $SDK_VER"
+echo "    SDK = $SDK_PATH"
 echo "    SDK = $SDK_PATH"
 SDK_IS_61=0
 case "$SDK_PATH" in *iPhoneOS6.1*) SDK_IS_61=1 ;; esac

@@ -22,10 +22,26 @@ permissions:
 
 jobs:
   build:
+    # 一个 yml 出两个目标：iOS 8（主力）和 iOS 6（越狱老设备）。
+    # 同一个 build-ci.sh 靠 MIN_IOS / SDK_VER 两个环境变量区分。
+    # iOS 6 目前是实验性（std 基线是 iOS 10，运行期可能缺符号），
+    # 所以单独 continue-on-error，不拖红整个 workflow。
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: ios8
+            MIN_IOS: "8.0"
+            SDK_VER: "8.1"
+          - name: ios6
+            MIN_IOS: "6.0"
+            SDK_VER: "6.1"
+    continue-on-error: ${{ matrix.name == 'ios6' }}
+
     # macos-14 在本仓库会被解析成不可用的 'macos-14-arm64-us-default'（job 直接被 cancel）。
     # 实测可用：macos-15-intel / macos-15 / macos-latest。这里用明确的 Intel 镜像。
     # 注意：镜像自带的 Xcode 只到 15/16、iOS SDK 17/18（全 arm64-only），
-    # 所以 armv7 必须靠仓库里的 iOS 6.1 SDK。
+    # 所以 armv7 必须靠仓库里的 iOS 6.1/8.1 SDK。
     runs-on: macos-15-intel
     timeout-minutes: 60
 
@@ -106,10 +122,14 @@ jobs:
           test -f work/ios6/sdk/iPhoneOS8.1.sdk/usr/lib/libSystem.tbd \
             || test -f work/ios6/sdk/iPhoneOS6.1.sdk/usr/lib/libSystem.tbd
 
-      - name: Build (armv7 / iOS 6.0)
+      - name: Build (${{ matrix.name }})
+        env:
+          MIN_IOS: ${{ matrix.MIN_IOS }}
+          SDK_VER: ${{ matrix.SDK_VER }}
         run: |
           set -o pipefail
           chmod +x work/ios6/build-ci.sh
+          echo "== target=${{ matrix.name }} MIN_IOS=$MIN_IOS SDK_VER=$SDK_VER =="
           REPO_ROOT="$PWD" CI=1 ./work/ios6/build-ci.sh 2>&1 | tee /tmp/build.log
 
       - name: Verify artifact
@@ -128,7 +148,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: astral-tund-ios6-armv7
+          name: astral-tund-${{ matrix.name }}
           path: |
             dist/astral-tund
             dist/astral-tund.sha256
@@ -138,9 +158,10 @@ jobs:
             dist/*.deb.sha256
           if-no-files-found: warn
 
-      # 关键一步：把结果写回仓库，供无 token 的观察者读取
+      # 关键一步：把结果写回仓库，供无 token 的观察者读取。
+      # 只让 ios8 那一份写：两个 job 同时 push ci-out 会 git 冲突。
       - name: Publish results to ci-out/
-        if: always()
+        if: always() && matrix.name == 'ios8'
         env:
           GH_TOKEN_PUSH: ${{ secrets.GITHUB_TOKEN }}
         run: |
