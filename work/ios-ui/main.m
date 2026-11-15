@@ -14,6 +14,9 @@
 #include <stdlib.h>
 #include <sys/time.h>
 #include <unistd.h>
+#include <sys/socket.h>
+#include <sys/un.h>
+#include <string.h>
 #include <stdio.h>
 
 extern int g_uid_before;
@@ -157,9 +160,22 @@ int CCRandomGenerateBytes(void *bytes, size_t count) {
 }
 
 - (void)poll {
-    unsigned char st = astral_state();
-    const char *txt = astral_state_text();
-    NSString *s = [NSString stringWithUTF8String:(txt ? txt : "?")];
+    unsigned char st = (unsigned char)[self currentState];
+    NSString *s = @"?";
+    {
+        NSString *resp = [self sockSend:@"STATUS"];
+        if (resp) {
+            for (NSString *ln in [resp componentsSeparatedByString:@"\n"]) {
+                if ([ln hasPrefix:@"text="]) {
+                    s = [ln substringFromIndex:5];
+                    break;
+                }
+            }
+        } else {
+            const char *txt = astral_state_text();
+            s = [NSString stringWithUTF8String:(txt ? txt : "?")];
+        }
+    }
     NSString *prefix = nil;
     switch (st) {
         case 0: prefix = @"未连接"; break;
@@ -175,13 +191,14 @@ int CCRandomGenerateBytes(void *bytes, size_t count) {
 
     [self.connectButton setTitle:(st == 2 ? @"断开" : @"连接") forState:UIControlStateNormal];
 
-    const char *lg = astral_log();
-    if (lg) {
-        NSString *full = [NSString stringWithUTF8String:lg];
-        if (full.length > 0 && ![full isEqualToString:self.logView.text]) {
-            self.logView.text = full;
-            [self.logView scrollRangeToVisible:NSMakeRange(full.length, 0)];
-        }
+    NSString *full = [self sockSend:@"LOG"];
+    if (!full) {
+        const char *lg = astral_log();
+        full = lg ? [NSString stringWithUTF8String:lg] : nil;
+    }
+    if (full.length > 0 && ![full isEqualToString:self.logView.text]) {
+        self.logView.text = full;
+        [self.logView scrollRangeToVisible:NSMakeRange(full.length, 0)];
     }
 }
 
@@ -266,6 +283,34 @@ int CCRandomGenerateBytes(void *bytes, size_t count) {
     [task resume];
 }
 
+// 与 root 守护进程通信：/var/run/astral.sock
+// 守护进程能做 App 做不到的事（建 utun 需要 root）。连不上就返回 nil，
+// 调用方回退到直接调 Rust 库（setuid 成功的场景）。
+- (NSString *)sockSend:(NSString *)cmd {
+    int fd = socket(AF_UNIX, SOCK_STREAM, 0);
+    if (fd < 0) return nil;
+    struct sockaddr_un addr;
+    memset(&addr, 0, sizeof(addr));
+    addr.sun_family = AF_UNIX;
+    strncpy(addr.sun_path, "/var/run/astral.sock", sizeof(addr.sun_path) - 1);
+    if (connect(fd, (struct sockaddr *)&addr, sizeof(addr)) < 0) {
+        close(fd);
+        return nil;
+    }
+    NSString *line = [cmd stringByAppendingString:@"\n"];
+    const char *bytes = [line UTF8String];
+    write(fd, bytes, strlen(bytes));
+
+    NSMutableData *out = [NSMutableData data];
+    char buf[65536];
+    ssize_t n;
+    while ((n = read(fd, buf, sizeof(buf))) > 0) {
+        [out appendBytes:buf length:(NSUInteger)n];
+    }
+    close(fd);
+    return [[NSString alloc] initWithData:out encoding:NSUTF8StringEncoding];
+}
+
 - (void)alert:(NSString *)msg {
     UIAlertView *a = [[UIAlertView alloc] initWithTitle:@"提示"
                                                 message:msg
@@ -278,19 +323,49 @@ int CCRandomGenerateBytes(void *bytes, size_t count) {
 - (void)startWithRoom:(NSString *)room secret:(NSString *)secret peer:(NSString *)peer {
     astral_clear_log();
     NSString *ipv4 = @"10.144.144.5/24";
+
+    // 优先让 root 守护进程干活（它能建 utun）
+    NSString *resp = [self sockSend:[NSString stringWithFormat:
+                        @"START %@ %@ %@ %@", room, secret, ipv4, peer]];
+    if (resp) {
+        if (![resp hasPrefix:@"rc=0"]) {
+            [self alert:[NSString stringWithFormat:@"守护进程拒绝：%@", resp]];
+        }
+        return;
+    }
+
+    // 没有守护进程：退回直连（只有 App 自己是 root 时才可能成功）
     int rc = astral_start([room UTF8String], [secret UTF8String],
                           [ipv4 UTF8String], [peer UTF8String]);
     if (rc != 0) {
-        [self alert:@"启动失败，请看下方日志"];
+        [self alert:@"启动失败：既没有 root 守护进程，App 自己也不是 root"];
     }
+}
+
+// 读当前连接状态：socket 优先，退回 C ABI
+- (NSInteger)currentState {
+    NSString *resp = [self sockSend:@"STATUS"];
+    if (resp) {
+        for (NSString *ln in [resp componentsSeparatedByString:@"\n"]) {
+            if ([ln hasPrefix:@"state="]) {
+                return [[ln substringFromIndex:6] integerValue];
+            }
+        }
+        return 0;
+    }
+    return (NSInteger)astral_state();
 }
 
 - (void)toggleConnect {
     [self.view endEditing:YES];
-    if (astral_state() == 2) {
+
+    // 只有「已连接(2)」才当断开处理，否则一律去连接
+    if ([self currentState] == 2) {
+        if ([self sockSend:@"STOP"]) return;
         astral_stop();
         return;
     }
+
     NSString *peer = self.peerField.text ?: @"";
     peer = [peer stringByTrimmingCharactersInSet:
             [NSCharacterSet whitespaceAndNewlineCharacterSet]];

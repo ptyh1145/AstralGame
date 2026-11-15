@@ -51,6 +51,8 @@ struct Args {
     hostname: String,
     unit: u32,
     dry_run: bool,
+    /// --daemon：以 root 常驻，监听 Unix socket 供 GUI（mobile）调用
+    daemon: bool,
 }
 
 fn parse_args() -> Result<Args> {
@@ -63,6 +65,7 @@ fn parse_args() -> Result<Args> {
         hostname: "Astral".to_string(),
         unit: 0,
         dry_run: false,
+        daemon: false,
     };
     let argv: Vec<String> = std::env::args().skip(1).collect();
     let mut i = 0;
@@ -87,11 +90,12 @@ fn parse_args() -> Result<Args> {
             "--hostname" => a.hostname = next(&mut i)?,
             "--unit" => a.unit = next(&mut i)?.parse().context("--unit 需要整数")?,
             "--dry-run" => a.dry_run = true,
+            "--daemon" => a.daemon = true,
             other => bail!("未知参数 {other}（-h 看帮助）"),
         }
         i += 1;
     }
-    if a.config.is_none() {
+    if a.config.is_none() && !a.daemon {
         if a.name.is_empty() || a.secret.is_empty() || a.ipv4.is_empty() {
             bail!("需要 --config，或同时给 --name/--secret/--ipv4（-h 看帮助）");
         }
@@ -152,6 +156,10 @@ enable_relay_foreign_network_quic = false
 #[tokio::main]
 async fn main() -> Result<()> {
     let a = parse_args()?;
+
+    if a.daemon {
+        return run_daemon().await;
+    }
 
     let toml = match &a.config {
         Some(p) => std::fs::read_to_string(p)
@@ -225,4 +233,102 @@ fn cidr_network(ip: &str, prefix: u8) -> String {
         n & 0xff,
         prefix
     )
+}
+
+// ============================================================ daemon 模式
+//
+// 为什么要 daemon：
+//   iOS 上 GUI App 由 SpringBoard 以 mobile 用户启动，**无法创建 utun**
+//   （需要 root），而 root 身份的 GUI 又连不上 WindowServer。
+//   所以拆两段：本进程以 root 常驻（LaunchDaemon），App 通过 Unix socket
+//   发命令、拉状态。deb 的 postinst 会装好 plist 并 load。
+//
+// 协议（单行命令 → 单段文本回复）：
+//   START <room> <secret> <ipv4> <peer>   → rc=<int>
+//   STOP                                   → rc=<int>
+//   STATUS                                 → state=<0..3>\ntext=<...>
+//   LOG                                    → 累积日志原文
+//   CLEAR                                  → rc=0
+
+const SOCK_PATH: &str = "/var/run/astral.sock";
+
+async fn run_daemon() -> Result<()> {
+    use std::os::unix::fs::PermissionsExt;
+    use tokio::io::{AsyncBufReadExt, AsyncWriteExt, BufReader};
+    use tokio::net::UnixListener;
+
+    let _ = std::fs::remove_file(SOCK_PATH);
+    let listener = UnixListener::bind(SOCK_PATH)
+        .with_context(|| format!("bind {SOCK_PATH} 失败（需要 root）"))?;
+    // App 以 mobile 运行，必须放宽权限才能连
+    std::fs::set_permissions(SOCK_PATH, std::fs::Permissions::from_mode(0o666)).ok();
+    println!("[daemon] listening on {SOCK_PATH}");
+
+    loop {
+        let (stream, _) = match listener.accept().await {
+            Ok(v) => v,
+            Err(e) => {
+                eprintln!("[daemon] accept: {e}");
+                continue;
+            }
+        };
+        tokio::spawn(async move {
+            let (rd, mut wr) = stream.into_split();
+            let mut reader = BufReader::new(rd);
+            let mut line = String::new();
+            if reader.read_line(&mut line).await.is_err() {
+                return;
+            }
+            let resp = handle_daemon_cmd(line.trim());
+            let _ = wr.write_all(resp.as_bytes()).await;
+            let _ = wr.flush().await;
+        });
+    }
+}
+
+fn cstring(s: &str) -> std::ffi::CString {
+    std::ffi::CString::new(s).unwrap_or_else(|_| std::ffi::CString::new("").unwrap())
+}
+
+fn handle_daemon_cmd(line: &str) -> String {
+    let parts: Vec<&str> = line.splitn(5, ' ').collect();
+    match *parts.first().unwrap_or(&"") {
+        "START" if parts.len() == 5 => {
+            // CString 必须活到调用结束
+            let room = cstring(parts[1]);
+            let secret = cstring(parts[2]);
+            let ipv4 = cstring(parts[3]);
+            let peer = cstring(parts[4]);
+            let rc = astral_tund::astral_start(
+                room.as_ptr(),
+                secret.as_ptr(),
+                ipv4.as_ptr(),
+                peer.as_ptr(),
+            );
+            format!("rc={rc}\n")
+        }
+        "STOP" => {
+            let rc = astral_tund::astral_stop();
+            format!("rc={rc}\n")
+        }
+        "STATUS" => {
+            let st = astral_tund::astral_state();
+            let txt = unsafe {
+                std::ffi::CStr::from_ptr(astral_tund::astral_state_text())
+            }
+            .to_string_lossy()
+            .into_owned();
+            format!("state={st}\ntext={txt}\n")
+        }
+        "LOG" => unsafe {
+            std::ffi::CStr::from_ptr(astral_tund::astral_log())
+                .to_string_lossy()
+                .into_owned()
+        },
+        "CLEAR" => {
+            astral_tund::astral_clear_log();
+            "rc=0\n".to_string()
+        }
+        other => format!("ERR unknown command: {other}\n"),
+    }
 }

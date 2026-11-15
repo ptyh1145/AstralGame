@@ -440,3 +440,19 @@ else
   otool -l "$APP/AstralGame" | grep -A4 -E 'LC_VERSION_MIN_IPHONEOS|LC_BUILD_VERSION' | sed 's/^/    /' || true
   otool -L "$APP/AstralGame" | head -12 | sed 's/^/    /'
 fi
+
+# ---------------------------------------------------------------- 6. deb（越狱安装包）
+# 把 App + CLI + LaunchDaemon 打成一个 deb：dpkg -i 一步装好，
+# 权限、守护进程、图标刷新都由 postinst 自动完成。
+say "打包越狱 deb"
+DEB="$OUT/com.astral.game.ios_1.0_iphoneos-arm.deb"
+if [ -d "$OUT/AstralGame.app" ] && [ -f "$OUT/astral-tund" ]; then
+  python3 "$HERE/make_deb.py" "$OUT" "$DEB" || warn "deb 打包失败（继续）"
+  if [ -f "$DEB" ]; then
+    ( cd "$OUT" && shasum -a 256 "$(basename "$DEB")" > "$(basename "$DEB").sha256" )
+    say "deb: $DEB"
+    cat "$DEB.sha256"
+  fi
+else
+  warn "缺少 App/CLI，跳过 deb"
+fi
