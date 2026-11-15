@@ -1,17 +1,15 @@
 name: build-ios6
 
-# 说明：本 workflow 会把「构建日志 + 状态 + 产物」提交回仓库的 ci-out/ 目录。
-# 这样即使没有 API token（只用 deploy key 推代码），也能通过
+# 璇存槑锛氭湰 workflow 浼氭妸銆屾瀯寤烘棩蹇?+ 鐘舵€?+ 浜х墿銆嶆彁浜ゅ洖浠撳簱鐨?ci-out/ 鐩綍銆?# 杩欐牱鍗充娇娌℃湁 API token锛堝彧鐢?deploy key 鎺ㄤ唬鐮侊級锛屼篃鑳介€氳繃
 #   https://raw.githubusercontent.com/<owner>/AstralGame/main/ci-out/status.txt
 #   https://raw.githubusercontent.com/<owner>/AstralGame/main/ci-out/build.log
-# 公开读到结果。ci-out/ 不在下面的 paths 过滤里，不会自我触发。
-on:
+# 鍏紑璇诲埌缁撴灉銆俢i-out/ 涓嶅湪涓嬮潰鐨?paths 杩囨护閲岋紝涓嶄細鑷垜瑙﹀彂銆?on:
   workflow_dispatch:
   push:
     paths:
       - "work/astral-tund/**"
       - "work/ios6/**"
-      # vendored 的 libc / ring 补丁就在这里面，改它们必须触发构建
+      - "work/ios-ui/**"
       - "work/vendor/**"
       - "sdk/**"
       - ".github/workflows/build-ios6.yml"
@@ -21,11 +19,8 @@ permissions:
 
 jobs:
   build:
-    # macos-14 在本仓库会被解析成不可用的 'macos-14-arm64-us-default'（job 直接被 cancel）。
-    # 实测可用：macos-15-intel / macos-15 / macos-latest。这里用明确的 Intel 镜像。
-    # 注意：镜像自带的 Xcode 只到 15/16、iOS SDK 17/18（全 arm64-only），
-    # 所以 armv7 必须靠仓库里的 iOS 6.1 SDK。
-    runs-on: macos-15-intel
+    # macos-14 鍦ㄦ湰浠撳簱浼氳瑙ｆ瀽鎴愪笉鍙敤鐨?'macos-14-arm64-us-default'锛坖ob 鐩存帴琚?cancel锛夈€?    # 瀹炴祴鍙敤锛歮acos-15-intel / macos-15 / macos-latest銆傝繖閲岀敤鏄庣‘鐨?Intel 闀滃儚銆?    # 娉ㄦ剰锛氶暅鍍忚嚜甯︾殑 Xcode 鍙埌 15/16銆乮OS SDK 17/18锛堝叏 arm64-only锛夛紝
+    # 鎵€浠?armv7 蹇呴』闈犱粨搴撻噷鐨?iOS 6.1 SDK銆?    runs-on: macos-15-intel
     timeout-minutes: 60
 
     steps:
@@ -36,7 +31,7 @@ jobs:
           sw_vers
           xcodebuild -version || true
           rustc --version || true
-          echo "--- 注意：runner 的 Xcode 不支持 armv7/iOS6，下面换自备 SDK + nightly ---"
+          echo "--- 娉ㄦ剰锛歳unner 鐨?Xcode 涓嶆敮鎸?armv7/iOS6锛屼笅闈㈡崲鑷 SDK + nightly ---"
 
       - name: Install Rust nightly (Tier-3 target needs build-std)
         run: |
@@ -44,8 +39,7 @@ jobs:
           rustup default nightly
           rustc --version
 
-      # 依赖树很大（EasyTier + build-std），没有缓存每次要十几分钟。
-      - name: Cache cargo & target
+      # 渚濊禆鏍戝緢澶э紙EasyTier + build-std锛夛紝娌℃湁缂撳瓨姣忔瑕佸崄鍑犲垎閽熴€?      - name: Cache cargo & target
         uses: Swatinem/rust-cache@v2
         with:
           workspaces: work/astral-tund
@@ -54,9 +48,7 @@ jobs:
       - name: Install ldid
         run: brew install ldid || true
 
-      # prost-build / prost-wkt-types 的 build script 需要 protoc。
-      # 仓库 README 指定 23.3，这里固定该版本；失败再退回 brew。
-      - name: Install protoc 23.3
+      # prost-build / prost-wkt-types 鐨?build script 闇€瑕?protoc銆?      # 浠撳簱 README 鎸囧畾 23.3锛岃繖閲屽浐瀹氳鐗堟湰锛涘け璐ュ啀閫€鍥?brew銆?      - name: Install protoc 23.3
         run: |
           set -euo pipefail
           PROTOC_VER=23.3
@@ -69,7 +61,7 @@ jobs:
             echo "PROTOC=$HOME/protoc/bin/protoc" >> "$GITHUB_ENV"
             protoc --version
           else
-            echo "固定版本下载失败，退回 brew"
+            echo "鍥哄畾鐗堟湰涓嬭浇澶辫触锛岄€€鍥?brew"
             brew install protobuf
             protoc --version
           fi
@@ -80,15 +72,13 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p work/ios6/sdk
-          # 优先 iOS 8.1：rustc 1.102 的 std 按 iOS 10 的 API 面编译，
-          # 8.1 SDK 已提供 __tlv_bootstrap / openat 等符号，链接最干净。
-          # 6.1 SDK 作为后备（只做 iOS 6/7 时才需要）。
-          for v in 8.1 6.1; do
+          # 浼樺厛 iOS 8.1锛歳ustc 1.102 鐨?std 鎸?iOS 10 鐨?API 闈㈢紪璇戯紝
+          # 8.1 SDK 宸叉彁渚?__tlv_bootstrap / openat 绛夌鍙凤紝閾炬帴鏈€骞插噣銆?          # 6.1 SDK 浣滀负鍚庡锛堝彧鍋?iOS 6/7 鏃舵墠闇€瑕侊級銆?          for v in 8.1 6.1; do
             if [ -d "sdk/iPhoneOS$v.sdk" ]; then
-              echo "复制 sdk/iPhoneOS$v.sdk"
+              echo "澶嶅埗 sdk/iPhoneOS$v.sdk"
               cp -R "sdk/iPhoneOS$v.sdk" work/ios6/sdk/
             elif [ -f "sdk/iPhoneOS$v.sdk.tar.gz" ]; then
-              echo "解压 sdk/iPhoneOS$v.sdk.tar.gz"
+              echo "瑙ｅ帇 sdk/iPhoneOS$v.sdk.tar.gz"
               tar -xzf "sdk/iPhoneOS$v.sdk.tar.gz" -C work/ios6/sdk
             fi
           done
@@ -97,7 +87,7 @@ jobs:
               curl -fL --retry 3 -o /tmp/ios6sdk.tar.gz "$IOS6_SDK_URL"
               tar -xzf /tmp/ios6sdk.tar.gz -C work/ios6/sdk
             else
-              echo "::error::缺少 iOS SDK（sdk/iPhoneOS8.1.sdk.tar.gz 或 6.1）"
+              echo "::error::缂哄皯 iOS SDK锛坰dk/iPhoneOS8.1.sdk.tar.gz 鎴?6.1锛?
               exit 1
             fi
           fi
@@ -120,7 +110,7 @@ jobs:
             otool -L dist/astral-tund | head -20 || true
             lipo -info dist/astral-tund || true
           else
-            echo "没有产物"
+            echo "娌℃湁浜х墿"
           fi
 
       - name: Upload artifact
@@ -135,15 +125,14 @@ jobs:
             dist/AstralGame.ipa.sha256
           if-no-files-found: warn
 
-      # 关键一步：把结果写回仓库，供无 token 的观察者读取
-      - name: Publish results to ci-out/
+      # 鍏抽敭涓€姝ワ細鎶婄粨鏋滃啓鍥炰粨搴擄紝渚涙棤 token 鐨勮瀵熻€呰鍙?      - name: Publish results to ci-out/
         if: always()
         env:
           GH_TOKEN_PUSH: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -u
           mkdir -p ci-out
-          # 截断超长行：ICE 之类会把整条 rustc 命令行 dump 进来（几十 KB/行）
+          # 鎴柇瓒呴暱琛岋細ICE 涔嬬被浼氭妸鏁存潯 rustc 鍛戒护琛?dump 杩涙潵锛堝嚑鍗?KB/琛岋級
           if [ -f /tmp/build.log ]; then
             awk 'length($0)>600 { printf "%s ...[truncated %d chars]\n", substr($0,1,600), length($0)-600; next } { print }' \
               /tmp/build.log > ci-out/build.log
