@@ -293,7 +293,7 @@ if [ $RC -ne 0 ]; then
   # 失败时把 ring 的中间产物打印出来（排 ring 汇编问题用，只读不写）
   say "构建失败 —— dump ring 汇编诊断"
   RINGOUT=""
-  for d in "$CRATE"/target/armv7-apple-ios/release/build/ring-*; do
+  for d in "$CRATE"/target/armv7-apple-ios/release/build/ring/*; do
     [ -d "$d" ] && RINGOUT="$d" && break
   done
   if [ -n "$RINGOUT" ]; then

@@ -3,7 +3,7 @@
 
 #include <ring-core/asm_base.h>
 
-#if !defined(OPENSSL_NO_ASM) && defined(OPENSSL_ARM) && defined(__APPLE__)
+#if 1 // [astral-ios6] unconditional: build arm asm for iOS
 @ Copyright 2012-2016 The OpenSSL Project Authors. All Rights Reserved.
 @
 @ Licensed under the Apache License, Version 2.0 (the "License");

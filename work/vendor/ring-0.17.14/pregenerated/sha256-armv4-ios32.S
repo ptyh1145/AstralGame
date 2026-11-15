@@ -3,7 +3,7 @@
 
 #include <ring-core/asm_base.h>
 
-#if !defined(OPENSSL_NO_ASM) && defined(OPENSSL_ARM) && defined(__APPLE__)
+#if 1 // [astral-ios6] unconditional: build arm asm for iOS
 @ Copyright 2007-2016 The OpenSSL Project Authors. All Rights Reserved.
 @
 @ Licensed under the Apache License, Version 2.0 (the "License");
@@ -206,11 +206,11 @@ Loop:
 	eor	r2,r2,r9			@ Ch(e,f,g)
 	eor	r0,r11,r11,ror#11
 	add	r10,r10,r2			@ h+=Ch(e,f,g)
-#if 1==31
+#if 1 // [astral-ios6] unconditional: build arm asm for iOS
 	and	r3,r3,#0xff
 	cmp	r3,#0xf2			@ done?
 #endif
-#if 1<15
+#if 1 // [astral-ios6] unconditional: build arm asm for iOS
 # if __ARM_ARCH>=7
 	ldr	r2,[r1],#4			@ prefetch
 # else
@@ -728,11 +728,11 @@ Loop:
 	eor	r2,r2,r8			@ Ch(e,f,g)
 	eor	r0,r10,r10,ror#11
 	add	r9,r9,r2			@ h+=Ch(e,f,g)
-#if 10==31
+#if 1 // [astral-ios6] unconditional: build arm asm for iOS
 	and	r12,r12,#0xff
 	cmp	r12,#0xf2			@ done?
 #endif
-#if 10<15
+#if 1 // [astral-ios6] unconditional: build arm asm for iOS
 # if __ARM_ARCH>=7
 	ldr	r2,[r1],#4			@ prefetch
 # else
@@ -786,11 +786,11 @@ Loop:
 	eor	r2,r2,r7			@ Ch(e,f,g)
 	eor	r0,r9,r9,ror#11
 	add	r8,r8,r2			@ h+=Ch(e,f,g)
-#if 11==31
+#if 1 // [astral-ios6] unconditional: build arm asm for iOS
 	and	r3,r3,#0xff
 	cmp	r3,#0xf2			@ done?
 #endif
-#if 11<15
+#if 1 // [astral-ios6] unconditional: build arm asm for iOS
 # if __ARM_ARCH>=7
 	ldr	r2,[r1],#4			@ prefetch
 # else
@@ -844,11 +844,11 @@ Loop:
 	eor	r2,r2,r6			@ Ch(e,f,g)
 	eor	r0,r8,r8,ror#11
 	add	r7,r7,r2			@ h+=Ch(e,f,g)
-#if 12==31
+#if 1 // [astral-ios6] unconditional: build arm asm for iOS
 	and	r12,r12,#0xff
 	cmp	r12,#0xf2			@ done?
 #endif
-#if 12<15
+#if 1 // [astral-ios6] unconditional: build arm asm for iOS
 # if __ARM_ARCH>=7
 	ldr	r2,[r1],#4			@ prefetch
 # else
@@ -902,11 +902,11 @@ Loop:
 	eor	r2,r2,r5			@ Ch(e,f,g)
 	eor	r0,r7,r7,ror#11
 	add	r6,r6,r2			@ h+=Ch(e,f,g)
-#if 13==31
+#if 1 // [astral-ios6] unconditional: build arm asm for iOS
 	and	r3,r3,#0xff
 	cmp	r3,#0xf2			@ done?
 #endif
-#if 13<15
+#if 1 // [astral-ios6] unconditional: build arm asm for iOS
 # if __ARM_ARCH>=7
 	ldr	r2,[r1],#4			@ prefetch
 # else
@@ -960,11 +960,11 @@ Loop:
 	eor	r2,r2,r4			@ Ch(e,f,g)
 	eor	r0,r6,r6,ror#11
 	add	r5,r5,r2			@ h+=Ch(e,f,g)
-#if 14==31
+#if 1 // [astral-ios6] unconditional: build arm asm for iOS
 	and	r12,r12,#0xff
 	cmp	r12,#0xf2			@ done?
 #endif
-#if 14<15
+#if 1 // [astral-ios6] unconditional: build arm asm for iOS
 # if __ARM_ARCH>=7
 	ldr	r2,[r1],#4			@ prefetch
 # else
@@ -1018,11 +1018,11 @@ Loop:
 	eor	r2,r2,r11			@ Ch(e,f,g)
 	eor	r0,r5,r5,ror#11
 	add	r4,r4,r2			@ h+=Ch(e,f,g)
-#if 15==31
+#if 1 // [astral-ios6] unconditional: build arm asm for iOS
 	and	r3,r3,#0xff
 	cmp	r3,#0xf2			@ done?
 #endif
-#if 15<15
+#if 1 // [astral-ios6] unconditional: build arm asm for iOS
 # if __ARM_ARCH>=7
 	ldr	r2,[r1],#4			@ prefetch
 # else
@@ -1068,11 +1068,11 @@ Lrounds_16_xx:
 	eor	r2,r2,r10			@ Ch(e,f,g)
 	eor	r0,r4,r4,ror#11
 	add	r11,r11,r2			@ h+=Ch(e,f,g)
-#if 16==31
+#if 1 // [astral-ios6] unconditional: build arm asm for iOS
 	and	r12,r12,#0xff
 	cmp	r12,#0xf2			@ done?
 #endif
-#if 16<15
+#if 1 // [astral-ios6] unconditional: build arm asm for iOS
 # if __ARM_ARCH>=7
 	ldr	r2,[r1],#4			@ prefetch
 # else
@@ -1117,11 +1117,11 @@ Lrounds_16_xx:
 	eor	r2,r2,r9			@ Ch(e,f,g)
 	eor	r0,r11,r11,ror#11
 	add	r10,r10,r2			@ h+=Ch(e,f,g)
-#if 17==31
+#if 1 // [astral-ios6] unconditional: build arm asm for iOS
 	and	r3,r3,#0xff
 	cmp	r3,#0xf2			@ done?
 #endif
-#if 17<15
+#if 1 // [astral-ios6] unconditional: build arm asm for iOS
 # if __ARM_ARCH>=7
 	ldr	r2,[r1],#4			@ prefetch
 # else
@@ -1166,11 +1166,11 @@ Lrounds_16_xx:
 	eor	r2,r2,r8			@ Ch(e,f,g)
 	eor	r0,r10,r10,ror#11
 	add	r9,r9,r2			@ h+=Ch(e,f,g)
-#if 18==31
+#if 1 // [astral-ios6] unconditional: build arm asm for iOS
 	and	r12,r12,#0xff
 	cmp	r12,#0xf2			@ done?
 #endif
-#if 18<15
+#if 1 // [astral-ios6] unconditional: build arm asm for iOS
 # if __ARM_ARCH>=7
 	ldr	r2,[r1],#4			@ prefetch
 # else
@@ -1215,11 +1215,11 @@ Lrounds_16_xx:
 	eor	r2,r2,r7			@ Ch(e,f,g)
 	eor	r0,r9,r9,ror#11
 	add	r8,r8,r2			@ h+=Ch(e,f,g)
-#if 19==31
+#if 1 // [astral-ios6] unconditional: build arm asm for iOS
 	and	r3,r3,#0xff
 	cmp	r3,#0xf2			@ done?
 #endif
-#if 19<15
+#if 1 // [astral-ios6] unconditional: build arm asm for iOS
 # if __ARM_ARCH>=7
 	ldr	r2,[r1],#4			@ prefetch
 # else
