@@ -184,24 +184,42 @@ cargo +nightly fetch || warn "cargo fetch 有警告，继续"
 # 我们只需要把 rlib 链进最终二进制，所以统一收敛成 ["rlib"]。
 # cargo 不校验 registry/git 源码目录的内容，改完直接编即可。
 say "修补依赖的 crate-type（cdylib/staticlib → rlib）"
+COUNT=0
 PATCHED=0
 patch_dir() {
   local root="$1"
   [ -d "$root" ] || return 0
-  find "$root" -maxdepth 4 -name Cargo.toml -type f 2>/dev/null | while IFS= read -r f; do
+  # 注意：macOS 的 find 不支持 -maxdepth（GNU 扩展），加了会静默失败
+  local list
+  list="$(mktemp)"
+  find "$root" -name Cargo.toml -type f 2>/dev/null > "$list" || true
+  local n
+  n=$(wc -l < "$list" | tr -d ' ')
+  echo "    扫描 $root : $n 个 Cargo.toml"
+  while IFS= read -r f; do
+    [ -f "$f" ] || continue
     if grep -qE 'crate-type *=[^#]*\[[^]]*(cdylib|staticlib)' "$f" 2>/dev/null; then
-      /usr/bin/sed -i '' -E 's/crate-type *=[^#]*\[[^]]*(cdylib|staticlib)[^]]*\]/crate-type = ["rlib"]/' "$f"
+      if /usr/bin/sed -i '' -E 's/crate-type *=[^#]*\[[^]]*(cdylib|staticlib)[^]]*\]/crate-type = ["rlib"]/' "$f" 2>/dev/null; then
+        :
+      else
+        sed -i -E 's/crate-type *=[^#]*\[[^]]*(cdylib|staticlib)[^]]*\]/crate-type = ["rlib"]/' "$f" 2>/dev/null || true
+      fi
       if grep -qE 'crate-type *=[^#]*\[[^]]*(cdylib|staticlib)' "$f" 2>/dev/null; then
         echo "    ! 未能改写: $f"
       else
         echo "    patched: ${f#"$HOME"/}"
+        COUNT=$((COUNT + 1))
       fi
     fi
-  done
+  done < "$list"
+  rm -f "$list"
 }
-patch_dir "$HOME/.cargo/registry/src"
-patch_dir "$HOME/.cargo/git/checkouts"
-echo "    完成"
+patch_cargo_dirs() {
+  patch_dir "$HOME/.cargo/registry/src"
+  patch_dir "$HOME/.cargo/git/checkouts"
+}
+patch_cargo_dirs
+echo "    共改写 $COUNT 个 crate"
 
 say "编译"
 cargo +nightly -Zjson-target-spec -Z build-std=std,panic_abort \
