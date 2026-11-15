@@ -257,23 +257,24 @@ python3 "$HERE/patch_crate_types.py" \
 # 旧的 build script，补丁永远没被跑过（日志里连 build/ring 目录都没有）。
 say "ring 使用 vendored 副本（已内置 iOS 32 位汇编修复）"
 
-# 关键：强制 ring 重新跑 build script。
+# 关键：强制 ring 重新跑 build script 并重新生成汇编。
 #
-# 只删 target/.../build 是**没用**的：cargo 的 `.fingerprint` 记录着
-# "build script 已成功执行"，只要缓存的 rlib 还在，它就直接复用，
-# 连 build script 都不会跑 —— 我们改的 build.rs 补丁自然永远不生效
-# （症状：日志里 `!! 没找到 ring 的 build 目录`）。
-#
-# 所以要把 ring 的 fingerprint / build 输出 / rlib 一起删掉，
-# 逼 cargo 重编 ring（build script 会按打好补丁的逻辑重新生成汇编）。
-say "强制 ring 重编（补丁改了 build.rs，缓存的 fingerprint 会跳过它）"
+# 手动 rm target/.../{.fingerprint,build,deps} 试过几轮都没效果：cargo 仍会
+# 出现 "Compiling ring" 但 build script 的 out/ 是空的、libring_core*.a 不存在，
+# 说明它复用了缓存状态。用 cargo 官方的 `clean -p` 更彻底。
+say "强制 ring 重编（cargo clean -p ring）"
+cargo +nightly -Zjson-target-spec clean -p ring --target "$SPEC" \
+  || warn "cargo clean -p ring 失败（继续）"
+echo "    cargo clean -p ring 完成"
+
+# 兜底：再手动删一遍（cargo clean 偶尔会漏掉 build script 的输出目录）
 REL="$CRATE/target/armv7-apple-ios/release"
-for p in "$REL/.fingerprint"/ring-* \
-         "$REL/build"/ring-* \
+for p in "$REL/.fingerprint"/ring* \
+         "$REL/build"/ring \
          "$REL/deps"/libring-* ; do
   [ -e "$p" ] && rm -rf "$p"
 done
-echo "    已清理 ring 的 fingerprint/build/deps"
+echo "    兜底清理完成"
 
 # C 依赖的 build 输出也清掉：rust-cache 里可能存着用旧 -arch armv7 编的
 # 目标文件，ld64 遇到架构不符的归档成员会**静默丢弃**，最后表现成
@@ -298,6 +299,10 @@ if [ $RC -ne 0 ]; then
   done
   if [ -n "$RINGOUT" ]; then
     echo "    ring build dir: $RINGOUT"
+    echo "    --- $RINGOUT 目录内容 ---"
+    ls -la "$RINGOUT" 2>/dev/null | head -12 | sed 's/^/      /'
+    echo "    --- $RINGOUT/out 目录内容 ---"
+    ls -la "$RINGOUT/out" 2>/dev/null | head -20 | sed 's/^/      /'
     echo "    --- build script 输出（尾部 40 行）---"
     tail -40 "$RINGOUT/output" 2>/dev/null | sed 's/^/      /'
     echo "    --- out/ 下的 .S 文件 ---"
