@@ -31,6 +31,7 @@ extern unsigned char astral_state(void);
 extern const char *astral_state_text(void);
 extern const char *astral_log(void);
 extern void astral_clear_log(void);
+extern void astral_set_hostname(const char *name);
 
 // -------------------------------------------- 老系统缺失符号（供 std/ring 用）
 //
@@ -63,6 +64,8 @@ int CCRandomGenerateBytes(void *bytes, size_t count) {
 @property (nonatomic, strong) UITextField *roomField;
 @property (nonatomic, strong) UITextField *secretField;
 @property (nonatomic, strong) UITextField *peerField;
+@property (nonatomic, strong) UITextField *nickField;
+@property (nonatomic, strong) UIButton *createButton;
 @property (nonatomic, strong) UIButton *connectButton;
 @property (nonatomic, strong) UILabel *stateLabel;
 @property (nonatomic, strong) UITextView *logView;
@@ -94,9 +97,20 @@ int CCRandomGenerateBytes(void *bytes, size_t count) {
     self.secretField = [self makeField:@"密码" y:y]; y += 46;
     self.secretField.text = @"123456";
     self.peerField = [self makeField:@"服务器 (tcp://ip:11010)" y:y]; y += 46;
+    self.nickField = [self makeField:@"昵称（显示在房间里）" y:y]; y += 46;
+    self.nickField.text = @"iPhone";
+
+    CGFloat halfW = (w - 32 - 8) / 2;
+    self.createButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    self.createButton.frame = CGRectMake(16, y, halfW, 44);
+    [self.createButton setTitle:@"创建房间" forState:UIControlStateNormal];
+    self.createButton.titleLabel.font = [UIFont boldSystemFontOfSize:16];
+    [self.createButton addTarget:self action:@selector(createRoom)
+                forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.createButton];
 
     self.connectButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    self.connectButton.frame = CGRectMake(16, y, w - 32, 44);
+    self.connectButton.frame = CGRectMake(16 + halfW + 8, y, halfW, 44);
     [self.connectButton setTitle:@"连接" forState:UIControlStateNormal];
     self.connectButton.titleLabel.font = [UIFont boldSystemFontOfSize:18];
     [self.connectButton addTarget:self action:@selector(toggleConnect)
@@ -311,6 +325,79 @@ int CCRandomGenerateBytes(void *bytes, size_t count) {
     return [[NSString alloc] initWithData:out encoding:NSUTF8StringEncoding];
 }
 
+// 创建房间：POST /v1/codes 换取 6 位房间码
+// 请求体就是官方的 RoomInvitePayload，peers 填我们连的服务器地址。
+- (void)createRoom {
+    [self.view endEditing:YES];
+    NSString *room = self.roomField.text ?: @"";
+    NSString *secret = self.secretField.text ?: @"";
+    NSString *peer = self.peerField.text ?: @"";
+    NSString *nick = self.nickField.text ?: @"";
+    peer = [peer stringByTrimmingCharactersInSet:
+            [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if (room.length == 0 || secret.length == 0) {
+        [self alert:@"房间名和密码不能为空"];
+        return;
+    }
+
+    NSMutableArray *peerArr = [NSMutableArray array];
+    if (peer.length > 0) {
+        [peerArr addObject:@{@"uri": peer}];
+    }
+    NSDictionary *payload = @{
+        @"v": @1,
+        @"game_id": @"minecraft",
+        @"game_name": @"\u6211\u7684\u4e16\u754c",
+        @"network_name": room,
+        @"network_secret": secret,
+        @"peers": peerArr,
+        @"display_name": nick,
+        @"transport": @"easytier"
+    };
+    NSData *body = [NSJSONSerialization dataWithJSONObject:payload options:0 error:NULL];
+    NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:
+        [NSURL URLWithString:@"http://103.194.107.25:8080/v1/codes"]];
+    [req setHTTPMethod:@"POST"];
+    [req setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [req setHTTPBody:body];
+    [req setTimeoutInterval:8];
+
+    self.stateLabel.text = @"正在创建房间…";
+    AstralViewController *me = self;
+    NSURLSessionDataTask *task =
+        [[NSURLSession sharedSession] dataTaskWithRequest:req
+            completionHandler:^(NSData *data, NSURLResponse *resp, NSError *err) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (err) {
+                me.stateLabel.text = @"创建房间失败";
+                [me alert:[NSString stringWithFormat:@"网络错误：%@",
+                           err.localizedDescription]];
+                return;
+            }
+            NSInteger status = [(NSHTTPURLResponse *)resp statusCode];
+            if (status == 429) { [me alert:@"创建过于频繁，请稍后再试"]; return; }
+            if (status < 200 || status >= 300) {
+                [me alert:[NSString stringWithFormat:@"短码服务错误 (%ld)", (long)status]];
+                return;
+            }
+            NSDictionary *j = [NSJSONSerialization JSONObjectWithData:data
+                                                             options:0 error:NULL];
+            NSString *code = j[@"code"];
+            if (![code isKindOfClass:[NSString class]] || code.length == 0) {
+                [me alert:@"短码服务返回异常"];
+                return;
+            }
+            [UIPasteboard generalPasteboard].string = code;
+            me.codeField.text = code;
+            [me alert:[NSString stringWithFormat:
+                       @"房间码：%@\n（已复制到剪贴板，发给朋友即可）", code]];
+            // 建完直接连上
+            [me startWithRoom:room secret:secret peer:peer];
+        });
+    }];
+    [task resume];
+}
+
 - (void)alert:(NSString *)msg {
     UIAlertView *a = [[UIAlertView alloc] initWithTitle:@"提示"
                                                 message:msg
@@ -323,6 +410,16 @@ int CCRandomGenerateBytes(void *bytes, size_t count) {
 - (void)startWithRoom:(NSString *)room secret:(NSString *)secret peer:(NSString *)peer {
     astral_clear_log();
     NSString *ipv4 = @"10.144.144.5/24";
+
+    // 昵称 → EasyTier hostname（房间成员列表里显示）
+    NSString *nick = self.nickField.text ?: @"";
+    nick = [nick stringByTrimmingCharactersInSet:
+            [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if (nick.length > 0) {
+        if (![self sockSend:[NSString stringWithFormat:@"HOST %@", nick]]) {
+            astral_set_hostname([nick UTF8String]);
+        }
+    }
 
     // 优先让 root 守护进程干活（它能建 utun）
     NSString *resp = [self sockSend:[NSString stringWithFormat:

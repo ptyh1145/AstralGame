@@ -307,6 +307,12 @@ fn handle_daemon_cmd(line: &str) -> String {
             );
             format!("rc={rc}\n")
         }
+        "HOST" if parts.len() >= 2 => {
+            // HOST <昵称>
+            let name = cstring(parts[1]);
+            astral_tund::astral_set_hostname(name.as_ptr());
+            "rc=0\n".to_string()
+        }
         "STOP" => {
             let rc = astral_tund::astral_stop();
             format!("rc={rc}\n")

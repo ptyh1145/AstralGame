@@ -26,6 +26,25 @@ pub const STATE_ERROR: u8 = 3;
 
 static STATE: AtomicU8 = AtomicU8::new(STATE_IDLE);
 
+/// 昵称（EasyTier 的 hostname）：显示在同一虚拟网的成员列表里。
+/// GUI 通过 astral_set_hostname 设置；未设置时用默认值。
+static HOSTNAME: OnceLock<Mutex<String>> = OnceLock::new();
+
+fn hostname_store() -> &'static Mutex<String> {
+    HOSTNAME.get_or_init(|| Mutex::new("AstralGame".to_string()))
+}
+
+/// 设置昵称（对应官方 App 的「完善资料」里的昵称）。
+#[no_mangle]
+pub extern "C" fn astral_set_hostname(name: *const c_char) {
+    if let Ok(v) = cstr_arg(name, "hostname") {
+        if !v.trim().is_empty() {
+            *hostname_store().lock().unwrap() = v.trim().to_string();
+            push_log(&format!("昵称已设置: {}", v.trim()));
+        }
+    }
+}
+
 static LOG: OnceLock<Mutex<String>> = OnceLock::new();
 /// 缓存给 C 用的 CString，避免每次调用都分配（也保证指针生命周期）
 static LOG_C: OnceLock<Mutex<CString>> = OnceLock::new();
@@ -168,7 +187,8 @@ pub extern "C" fn astral_start(
 
 /// 真正建立连接：开 utun → 配地址 → 建 EasyTier 实例 → 注入 fd
 async fn bring_up(room: &str, secret: &str, ipv4: &str, peer: &str) -> Result<uuid::Uuid> {
-    let toml = cli::build_toml_simple(room, secret, ipv4, peer);
+    let host = hostname_store().lock().unwrap().clone();
+    let toml = cli::build_toml(&host, room, secret, ipv4, &[peer.to_string()]);
 
     let (ip, prefix) = match ipv4.split_once('/') {
         Some((ip, p)) => (ip.to_string(), p.parse::<u8>().unwrap_or(24)),
