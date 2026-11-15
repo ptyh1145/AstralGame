@@ -112,10 +112,26 @@ else:
                                  "-miphoneos-version-min=" + min_ios])
     }
 
+# ---------------------------------------------------------------
+# target_os 覆盖：
+#   libc 只对 target_os="macos" 暴露 utun 需要的
+#   sockaddr_ctl / SYSPROTO_CONTROL / UTUN_OPT_IFNAME / AF_SYS_CONTROL，
+#   而 nix（tun crate 依赖）在 ios 分支里照样引用它们 → 直接用 os="ios" 编不过。
+#   本 daemon 的核心就是 utun，所以让编译期按 macOS 语义走（Darwin 共用 libSystem），
+#   但**链接参数强制 iOS 平台 + 最低 6.0**，产物仍是 iOS 二进制。
+#   用 TARGET_OS_OVERRIDE=ios 可退回原始语义。
+# ---------------------------------------------------------------
+os_override = os.environ.get("TARGET_OS_OVERRIDE", "macos")
+spec["os"] = os_override
+if os_override == "macos":
+    args = ["-arch", "armv7",
+            "-platform_version", "ios", min_ios, "6.1",
+            "-isysroot", sdk]
+    spec["pre-link-args"] = {"darwin-cc": args}
+    spec.pop("post-link-args", None)
+
 post = spec.get("post-link-args")
-if isinstance(post, dict) and post and all(k in VALID for k in post):
-    spec["post-link-args"] = {k: patch_args(list(v)) for k, v in post.items()}
-elif isinstance(post, dict) and not post:
+if isinstance(post, dict) and post and not all(k in VALID for k in post):
     spec.pop("post-link-args", None)
 
 json.dump(spec, open(dst, "w"), indent=2, sort_keys=True)
