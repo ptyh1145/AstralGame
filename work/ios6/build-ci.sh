@@ -245,6 +245,13 @@ export CXX_armv7s_ios="$CLANG";        export CXXFLAGS_armv7s_ios="$C_CFLAGS"
 export CXX_armv7_apple_ios="$CLANG";   export CXXFLAGS_armv7_apple_ios="$C_CFLAGS"
 export CXX_armv7_ios="$CLANG";         export CXXFLAGS_armv7_ios="$C_CFLAGS"
 
+# arm64（64 位设备）：C 依赖也必须按 arm64 编，否则链接时架构不匹配
+C_CFLAGS_64="-O2 -fPIC -arch arm64 -miphoneos-version-min=$MIN_IOS -isysroot $SDK_PATH -Qunused-arguments"
+export CC_aarch64_apple_ios="$CLANG";      export CFLAGS_aarch64_apple_ios="$C_CFLAGS_64"
+export CC_aarch64_ios="$CLANG";            export CFLAGS_aarch64_ios="$C_CFLAGS_64"
+export CXX_aarch64_apple_ios="$CLANG";     export CXXFLAGS_aarch64_apple_ios="$C_CFLAGS_64"
+export CXX_aarch64_ios="$CLANG";           export CXXFLAGS_aarch64_ios="$C_CFLAGS_64"
+
 # --- 先预取依赖，然后修补 easytier-core 的 crate-type -------------------------
 # easytier-core 声明了 crate-type = ["rlib","cdylib"]。darwin 上 cdylib 需要
 # 生成 install_name，自定义 target 会让 rustc 在 add_order_independent_options
@@ -347,16 +354,41 @@ if [ $RC -ne 0 ]; then
   die "cargo build 失败 (exit $RC)"
 fi
 
-BIN="$CRATE/target/armv7-apple-ios/release/astral-tund"
-[ -f "$BIN" ] || BIN="$(find "$CRATE/target" -name astral-tund -type f 2>/dev/null | head -1)"
-[ -f "$BIN" ] || die "找不到产物 astral-tund"
+BIN32="$CRATE/target/armv7-apple-ios/release/astral-tund"
+[ -f "$BIN32" ] || BIN32="$(find "$CRATE/target" -name astral-tund -type f 2>/dev/null | head -1)"
+[ -f "$BIN32" ] || die "找不到 32 位产物 astral-tund"
+
+# 32 位先修正版本（lipo 之前，因为 fix_macho_ver 只认单架构）
+python3 "$HERE/fix_macho_ver.py" "$BIN32" "$MIN_IOS" "$MIN_IOS" || warn "armv7s 版本修正失败"
+
+# ---------------------------------------------------------------- 3b. arm64（64 位设备）
+# A7 及以后（iPhone 5s/6/6s、iPad Air+）**不支持 armv7s**，只放 32 位的话
+# 在 64 位设备上一打开就闪退。这里再编一份 arm64，用 lipo 合成 fat。
+say "编译 arm64（64 位设备）"
+# aarch64-apple-ios 是 rustc 内置 target（tier 2），不需要自定义 spec，
+# 但仍用 build-std 保证 std 与 nightly 一致、且带 panic_abort。
+cargo +nightly -Zjson-target-spec -Z build-std=std,panic_abort \
+  build --release --target aarch64-apple-ios \
+  || die "arm64 编译失败"
+BIN64="$CRATE/target/aarch64-apple-ios/release/astral-tund"
+[ -f "$BIN64" ] || die "找不到 arm64 产物"
+
+# 必须在 lipo 之前分别修正 —— fix_macho_ver.py 只认单架构 Mach-O
+say "修正 arm64 最低版本 -> iOS $MIN_IOS"
+python3 "$HERE/fix_macho_ver.py" "$BIN64" "$MIN_IOS" "$MIN_IOS" || warn "arm64 版本修正失败"
+
+say "合并 32/64 位（lipo）"
+mkdir -p "$OUT"
+FAT="$OUT/astral-tund.fat"
+lipo -create "$BIN32" "$BIN64" -output "$FAT" || die "lipo 失败"
+lipo -info "$FAT" | sed 's/^/    /'
+BIN="$FAT"
 
 # ---------------------------------------------------------------- 4. 后处理
 # rustc 1.102 对 armv7s 的 minimum deployment target 是 10.0，它会强制
 # `-target armv7s-apple-ios10.0.0`，覆盖我们给 clang 的 -miphoneos-version-min=6.0，
 # 产物会被标成 min=10.0。这里改回 6.0（必须在 ldid 签名之前）。
-say "修正 Mach-O 最低版本 -> iOS $MIN_IOS"
-python3 "$HERE/fix_macho_ver.py" "$BIN" "$MIN_IOS" "$MIN_IOS" || warn "版本修正失败（继续）"
+# 版本命令已在 lipo 前对两个架构分别修正过（fat 里的 Mach-O 不能再单改）
 
 say "校验产物"
 file "$BIN" | sed 's/^/    /'
@@ -395,32 +427,47 @@ else
   UI_CFLAGS=(-arch armv7s "-miphoneos-version-min=$MIN_IOS" -isysroot "$SDK_PATH"
              -O2 -fno-objc-arc -Wno-deprecated-declarations -Wno-unused-parameter)
 
-  echo "    [1/4] 编译 main.m"
-  clang "${UI_CFLAGS[@]}" -c "$UI_DIR/main.m" -o "$OUT/main.o" \
-    || die "ObjC 编译失败"
+  LIB64="$CRATE/target/aarch64-apple-ios/release/libastral_tund.a"
 
-  echo "    [2/4] 链接 App（含 Rust 静态库）"
+  echo "    [1/5] 编译 main.m（armv7s + arm64）"
+  # 注意：不能用 -fobjc-arc —— ARC 需要 libarclite，Xcode 16 在部署目标 < 10
+  # 时不再提供。MRC 下 UI 对象不释放也无害。
+  UI_COMMON=(-miphoneos-version-min="$MIN_IOS" -isysroot "$SDK_PATH"
+             -O2 -fno-objc-arc -Wno-deprecated-declarations -Wno-unused-parameter)
+  clang -arch armv7s "${UI_COMMON[@]}" -c "$UI_DIR/main.m" -o "$OUT/main32.o" \
+    || die "ObjC 编译失败（armv7s）"
+  clang -arch arm64 "${UI_COMMON[@]}" -c "$UI_DIR/main.m" -o "$OUT/main64.o" \
+    || die "ObjC 编译失败（arm64）"
+
   # 关键：必须带 -Wl,-dead_strip（rustc 的 bin 默认行为）。
-  # 不加的话，ld 会把可达 .o 里**所有**未定义引用都要求解析，
+  # 不加的话，ld 会把可达 .o 里所有未定义引用都要求解析，
   # 而 security-framework / std 里有一堆 iOS 10+ 才有的符号
   # （SecTrustEvaluateWithError、kSecUseDataProtectionKeychain、
   #   renamex_np、fclonefileat …，共 100+ 个），在 8.1 SDK 上必然失败。
   # dead_strip 先做可达性分析，未达代码不参与符号解析。
   # 另外不要用 -force_load（会把整个 staticlib 全拉进来）。
-  clang "${UI_CFLAGS[@]}" \
-    "$OUT/main.o" \
-    "$LIB" \
-    -framework UIKit -framework Foundation -framework CoreGraphics \
-    -framework CoreFoundation -framework SystemConfiguration -framework Security \
-    -lc -lm -liconv -lresolv \
-    -Wl,-dead_strip -Wl,-dead_strip_dylibs \
-    -Wl,-U,__tlv_bootstrap -Wl,-U,__tlv_atexit \
-    -o "$APP/AstralGame" \
-    || die "链接 App 失败"
+  LINK_FRAMEWORKS=(-framework UIKit -framework Foundation -framework CoreGraphics
+                   -framework CoreFoundation -framework SystemConfiguration -framework Security
+                   -lc -lm -liconv -lresolv
+                   -Wl,-dead_strip -Wl,-dead_strip_dylibs
+                   -Wl,-U,__tlv_bootstrap -Wl,-U,__tlv_atexit)
 
-  echo "    [3/4] 修正版本 + 签名"
-  python3 "$HERE/fix_macho_ver.py" "$APP/AstralGame" "$MIN_IOS" "$MIN_IOS" \
-    || warn "版本修正失败（继续）"
+  echo "    [2/5] 链接 32 位"
+  clang -arch armv7s "${UI_COMMON[@]}" "$OUT/main32.o" "$LIB" "${LINK_FRAMEWORKS[@]}" \
+    -o "$OUT/AstralGame32" || die "链接 App 失败（armv7s）"
+
+  echo "    [3/5] 链接 64 位"
+  clang -arch arm64 "${UI_COMMON[@]}" "$OUT/main64.o" "$LIB64" "${LINK_FRAMEWORKS[@]}" \
+    -o "$OUT/AstralGame64" || die "链接 App 失败（arm64）"
+
+  echo "    [4/5] 合成 fat"
+  lipo -create "$OUT/AstralGame32" "$OUT/AstralGame64" -output "$APP/AstralGame" \
+    || die "lipo 合并 App 失败"
+  lipo -info "$APP/AstralGame" | sed 's/^/        /'
+  # App 由 clang 用 -miphoneos-version-min 链接，版本命令本来就是 8.0，
+  # 不需要（也不能）对 fat 再改。
+
+  echo "    [5/5] 签名"
   if command -v ldid >/dev/null; then
     ldid -S "$APP/AstralGame" && echo "        ldid -S 完成"
   else
