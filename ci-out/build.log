@@ -1,0 +1,14 @@
+[1;34m==> 定位 iOS SDK[0m
+    SDKROOT = /Users/runner/work/AstralGame/AstralGame/work/ios6/sdk/iPhoneOS6.1.sdk
+[1;34m==> 校验 SDK 真伪[0m
+    armv7 支持: OK
+    iOS 6 特征: libsystem_m 无 ___sincos_stret  OK
+    iOS 6 特征: libobjc 无 _objc_readClassPair  OK
+    CanonicalName = iphoneos6.1
+[1;34m==> 派生纯 armv7 目标（基于 armv7s 的 spec）[0m
+    wrote /Users/runner/work/AstralGame/AstralGame/work/ios6/targets/armv7-ios6.json
+[1;34m==> 检查目标文件[0m
+    cpu= generic  features= +v7,+thumb2,+vfp3,+vfp3d16,+neon  os= ios
+[1;34m==> 构建 astral-tund (armv7, iOS >= 6.0)[0m
+[1;33m!!  armv7s-apple-ios 未安装（build-std 模式下通常不需要）[0m
+error: `.json` target specs require -Zjson-target-spec to be added to the cargo invocation
