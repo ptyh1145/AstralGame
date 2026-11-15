@@ -11,6 +11,8 @@ on:
     paths:
       - "work/astral-tund/**"
       - "work/ios6/**"
+      # vendored 的 libc / ring 补丁就在这里面，改它们必须触发构建
+      - "work/vendor/**"
       - "sdk/**"
       - ".github/workflows/build-ios6.yml"
 
