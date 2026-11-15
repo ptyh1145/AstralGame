@@ -607,6 +607,24 @@ fn configure_cc(c: &mut cc::Build, target: &Target, c_root_dir: &Path, include_d
         }
     }
 
+    // [astral-ios6] 强制定义 ARM / Apple 相关宏。
+    //
+    // 问题：汇编文件（.S）的顶层条件是
+    //   `#if !defined(OPENSSL_NO_ASM) && defined(OPENSSL_ARM) && defined(__APPLE__)`
+    // 而这个宏组合在我们的自定义 target 上判断不可靠
+    // （clang 对新版 arm 目标不再定义 __ARMEL__，target.h 也认不到），
+    // 一旦不成立，整个 .S 被预处理成空文件 —— 表现为
+    //   ranlib: file: libring_core_*.a(xxx.o) has no symbols
+    // 以及最终链接期 17 个 _ring_core_*_neon / _nohw 符号 undefined。
+    // 这里直接把宏钉死，绕开条件判断。
+    if target.arch == ARM {
+        let _ = c.define("OPENSSL_ARM", "1");
+        let _ = c.define("OPENSSL_32_BIT", "1");
+        if APPLE_ABI.contains(&target.os.as_str()) {
+            let _ = c.define("__APPLE__", "1");
+        }
+    }
+
     // Allow cross-compiling without a target sysroot for these targets.
     if (target.arch == WASM32)
         || (target.os == "linux" && target.env == "musl" && target.arch != X86_64)
