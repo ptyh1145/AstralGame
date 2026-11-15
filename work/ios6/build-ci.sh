@@ -149,10 +149,15 @@ unset SDKROOT
 unset IPHONEOS_DEPLOYMENT_TARGET
 unset RUSTFLAGS
 
-# C 依赖（zstd-sys 等）走目标专属变量，只影响目标侧编译
+# C 依赖（ring / zstd-sys 等）走目标专属变量，只影响目标侧编译。
+# CRATE_CC_NO_DEFAULTS=1 很关键：因为目标 os 被设成 macos，
+# cc-rs 会自动拼出 --target=armv7-apple-macosx -mmacosx-version-min=15.5，
+# 与我们的 -miphoneos-version-min=6.0 直接冲突（clang 报 invalid argument）。
+# 关掉它的默认旗标后，一切只由 CFLAGS_<target> 决定。
 CLANG="$(xcrun --sdk macosx -f clang)"
+export CRATE_CC_NO_DEFAULTS=1
 export CC_armv7_ios6="$CLANG"
-export CFLAGS_armv7_ios6="-arch armv7 -miphoneos-version-min=$MIN_IOS -isysroot $SDK_PATH -Qunused-arguments"
+export CFLAGS_armv7_ios6="-O2 -fPIC -arch armv7 -miphoneos-version-min=$MIN_IOS -isysroot $SDK_PATH -Qunused-arguments"
 export CXX_armv7_ios6="$CLANG"
 export CXXFLAGS_armv7_ios6="$CFLAGS_armv7_ios6"
 
