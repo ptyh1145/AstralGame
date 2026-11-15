@@ -276,6 +276,34 @@ cargo +nightly -Zjson-target-spec -Z build-std=std,panic_abort \
   build --release --target "$SPEC"
 RC=$?
 if [ $RC -ne 0 ]; then
+  # 失败时把 ring 的中间产物打印出来（排 ring 汇编问题用，只读不写）
+  say "构建失败 —— dump ring 汇编诊断"
+  RINGOUT=""
+  for d in "$CRATE"/target/armv7-apple-ios/release/build/ring-*; do
+    [ -d "$d" ] && RINGOUT="$d" && break
+  done
+  if [ -n "$RINGOUT" ]; then
+    echo "    ring build dir: $RINGOUT"
+    echo "    --- build script 输出（尾部 40 行）---"
+    tail -40 "$RINGOUT/output" 2>/dev/null | sed 's/^/      /'
+    echo "    --- out/ 下的 .S 文件 ---"
+    find "$RINGOUT/out" -name '*.S' 2>/dev/null | head -20 | sed 's/^/      /'
+    echo "    --- out/ 下的 .o 文件 ---"
+    find "$RINGOUT/out" -name '*.o' 2>/dev/null | head -30 | sed 's/^/      /'
+    echo "    --- ring_core_generated 目录 ---"
+    ls "$RINGOUT/out/ring_core_generated" 2>/dev/null | head -10 | sed 's/^/      /'
+    ARFILE=$(find "$RINGOUT/out" -name 'libring_core*.a' 2>/dev/null | head -1)
+    if [ -n "$ARFILE" ]; then
+      echo "    --- $ARFILE 里的 sha256/vpaes 符号 ---"
+      nm -g "$ARFILE" 2>/dev/null | grep -i 'sha256_block\|vpaes_set\|poly1305_neon' | head -20 | sed 's/^/      /'
+      echo "    --- 归档成员 ---"
+      ar t "$ARFILE" 2>/dev/null | head -20 | sed 's/^/      /'
+    else
+      echo "    !! 没找到 libring_core*.a"
+    fi
+  else
+    echo "    !! 没找到 ring 的 build 目录"
+  fi
   die "cargo build 失败 (exit $RC)"
 fi
 
