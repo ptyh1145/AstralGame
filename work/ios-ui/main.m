@@ -202,12 +202,12 @@ int CCRandomGenerateBytes(void *bytes, size_t count) {
     NSURL *url = [NSURL URLWithString:urlStr];
     if (!url) { [self alert:@"房间码格式错误"]; return; }
 
-    __weak AstralViewController *weakSelf = self;
+    // MRC 下不能用 __weak；block 捕获也不会 retain，不存在循环引用
+    AstralViewController *me = self;
     NSURLSessionDataTask *task =
         [[NSURLSession sharedSession] dataTaskWithURL:url
             completionHandler:^(NSData *data, NSURLResponse *resp, NSError *err) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            AstralViewController *me = weakSelf;
             if (!me) return;
             if (err) {
                 me.stateLabel.text = @"房间码服务连接失败";
