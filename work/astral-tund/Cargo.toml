@@ -4,9 +4,16 @@ version = "0.1.0"
 edition = "2021"
 publish = false
 
+# build.rs 负责在 iOS/armv7 下直接编译 ring 需要的 ARM 汇编
+# （绕开 ring 那个在本 target 上不可靠的 build script，见 build.rs 注释）
+build = "build.rs"
+
 [[bin]]
 name = "astral-tund"
 path = "src/main.rs"
+
+[build-dependencies]
+cc = "1"
 
 # 用 vendored 副本覆盖两个上游问题（详见 work/ios6/README.md 的「坑」表）：
 #  * libc：utun 的 6 个符号被 cfg(target_os="macos") 挡住，iOS 编不过
