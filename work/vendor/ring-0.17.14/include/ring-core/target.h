@@ -84,9 +84,20 @@
 #endif
 #endif
 
-// Disable 32-bit Arm assembly on Apple platforms. The last iOS version that
-// supported 32-bit Arm was iOS 10.
-#if defined(OPENSSL_APPLE) && defined(OPENSSL_ARM)
+// [astral-ios6] 上游在这里**无条件禁用 Apple 平台的 32 位 ARM 汇编**：
+//
+//     // Disable 32-bit Arm assembly on Apple platforms. The last iOS
+//     // version that supported 32-bit Arm was iOS 10.
+//     #if defined(OPENSSL_APPLE) && defined(OPENSSL_ARM)
+//     #define OPENSSL_ASM_INCOMPATIBLE
+//     #endif
+//
+// 而我们的目标恰恰是 iOS 8/9 的 armv7s，需要这些汇编。被禁用后
+// OPENSSL_NO_ASM 会被定义，所有 .S 被预处理成空文件，最终表现为
+//   ranlib: file: libring_core_*.a(xxx.o) has no symbols
+// 以及链接期 17 个 _ring_core_*_neon / _nohw 符号 undefined。
+// 所以这里解除禁用。
+#if defined(OPENSSL_APPLE) && defined(OPENSSL_ARM) && defined(RING_APPLE_ARM_NO_ASM)
 #define OPENSSL_ASM_INCOMPATIBLE
 #endif
 
