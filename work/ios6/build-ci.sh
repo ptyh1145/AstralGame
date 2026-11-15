@@ -156,15 +156,21 @@ spec.pop("is_like_darwin", None)  # 该字段不存在于 JSON，误加会报错
 #   （报 "unknown argument: '-platform_version'"，且会把后面的 ios/6.0 当文件）。
 # -isysroot <6.1 SDK>：链接器找库/headers 用我们的 iOS 6.1 SDK
 #
-# 下面的 -Wl,-U,<sym>：**只在 6.1 SDK 上需要**，用来放行
-# "iOS 8+ dyld 原生提供、但 6.1 SDK 的 tbd 没列出" 的符号
-# （__tlv_bootstrap / __tlv_atexit / openat / *at 系列）。
-# 用 iOS 8.1 SDK 时这些符号本来就在 tbd 里，不需要放行。
-extra_link = []
+# 下面的 -Wl,-U,<sym>：放行"系统里有、但链接期解析不到"的符号。
+#
+# __tlv_bootstrap / __tlv_atexit：线程局部存储（std 的 thread_local!、
+#   tokio 的 runtime context 都用它）。这两个符号在 **libdyld** 里，
+#   而我们的链接命令行只有 -lc/-lm 等（libc.tbd 不含 dyld 的符号），
+#   所以哪怕是 iOS 8.1 SDK 也会报 undefined。iOS 8+ 的 dyld 原生提供它们，
+#   放行是安全的。
+# openat / fstatat / renameat / unlinkat：只在 6.1 SDK 上需要放行
+#   （8.1 SDK 的 libsystem_kernel.tbd 里已经有了）。
+extra_link = [
+    "-Wl,-U,__tlv_bootstrap",
+    "-Wl,-U,__tlv_atexit",
+]
 if "iPhoneOS6.1" in sdk:
-    extra_link = [
-        "-Wl,-U,__tlv_bootstrap",
-        "-Wl,-U,__tlv_atexit",
+    extra_link += [
         "-Wl,-U,_openat",
         "-Wl,-U,_fstatat",
         "-Wl,-U,_renameat",
