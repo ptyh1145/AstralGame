@@ -19,9 +19,11 @@ permissions:
 
 jobs:
   build:
-    # macos-14 是当前仍稳定提供的 Intel 镜像；其 Xcode 只有 15/16、iOS SDK 17/18，
-    # 全 arm64-only，所以必须自带 iOS 6.1 SDK，不能靠 runner 的。
-    runs-on: macos-14
+    # macos-14 在本仓库会被解析成不可用的 'macos-14-arm64-us-default'（job 直接被 cancel）。
+    # 实测可用：macos-15-intel / macos-15 / macos-latest。这里用明确的 Intel 镜像。
+    # 注意：镜像自带的 Xcode 只到 15/16、iOS SDK 17/18（全 arm64-only），
+    # 所以 armv7 必须靠仓库里的 iOS 6.1 SDK。
+    runs-on: macos-15-intel
     timeout-minutes: 60
 
     steps:
