@@ -32,6 +32,7 @@ extern const char *astral_state_text(void);
 extern const char *astral_log(void);
 extern void astral_clear_log(void);
 extern void astral_set_hostname(const char *name);
+extern void astral_set_dhcp(unsigned char on);
 
 // -------------------------------------------- 老系统缺失符号（供 std/ring 用）
 //
@@ -65,6 +66,7 @@ int CCRandomGenerateBytes(void *bytes, size_t count) {
 @property (nonatomic, strong) UITextField *secretField;
 @property (nonatomic, strong) UITextField *peerField;
 @property (nonatomic, strong) UITextField *nickField;
+@property (nonatomic, strong) UISwitch *dhcpSwitch;
 @property (nonatomic, strong) UIButton *createButton;
 @property (nonatomic, strong) UIButton *connectButton;
 @property (nonatomic, strong) UILabel *stateLabel;
@@ -99,6 +101,16 @@ int CCRandomGenerateBytes(void *bytes, size_t count) {
     self.peerField = [self makeField:@"服务器 (tcp://ip:11010)" y:y]; y += 46;
     self.nickField = [self makeField:@"昵称（显示在房间里）" y:y]; y += 46;
     self.nickField.text = @"iPhone";
+
+    // 自动分配虚拟IP（DHCP）：官方默认开启，互通时最稳
+    UILabel *dhcpLabel = [[UILabel alloc] initWithFrame:CGRectMake(16, y + 8, w - 90, 28)];
+    dhcpLabel.text = @"自动分配虚拟IP";
+    dhcpLabel.font = [UIFont systemFontOfSize:15];
+    [self.view addSubview:dhcpLabel];
+    self.dhcpSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(w - 70, y + 6, 51, 31)];
+    self.dhcpSwitch.on = YES;   // 默认开，和官方一致
+    [self.view addSubview:self.dhcpSwitch];
+    y += 48;
 
     CGFloat halfW = (w - 32 - 8) / 2;
     self.createButton = [UIButton buttonWithType:UIButtonTypeSystem];
@@ -154,6 +166,7 @@ int CCRandomGenerateBytes(void *bytes, size_t count) {
         if ((v = [d stringForKey:@"secret"])) self.secretField.text = v;
         if ((v = [d stringForKey:@"peer"]))   self.peerField.text = v;
         if ((v = [d stringForKey:@"nick"]))   self.nickField.text = v;
+        if ([d objectForKey:@"dhcp"]) self.dhcpSwitch.on = [d boolForKey:@"dhcp"];
     }
 
     self.pollTimer = [NSTimer scheduledTimerWithTimeInterval:0.5
@@ -424,6 +437,7 @@ int CCRandomGenerateBytes(void *bytes, size_t count) {
     [d setObject:(self.secretField.text ?: @"") forKey:@"secret"];
     [d setObject:(self.peerField.text ?: @"")   forKey:@"peer"];
     [d setObject:(self.nickField.text ?: @"")   forKey:@"nick"];
+    [d setBool:self.dhcpSwitch.on forKey:@"dhcp"];
     [d synchronize];
 }
 
@@ -440,6 +454,12 @@ int CCRandomGenerateBytes(void *bytes, size_t count) {
         if (![self sockSend:[NSString stringWithFormat:@"HOST %@", nick]]) {
             astral_set_hostname([nick UTF8String]);
         }
+    }
+
+    // 先告诉守护进程是否自动分配虚拟IP（必须早于 START）
+    NSString *dhcpCmd = [NSString stringWithFormat:@"DHCP %d", self.dhcpSwitch.on ? 1 : 0];
+    if (![self sockSend:dhcpCmd]) {
+        astral_set_dhcp(self.dhcpSwitch.on ? 1 : 0);
     }
 
     // 优先让 root 守护进程干活（它能建 utun）

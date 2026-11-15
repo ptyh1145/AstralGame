@@ -188,7 +188,8 @@ pub extern "C" fn astral_start(
 /// 真正建立连接：开 utun → 配地址 → 建 EasyTier 实例 → 注入 fd
 async fn bring_up(room: &str, secret: &str, ipv4: &str, peer: &str) -> Result<uuid::Uuid> {
     let host = hostname_store().lock().unwrap().clone();
-    let toml = cli::build_toml(&host, room, secret, ipv4, &[peer.to_string()]);
+    let dhcp = DHCP_ON.load(Ordering::SeqCst) != 0;
+    let toml = cli::build_toml(&host, room, secret, ipv4, &[peer.to_string()], dhcp);
 
     let (ip, prefix) = match ipv4.split_once('/') {
         Some((ip, p)) => (ip.to_string(), p.parse::<u8>().unwrap_or(24)),
@@ -201,10 +202,16 @@ async fn bring_up(room: &str, secret: &str, ipv4: &str, peer: &str) -> Result<uu
     let real_name = utun::ifname(fd).unwrap_or_else(|_| "utun0".to_string());
     push_log(&format!("utun fd={fd} ifname={real_name}"));
 
-    utun::configure_iface(&real_name, &ip, prefix).context("配置接口地址失败")?;
-    push_log(&format!("接口已配置 {ip}/{prefix}"));
-    if let Err(e) = utun::add_subnet_route(&real_name, &subnet) {
-        push_log(&format!("加路由失败（不致命）: {e}"));
+    if dhcp {
+        // DHCP 模式：地址由 EasyTier 内部的 DHCP 客户端分配并配置，
+        // 我们手动再配一次会覆盖/冲突，所以跳过。
+        push_log("自动分配虚拟IP（DHCP）：地址由 EasyTier 分配，跳过手动配置");
+    } else {
+        utun::configure_iface(&real_name, &ip, prefix).context("配置接口地址失败")?;
+        push_log(&format!("接口已配置 {ip}/{prefix}"));
+        if let Err(e) = utun::add_subnet_route(&real_name, &subnet) {
+            push_log(&format!("加路由失败（不致命）: {e}"));
+        }
     }
 
     push_log("启动 EasyTier 实例 ...");
@@ -275,4 +282,16 @@ pub extern "C" fn astral_clear_log() {
     if let Ok(mut c) = log_c_store().lock() {
         *c = CString::new("").unwrap();
     }
+}
+
+/// 是否自动分配虚拟 IP（DHCP）。
+///
+/// 官方默认开启，与安卓/Windows 版互通时最稳（避免固定 IP 撞车）。
+/// GUI 里是一个开关，调这里设置；下次 astral_start 生效。
+static DHCP_ON: AtomicU8 = AtomicU8::new(0);
+
+#[no_mangle]
+pub extern "C" fn astral_set_dhcp(on: u8) {
+    DHCP_ON.store(if on != 0 { 1 } else { 0 }, Ordering::SeqCst);
+    push_log(&format!("自动分配虚拟IP: {}", on != 0));
 }

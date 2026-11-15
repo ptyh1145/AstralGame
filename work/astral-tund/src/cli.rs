@@ -26,13 +26,15 @@ pub fn cidr_network(ip: &str, prefix: u8) -> String {
 
 /// 生成 EasyTier 的 TOML 配置（与 Astral Game 里 buildTomlConfig 对齐）。
 ///
-/// 与 CLI 版一致：**固定 ipv4、关掉 DHCP**，这样启动后能立刻配接口。
+/// `dhcp = true` 时由 EasyTier 自动分配虚拟 IP（官方默认行为，
+/// 也最容易和安卓/Windows 版互通）；false 时写死 `ipv4`。
 pub fn build_toml(
     hostname: &str,
     room: &str,
     secret: &str,
     ipv4: &str,
     peers: &[String],
+    dhcp: bool,
 ) -> String {
     let peer_block: String = peers
         .iter()
@@ -41,12 +43,17 @@ pub fn build_toml(
         .collect::<Vec<_>>()
         .join("\n");
 
+    // DHCP 模式不写 ipv4（写了会被忽略/冲突），由 EasyTier 分配
+    let addr_block = if dhcp {
+        "dhcp = true\ndhcpv6 = false".to_string()
+    } else {
+        format!("dhcp = false\ndhcpv6 = false\nipv4 = \"{}\"", esc(ipv4))
+    };
+
     format!(
         r#"instance_name = "AstralGame"
 hostname = "{host}"
-dhcp = false
-dhcpv6 = false
-ipv4 = "{ipv4}"
+{addr_block}
 listeners = [
     "tcp://0.0.0.0:0",
     "udp://0.0.0.0:0",
@@ -70,7 +77,7 @@ disable_relay_quic = true
 enable_relay_foreign_network_quic = false
 "#,
         host = esc(hostname),
-        ipv4 = esc(ipv4),
+        addr_block = addr_block,
         name = esc(room),
         secret = esc(secret),
         peers = peer_block,
@@ -78,6 +85,7 @@ enable_relay_foreign_network_quic = false
 }
 
 /// UI 用的简化版：单个 peer
+#[allow(dead_code)]
 pub fn build_toml_simple(room: &str, secret: &str, ipv4: &str, peer: &str) -> String {
     build_toml(
         "AstralGame",
@@ -85,5 +93,6 @@ pub fn build_toml_simple(room: &str, secret: &str, ipv4: &str, peer: &str) -> St
         secret,
         ipv4,
         &[peer.to_string()],
+        false,
     )
 }

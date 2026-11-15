@@ -313,6 +313,12 @@ fn handle_daemon_cmd(line: &str) -> String {
             astral_tund::astral_set_hostname(name.as_ptr());
             "rc=0\n".to_string()
         }
+        "DHCP" if parts.len() >= 2 => {
+            // DHCP 1 / DHCP 0 —— 是否自动分配虚拟 IP
+            let on: u8 = if parts[1].trim() == "1" { 1 } else { 0 };
+            astral_tund::astral_set_dhcp(on);
+            "rc=0\n".to_string()
+        }
         "STOP" => {
             let rc = astral_tund::astral_stop();
             format!("rc={rc}\n")

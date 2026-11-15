@@ -61,7 +61,14 @@ LAUNCHD = """<?xml version="1.0" encoding="UTF-8"?>
         <string>--daemon</string>
     </array>
     <key>RunAtLoad</key><true/>
-    <key>KeepAlive</key><true/>
+    <!-- 不要 KeepAlive=true：万一守护进程因 bind 失败等原因退出，
+         launchd 会立刻重拉，形成无限重启循环（发热/耗电/日志暴涨）。
+         这里只在「异常退出」时重启，并强制 10 秒节流。 -->
+    <key>KeepAlive</key>
+    <dict>
+        <key>SuccessfulExit</key><false/>
+    </dict>
+    <key>ThrottleInterval</key><integer>10</integer>
     <key>UserName</key><string>root</string>
     <key>StandardOutPath</key><string>/var/log/astral-tund.log</string>
     <key>StandardErrorPath</key><string>/var/log/astral-tund.log</string>
