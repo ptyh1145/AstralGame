@@ -146,6 +146,16 @@ int CCRandomGenerateBytes(void *bytes, size_t count) {
     [self.view addSubview:copyBtn];
 
     // iOS 8 兼容：用 NSTimer 轮询，而不是 CADisplayLink / async
+    // 读回上次的配置，避免每次都要重输
+    {
+        NSUserDefaults *d = [NSUserDefaults standardUserDefaults];
+        NSString *v;
+        if ((v = [d stringForKey:@"room"]))   self.roomField.text = v;
+        if ((v = [d stringForKey:@"secret"])) self.secretField.text = v;
+        if ((v = [d stringForKey:@"peer"]))   self.peerField.text = v;
+        if ((v = [d stringForKey:@"nick"]))   self.nickField.text = v;
+    }
+
     self.pollTimer = [NSTimer scheduledTimerWithTimeInterval:0.5
                                                       target:self
                                                     selector:@selector(poll)
@@ -407,9 +417,20 @@ int CCRandomGenerateBytes(void *bytes, size_t count) {
     [a show];
 }
 
+// 把界面上的配置存到本地（NSUserDefaults），下次启动自动恢复
+- (void)saveSettings {
+    NSUserDefaults *d = [NSUserDefaults standardUserDefaults];
+    [d setObject:(self.roomField.text ?: @"")   forKey:@"room"];
+    [d setObject:(self.secretField.text ?: @"") forKey:@"secret"];
+    [d setObject:(self.peerField.text ?: @"")   forKey:@"peer"];
+    [d setObject:(self.nickField.text ?: @"")   forKey:@"nick"];
+    [d synchronize];
+}
+
 - (void)startWithRoom:(NSString *)room secret:(NSString *)secret peer:(NSString *)peer {
+    [self saveSettings];
     astral_clear_log();
-    NSString *ipv4 = @"10.144.144.5/24";
+    NSString *ipv4 = @"100.100.100.250/24";
 
     // 昵称 → EasyTier hostname（房间成员列表里显示）
     NSString *nick = self.nickField.text ?: @"";
