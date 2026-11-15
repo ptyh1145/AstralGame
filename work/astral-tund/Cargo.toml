@@ -1,0 +1,27 @@
+[package]
+name = "astral-tund"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[[bin]]
+name = "astral-tund"
+path = "src/main.rs"
+
+[dependencies]
+anyhow = "1"
+libc = "0.2"
+tokio = { version = "1", features = [
+    "rt-multi-thread",
+    "macros",
+    "time",
+    "net",
+    "io-util",
+    "sync",
+    "signal",
+] }
+
+# 直接复用 AstralGame 的 Rust 层：它已经封装好 EasyTier 的实例管理、
+# secure_mode 归一化、以及 set_tun_fd（安卓 VpnService 走的就是这条）。
+# build.rs 在非 Windows 上直接 return，不会引入 Npcap/FRB 的构建期依赖。
+rust_lib_astral_game = { path = "../../rust" }
