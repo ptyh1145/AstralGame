@@ -123,10 +123,10 @@ export RUSTFLAGS="${RUSTFLAGS:-} \
   -C link-arg=-isysroot -C link-arg=$SDKROOT \
   -C link-arg=-L$SDKROOT/usr/lib"
 
-cargo +nightly -Z build-std=std,panic_abort \
-  build --release \
-  --target "$SPEC" \
-  -Z build-std-features=panic_immediate_abort 2>&1 | tail -40
+# nightly 现在要求显式开启 json target spec 支持；build-std 用来给 Tier-3 目标编 std。
+# 不接 tail，保留完整日志（workflow 会 tee 到 ci-out/build.log）。
+cargo +nightly -Zjson-target-spec -Z build-std=std,panic_abort \
+  build --release --target "$SPEC"
 
 BIN="$CRATE/target/armv7-ios6/release/astral-tund"
 [ -f "$BIN" ] || die "产物不存在: $BIN"
