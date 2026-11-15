@@ -13,6 +13,7 @@
 //!   astral-tund --config /var/root/astral.toml     # 直接吃 App 导出的 TOML
 //!   astral-tund --name ... --dry-run               # 只打印 TOML 与命令，不建设备
 
+mod bridge;
 mod utun;
 
 use anyhow::{bail, Context, Result};
@@ -182,24 +183,22 @@ async fn main() -> Result<()> {
         println!("[main] 加路由失败（不致命，可按需手动加）: {e}");
     }
 
-    // ③ 启动 EasyTier 实例
+    // ③ 启动 EasyTier 实例（直接调 EasyTier，不经过 flutter_rust_bridge）
     println!("[main] starting EasyTier instance ...");
-    let instance_id = rust_lib_astral_game::api::p2p::create_instance(toml, false)
-        .await
-        .map_err(|e| anyhow::anyhow!("create_instance 失败: {e}"))?;
+    let instance_id = bridge::create_instance(&toml)?;
     println!("[main] instance_id = {instance_id}");
 
     // ④ 把 utun fd 注入（与安卓 VpnService 完全同一条路径）
-    rust_lib_astral_game::api::p2p::set_tun_fd(instance_id.clone(), fd)
-        .await
-        .map_err(|e| anyhow::anyhow!("set_tun_fd 失败: {e}"))?;
+    bridge::attach_tun_fd(instance_id, fd)?;
     println!("[main] tun fd attached -> 组网已启动（Ctrl-C 退出）");
 
     // ⑤ 常驻；收到 Ctrl-C 时优雅关闭
     tokio::select! {
         _ = tokio::signal::ctrl_c() => {
             println!("[main] 退出中 ...");
-            let _ = rust_lib_astral_game::api::p2p::close_instance(instance_id).await;
+            if let Err(e) = bridge::close_instance(instance_id).await {
+                println!("[main] 关闭实例失败: {e}");
+            }
         }
         _ = tokio::time::sleep(Duration::from_secs(u64::MAX / 2)) => {}
     }

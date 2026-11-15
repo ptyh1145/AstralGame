@@ -11,6 +11,8 @@ path = "src/main.rs"
 [dependencies]
 anyhow = "1"
 libc = "0.2"
+lazy_static = "1"
+uuid = "1"
 tokio = { version = "1", features = [
     "rt-multi-thread",
     "macros",
@@ -21,7 +23,19 @@ tokio = { version = "1", features = [
     "signal",
 ] }
 
-# 直接复用 AstralGame 的 Rust 层：它已经封装好 EasyTier 的实例管理、
-# secure_mode 归一化、以及 set_tun_fd（安卓 VpnService 走的就是这条）。
-# build.rs 在非 Windows 上直接 return，不会引入 Npcap/FRB 的构建期依赖。
-rust_lib_astral_game = { path = "../../rust" }
+# 直接依赖 EasyTier（与 AstralGame 用的是同一个 fork/分支），
+# 刻意**不**依赖 rust_lib_astral_game：那个 crate 会拉进 flutter_rust_bridge，
+# 而 FRB 在 Apple 上依赖 oslog（需要 os/log.h，iOS 10+），iOS 6 编不过。
+easytier = { git = "https://github.com/ldoubil/EasyTier.git", branch = "main-astral", features = [
+    "wireguard",
+    "websocket",
+    "quic",
+    "tun",
+    "smoltcp",
+    "socks5",
+    "kcp",
+    "faketcp",
+    "magic-dns",
+    "zstd",
+] }
+easytier-core = { git = "https://github.com/ldoubil/EasyTier.git", branch = "main-astral" }
