@@ -65,7 +65,7 @@ fn parse_args() -> Result<Args> {
     let mut i = 0;
     while i < argv.len() {
         let k = argv[i].as_str();
-        let mut next = |i: &mut usize| -> Result<String> {
+        let next = |i: &mut usize| -> Result<String> {
             *i += 1;
             argv.get(*i)
                 .cloned()

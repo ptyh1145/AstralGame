@@ -69,10 +69,11 @@ pub fn attach_tun_fd(id: Uuid, fd: i32) -> Result<()> {
         .context("EasyTier 未能接管 tun fd")
 }
 
-/// 关闭实例。
+/// 关闭实例。注意 `delete_network_instances` 返回被删除的 id 列表。
 pub async fn close_instance(id: Uuid) -> Result<()> {
     MANAGER
         .delete_network_instances(vec![id])
         .await
+        .map(|_ids| ())
         .map_err(|e| anyhow::anyhow!("关闭实例失败: {e}"))
 }
