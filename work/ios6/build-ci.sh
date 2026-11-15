@@ -390,9 +390,13 @@ else
     || die "ObjC 编译失败"
 
   echo "    [2/4] 链接 App（含 Rust 静态库）"
+  # 注意：**不能**用 -Wl,-force_load —— 那会把 staticlib 里所有 .o 全拉进来，
+  # 包括本 App 用不到的 security-framework / std 分支，而它们引用了
+  # iOS 10+ 才有的符号（kSecUseAuthenticationContext、renamex_np 等），
+  # 导致链接失败。直接作为输入让 ld 按需拉取即可。
   clang "${UI_CFLAGS[@]}" \
     "$OUT/main.o" \
-    -Wl,-force_load,"$LIB" \
+    "$LIB" \
     -framework UIKit -framework Foundation -framework CoreGraphics \
     -framework CoreFoundation -framework SystemConfiguration -framework Security \
     -lc -lm -liconv -lresolv \
