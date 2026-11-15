@@ -62,6 +62,7 @@ rustc -Z unstable-options --print target-spec-json --target armv7s-apple-ios > "
 
 SDK_PATH="$SDK_PATH" python3 - "$TMP_SPEC" "$SPEC" "$MIN_IOS" <<'PY'
 import json, os, sys
+
 src, dst, min_ios = sys.argv[1], sys.argv[2], sys.argv[3]
 sdk = os.environ["SDK_PATH"]
 spec = json.load(open(src))
@@ -69,38 +70,57 @@ spec = json.load(open(src))
 # armv7s = ARMv7 + A6 的 Swift 扩展；A5 及更早不认 → 退回通用 armv7
 spec["cpu"] = "generic"
 spec["features"] = "+v7,+thumb2,+vfp3,+vfp3d16,+neon"
-lt = spec.get("llvm-target", "armv7s-apple-ios")
-spec["llvm-target"] = lt.replace("armv7s", "armv7")
-for k in ("llvm-abiname",):
-    if k in spec and isinstance(spec[k], str):
+for k in ("llvm-target", "llvm-abiname"):
+    if isinstance(spec.get(k), str):
         spec[k] = spec[k].replace("armv7s", "armv7")
 
+# 新版 rustc 的 linker flavour 白名单（旧的 "cc" 已废）
+VALID = {
+    "gnu", "gnu-lld", "gnu-cc", "gnu-lld-cc",
+    "darwin", "darwin-lld", "darwin-cc", "darwin-lld-cc",
+    "wasm-lld", "wasm-lld-cc", "unix", "unix-cc",
+    "msvc", "msvc-lld", "em-cc", "bpf", "llbc", "gcc",
+    "ld", "ld.lld", "ld64.lld", "lld-link", "wasm-ld", "em",
+}
+
 def patch_args(args):
-    """把 -arch armv7s 改成 armv7，并确保带上 -isysroot。"""
+    """-arch armv7s → armv7；缺 -isysroot 就补上（只影响目标侧链接）。"""
     out, i = [], 0
     while i < len(args):
         a = args[i]
         if a == "-arch" and i + 1 < len(args):
-            out += ["-arch", "armv7"]; i += 2; continue
+            out += ["-arch", "armv7"]
+            i += 2
+            continue
         if a == "armv7s":
-            out.append("armv7"); i += 1; continue
-        out.append(a); i += 1
+            out.append("armv7")
+            i += 1
+            continue
+        out.append(a)
+        i += 1
     if "-isysroot" not in out:
         out += ["-isysroot", sdk]
     return out
 
-for key in ("pre-link-args", "post-link-args"):
-    block = spec.get(key)
-    if isinstance(block, dict):
-        for flavour in list(block):
-            block[flavour] = patch_args(list(block[flavour]))
-        spec[key] = block
-if not spec.get("pre-link-args"):
-    spec["pre-link-args"] = {"cc": patch_args(["-arch", "armv7"])}
+pla = spec.get("pre-link-args")
+if isinstance(pla, dict) and pla and all(k in VALID for k in pla):
+    spec["pre-link-args"] = {k: patch_args(list(v)) for k, v in pla.items()}
+else:
+    # 原 spec 没有可用的 pre-link-args → 用 darwin-cc（不是 "cc"）
+    spec["pre-link-args"] = {
+        "darwin-cc": patch_args(["-arch", "armv7",
+                                 "-miphoneos-version-min=" + min_ios])
+    }
+
+post = spec.get("post-link-args")
+if isinstance(post, dict) and post and all(k in VALID for k in post):
+    spec["post-link-args"] = {k: patch_args(list(v)) for k, v in post.items()}
+elif isinstance(post, dict) and not post:
+    spec.pop("post-link-args", None)
 
 json.dump(spec, open(dst, "w"), indent=2, sort_keys=True)
-print("    wrote", dst)
-print("    arch=%s cpu=%s sdk=%s" % (spec.get("arch"), spec.get("cpu"), sdk))
+print("    arch=%s cpu=%s" % (spec.get("arch"), spec.get("cpu")))
+print("    pre-link-args: %s" % json.dumps(spec["pre-link-args"])[:300])
 PY
 [ -f "$SPEC" ] || die "target JSON 生成失败"
 
