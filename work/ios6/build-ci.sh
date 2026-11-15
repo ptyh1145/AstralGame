@@ -135,6 +135,16 @@ spec = json.load(open(src))
 spec["cpu"] = "generic"
 spec["features"] = "+v7,+thumb2,+vfp3,+vfp3d16,+neon"
 
+# --- 关掉线程局部存储（TLS）---
+# ld64 报：
+#   ld: targeted OS version does not support use of thread local variables
+#       ... tokio::runtime::context::CONTEXT ... for architecture armv7s
+# 原因：Apple 的 TLS 在 **32 位 ARM 上从 iOS 9 才支持**，而我们的目标是 8.0。
+# 设 has-thread-local=false 后，std 的 thread_local! 以及 tokio 等都用
+# pthread_key 实现（语义相同、稍慢），不再产生 TLS 段，也就不需要
+# __tlv_bootstrap。这样能在不换 iOS 9 SDK 的前提下留在 iOS 8.0。
+spec["has-thread-local"] = False
+
 # --- os：iOS（真实语义）---
 # 之前用 os="macos" 是因为 libc 把 utun 的 6 个符号全挡在 macos-only。
 # 现在用 vendored libc（work/vendor/libc-0.2.191）+ [patch.crates-io]，
