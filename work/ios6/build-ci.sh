@@ -178,25 +178,30 @@ export CXXFLAGS_armv7_ios6="$CFLAGS_armv7_ios6"
 say "预取依赖"
 cargo +nightly fetch || warn "cargo fetch 有警告，继续"
 
-say "修补 easytier-core（去掉 cdylib）"
+# 只要某个依赖声明了 crate-type 含 cdylib / staticlib，cargo 就会给那次编译
+# 加上 --crate-type cdylib/staticlib，rustc 在自定义 target 上会在
+# add_order_independent_options 里 ICE（easytier-core、boringtun 都踩过）。
+# 我们只需要把 rlib 链进最终二进制，所以统一收敛成 ["rlib"]。
+# cargo 不校验 registry/git 源码目录的内容，改完直接编即可。
+say "修补依赖的 crate-type（cdylib/staticlib → rlib）"
 PATCHED=0
-for f in "$HOME"/.cargo/git/checkouts/easytier-*/*/easytier-core/Cargo.toml; do
-  [ -f "$f" ] || continue
-  if grep -q 'cdylib' "$f"; then
-    /usr/bin/sed -i '' 's/"rlib", "cdylib"/"rlib"/' "$f"
-    if grep -q 'cdylib' "$f"; then
-      /usr/bin/sed -i '' 's/"rlib","cdylib"/"rlib"/' "$f"
+patch_dir() {
+  local root="$1"
+  [ -d "$root" ] || return 0
+  find "$root" -maxdepth 4 -name Cargo.toml -type f 2>/dev/null | while IFS= read -r f; do
+    if grep -qE 'crate-type *=[^#]*\[[^]]*(cdylib|staticlib)' "$f" 2>/dev/null; then
+      /usr/bin/sed -i '' -E 's/crate-type *=[^#]*\[[^]]*(cdylib|staticlib)[^]]*\]/crate-type = ["rlib"]/' "$f"
+      if grep -qE 'crate-type *=[^#]*\[[^]]*(cdylib|staticlib)' "$f" 2>/dev/null; then
+        echo "    ! 未能改写: $f"
+      else
+        echo "    patched: ${f#"$HOME"/}"
+      fi
     fi
-    echo "    patched: $f"
-    grep -n 'crate-type' "$f" | sed 's/^/      /'
-    PATCHED=1
-  fi
-done
-if [ "$PATCHED" = "0" ]; then
-  warn "没找到含 cdylib 的 easytier-core/Cargo.toml（路径可能变了）"
-else
-  echo "    ok: easytier-core 现在只编 rlib"
-fi
+  done
+}
+patch_dir "$HOME/.cargo/registry/src"
+patch_dir "$HOME/.cargo/git/checkouts"
+echo "    完成"
 
 say "编译"
 cargo +nightly -Zjson-target-spec -Z build-std=std,panic_abort \

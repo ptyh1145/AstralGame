@@ -47,7 +47,6 @@ jobs:
         uses: Swatinem/rust-cache@v2
         with:
           workspaces: work/astral-tund
-          key: ios6-armv7-${{ hashFiles('work/ios6/build-ci.sh') }}
           cache-targets: "true"
 
       - name: Install ldid
