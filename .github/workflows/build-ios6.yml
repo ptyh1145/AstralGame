@@ -45,6 +45,26 @@ jobs:
       - name: Install ldid
         run: brew install ldid || true
 
+      # prost-build / prost-wkt-types 的 build script 需要 protoc。
+      # 仓库 README 指定 23.3，这里固定该版本；失败再退回 brew。
+      - name: Install protoc 23.3
+        run: |
+          set -euo pipefail
+          PROTOC_VER=23.3
+          URL="https://github.com/protocolbuffers/protobuf/releases/download/v${PROTOC_VER}/protoc-${PROTOC_VER}-osx-x86_64.zip"
+          if curl -fL --retry 3 -o /tmp/protoc.zip "$URL"; then
+            mkdir -p "$HOME/protoc"
+            unzip -q -o /tmp/protoc.zip -d "$HOME/protoc"
+            echo "$HOME/protoc/bin" >> "$GITHUB_PATH"
+            export PATH="$HOME/protoc/bin:$PATH"
+            echo "PROTOC=$HOME/protoc/bin/protoc" >> "$GITHUB_ENV"
+            protoc --version
+          else
+            echo "固定版本下载失败，退回 brew"
+            brew install protobuf
+            protoc --version
+          fi
+
       - name: Provide iOS 6.1 SDK
         env:
           IOS6_SDK_URL: ${{ secrets.IOS6_SDK_URL }}
