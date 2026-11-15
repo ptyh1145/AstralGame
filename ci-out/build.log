@@ -21,485 +21,485 @@
      Locking 615 packages to highest compatible versions
       Adding generic-array v0.14.7 (available: v0.14.9)
  Downloading crates ...
-  Downloaded asn1-rs v0.7.2
-  Downloaded atomic-waker v1.1.2
-  Downloaded chacha20poly1305 v0.10.1
-  Downloaded cpufeatures v0.2.17
-  Downloaded auto_impl v1.4.0
-  Downloaded itertools v0.14.0
-  Downloaded pbjson v0.9.0
-  Downloaded pnet_datalink v0.35.0
-  Downloaded prost-reflect v0.16.5
-  Downloaded quanta v0.12.6
-  Downloaded oid-registry v0.8.1
-  Downloaded aead v0.5.2
-  Downloaded anstyle-parse v1.0.0
-  Downloaded autocfg v1.5.1
-  Downloaded bytecount v0.6.9
-  Downloaded cexpr v0.6.0
-  Downloaded async-lock v3.5.0
-  Downloaded bytes v1.12.1
-  Downloaded cfg_aliases v0.2.2
-  Downloaded clap_complete_nushell v4.6.2
-  Downloaded crc-catalog v2.5.0
-  Downloaded crossbeam v0.8.5
-  Downloaded crossbeam-epoch v0.9.21
-  Downloaded curve25519-dalek-derive v0.1.1
-  Downloaded darling_core v0.24.1
-  Downloaded darling_macro v0.20.11
-  Downloaded defmt-macros v1.2.0
-  Downloaded aes v0.8.4
-  Downloaded annotate-snippets v0.12.18
-  Downloaded asn1-rs-impl v0.2.0
-  Downloaded atomic_refcell v0.1.14
-  Downloaded bon v3.10.3
-  Downloaded clang-sys v1.9.1
-  Downloaded core_detect v1.0.0
-  Downloaded try-lock v0.2.5
-  Downloaded allocator-api2 v0.2.21
-  Downloaded chrono v0.4.45
-  Downloaded base64 v0.13.1
-  Downloaded base64 v0.22.1
-  Downloaded critical-section v1.2.0
-  Downloaded enum-ordinalize v4.4.2
-  Downloaded array-const-fn-init v0.1.1
-  Downloaded async-trait v0.1.92
-  Downloaded anstyle-query v1.1.5
-  Downloaded cpufeatures v0.3.1
-  Downloaded defmt-parser v1.1.0
-  Downloaded arraydeque v0.5.1
-  Downloaded cmake v0.1.58
-  Downloaded core-foundation v0.9.4
-  Downloaded derive_builder_macro v0.20.2
-  Downloaded atomic-shim v0.2.0
-  Downloaded cidr v0.3.2
+  Downloaded aes-gcm v0.10.3
   Downloaded ahash v0.7.8
-  Downloaded crossbeam-queue v0.3.14
-  Downloaded encoding-utils v0.1.0
-  Downloaded anstream v1.0.0
-  Downloaded block-buffer v0.10.4
-  Downloaded bstr v1.13.1
-  Downloaded byteorder v1.5.0
-  Downloaded colorchoice v1.0.5
-  Downloaded core-foundation v0.10.1
-  Downloaded crypto-common v0.1.7
-  Downloaded darling_macro v0.24.1
-  Downloaded delegate v0.13.5
-  Downloaded ipnet v2.12.2
-  Downloaded memoffset v0.9.1
   Downloaded anstyle v1.0.14
-  Downloaded crc v3.4.0
-  Downloaded managed v0.8.0
-  Downloaded enum-ordinalize-derive v4.4.2
-  Downloaded asn1-rs-derive v0.6.0
-  Downloaded atomic-write-file v0.3.1
-  Downloaded base62 v2.2.6
-  Downloaded convert_case v0.10.0
-  Downloaded itoa v1.0.19
-  Downloaded libm v0.2.16
-  Downloaded multiversion_no_op v1.0.0
-  Downloaded toml_datetime v0.6.11
-  Downloaded fastbloom v0.17.0
-  Downloaded clap_lex v1.1.1
-  Downloaded der-parser v10.0.0
-  Downloaded ip_network v0.4.1
-  Downloaded proc-macro2 v1.0.107
-  Downloaded fastrand v2.5.0
-  Downloaded chacha20 v0.9.1
-  Downloaded cipher v0.4.4
-  Downloaded crossbeam-deque v0.8.8
-  Downloaded zeroize v1.9.1
-  Downloaded derive_builder_core v0.20.2
-  Downloaded async-ringbuf v0.3.10
-  Downloaded bitflags v2.13.2
-  Downloaded ctr v0.9.2
-  Downloaded zerofrom v0.1.8
-  Downloaded errno v0.3.15
-  Downloaded async-recursion v1.2.0
-  Downloaded bit-vec v0.9.1
-  Downloaded bitflags v1.3.2
-  Downloaded cfg-if v1.0.5
-  Downloaded chacha20 v0.10.2
-  Downloaded clap_derive v4.6.7
-  Downloaded core-foundation-sys v0.8.7
-  Downloaded darling v0.20.11
-  Downloaded dashmap v6.2.1
-  Downloaded data-encoding v2.11.1
-  Downloaded ip_network_table v0.2.0
-  Downloaded nom v7.1.3
-  Downloaded toml_datetime v1.1.3+spec-1.1.0
-  Downloaded zerofrom-derive v0.1.8
-  Downloaded enum-as-inner v0.6.1
-  Downloaded event-listener-strategy v0.5.4
-  Downloaded guarden v0.3.0
-  Downloaded guarden-macros v0.3.0
-  Downloaded hash32 v0.3.1
-  Downloaded rust-i18n-macro v4.2.4
-  Downloaded rust-i18n-support v4.2.4
-  Downloaded icu_locale_core v2.4.0
+  Downloaded clap v4.6.7
+  Downloaded aes v0.8.4
+  Downloaded anstyle-parse v1.0.0
+  Downloaded base64 v0.13.1
+  Downloaded aead v0.5.2
+  Downloaded allocator-api2 v0.2.21
+  Downloaded annotate-snippets v0.12.18
+  Downloaded anstyle-query v1.1.5
   Downloaded anyhow v1.0.104
   Downloaded ariadne v0.6.0
+  Downloaded array-const-fn-init v0.1.1
+  Downloaded arraydeque v0.5.1
+  Downloaded asn1-rs-impl v0.2.0
+  Downloaded async-lock v3.5.0
+  Downloaded async-recursion v1.2.0
+  Downloaded atomic-shim v0.2.0
+  Downloaded atomic_refcell v0.1.14
+  Downloaded autocfg v1.5.1
+  Downloaded base64 v0.22.1
   Downloaded base64 v0.23.1
-  Downloaded blake2 v0.10.6
-  Downloaded boringtun-easytier v0.6.1
-  Downloaded bytecodec v0.5.0
-  Downloaded clap_builder v4.6.7
-  Downloaded clap_complete v4.6.11
-  Downloaded crossbeam-utils v0.8.23
-  Downloaded darling v0.24.1
-  Downloaded defmt v1.2.0
-  Downloaded prost-types v0.14.6
-  Downloaded toml_edit v0.22.27
-  Downloaded toml_edit v0.25.19+spec-1.1.0
-  Downloaded event-listener v5.4.2
-  Downloaded quinn-udp v0.5.16
-  Downloaded sha1_smol v1.0.1
-  Downloaded stable_deref_trait v1.2.1
-  Downloaded strsim v0.11.1
-  Downloaded strum v0.28.0
-  Downloaded tempfile v3.27.0
-  Downloaded typeid v1.0.3
-  Downloaded aes-gcm v0.10.3
-  Downloaded aho-corasick v1.1.5
+  Downloaded bit-vec v0.9.1
+  Downloaded bitflags v1.3.2
+  Downloaded block-buffer v0.10.4
+  Downloaded byteorder v1.5.0
+  Downloaded cexpr v0.6.0
+  Downloaded cfg_aliases v0.2.2
+  Downloaded chacha20 v0.9.1
+  Downloaded cmake v0.1.58
+  Downloaded anstream v1.0.0
+  Downloaded asn1-rs-derive v0.6.0
+  Downloaded async-ringbuf v0.3.10
+  Downloaded async-trait v0.1.92
+  Downloaded atomic-waker v1.1.2
+  Downloaded auto_impl v1.4.0
+  Downloaded base62 v2.2.6
+  Downloaded cfg-if v1.0.5
+  Downloaded clap_lex v1.1.1
+  Downloaded colorchoice v1.0.5
+  Downloaded core_detect v1.0.0
+  Downloaded cpufeatures v0.3.1
+  Downloaded crc v3.4.0
+  Downloaded crossbeam v0.8.5
+  Downloaded crypto-common v0.1.7
+  Downloaded curve25519-dalek-derive v0.1.1
+  Downloaded darling_macro v0.20.11
+  Downloaded darling_macro v0.24.1
+  Downloaded defmt-parser v1.1.0
+  Downloaded instant v0.1.13
+  Downloaded is_terminal_polyfill v1.70.2
   Downloaded arc-swap v1.9.5
-  Downloaded aws-lc-rs v1.19.0
-  Downloaded bon-macros v3.10.3
-  Downloaded cc v1.11.2
-  Downloaded clap v4.6.7
+  Downloaded atomic-write-file v0.3.1
+  Downloaded bitflags v2.13.2
+  Downloaded blake2 v0.10.6
+  Downloaded bon v3.10.3
+  Downloaded bytecodec v0.5.0
+  Downloaded bytecount v0.6.9
+  Downloaded chacha20 v0.10.2
+  Downloaded cidr v0.3.2
+  Downloaded cipher v0.4.4
+  Downloaded clang-sys v1.9.1
+  Downloaded clap_complete v4.6.11
+  Downloaded clap_complete_nushell v4.6.2
+  Downloaded clap_derive v4.6.7
+  Downloaded convert_case v0.10.0
+  Downloaded core-foundation v0.9.4
+  Downloaded core-foundation v0.10.1
+  Downloaded core-foundation-sys v0.8.7
+  Downloaded cpufeatures v0.2.17
+  Downloaded crc-catalog v2.5.0
+  Downloaded critical-section v1.2.0
+  Downloaded crossbeam-deque v0.8.8
+  Downloaded crossbeam-epoch v0.9.21
+  Downloaded crossbeam-queue v0.3.14
+  Downloaded crossbeam-utils v0.8.23
+  Downloaded ctr v0.9.2
+  Downloaded darling v0.20.11
+  Downloaded darling v0.24.1
+  Downloaded dashmap v6.2.1
+  Downloaded data-encoding v2.11.1
+  Downloaded defmt v1.2.0
+  Downloaded defmt-macros v1.2.0
+  Downloaded delegate v0.13.5
+  Downloaded ipnetwork v0.20.0
+  Downloaded boringtun-easytier v0.6.1
+  Downloaded bytes v1.12.1
+  Downloaded chacha20poly1305 v0.10.1
   Downloaded crossbeam-channel v0.5.17
   Downloaded darling_core v0.20.11
-  Downloaded ipnetwork v0.20.0
-  Downloaded litemap v0.8.3
-  Downloaded memchr v2.8.3
-  Downloaded mio v1.2.5
-  Downloaded nonempty v0.7.0
-  Downloaded num-bigint v0.4.8
-  Downloaded num-conv v0.2.2
-  Downloaded num-traits v0.2.19
-  Downloaded optionize v0.5.3
-  Downloaded optionize-macros v0.5.3
-  Downloaded papergrid v0.18.0
-  Downloaded parking v2.2.1
-  Downloaded parking_lot v0.11.2
-  Downloaded parking_lot v0.12.5
-  Downloaded parking_lot_core v0.9.12
-  Downloaded pnet_sys v0.35.0
-  Downloaded portable-atomic-util v0.2.8
-  Downloaded ppv-lite86 v0.2.21
-  Downloaded prefix-trie v0.7.0
-  Downloaded proc-macro-crate v3.5.0
-  Downloaded prost-derive v0.14.6
-  Downloaded prost-wkt v0.7.2
-  Downloaded prost-wkt-types v0.7.2
-  Downloaded unicode-xid v0.2.6
-  Downloaded universal-hash v0.5.1
-  Downloaded want v0.3.2
-  Downloaded webpki-roots v1.0.12
-  Downloaded which v4.4.2
-  Downloaded erased-serde v0.4.11
-  Downloaded h2 v0.4.20
-  Downloaded hashbrown v0.12.3
-  Downloaded hashbrown v0.14.5
-  Downloaded hashbrown v0.17.1
-  Downloaded regex v1.13.1
-  Downloaded sha2 v0.10.9
-  Downloaded spin v0.9.9
-  Downloaded tokio-rustls v0.26.6
-  Downloaded triomphe v0.1.17
-  Downloaded typetag v0.2.23
-  Downloaded unicode-ident v1.0.27
-  Downloaded futures-channel v0.3.34
-  Downloaded futures-sink v0.3.34
-  Downloaded bindgen v0.72.1
-  Downloaded curve25519-dalek v4.1.3
-  Downloaded jobserver v0.1.35
-  Downloaded lazy_static v1.5.1
-  Downloaded libloading v0.8.9
+  Downloaded ipnet v2.12.2
+  Downloaded log v0.4.35
   Downloaded lru v0.7.8
-  Downloaded machine-uid v0.6.0
   Downloaded multimap v0.10.1
-  Downloaded network-interface v2.0.5
+  Downloaded multiversion_no_op v1.0.0
   Downloaded nibble_vec v0.1.0
+  Downloaded nohash-hasher v0.2.0
+  Downloaded nonempty v0.7.0
+  Downloaded nu-ansi-term v0.50.3
+  Downloaded num-conv v0.2.2
+  Downloaded num-integer v0.1.47
+  Downloaded oid-registry v0.8.1
+  Downloaded opaque-debug v0.3.1
+  Downloaded option-ext v0.2.0
+  Downloaded scopeguard v1.2.0
+  Downloaded serde_spanned v0.6.9
+  Downloaded sha1 v0.10.7
+  Downloaded aho-corasick v1.1.5
+  Downloaded asn1-rs v0.7.2
+  Downloaded bon-macros v3.10.3
+  Downloaded darling_core v0.24.1
+  Downloaded lru-slab v0.1.3
+  Downloaded natpmp v0.5.0
+  Downloaded netdev v0.31.0
+  Downloaded network-interface v2.0.5
   Downloaded no-std-net v0.6.0
+  Downloaded num-traits v0.2.19
   Downloaded once_cell v1.21.4
-  Downloaded paste v1.0.15
-  Downloaded percent-encoding v2.3.2
-  Downloaded petgraph v0.8.3
-  Downloaded portable-atomic v1.15.0
-  Downloaded prost v0.14.6
-  Downloaded prost-wkt-build v0.7.2
-  Downloaded equivalent v1.0.3
-  Downloaded quinn-proto v0.11.19
-  Downloaded time v0.3.55
-  Downloaded tokio-util v0.7.20
-  Downloaded tracing v0.1.44
-  Downloaded derive_more v2.1.1
-  Downloaded futures-core v0.3.34
-  Downloaded futures-executor v0.3.34
-  Downloaded futures-io v0.3.34
-  Downloaded icu_collections v2.4.0
-  Downloaded resolv-conf v0.7.6
+  Downloaded optionize v0.5.3
+  Downloaded same-file v1.0.6
+  Downloaded seahash v4.1.0
+  Downloaded security-framework-sys v2.17.0
   Downloaded serde_spanned v1.1.3
-  Downloaded ident_case v1.0.1
+  Downloaded sha1_smol v1.0.1
+  Downloaded sha2 v0.10.9
+  Downloaded shellexpand v3.1.2
+  Downloaded wildmatch v2.7.0
+  Downloaded xmltree v0.12.0
+  Downloaded normpath v1.5.2
+  Downloaded rustversion v1.0.23
+  Downloaded semver v1.0.28
+  Downloaded yoke-derive v0.8.4
+  Downloaded zerofrom v0.1.8
+  Downloaded zerofrom-derive v0.1.8
+  Downloaded zeroize_derive v1.5.0
+  Downloaded zerovec-derive v0.11.7
+  Downloaded derive_builder_core v0.20.2
+  Downloaded derive_builder_macro v0.20.2
+  Downloaded parking v2.2.1
+  Downloaded cc v1.11.2
+  Downloaded clap_builder v4.6.7
+  Downloaded nom v7.1.3
+  Downloaded num-bigint v0.4.8
+  Downloaded rustls-platform-verifier v0.7.1
+  Downloaded serde_core v1.0.229
+  Downloaded serde_derive v1.0.229
+  Downloaded sharded-slab v0.1.7
+  Downloaded writeable v0.6.4
+  Downloaded xml v1.4.0
+  Downloaded xml-rs v0.8.29
+  Downloaded yasna v0.6.0
+  Downloaded zerocopy-derive v0.7.35
+  Downloaded zeroize v1.9.1
+  Downloaded zmij v1.0.23
+  Downloaded deranged v0.5.9
+  Downloaded derive_builder v0.20.2
+  Downloaded digest v0.10.7
+  Downloaded parking_lot v0.12.5
+  Downloaded parking_lot_core v0.8.6
+  Downloaded paste v1.0.15
+  Downloaded pbjson v0.9.0
+  Downloaded pbjson-build v0.9.0
+  Downloaded pem v4.0.0
+  Downloaded percent-encoding v2.3.2
+  Downloaded pin-project-lite v0.2.17
+  Downloaded pkg-config v0.3.34
+  Downloaded pnet_base v0.35.0
+  Downloaded potential_utf v0.1.6
+  Downloaded bindgen v0.72.1
+  Downloaded rustls-webpki v0.103.17
+  Downloaded security-framework v3.7.0
+  Downloaded serde v1.0.229
+  Downloaded x25519-dalek v2.0.1
+  Downloaded x509-parser v0.18.1
+  Downloaded yansi v1.0.1
+  Downloaded yoke v0.8.4
+  Downloaded zerotrie v0.2.5
+  Downloaded zstd v0.14.4
+  Downloaded zstd-safe v8.3.0
+  Downloaded derive_more v2.1.1
+  Downloaded derive_more-impl v2.1.1
+  Downloaded parking_lot v0.11.2
+  Downloaded parking_lot_core v0.9.12
+  Downloaded plist v1.10.3
+  Downloaded pnet_datalink v0.35.0
+  Downloaded pnet_sys v0.35.0
+  Downloaded poly1305 v0.8.0
+  Downloaded polyval v0.6.2
+  Downloaded toml_datetime v1.1.3+spec-1.1.0
+  Downloaded toml_write v0.1.2
+  Downloaded tower-service v0.3.3
+  Downloaded trackable v1.3.0
+  Downloaded trackable_derive v1.0.0
+  Downloaded try-lock v0.2.5
+  Downloaded typeid v1.0.3
+  Downloaded typetag-impl v0.2.23
+  Downloaded aws-lc-rs v1.19.0
+  Downloaded chrono v0.4.45
+  Downloaded curve25519-dalek v4.1.3
+  Downloaded serde_json v1.0.154
+  Downloaded winnow v0.7.15
+  Downloaded winnow v1.0.5
+  Downloaded zerocopy v0.7.35
+  Downloaded zerovec v0.11.9
+  Downloaded portable-atomic-util v0.2.8
+  Downloaded toml_edit v0.22.27
+  Downloaded toml_edit v0.25.19+spec-1.1.0
+  Downloaded toml_parser v1.1.5+spec-1.1.0
+  Downloaded toml_writer v1.2.0+spec-1.1.0
+  Downloaded tracing-attributes v0.1.31
+  Downloaded tracing-core v0.1.36
+  Downloaded tracing-log v0.2.0
+  Downloaded triomphe v0.1.17
+  Downloaded typenum v1.20.1
+  Downloaded typetag v0.2.23
+  Downloaded unicase v2.10.0
+  Downloaded bstr v1.13.1
   Downloaded nix v0.25.1
   Downloaded nix v0.29.0
   Downloaded nix v0.31.3
-  Downloaded plist v1.10.3
-  Downloaded polyval v0.6.2
-  Downloaded prettyplease v0.3.0
-  Downloaded hashbrown v0.15.5
-  Downloaded rustls-webpki v0.103.17
-  Downloaded security-framework v3.7.0
-  Downloaded serde_core v1.0.229
-  Downloaded sha1 v0.10.7
-  Downloaded terminal_size v0.4.4
-  Downloaded typenum v1.20.1
-  Downloaded typetag-impl v0.2.23
-  Downloaded unicode-segmentation v1.13.3
-  Downloaded derive_builder v0.20.2
+  Downloaded zerocopy v0.8.63
+  Downloaded portable-atomic v1.15.0
+  Downloaded tracing-subscriber v0.3.23
+  Downloaded hmac v0.12.1
+  Downloaded home v0.5.12
+  Downloaded http-body v1.1.0
+  Downloaded http-body-util v0.1.5
+  Downloaded httparse v1.10.1
+  Downloaded humansize v2.1.3
+  Downloaded humantime v2.4.0
+  Downloaded humantime-serde v1.1.1
+  Downloaded tracing v0.1.44
+  Downloaded http v1.5.0
+  Downloaded hyper-util v0.1.21
+  Downloaded prost-types v0.14.6
+  Downloaded prost-wkt v0.7.2
+  Downloaded prost-wkt-build v0.7.2
+  Downloaded prost-wkt-types v0.7.2
+  Downloaded quanta v0.12.6
+  Downloaded quinn-udp v0.5.16
+  Downloaded quote v1.0.47
+  Downloaded rand_chacha v0.3.1
+  Downloaded rand_chacha v0.9.0
+  Downloaded rand_core v0.6.4
+  Downloaded rand_core v0.9.5
+  Downloaded rand_core v0.10.1
+  Downloaded rand_pcg v0.10.2
+  Downloaded rcgen v0.14.10
+  Downloaded reed-solomon-erasure v6.0.0
+  Downloaded resolv-conf v0.7.6
+  Downloaded ringbuf v0.5.3
+  Downloaded ghash v0.5.1
+  Downloaded hyper v1.12.0
+  Downloaded quinn v0.11.12
+  Downloaded rand v0.8.8
+  Downloaded rand v0.9.5
+  Downloaded rand v0.10.3
+  Downloaded raw-cpuid v11.6.0
+  Downloaded find-msvc-tools v0.1.15
+  Downloaded fixedbitset v0.5.9
+  Downloaded fnv v1.0.7
+  Downloaded foldhash v0.1.5
+  Downloaded foldhash v0.2.0
+  Downloaded form_urlencoded v1.2.2
+  Downloaded forwarded-header-value v0.1.1
+  Downloaded fs_extra v1.3.0
+  Downloaded futures v0.3.34
+  Downloaded futures-channel v0.3.34
+  Downloaded futures-core v0.3.34
+  Downloaded futures-executor v0.3.34
+  Downloaded futures-io v0.3.34
   Downloaded futures-macro v0.3.34
-  Downloaded iana-time-zone v0.1.65
-  Downloaded sharded-slab v0.1.7
-  Downloaded shellexpand v3.1.2
-  Downloaded shlex v1.3.0
+  Downloaded futures-sink v0.3.34
+  Downloaded futures-task v0.3.34
+  Downloaded generic-array v0.14.7
+  Downloaded gethostname v1.1.0
+  Downloaded getrandom v0.2.17
+  Downloaded getrandom v0.3.4
+  Downloaded getrandom v0.4.3
+  Downloaded git-version v0.3.9
+  Downloaded git-version-macro v0.3.9
+  Downloaded glob v0.3.4
+  Downloaded globset v0.4.21
+  Downloaded serde-saphyr v1.3.0
+  Downloaded quick-xml v0.42.0
+  Downloaded quinn-proto v0.11.19
+  Downloaded radix_trie v0.2.1
+  Downloaded regex v1.13.1
+  Downloaded flume v0.12.0
+  Downloaded futures-util v0.3.34
+  Downloaded subtle v2.6.1
+  Downloaded synstructure v0.13.2
+  Downloaded sys-info v0.9.1
+  Downloaded sys-locale v0.3.2
   Downloaded system-configuration-sys v0.6.0
-  Downloaded tabled_derive v0.12.0
   Downloaded tagptr v0.2.0
+  Downloaded terminal_size v0.4.4
   Downloaded testing_table v0.3.0
+  Downloaded zstd-sys v2.1.3+zstd.1.5.7
+  Downloaded regex-syntax v0.8.11
+  Downloaded synstructure v0.14.0
+  Downloaded system-configuration v0.6.1
+  Downloaded system-configuration v0.7.0
+  Downloaded tabled_derive v0.12.0
+  Downloaded tempfile v3.27.0
   Downloaded thiserror v1.0.69
   Downloaded thiserror v2.0.21
   Downloaded thiserror-impl v1.0.69
   Downloaded thiserror-impl v2.0.21
   Downloaded thread_local v1.1.10
   Downloaded time-core v0.1.9
+  Downloaded tokio-macros v2.7.2
+  Downloaded petgraph v0.8.3
+  Downloaded syn v1.0.109
+  Downloaded time-macros v0.2.32
   Downloaded tinystr v0.8.5
   Downloaded tinyvec v1.13.3
+  Downloaded tokio-rustls v0.26.6
   Downloaded toml v0.8.23
-  Downloaded toml_parser v1.1.5+spec-1.1.0
-  Downloaded toml_writer v1.2.0+spec-1.1.0
-  Downloaded home v0.5.12
-  Downloaded itertools v0.13.0
-  Downloaded itertools v0.15.0
-  Downloaded libc v0.2.191
-  Downloaded log v0.4.35
-  Downloaded lru-slab v0.1.3
-  Downloaded md5 v0.7.0
-  Downloaded minimal-lexical v0.2.1
-  Downloaded natpmp v0.5.0
-  Downloaded nu-ansi-term v0.50.3
-  Downloaded opaque-debug v0.3.1
-  Downloaded parking_lot_core v0.8.6
-  Downloaded pbjson-build v0.9.0
-  Downloaded pkg-config v0.3.34
-  Downloaded poly1305 v0.8.0
-  Downloaded potential_utf v0.1.6
-  Downloaded prost-build v0.14.6
-  Downloaded quick-xml v0.42.0
-  Downloaded unicase v2.10.0
-  Downloaded unicode-width v0.2.3
-  Downloaded deranged v0.5.9
-  Downloaded derive_more-impl v2.1.1
-  Downloaded futures-util v0.3.34
-  Downloaded generic-array v0.14.7
-  Downloaded icu_normalizer_data v2.4.0
-  Downloaded ringbuf v0.5.3
-  Downloaded shlex v2.0.1
-  Downloaded tabled v0.22.0
-  Downloaded time-macros v0.2.32
-  Downloaded tokio-macros v2.7.2
   Downloaded toml v1.2.1+spec-1.1.0
-  Downloaded heck v0.5.0
-  Downloaded http-body v1.1.0
-  Downloaded humansize v2.1.3
-  Downloaded futures v0.3.34
-  Downloaded gethostname v1.1.0
-  Downloaded indoc v2.0.8
-  Downloaded radix_trie v0.2.1
-  Downloaded instant v0.1.13
-  Downloaded inventory v0.3.25
-  Downloaded moka v0.12.16
-  Downloaded normpath v1.5.2
-  Downloaded ordered_hash_map v0.6.1
-  Downloaded powerfmt v0.2.1
-  Downloaded prefix-trie v0.10.2
-  Downloaded quinn v0.11.12
-  Downloaded regex-automata v0.4.18
-  Downloaded regex-syntax v0.8.11
-  Downloaded tower-service v0.3.3
-  Downloaded hickory-client v0.25.2
-  Downloaded hickory-resolver v0.25.2
-  Downloaded hickory-server v0.25.2
-  Downloaded http v1.5.0
-  Downloaded humantime v2.4.0
-  Downloaded humantime-serde v1.1.1
-  Downloaded hyper v1.12.0
-  Downloaded icu_properties v2.4.0
-  Downloaded zeroize_derive v1.5.0
-  Downloaded zerovec-derive v0.11.7
+  Downloaded toml_datetime v0.6.11
+  Downloaded unicode-ident v1.0.27
+  Downloaded tabled v0.22.0
+  Downloaded tokio-util v0.7.20
+  Downloaded unicode-xid v0.2.6
+  Downloaded untrusted v0.9.0
+  Downloaded utf8_iter v1.1.0
+  Downloaded utf8parse v0.2.2
+  Downloaded version_check v0.9.5
+  Downloaded want v0.3.2
+  Downloaded which v4.4.2
   Downloaded dirs v4.0.0
   Downloaded dirs v6.0.0
-  Downloaded either v1.19.0
-  Downloaded getrandom v0.3.4
-  Downloaded globwalk v0.8.1
-  Downloaded idna_adapter v1.2.2
-  Downloaded indexmap v2.14.2
-  Downloaded rand_chacha v0.9.0
-  Downloaded security-framework-sys v2.17.0
-  Downloaded ip_network_table-deps-treebitmap v0.5.0
-  Downloaded is_terminal_polyfill v1.70.2
-  Downloaded itertools v0.11.0
-  Downloaded lock_api v0.4.14
-  Downloaded netdev v0.31.0
-  Downloaded nohash-hasher v0.2.0
-  Downloaded num-integer v0.1.47
-  Downloaded option-ext v0.2.0
-  Downloaded pem v4.0.0
-  Downloaded pnet_base v0.35.0
-  Downloaded yoke-derive v0.8.4
-  Downloaded untrusted v0.9.0
-  Downloaded hmac v0.12.1
-  Downloaded httparse v1.10.1
-  Downloaded icu_properties_data v2.4.0
-  Downloaded digest v0.10.7
   Downloaded dirs-sys v0.3.7
-  Downloaded find-msvc-tools v0.1.15
-  Downloaded flume v0.12.0
-  Downloaded foldhash v0.1.5
-  Downloaded fs_extra v1.3.0
-  Downloaded globset v0.4.21
-  Downloaded granit-parser v1.3.0
-  Downloaded rand v0.8.8
-  Downloaded rand v0.9.5
-  Downloaded rand_chacha v0.3.1
-  Downloaded rustls v0.23.46
-  Downloaded utf8_iter v1.1.0
-  Downloaded version_check v0.9.5
-  Downloaded toml_write v0.1.2
-  Downloaded hex v0.4.3
-  Downloaded hickory-proto v0.25.2
-  Downloaded http-body-util v0.1.5
-  Downloaded icu_provider v2.4.0
-  Downloaded zmij v1.0.23
   Downloaded dirs-sys v0.5.0
-  Downloaded displaydoc v0.2.7
   Downloaded dunce v1.0.5
-  Downloaded encoding_rs_io v0.1.8
-  Downloaded endian-type v0.1.2
-  Downloaded fixedbitset v0.5.9
-  Downloaded inout v0.1.4
-  Downloaded quote v1.0.47
-  Downloaded rand_core v0.10.1
-  Downloaded rust-i18n v4.2.4
-  Downloaded rustversion v1.0.23
-  Downloaded serde-saphyr v1.3.0
-  Downloaded trackable v1.3.0
-  Downloaded utf8parse v0.2.2
-  Downloaded winnow v0.7.15
-  Downloaded futures-task v0.3.34
-  Downloaded hkdf v0.12.4
-  Downloaded hyper-util v0.1.21
-  Downloaded zstd v0.14.4
-  Downloaded zstd-safe v8.3.0
-  Downloaded foldhash v0.2.0
-  Downloaded getrandom v0.2.17
-  Downloaded rand v0.10.3
-  Downloaded rand_core v0.6.4
-  Downloaded rand_core v0.9.5
-  Downloaded rand_pcg v0.10.2
-  Downloaded rcgen v0.14.10
-  Downloaded reed-solomon-erasure v6.0.0
-  Downloaded rustc-hash v2.1.3
-  Downloaded rustc_version v0.4.1
-  Downloaded rustls-platform-verifier v0.7.1
-  Downloaded semver v1.0.28
-  Downloaded siphasher v1.0.4
-  Downloaded slab v0.4.12
-  Downloaded subtle v2.6.1
-  Downloaded synstructure v0.13.2
-  Downloaded sys-info v0.9.1
-  Downloaded sys-locale v0.3.2
-  Downloaded system-configuration v0.6.1
-  Downloaded system-configuration v0.7.0
-  Downloaded trackable_derive v1.0.0
-  Downloaded icu_normalizer v2.4.0
-  Downloaded zerotrie v0.2.5
-  Downloaded zerovec v0.11.9
-  Downloaded educe v0.8.2
-  Downloaded form_urlencoded v1.2.2
-  Downloaded ghash v0.5.1
-  Downloaded glob v0.3.4
-  Downloaded same-file v1.0.6
-  Downloaded signal-hook-registry v1.4.8
-  Downloaded smallvec v1.16.5
-  Downloaded socket2 v0.6.5
-  Downloaded strum_macros v0.28.0
-  Downloaded tracing-attributes v0.1.31
-  Downloaded pin-project-lite v0.2.17
-  Downloaded tokio v1.54.1
-  Downloaded encoding_rs v0.8.44
-  Downloaded idna v1.1.0
-  Downloaded rustls-pki-types v1.16.0
-  Downloaded serde v1.0.229
-  Downloaded tracing-log v0.2.0
-  Downloaded xmltree v0.12.0
-  Downloaded yasna v0.6.0
-  Downloaded yoke v0.8.4
-  Downloaded serde_spanned v0.6.9
-  Downloaded tracing-core v0.1.36
-  Downloaded writeable v0.6.4
-  Downloaded scopeguard v1.2.0
-  Downloaded simdutf8 v0.1.5
-  Downloaded synstructure v0.14.0
-  Downloaded tracing-subscriber v0.3.23
-  Downloaded zerocopy-derive v0.7.35
-  Downloaded stun_codec v0.4.0
-  Downloaded syn v1.0.109
-  Downloaded xml-rs v0.8.29
-  Downloaded utf_types v1.0.0
-  Downloaded x509-parser v0.18.1
-  Downloaded raw-cpuid v11.6.0
-  Downloaded uuid v1.29.2
-  Downloaded xml v1.4.0
-  Downloaded yansi v1.0.1
-  Downloaded x25519-dalek v2.0.1
   Downloaded syn v2.0.119
-  Downloaded url v2.5.8
-  Downloaded zerocopy v0.7.35
   Downloaded syn v3.0.10
-  Downloaded rustix v0.38.44
-  Downloaded ring v0.17.14
-  Downloaded smoltcp v0.14.0
-  Downloaded zerocopy v0.8.63
-  Downloaded git-version v0.3.9
-  Downloaded fnv v1.0.7
-  Downloaded rusticata-macros v4.1.0
-  Downloaded git-version-macro v0.3.9
-  Downloaded heapless v0.9.3
-  Downloaded seahash v4.1.0
-  Downloaded globwalk v0.9.1
-  Downloaded ignore v0.4.34
-  Downloaded serde_derive v1.0.229
-  Downloaded wildmatch v2.7.0
-  Downloaded zstd-sys v2.1.3+zstd.1.5.7
-  Downloaded forwarded-header-value v0.1.1
-  Downloaded serde_json v1.0.154
+  Downloaded unicode-segmentation v1.13.3
+  Downloaded universal-hash v0.5.1
+  Downloaded utf_types v1.0.0
   Downloaded walkdir v2.5.0
+  Downloaded displaydoc v0.2.7
+  Downloaded regex-automata v0.4.18
+  Downloaded time v0.3.55
+  Downloaded url v2.5.8
+  Downloaded uuid v1.29.2
+  Downloaded encoding-utils v0.1.0
+  Downloaded equivalent v1.0.3
+  Downloaded either v1.19.0
+  Downloaded endian-type v0.1.2
+  Downloaded event-listener v5.4.2
+  Downloaded webpki-roots v1.0.12
+  Downloaded educe v0.8.2
+  Downloaded encoding_rs_io v0.1.8
+  Downloaded enum-ordinalize v4.4.2
+  Downloaded enum-ordinalize-derive v4.4.2
+  Downloaded event-listener-strategy v0.5.4
+  Downloaded unicode-width v0.2.3
+  Downloaded enum-as-inner v0.6.1
+  Downloaded errno v0.3.15
+  Downloaded erased-serde v0.4.11
+  Downloaded fastrand v2.5.0
+  Downloaded fastbloom v0.17.0
+  Downloaded hash32 v0.3.1
+  Downloaded hex v0.4.3
+  Downloaded encoding_rs v0.8.44
+  Downloaded tokio v1.54.1
+  Downloaded ring v0.17.14
+  Downloaded globwalk v0.9.1
+  Downloaded globwalk v0.8.1
+  Downloaded heck v0.5.0
+  Downloaded guarden-macros v0.3.0
+  Downloaded powerfmt v0.2.1
+  Downloaded md5 v0.7.0
+  Downloaded idna_adapter v1.2.2
+  Downloaded managed v0.8.0
+  Downloaded ip_network_table v0.2.0
+  Downloaded stable_deref_trait v1.2.1
+  Downloaded ident_case v1.0.1
+  Downloaded inout v0.1.4
+  Downloaded itoa v1.0.19
+  Downloaded lazy_static v1.5.1
+  Downloaded memoffset v0.9.1
+  Downloaded proc-macro-crate v3.5.0
+  Downloaded rusticata-macros v4.1.0
+  Downloaded machine-uid v0.6.0
+  Downloaded inventory v0.3.25
+  Downloaded rustc-hash v2.1.3
+  Downloaded siphasher v1.0.4
+  Downloaded strum v0.28.0
+  Downloaded strsim v0.11.1
+  Downloaded aws-lc-sys v0.47.0
+  Downloaded guarden v0.3.0
+  Downloaded rustc_version v0.4.1
+  Downloaded indoc v2.0.8
+  Downloaded slab v0.4.12
+  Downloaded jobserver v0.1.35
+  Downloaded libloading v0.8.9
+  Downloaded ppv-lite86 v0.2.21
+  Downloaded strum_macros v0.28.0
+  Downloaded lock_api v0.4.14
+  Downloaded rust-i18n-macro v4.2.4
+  Downloaded shlex v2.0.1
+  Downloaded signal-hook-registry v1.4.8
+  Downloaded shlex v1.3.0
+  Downloaded hickory-client v0.25.2
+  Downloaded iana-time-zone v0.1.65
+  Downloaded ip_network v0.4.1
+  Downloaded ip_network_table-deps-treebitmap v0.5.0
+  Downloaded prost-build v0.14.6
+  Downloaded ordered_hash_map v0.6.1
+  Downloaded prost-derive v0.14.6
+  Downloaded spin v0.9.9
+  Downloaded optionize-macros v0.5.3
+  Downloaded prost v0.14.6
+  Downloaded rust-i18n v4.2.4
+  Downloaded rust-i18n-support v4.2.4
+  Downloaded smallvec v1.16.5
+  Downloaded stun_codec v0.4.0
+  Downloaded der-parser v10.0.0
+  Downloaded icu_provider v2.4.0
+  Downloaded litemap v0.8.3
+  Downloaded prefix-trie v0.7.0
+  Downloaded proc-macro2 v1.0.107
+  Downloaded simdutf8 v0.1.5
+  Downloaded papergrid v0.18.0
+  Downloaded rustls-pki-types v1.16.0
+  Downloaded socket2 v0.6.5
+  Downloaded icu_locale_core v2.4.0
+  Downloaded icu_normalizer_data v2.4.0
+  Downloaded ignore v0.4.34
+  Downloaded minimal-lexical v0.2.1
+  Downloaded prettyplease v0.3.0
+  Downloaded hickory-resolver v0.25.2
+  Downloaded hashbrown v0.12.3
+  Downloaded icu_collections v2.4.0
+  Downloaded indexmap v2.14.2
+  Downloaded memchr v2.8.3
+  Downloaded mio v1.2.5
+  Downloaded hickory-server v0.25.2
+  Downloaded prost-reflect v0.16.5
+  Downloaded itertools v0.11.0
+  Downloaded heapless v0.9.3
+  Downloaded icu_properties v2.4.0
+  Downloaded idna v1.1.0
+  Downloaded hashbrown v0.14.5
+  Downloaded hashbrown v0.15.5
+  Downloaded hashbrown v0.17.1
+  Downloaded itertools v0.13.0
+  Downloaded itertools v0.14.0
+  Downloaded itertools v0.15.0
+  Downloaded libm v0.2.16
+  Downloaded h2 v0.4.20
+  Downloaded icu_properties_data v2.4.0
+  Downloaded hkdf v0.12.4
+  Downloaded granit-parser v1.3.0
+  Downloaded prefix-trie v0.10.2
+  Downloaded moka v0.12.16
+  Downloaded smoltcp v0.14.0
+  Downloaded hickory-proto v0.25.2
+  Downloaded rustix v0.38.44
+  Downloaded rustls v0.23.46
   Downloaded rustix v1.1.6
-  Downloaded winnow v1.0.5
-  Downloaded getrandom v0.4.3
+  Downloaded icu_normalizer v2.4.0
+  Downloaded libc v0.2.191
   Downloaded snow v0.10.0
   Downloaded lzokay-native v0.2.1
-  Downloaded aws-lc-sys v0.47.0
     Updating crates.io index
  Downloading crates ...
+  Downloaded addr2line v0.27.1
   Downloaded adler2 v2.0.1
   Downloaded getopts v0.2.24
-  Downloaded addr2line v0.27.1
-  Downloaded rustc-demangle v0.1.28
-  Downloaded gimli v0.34.0
-  Downloaded rustc-literal-escaper v0.0.8
   Downloaded cfg-if v1.0.4
+  Downloaded rustc-literal-escaper v0.0.8
+  Downloaded rustc-demangle v0.1.28
   Downloaded miniz_oxide v0.9.1
+  Downloaded gimli v0.34.0
   Downloaded object v0.39.1
    Compiling compiler_builtins v0.1.160 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/compiler-builtins/compiler-builtins)
    Compiling core v0.0.0 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/core)
@@ -510,9 +510,9 @@
    Compiling quote v1.0.47
    Compiling unicode-ident v1.0.27
    Compiling serde_core v1.0.229
+   Compiling version_check v0.9.5
    Compiling syn v3.0.10
    Compiling syn v2.0.119
-   Compiling version_check v0.9.5
    Compiling portable-atomic v1.15.0
    Compiling jobserver v0.1.35
    Compiling memchr v2.8.3
@@ -520,18 +520,18 @@
    Compiling shlex v2.0.1
    Compiling cc v1.11.2
    Compiling serde v1.0.229
-   Compiling serde_derive v1.0.229
    Compiling either v1.19.0
    Compiling generic-array v0.14.7
    Compiling aho-corasick v1.1.5
    Compiling regex-syntax v0.8.11
+   Compiling serde_derive v1.0.229
    Compiling zeroize_derive v1.5.0
    Compiling parking_lot_core v0.9.12
    Compiling heck v0.5.0
-   Compiling synstructure v0.14.0
-   Compiling autocfg v1.5.1
    Compiling regex-automata v0.4.18
+   Compiling synstructure v0.14.0
    Compiling anyhow v1.0.104
+   Compiling autocfg v1.5.1
    Compiling equivalent v1.0.3
    Compiling hashbrown v0.17.1
    Compiling zerofrom-derive v0.1.8
@@ -541,80 +541,111 @@
    Compiling yoke-derive v0.8.4
    Compiling regex v1.13.1
    Compiling bitflags v2.13.2
-   Compiling itertools v0.15.0
-   Compiling zerovec-derive v0.11.7
    Compiling tokio-macros v2.7.2
+   Compiling zerovec-derive v0.11.7
+   Compiling itertools v0.15.0
    Compiling num-traits v0.2.19
    Compiling displaydoc v0.2.7
-   Compiling prost-derive v0.14.6
    Compiling zmij v1.0.23
-   Compiling crossbeam-utils v0.8.23
    Compiling cfg_aliases v0.2.2
+   Compiling crossbeam-utils v0.8.23
    Compiling ident_case v1.0.1
    Compiling strsim v0.11.1
    Compiling futures-macro v0.3.34
+   Compiling prost-derive v0.14.6
    Compiling ring v0.17.14
+   Compiling crossbeam-epoch v0.9.21
    Compiling prettyplease v0.3.0
-   Compiling zerocopy v0.8.63
    Compiling serde_json v1.0.154
    Compiling bytes v1.12.1
-   Compiling crossbeam-epoch v0.9.21
+   Compiling zerocopy v0.8.63
    Compiling prost v0.14.6
-   Compiling rustc-std-workspace-core v1.99.0 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/rustc-std-workspace-core)
-   Compiling alloc v0.0.0 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/alloc)
-   Compiling unwind v0.0.0 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/unwind)
-   Compiling adler2 v2.0.1
-   Compiling rustc-demangle v0.1.28
-   Compiling cfg-if v1.0.4
-   Compiling rustc-literal-escaper v0.0.8
-   Compiling getrandom v0.4.3
-   Compiling icu_normalizer_data v2.4.0
-   Compiling cfg-if v1.0.5
-   Compiling crossbeam-deque v0.8.8
-   Compiling rustix v1.1.6
    Compiling thiserror v2.0.21
    Compiling icu_properties_data v2.4.0
+   Compiling crossbeam-deque v0.8.8
+   Compiling rustix v1.1.6
+   Compiling icu_normalizer_data v2.4.0
+   Compiling getrandom v0.4.3
+   Compiling cfg-if v1.0.5
    Compiling prost-types v0.14.6
    Compiling encoding_rs v0.8.44
    Compiling thiserror-impl v2.0.21
    Compiling tracing-attributes v0.1.31
-   Compiling rustc-std-workspace-alloc v1.99.0 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/rustc-std-workspace-alloc)
-   Compiling panic_abort v0.0.0 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/panic_abort)
-   Compiling gimli v0.34.0
-   Compiling miniz_oxide v0.9.1
-   Compiling std_detect v0.1.5 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/std_detect)
-   Compiling panic_unwind v0.0.0 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/panic_unwind)
    Compiling bstr v1.13.1
    Compiling errno v0.3.15
-   Compiling semver v1.0.28
-   Compiling same-file v1.0.6
-   Compiling getrandom v0.3.4
    Compiling foldhash v0.1.5
-   Compiling addr2line v0.27.1
-   Compiling hashbrown v0.15.5
+   Compiling getrandom v0.3.4
+   Compiling same-file v1.0.6
+   Compiling semver v1.0.28
    Compiling walkdir v2.5.0
+   Compiling hashbrown v0.15.5
    Compiling rustc_version v0.4.1
+   Compiling rustc-std-workspace-core v1.99.0 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/rustc-std-workspace-core)
+   Compiling alloc v0.0.0 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/alloc)
+   Compiling unwind v0.0.0 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/unwind)
+   Compiling adler2 v2.0.1
+   Compiling cfg-if v1.0.4
+   Compiling rustc-demangle v0.1.28
+   Compiling rustc-literal-escaper v0.0.8
    Compiling globset v0.4.21
+   Compiling fixedbitset v0.5.9
    Compiling fastrand v2.5.0
    Compiling once_cell v1.21.4
    Compiling glob v0.3.4
-   Compiling fixedbitset v0.5.9
    Compiling tempfile v3.27.0
    Compiling petgraph v0.8.3
    Compiling ignore v0.4.34
    Compiling winnow v1.0.5
-   Compiling multiversion_no_op v1.0.0
+   Compiling rustc-std-workspace-alloc v1.99.0 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/rustc-std-workspace-alloc)
+   Compiling gimli v0.34.0
+   Compiling miniz_oxide v0.9.1
+   Compiling std_detect v0.1.5 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/std_detect)
+   Compiling panic_unwind v0.0.0 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/panic_unwind)
+   Compiling panic_abort v0.0.0 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/panic_abort)
    Compiling multimap v0.10.1
-   Compiling toml_parser v1.1.5+spec-1.1.0
+   Compiling multiversion_no_op v1.0.0
    Compiling prost-build v0.14.6
+   Compiling toml_parser v1.1.5+spec-1.1.0
    Compiling darling_core v0.24.1
-   Compiling proc_macro v0.0.0 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/proc_macro)
+   Compiling typeid v1.0.3
+   Compiling addr2line v0.27.1
+   Compiling itoa v1.0.19
+   Compiling toml_datetime v1.1.3+spec-1.1.0
+   Compiling unicode-segmentation v1.13.3
    Compiling rustls v0.23.46
+   Compiling libm v0.2.16
+   Compiling convert_case v0.10.0
+   Compiling toml_edit v0.25.19+spec-1.1.0
+   Compiling clang-sys v1.9.1
+   Compiling curve25519-dalek v4.1.3
+   Compiling darling_macro v0.24.1
+   Compiling async-trait v0.1.92
+   Compiling syn v1.0.109
+   Compiling erased-serde v0.4.11
+   Compiling unicode-xid v0.2.6
+   Compiling pkg-config v0.3.34
+   Compiling derive_more-impl v2.1.1
+   Compiling zstd-sys v2.1.3+zstd.1.5.7
+   Compiling darling v0.24.1
+   Compiling proc-macro-crate v3.5.0
+   Compiling ahash v0.7.8
+   Compiling minimal-lexical v0.2.1
+   Compiling bitflags v1.3.2
+   Compiling scopeguard v1.2.0
+   Compiling simdutf8 v0.1.5
+   Compiling core_detect v1.0.0
+   Compiling thiserror v1.0.69
+   Compiling typetag v0.2.23
+   Compiling fnv v1.0.7
+   Compiling httparse v1.10.1
+   Compiling darling_core v0.20.11
+   Compiling globwalk v0.8.1
+   Compiling nom v7.1.3
+   Compiling proc_macro v0.0.0 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/proc_macro)
    Compiling getrandom v0.2.17
    Compiling smallvec v1.16.5
    Compiling pin-project-lite v0.2.17
    Compiling critical-section v1.2.0
-   Compiling scopeguard v1.2.0
    Compiling rand_core v0.6.4
    Compiling typenum v1.20.1
    Compiling lock_api v0.4.14
@@ -625,15 +656,15 @@
    Compiling futures-core v0.3.34
    Compiling parking_lot v0.12.5
    Compiling zerofrom v0.1.8
-   Compiling yoke v0.8.4
    Compiling socket2 v0.6.5
+   Compiling yoke v0.8.4
    Compiling signal-hook-registry v1.4.8
    Compiling mio v1.2.5
    Compiling core-foundation-sys v0.8.7
    Compiling zerovec v0.11.9
    Compiling futures-sink v0.3.34
-   Compiling tokio v1.54.1
    Compiling slab v0.4.12
+   Compiling tokio v1.54.1
    Compiling futures-channel v0.3.34
    Compiling futures-io v0.3.34
    Compiling futures-task v0.3.34
@@ -641,26 +672,25 @@
    Compiling tinystr v0.8.5
    Compiling tracing-core v0.1.36
    Compiling utf_types v1.0.0
+   Compiling rand_core v0.10.1
    Compiling litemap v0.8.3
    Compiling writeable v0.6.4
-   Compiling rand_core v0.10.1
-   Compiling icu_locale_core v2.4.0
    Compiling utf8_iter v1.1.0
    Compiling potential_utf v0.1.6
+   Compiling icu_locale_core v2.4.0
    Compiling zerotrie v0.2.5
-   Compiling icu_provider v2.4.0
    Compiling icu_collections v2.4.0
    Compiling block-buffer v0.10.4
-   Compiling itoa v1.0.19
+   Compiling icu_provider v2.4.0
    Compiling untrusted v0.9.0
    Compiling digest v0.10.7
    Compiling chacha20 v0.10.2
    Compiling tracing v0.1.44
    Compiling rustls-pki-types v1.16.0
    Compiling ipnet v2.12.2
+   Compiling ppv-lite86 v0.2.21
    Compiling icu_normalizer v2.4.0
    Compiling icu_properties v2.4.0
-   Compiling ppv-lite86 v0.2.21
    Compiling rand v0.10.3
    Compiling inout v0.1.4
    Compiling unicode-width v0.2.3
@@ -668,137 +698,107 @@
    Compiling idna_adapter v1.2.2
    Compiling cipher v0.4.4
    Compiling universal-hash v0.5.1
-   Compiling percent-encoding v2.3.2
    Compiling opaque-debug v0.3.1
-   Compiling unicode-segmentation v1.13.3
-   Compiling libm v0.2.16
-   Compiling typeid v1.0.3
-   Compiling toml_datetime v1.1.3+spec-1.1.0
-   Compiling toml_edit v0.25.19+spec-1.1.0
-   Compiling convert_case v0.10.0
+   Compiling percent-encoding v2.3.2
    Compiling form_urlencoded v1.2.2
    Compiling idna v1.1.0
    Compiling rand_core v0.9.5
    Compiling rustls-webpki v0.103.17
-   Compiling darling_macro v0.24.1
    Compiling tinyvec v1.13.3
-   Compiling clang-sys v1.9.1
-   Compiling curve25519-dalek v4.1.3
-   Compiling async-trait v0.1.92
-   Compiling erased-serde v0.4.11
-   Compiling syn v1.0.109
-   Compiling unicode-xid v0.2.6
-   Compiling pkg-config v0.3.34
-   Compiling derive_more-impl v2.1.1
-   Compiling zstd-sys v2.1.3+zstd.1.5.7
-   Compiling darling v0.24.1
-   Compiling rand_chacha v0.9.0
    Compiling url v2.5.8
-   Compiling proc-macro-crate v3.5.0
+   Compiling rand_chacha v0.9.0
    Compiling http v1.5.0
+   Compiling utf8parse v0.2.2
+   Compiling sha1_smol v1.0.1
    Compiling parking v2.2.1
    Compiling deranged v0.5.9
    Compiling num-conv v0.2.2
    Compiling powerfmt v0.2.1
    Compiling time-core v0.1.9
-   Compiling sha1_smol v1.0.1
-   Compiling utf8parse v0.2.2
-   Compiling ahash v0.7.8
-   Compiling core_detect v1.0.0
-   Compiling simdutf8 v0.1.5
-   Compiling thiserror v1.0.69
-   Compiling typetag v0.2.23
-   Compiling httparse v1.10.1
-   Compiling fnv v1.0.7
-   Compiling minimal-lexical v0.2.1
-   Compiling bitflags v1.3.2
-   Compiling globwalk v0.8.1
-   Compiling nom v7.1.3
-   Compiling darling_core v0.20.11
-   Compiling time v0.3.55
-   Compiling anstyle-parse v1.0.0
    Compiling uuid v1.29.2
    Compiling event-listener v5.4.2
+   Compiling time v0.3.55
+   Compiling anstyle-parse v1.0.0
    Compiling rand v0.9.5
    Compiling hmac v0.12.1
    Compiling tokio-util v0.7.20
    Compiling iana-time-zone v0.1.65
    Compiling aead v0.5.2
+   Compiling anstyle v1.0.14
+   Compiling anstyle-query v1.1.5
+   Compiling colorchoice v1.0.5
    Compiling is_terminal_polyfill v1.70.2
    Compiling inventory v0.3.25
    Compiling data-encoding v2.11.1
    Compiling foldhash v0.2.0
    Compiling siphasher v1.0.4
-   Compiling anstyle v1.0.14
-   Compiling anstyle-query v1.1.5
-   Compiling colorchoice v1.0.5
-   Compiling prost-wkt-build v0.7.2
    Compiling serde_spanned v0.6.9
    Compiling toml_datetime v0.6.11
+   Compiling prost-wkt-build v0.7.2
    Compiling libloading v0.8.9
    Compiling enum-as-inner v0.6.1
-   Compiling itertools v0.14.0
    Compiling typetag-impl v0.2.23
    Compiling thiserror-impl v1.0.69
-   Compiling toml_write v0.1.2
-   Compiling winnow v0.7.15
-   Compiling bindgen v0.72.1
+   Compiling itertools v0.14.0
    Compiling arraydeque v0.5.1
    Compiling parking_lot_core v0.8.6
    Compiling system-configuration-sys v0.6.0
-   Compiling granit-parser v1.3.0
-   Compiling annotate-snippets v0.12.18
-   Compiling toml_edit v0.22.27
+   Compiling bindgen v0.72.1
+   Compiling toml_write v0.1.2
+   Compiling winnow v0.7.15
    Compiling pbjson-build v0.9.0
+   Compiling annotate-snippets v0.12.18
+   Compiling granit-parser v1.3.0
+   Compiling toml_edit v0.22.27
    Compiling hickory-proto v0.25.2
    Compiling prost-wkt-types v0.7.2
+   Compiling trackable_derive v1.0.0
    Compiling anstream v1.0.0
    Compiling chrono v0.4.45
-   Compiling trackable_derive v1.0.0
    Compiling event-listener-strategy v0.5.4
-   Compiling encoding_rs_io v0.1.8
-   Compiling darling_macro v0.20.11
-   Compiling cexpr v0.6.0
-   Compiling derive_more v2.1.1
-   Compiling http-body v1.1.0
    Compiling terminal_size v0.4.4
-   Compiling poly1305 v0.8.0
+   Compiling http-body v1.1.0
    Compiling chacha20 v0.9.1
+   Compiling poly1305 v0.8.0
    Compiling crossbeam-channel v0.5.17
    Compiling core-foundation v0.10.1
    Compiling security-framework-sys v2.17.0
    Compiling instant v0.1.13
+   Compiling derive_more v2.1.1
+   Compiling cexpr v0.6.0
    Compiling clap_lex v1.1.1
+   Compiling allocator-api2 v0.2.21
    Compiling unicase v2.10.0
    Compiling base64 v0.22.1
-   Compiling base64 v0.23.1
    Compiling arc-swap v1.9.5
+   Compiling base64 v0.23.1
    Compiling try-lock v0.2.5
-   Compiling allocator-api2 v0.2.21
+   Compiling darling_macro v0.20.11
+   Compiling encoding_rs_io v0.1.8
    Compiling prost-reflect v0.16.5
    Compiling memoffset v0.9.1
-   Compiling itertools v0.13.0
    Compiling enum-ordinalize-derive v4.4.2
-   Compiling zstd-safe v8.3.0
-   Compiling rustc-hash v2.1.3
-   Compiling shlex v1.3.0
-   Compiling indoc v2.0.8
+   Compiling itertools v0.13.0
    Compiling rustix v0.38.44
    Compiling heapless v0.9.3
    Compiling nohash-hasher v0.2.0
-   Compiling serde-saphyr v1.3.0
+   Compiling indoc v2.0.8
+   Compiling zstd-safe v8.3.0
+   Compiling rustc-hash v2.1.3
+   Compiling shlex v1.3.0
    Compiling triomphe v0.1.17
+   Compiling serde-saphyr v1.3.0
    Compiling easytier-proto v2.7.0 (https://github.com/ldoubil/EasyTier.git?branch=main-astral#758827a9)
    Compiling enum-ordinalize v4.4.2
+   Compiling darling v0.20.11
    Compiling want v0.3.2
    Compiling clap_builder v4.6.7
+   Compiling optionize-macros v0.5.3
+   Compiling prost-wkt v0.7.2
    Compiling security-framework v3.7.0
    Compiling chacha20poly1305 v0.10.1
-   Compiling optionize-macros v0.5.3
-   Compiling darling v0.20.11
-   Compiling hashbrown v0.12.3
-   Compiling prost-wkt v0.7.2
    Compiling async-lock v3.5.0
+   Compiling hashbrown v0.12.3
    Compiling trackable v1.3.0
    Compiling toml v0.8.23
    Compiling x25519-dalek v2.0.1
@@ -809,38 +809,245 @@
    Compiling core-foundation v0.9.4
    Compiling spin v0.9.9
    Compiling cidr v0.3.2
+   Compiling option-ext v0.2.0
+   Compiling hashbrown v0.14.5
+   Compiling atomic-waker v1.1.2
    Compiling crc-catalog v2.5.0
    Compiling tagptr v0.2.0
    Compiling lazy_static v1.5.1
-   Compiling hashbrown v0.14.5
-   Compiling option-ext v0.2.0
-   Compiling atomic-waker v1.1.2
    Compiling snow v0.10.0
-   Compiling quinn-udp v0.5.16
-   Compiling nix v0.31.3
    Compiling nix v0.29.0
+   Compiling nix v0.31.3
+   Compiling quinn-udp v0.5.16
    Compiling strum_macros v0.28.0
    Compiling clap_derive v4.6.7
-   Compiling sys-info v0.9.1
-   Compiling itertools v0.11.0
    Compiling auto_impl v1.4.0
    Compiling zerocopy-derive v0.7.35
+   Compiling itertools v0.11.0
+   Compiling sys-info v0.9.1
+   Compiling base62 v2.2.6
    Compiling normpath v1.5.2
    Compiling smoltcp v0.14.0
    Compiling reed-solomon-erasure v6.0.0
-   Compiling base62 v2.2.6
-   Compiling zerocopy v0.7.35
-   Compiling clap v4.6.7
    Compiling strum v0.28.0
+   Compiling clap v4.6.7
+   Compiling zerocopy v0.7.35
    Compiling rust-i18n-support v4.2.4
-error: failed to run custom build command for `sys-info v0.9.1`
+   Compiling sharded-slab v0.1.7
+   Compiling moka v0.12.16
+   Compiling dashmap v6.2.1
+   Compiling crc v3.4.0
+   Compiling hyper v1.12.0
+   Compiling dirs-sys v0.5.0
+   Compiling optionize v0.5.3
+   Compiling system-configuration v0.6.1
+   Compiling rand v0.8.8
+   Compiling ghash v0.5.1
+   Compiling bytecodec v0.5.0
+   Compiling lru v0.7.8
+   Compiling rustls-platform-verifier v0.7.1
+   Compiling kcp-sys v0.1.0 (https://github.com/EasyTier/kcp-sys?rev=268533568d734ae89dc89603078da3ca522effe1#26853356)
+   Compiling parking_lot v0.11.2
+   Compiling derive_builder_core v0.20.2
+   Compiling educe v0.8.2
+   Compiling pbjson v0.9.0
+   Compiling fastbloom v0.17.0
+   Compiling tokio-rustls v0.26.6
+   Compiling ctr v0.9.2
+   Compiling aes v0.8.4
+   Compiling webpki-roots v1.0.12
+   Compiling sha1 v0.10.7
+   Compiling futures-executor v0.3.34
+   Compiling rand_pcg v0.10.2
+   Compiling tracing-log v0.2.0
+   Compiling ringbuf v0.5.3
+   Compiling quick-xml v0.42.0
+   Compiling serde_spanned v1.1.3
+   Compiling nibble_vec v0.1.0
+   Compiling dirs-sys v0.3.7
+   Compiling thread_local v1.1.10
+   Compiling no-std-net v0.6.0
+   Compiling bytecount v0.6.9
+   Compiling atomic-shim v0.2.0
+   Compiling managed v0.8.0
+   Compiling yansi v1.0.1
+   Compiling home v0.5.12
+   Compiling ip_network v0.4.1
+   Compiling ip_network_table-deps-treebitmap v0.5.0
+   Compiling endian-type v0.1.2
+   Compiling md5 v0.7.0
+   Compiling resolv-conf v0.7.6
+   Compiling toml_writer v1.2.0+spec-1.1.0
+   Compiling nu-ansi-term v0.50.3
+   Compiling lru-slab v0.1.3
+   Compiling rust-i18n v4.2.4
+   Compiling guarden-macros v0.3.0
+   Compiling bon-macros v3.10.3
+   Compiling globwalk v0.9.1
+   Compiling quinn v0.11.12
+   Compiling delegate v0.13.5
+   Compiling network-interface v2.0.5
+   Compiling paste v1.0.15
+   Compiling array-const-fn-init v0.1.1
+   Compiling thunk-rs v0.3.5 (https://github.com/EasyTier/thunk.git#cbbeec75)
+   Compiling easytier v2.7.0 (https://github.com/ldoubil/EasyTier.git?branch=main-astral#758827a9)
+   Compiling prefix-trie v0.10.2
+   Compiling guarden v0.3.0
+   Compiling quinn-proto v0.11.19
+   Compiling tracing-subscriber v0.3.23
+   Compiling bon v3.10.3
+   Compiling toml v1.2.1+spec-1.1.0
+   Compiling hickory-resolver v0.25.2
+   Compiling stun_codec v0.4.0
+   Compiling radix_trie v0.2.1
+   Compiling ip_network_table v0.2.0
+   Compiling ariadne v0.6.0
+   Compiling which v4.4.2
+   Compiling papergrid v0.18.0
+   Compiling pnet_base v0.35.0
+   Compiling dirs v4.0.0
+   Compiling plist v1.10.3
+   Compiling async-ringbuf v0.3.10
+   Compiling futures v0.3.34
+   Compiling aes-gcm v0.10.3
+   Compiling derive_builder_macro v0.20.2
+   Compiling zstd v0.14.4
+   Compiling netdev v0.31.0
+   Compiling hyper-util v0.1.21
+   Compiling dirs v6.0.0
+   Compiling encoding-utils v0.1.0
+   Compiling rust-i18n-macro v4.2.4
+   Compiling clap_complete v4.6.11
+   Compiling ordered_hash_map v0.6.1
+   Compiling pem v4.0.0
+   Compiling nix v0.25.1
+   Compiling http-body-util v0.1.5
+   Compiling lzokay-native v0.2.1
+   Compiling yasna v0.6.0
+   Compiling prefix-trie v0.7.0
+   Compiling testing_table v0.3.0
+   Compiling blake2 v0.10.6
+   Compiling crossbeam-queue v0.3.14
+   Compiling quanta v0.12.6
+   Compiling ipnetwork v0.20.0
+   Compiling pnet_sys v0.35.0
+   Compiling xml-rs v0.8.29
+   Compiling base64 v0.13.1
+   Compiling xml v1.4.0
+   Compiling hex v0.4.3
+   Compiling wildmatch v2.7.0
+   Compiling humantime v2.4.0
+   Compiling nonempty v0.7.0
+   Compiling tabled_derive v0.12.0
+   Compiling git-version-macro v0.3.9
+   Compiling git-version v0.3.9
+   Compiling forwarded-header-value v0.1.1
+   Compiling tabled v0.22.0
+   Compiling tokio-websockets v0.13.2 (https://github.com/EasyTier/tokio-websockets#dc9771c7)
+   Compiling humantime-serde v1.1.1
+   Compiling xmltree v0.12.0
+   Compiling easytier-core v2.7.0 (https://github.com/ldoubil/EasyTier.git?branch=main-astral#758827a9)
+   Compiling boringtun-easytier v0.6.1
+   Compiling service-manager v0.8.0 (https://github.com/EasyTier/service-manager-rs.git?branch=main#5eb28f7a)
+
+thread 'rustc' (53182) panicked at /rustc-dev/5f4effd579500175af844241eb179e756190f1e7/compiler/rustc_codegen_ssa/src/back/link.rs:3875:14:
+unsupported architecture in Apple target: armv7-apple-ios
+stack backtrace:
+   0:        0x10dfb4c14 - <<std[9c31421c5090f720]::sys::backtrace::BacktraceLock>::print::DisplayBacktrace as core[1fd2970c40a5dbd5]::fmt::Display>::fmt
+   1:        0x10a77c8b7 - core[1fd2970c40a5dbd5]::fmt::write
+   2:        0x10dfcc26b - <std[9c31421c5090f720]::sys::stdio::unix::Stderr as core[1fd2970c40a5dbd5]::io::write::Write>::write_fmt
+   3:        0x10df7e7a0 - std[9c31421c5090f720]::panicking::default_hook::{closure#0}
+   4:        0x10dfa44f7 - std[9c31421c5090f720]::panicking::default_hook
+   5:        0x10b652592 - std[9c31421c5090f720]::panicking::update_hook::<alloc[3b2fadc903f6c7b2]::boxed::Box<rustc_driver_impl[90fa5679e1b60cae]::install_ice_hook::{closure#1}>>::{closure#0}
+   6:        0x10dfa4b07 - std[9c31421c5090f720]::panicking::panic_with_hook
+   7:        0x10d6c4216 - std[9c31421c5090f720]::panicking::begin_panic::<alloc[3b2fadc903f6c7b2]::string::String>::{closure#0}
+   8:        0x10d6c0149 - std[9c31421c5090f720]::sys::backtrace::__rust_end_short_backtrace::<std[9c31421c5090f720]::panicking::begin_panic<alloc[3b2fadc903f6c7b2]::string::String>::{closure#0}, !>
+   9:        0x10e24c29e - std[9c31421c5090f720]::panicking::begin_panic::<alloc[3b2fadc903f6c7b2]::string::String>
+  10:        0x10e24dbe8 - rustc_span[1d286e48206e19d8]::macros::bug_impl
+  11:        0x10b35fbc4 - rustc_codegen_ssa[a9c57d685df8aa9]::back::link::add_order_independent_options
+  12:        0x10b355836 - rustc_codegen_ssa[a9c57d685df8aa9]::back::link::linker_with_args
+  13:        0x10b34059a - rustc_codegen_ssa[a9c57d685df8aa9]::back::link::link_natively
+  14:        0x10b33b42d - rustc_codegen_ssa[a9c57d685df8aa9]::back::link::link_binary
+  15:        0x10b22ca64 - <rustc_codegen_llvm[a9f6095a4f223b35]::back::llvm_backend::LlvmCodegenBackend as rustc_codegen_ssa[a9c57d685df8aa9]::traits::backend::CodegenBackend>::link
+  16:        0x10c1018cb - <rustc_interface[8b172ff2a853fc51]::queries::Linker>::link
+  17:        0x10b651021 - rustc_interface[8b172ff2a853fc51]::interface::run_compiler::<(), rustc_driver_impl[90fa5679e1b60cae]::compiler_entrypoint::{closure#0}>::{closure#2}
+  18:        0x10b6850bd - <rustc_thread_pool[aabc059d7df9b406]::job::StackJob<rustc_thread_pool[aabc059d7df9b406]::latch::LatchRef<rustc_thread_pool[aabc059d7df9b406]::latch::LockLatch>, <rustc_thread_pool[aabc059d7df9b406]::registry::Registry>::in_worker_cold<<rustc_thread_pool[aabc059d7df9b406]::thread_pool::ThreadPool>::install<rustc_interface[8b172ff2a853fc51]::util::run_in_thread_pool_with_globals<rustc_interface[8b172ff2a853fc51]::interface::run_compiler<(), rustc_driver_impl[90fa5679e1b60cae]::compiler_entrypoint::{closure#0}>::{closure#2}, ()>::{closure#6}::{closure#0}::{closure#1}::{closure#0}, ()>::{closure#0}, ()>::{closure#0}::{closure#0}, ()> as rustc_thread_pool[aabc059d7df9b406]::job::Job>::execute
+  19:        0x10e254626 - <rustc_thread_pool[aabc059d7df9b406]::registry::WorkerThread>::wait_or_steal_until_cold
+  20:        0x10d8ec02b - <rustc_thread_pool[aabc059d7df9b406]::registry::ThreadBuilder>::run
+  21:        0x10b63e2f4 - std[9c31421c5090f720]::sys::backtrace::__rust_begin_short_backtrace::<<rustc_thread_pool[aabc059d7df9b406]::ThreadPoolBuilder>::build_scoped<rustc_interface[8b172ff2a853fc51]::util::run_in_thread_pool_with_globals<rustc_interface[8b172ff2a853fc51]::interface::run_compiler<(), rustc_driver_impl[90fa5679e1b60cae]::compiler_entrypoint::{closure#0}>::{closure#2}, ()>::{closure#6}::{closure#0}::{closure#0}, rustc_interface[8b172ff2a853fc51]::util::run_in_thread_pool_with_globals<rustc_interface[8b172ff2a853fc51]::interface::run_compiler<(), rustc_driver_impl[90fa5679e1b60cae]::compiler_entrypoint::{closure#0}>::{closure#2}, ()>::{closure#6}::{closure#0}::{closure#1}, ()>::{closure#0}::{closure#0}::{closure#0}, ()>
+  22:        0x10b6573e2 - <std[9c31421c5090f720]::thread::lifecycle::spawn_unchecked<<rustc_thread_pool[aabc059d7df9b406]::ThreadPoolBuilder>::build_scoped<rustc_interface[8b172ff2a853fc51]::util::run_in_thread_pool_with_globals<rustc_interface[8b172ff2a853fc51]::interface::run_compiler<(), rustc_driver_impl[90fa5679e1b60cae]::compiler_entrypoint::{closure#0}>::{closure#2}, ()>::{closure#6}::{closure#0}::{closure#0}, rustc_interface[8b172ff2a853fc51]::util::run_in_thread_pool_with_globals<rustc_interface[8b172ff2a853fc51]::interface::run_compiler<(), rustc_driver_impl[90fa5679e1b60cae]::compiler_entrypoint::{closure#0}>::{closure#2}, ()>::{closure#6}::{closure#0}::{closure#1}, ()>::{closure#0}::{closure#0}::{closure#0}, ()>::{closure#1} as core[1fd2970c40a5dbd5]::ops::function::FnOnce<()>>::call_once::{shim:vtable#0}
+  23:        0x10dfb077b - <std[9c31421c5090f720]::sys::thread::unix::Thread>::new::thread_start
+  24:     0x7ff81ccd5e05 - __pthread_start
+
+error: the compiler unexpectedly panicked. This is a bug
+
+note: we would appreciate a bug report: https://github.com/rust-lang/rust/issues/new?labels=C-bug%2C+I-ICE%2C+T-compiler&template=ice.md
+
+note: please make sure that you have updated to the latest nightly
+
+note: please attach the file at `/Users/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/boringtun-easytier-0.6.1/rustc-ice-2026-11-15T03_28_15-17060.txt` to your bug report
+
+note: rustc 1.102.0-nightly (5f4effd57 2026-11-13) running on x86_64-apple-darwin
+
+note: compiler flags: --crate-type staticlib --crate-type cdylib --crate-type rlib -Z embed-metadata=no -C opt-level=3 -C embed-bitcode=no -Z unstable-options -C strip=debuginfo -Z unstable-options
+
+note: some of the compiler flags provided by cargo are hidden
+
+query stack during panic:
+end of query stack
+error: could not compile `boringtun-easytier` (lib)
 
 Caused by:
-  process didn't exit successfully: `/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/release/build/sys-info/1558953dd962d650/out/build_script_build` (exit status: 101)
-  --- stderr
-
-  thread 'main' (36749) panicked at /Users/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/sys-info-0.9.1/build.rs:7:46:
-  called `Option::unwrap()` on a `None` value
-  note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+  process didn't exit successfully: `/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/bin/rustc --crate-name boringtun_easytier --edition=2018 /Users/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/boringtun-easytier-0.6.1/src/lib.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat,unused-externs-silent --crate-type staticlib --crate-type cdylib --crate-type rlib --emit=dep-info,metadata,link -Z embed-metadata=no -C opt-level=3 -C embed-bitcode=no --cfg 'feature="default"' --check-cfg 'cfg(docsrs,test)' --check-cfg 'cfg(feature, values("default", "device", "ffi-bindings", "jni", "jni-bindings", "mock-instant", "mock_instant", "socket2", "thiserror", "tracing-subscriber"))' -C metadata=e67d786b302d5162 --out-dir /Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/boringtun-easytier/0875149581c7cc45/out --target /Users/runner/work/AstralGame/AstralGame/work/ios6/targets/armv7-apple-ios.json -Zunstable-options -C strip=debuginfo -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/addr2line/2a5c10e912e92faa/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/adler2/5e2ecf9b948203e5/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/aead/1b184b59a4b4128e/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/alloc/b5993c392d13f052/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/bitflags/cb3ab4af9d29edbc/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/block-buffer/09154474af56d4f9/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/cfg-if/84f1ed4a7cc0381c/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/cfg-if/f5348d2996ffd1ff/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/chacha20/50a29540256276a3/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/cipher/bb316309da7ff87e/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/compiler_builtins/34ad4f6b5952eda5/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/core/d11a40b0f04e5a74/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/critical-section/3f83dd15cb2dffb3/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/crypto-common/fcede776e2ea3a33/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/curve25519-dalek/ecbd875c40786470/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/digest/397b5b0fa9560b54/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/generic-array/a29f08423ff46d6a/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/getrandom/1a2f03152db3ceaa/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/gimli/d5116f4fb558380d/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/hashbrown/ce779198d76be438/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/inout/93930d1f982d41d7/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ip_network/d02bb04374baedc9/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ip_network_table-deps-treebitmap/f8370b98e3efa5be/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/libc/6a1e0c627f69f1dc/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/libc/fee974146724bf0f/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/lock_api/e9ae4c8afc6e33ac/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/log/86fdbdd9aaab6fa4/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/memchr/8fb14861acff5159/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/miniz_oxide/42e531e80c75b84d/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/object/ac15155153dca6a4/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/once_cell/1c1ee1a3c0ff3b47/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/opaque-debug/894ae0d95918ac3d/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/panic_abort/9239adcd182b64a4/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/panic_unwind/05e166543269c257/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/parking_lot_core/ba2bb04c88596390/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/pin-project-lite/5862b0d8011c24bf/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/poly1305/a231ececd358f45b/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/portable-atomic/71c6e62081e15b5c/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/proc_macro/61ee1bc1a13d7300/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/rand_core/7d823ced05c047a9/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/rustc-demangle/764274b9081ba187/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/rustc-literal-escaper/a45c631107f61131/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/rustc-std-workspace-alloc/ceb66465524f0319/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/rustc-std-workspace-core/5ddfafad52d0b6ed/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/scopeguard/2fbb83ff7a0bf5a3/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/smallvec/64f49cc95743ef2b/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/std/9fd3ada3e25efa9e/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/std_detect/3443143a3ab8a50f/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/subtle/99434c2a7707375f/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/tracing-core/586eac447ba489d7/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/typenum/546d1c0a37933a0f/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/universal-hash/9fbcd1475e067fb5/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/untrusted/1094d1be77ec5bd1/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/unwind/61ec772bc9fe1cdc/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/zeroize/a67b173e67296439/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/release/build/tracing-attributes/8866b499979f8c3c/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/release/build/zeroize_derive/b66b7169e057750b/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/release/build/boringtun-easytier/0875149581c7cc45/out --extern aead=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/aead/1b184b59a4b4128e/out/libaead-1b184b59a4b4128e.rlib --extern aead=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/aead/1b184b59a4b4128e/out/libaead-1b184b59a4b4128e.rmeta --extern 'noprelude,nounused:alloc=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/alloc/b5993c392d13f052/out/liballoc-b5993c392d13f052.rlib' --extern 'noprelude,nounused:alloc=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/alloc/b5993c392d13f052/out/liballoc-b5993c392d13f052.rmeta' --extern atomic_shim=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/atomic-shim/806bc700d6f6a629/out/libatomic_shim-806bc700d6f6a629.rlib --extern atomic_shim=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/atomic-shim/806bc700d6f6a629/out/libatomic_shim-806bc700d6f6a629.rmeta --extern base64=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/base64/7a6d67715e503cb9/out/libbase64-7a6d67715e503cb9.rlib --extern base64=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/base64/7a6d67715e503cb9/out/libbase64-7a6d67715e503cb9.rmeta --extern blake2=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/blake2/fcd81861805ccb3b/out/libblake2-fcd81861805ccb3b.rlib --extern blake2=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/blake2/fcd81861805ccb3b/out/libblake2-fcd81861805ccb3b.rmeta --extern chacha20poly1305=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/chacha20poly1305/78decca6bbc277dc/out/libchacha20poly1305-78decca6bbc277dc.rlib --extern chacha20poly1305=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/chacha20poly1305/78decca6bbc277dc/out/libchacha20poly1305-78decca6bbc277dc.rmeta --extern 'noprelude,nounused:compiler_builtins=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/compiler_builtins/34ad4f6b5952eda5/out/libcompiler_builtins-34ad4f6b5952eda5.rlib' --extern 'noprelude,nounused:compiler_builtins=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/compiler_builtins/34ad4f6b5952eda5/out/libcompiler_builtins-34ad4f6b5952eda5.rmeta' --extern 'noprelude,nounused:core=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/core/d11a40b0f04e5a74/out/libcore-d11a40b0f04e5a74.rlib' --extern 'noprelude,nounused:core=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/core/d11a40b0f04e5a74/out/libcore-d11a40b0f04e5a74.rmeta' --extern hex=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/hex/af14b1db3b852bc9/out/libhex-af14b1db3b852bc9.rlib --extern hex=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/hex/af14b1db3b852bc9/out/libhex-af14b1db3b852bc9.rmeta --extern hmac=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/hmac/7edb9b280b7137f8/out/libhmac-7edb9b280b7137f8.rlib --extern hmac=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/hmac/7edb9b280b7137f8/out/libhmac-7edb9b280b7137f8.rmeta --extern ip_network=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ip_network/d02bb04374baedc9/out/libip_network-d02bb04374baedc9.rlib --extern ip_network=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ip_network/d02bb04374baedc9/out/libip_network-d02bb04374baedc9.rmeta --extern ip_network_table=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ip_network_table/a98ea423e7600c1d/out/libip_network_table-a98ea423e7600c1d.rlib --extern ip_network_table=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ip_network_table/a98ea423e7600c1d/out/libip_network_table-a98ea423e7600c1d.rmeta --extern libc=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/libc/6a1e0c627f69f1dc/out/liblibc-6a1e0c627f69f1dc.rlib --extern libc=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/libc/6a1e0c627f69f1dc/out/liblibc-6a1e0c627f69f1dc.rmeta --extern nix=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/nix/37d004ab45c8fe78/out/libnix-37d004ab45c8fe78.rlib --extern nix=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/nix/37d004ab45c8fe78/out/libnix-37d004ab45c8fe78.rmeta --extern 'noprelude,nounused:panic_abort=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/panic_abort/9239adcd182b64a4/out/libpanic_abort-9239adcd182b64a4.rlib' --extern 'noprelude,nounused:panic_abort=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/panic_abort/9239adcd182b64a4/out/libpanic_abort-9239adcd182b64a4.rmeta' --extern 'noprelude,nounused:panic_unwind=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/panic_unwind/05e166543269c257/out/libpanic_unwind-05e166543269c257.rlib' --extern 'noprelude,nounused:panic_unwind=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/panic_unwind/05e166543269c257/out/libpanic_unwind-05e166543269c257.rmeta' --extern parking_lot=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/parking_lot/1926ecd844e19218/out/libparking_lot-1926ecd844e19218.rlib --extern parking_lot=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/parking_lot/1926ecd844e19218/out/libparking_lot-1926ecd844e19218.rmeta --extern 'noprelude,nounused:proc_macro=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/proc_macro/61ee1bc1a13d7300/out/libproc_macro-61ee1bc1a13d7300.rlib' --extern 'noprelude,nounused:proc_macro=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/proc_macro/61ee1bc1a13d7300/out/libproc_macro-61ee1bc1a13d7300.rmeta' --extern rand_core=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/rand_core/7d823ced05c047a9/out/librand_core-7d823ced05c047a9.rlib --extern rand_core=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/rand_core/7d823ced05c047a9/out/librand_core-7d823ced05c047a9.rmeta --extern ring=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ring/13ade37904f03100/out/libring-13ade37904f03100.rlib --extern ring=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ring/13ade37904f03100/out/libring-13ade37904f03100.rmeta --extern 'noprelude,nounused:std=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/std/9fd3ada3e25efa9e/out/libstd-9fd3ada3e25efa9e.rlib' --extern 'noprelude,nounused:std=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/std/9fd3ada3e25efa9e/out/libstd-9fd3ada3e25efa9e.rmeta' --extern tracing=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/tracing/7ccf3766154e6970/out/libtracing-7ccf3766154e6970.rlib --extern tracing=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/tracing/7ccf3766154e6970/out/libtracing-7ccf3766154e6970.rmeta --extern untrusted=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/untrusted/1094d1be77ec5bd1/out/libuntrusted-1094d1be77ec5bd1.rlib --extern untrusted=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/untrusted/1094d1be77ec5bd1/out/libuntrusted-1094d1be77ec5bd1.rmeta --extern x25519_dalek=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/x25519-dalek/399ca3dbdbf86282/out/libx25519_dalek-399ca3dbdbf86282.rlib --extern x25519_dalek=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/x25519-dalek/399ca3dbdbf86282/out/libx25519_dalek-399ca3dbdbf86282.rmeta -Z unstable-options --cap-lints allow --force-warn=unused_crate_dependencies -L native=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ring/83ed09937edc091a/out` (exit status: 101)
 warning: build failed, waiting for other jobs to finish...
+
+thread 'rustc' (53157) panicked at /rustc-dev/5f4effd579500175af844241eb179e756190f1e7/compiler/rustc_codegen_ssa/src/back/link.rs:3875:14:
+unsupported architecture in Apple target: armv7-apple-ios
+stack backtrace:
+   0:        0x10eeebc14 - <<std[9c31421c5090f720]::sys::backtrace::BacktraceLock>::print::DisplayBacktrace as core[1fd2970c40a5dbd5]::fmt::Display>::fmt
+   1:        0x10b6b38b7 - core[1fd2970c40a5dbd5]::fmt::write
+   2:        0x10ef0326b - <std[9c31421c5090f720]::sys::stdio::unix::Stderr as core[1fd2970c40a5dbd5]::io::write::Write>::write_fmt
+   3:        0x10eeb57a0 - std[9c31421c5090f720]::panicking::default_hook::{closure#0}
+   4:        0x10eedb4f7 - std[9c31421c5090f720]::panicking::default_hook
+   5:        0x10c589592 - std[9c31421c5090f720]::panicking::update_hook::<alloc[3b2fadc903f6c7b2]::boxed::Box<rustc_driver_impl[90fa5679e1b60cae]::install_ice_hook::{closure#1}>>::{closure#0}
+   6:        0x10eedbb07 - std[9c31421c5090f720]::panicking::panic_with_hook
+   7:        0x10e5fb216 - std[9c31421c5090f720]::panicking::begin_panic::<alloc[3b2fadc903f6c7b2]::string::String>::{closure#0}
+   8:        0x10e5f7149 - std[9c31421c5090f720]::sys::backtrace::__rust_end_short_backtrace::<std[9c31421c5090f720]::panicking::begin_panic<alloc[3b2fadc903f6c7b2]::string::String>::{closure#0}, !>
+   9:        0x10f18329e - std[9c31421c5090f720]::panicking::begin_panic::<alloc[3b2fadc903f6c7b2]::string::String>
+  10:        0x10f184be8 - rustc_span[1d286e48206e19d8]::macros::bug_impl
+  11:        0x10c296bc4 - rustc_codegen_ssa[a9c57d685df8aa9]::back::link::add_order_independent_options
+  12:        0x10c28c836 - rustc_codegen_ssa[a9c57d685df8aa9]::back::link::linker_with_args
+  13:        0x10c27759a - rustc_codegen_ssa[a9c57d685df8aa9]::back::link::link_natively
+  14:        0x10c27242d - rustc_codegen_ssa[a9c57d685df8aa9]::back::link::link_binary
+  15:        0x10c163a64 - <rustc_codegen_llvm[a9f6095a4f223b35]::back::llvm_backend::LlvmCodegenBackend as rustc_codegen_ssa[a9c57d685df8aa9]::traits::backend::CodegenBackend>::link
+  16:        0x10d0388cb - <rustc_interface[8b172ff2a853fc51]::queries::Linker>::link
+  17:        0x10c588021 - rustc_interface[8b172ff2a853fc51]::interface::run_compiler::<(), rustc_driver_impl[90fa5679e1b60cae]::compiler_entrypoint::{closure#0}>::{closure#2}
+  18:        0x10c5bc0bd - <rustc_thread_pool[aabc059d7df9b406]::job::StackJob<rustc_thread_pool[aabc059d7df9b406]::latch::LatchRef<rustc_thread_pool[aabc059d7df9b406]::latch::LockLatch>, <rustc_thread_pool[aabc059d7df9b406]::registry::Registry>::in_worker_cold<<rustc_thread_pool[aabc059d7df9b406]::thread_pool::ThreadPool>::install<rustc_interface[8b172ff2a853fc51]::util::run_in_thread_pool_with_globals<rustc_interface[8b172ff2a853fc51]::interface::run_compiler<(), rustc_driver_impl[90fa5679e1b60cae]::compiler_entrypoint::{closure#0}>::{closure#2}, ()>::{closure#6}::{closure#0}::{closure#1}::{closure#0}, ()>::{closure#0}, ()>::{closure#0}::{closure#0}, ()> as rustc_thread_pool[aabc059d7df9b406]::job::Job>::execute
+  19:        0x10f18b626 - <rustc_thread_pool[aabc059d7df9b406]::registry::WorkerThread>::wait_or_steal_until_cold
+  20:        0x10e82302b - <rustc_thread_pool[aabc059d7df9b406]::registry::ThreadBuilder>::run
+  21:        0x10c5752f4 - std[9c31421c5090f720]::sys::backtrace::__rust_begin_short_backtrace::<<rustc_thread_pool[aabc059d7df9b406]::ThreadPoolBuilder>::build_scoped<rustc_interface[8b172ff2a853fc51]::util::run_in_thread_pool_with_globals<rustc_interface[8b172ff2a853fc51]::interface::run_compiler<(), rustc_driver_impl[90fa5679e1b60cae]::compiler_entrypoint::{closure#0}>::{closure#2}, ()>::{closure#6}::{closure#0}::{closure#0}, rustc_interface[8b172ff2a853fc51]::util::run_in_thread_pool_with_globals<rustc_interface[8b172ff2a853fc51]::interface::run_compiler<(), rustc_driver_impl[90fa5679e1b60cae]::compiler_entrypoint::{closure#0}>::{closure#2}, ()>::{closure#6}::{closure#0}::{closure#1}, ()>::{closure#0}::{closure#0}::{closure#0}, ()>
+  22:        0x10c58e3e2 - <std[9c31421c5090f720]::thread::lifecycle::spawn_unchecked<<rustc_thread_pool[aabc059d7df9b406]::ThreadPoolBuilder>::build_scoped<rustc_interface[8b172ff2a853fc51]::util::run_in_thread_pool_with_globals<rustc_interface[8b172ff2a853fc51]::interface::run_compiler<(), rustc_driver_impl[90fa5679e1b60cae]::compiler_entrypoint::{closure#0}>::{closure#2}, ()>::{closure#6}::{closure#0}::{closure#0}, rustc_interface[8b172ff2a853fc51]::util::run_in_thread_pool_with_globals<rustc_interface[8b172ff2a853fc51]::interface::run_compiler<(), rustc_driver_impl[90fa5679e1b60cae]::compiler_entrypoint::{closure#0}>::{closure#2}, ()>::{closure#6}::{closure#0}::{closure#1}, ()>::{closure#0}::{closure#0}::{closure#0}, ()>::{closure#1} as core[1fd2970c40a5dbd5]::ops::function::FnOnce<()>>::call_once::{shim:vtable#0}
+  23:        0x10eee777b - <std[9c31421c5090f720]::sys::thread::unix::Thread>::new::thread_start
+  24:     0x7ff81ccd5e05 - __pthread_start
+
+error: the compiler unexpectedly panicked. This is a bug
+
+note: we would appreciate a bug report: https://github.com/rust-lang/rust/issues/new?labels=C-bug%2C+I-ICE%2C+T-compiler&template=ice.md
+
+note: please make sure that you have updated to the latest nightly
+
+note: please attach the file at `/Users/runner/.cargo/git/checkouts/easytier-e456befb940a54c1/758827a/easytier-core/rustc-ice-2026-11-15T03_28_14-17052.txt` to your bug report
+
+note: rustc 1.102.0-nightly (5f4effd57 2026-11-13) running on x86_64-apple-darwin
+
+note: compiler flags: --crate-type rlib --crate-type cdylib -Z embed-metadata=no -C opt-level=3 -C embed-bitcode=no -Z unstable-options -C strip=debuginfo -Z unstable-options
+
+note: some of the compiler flags provided by cargo are hidden
+
+query stack during panic:
+end of query stack
+error: could not compile `easytier-core` (lib)
+
+Caused by:
+  process didn't exit successfully: `/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/bin/rustc --crate-name easytier_core --edition=2024 /Users/runner/.cargo/git/checkouts/easytier-e456befb940a54c1/758827a/easytier-core/src/lib.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat,unused-externs-silent --crate-type rlib --crate-type cdylib --emit=dep-info,metadata,link -Z embed-metadata=no -C opt-level=3 -C embed-bitcode=no --cfg 'feature="aes-gcm"' --cfg 'feature="config-write"' --cfg 'feature="default"' --cfg 'feature="dhcp-ipv4"' --cfg 'feature="dhcp-ipv6"' --cfg 'feature="endpoint-discovery"' --cfg 'feature="extended-services"' --cfg 'feature="lzo"' --cfg 'feature="management"' --cfg 'feature="management-rpc"' --cfg 'feature="proxy-cidr-monitor"' --cfg 'feature="proxy-packet"' --cfg 'feature="proxy-smoltcp-stack"' --cfg 'feature="public-ipv6-provider"' --cfg 'feature="rich-config-errors"' --cfg 'feature="ring-crypto"' --cfg 'feature="smoltcp"' --cfg 'feature="tcp-hole-punch"' --cfg 'feature="vpn-portal"' --cfg 'feature="web-client"' --cfg 'feature="wrapped-transport"' --cfg 'feature="zstd"' --check-cfg 'cfg(docsrs,test)' --check-cfg 'cfg(feature, values("aes-gcm", "browser-config", "chacha20", "config-write", "default", "dhcp-ipv4", "dhcp-ipv6", "endpoint-discovery", "extended-services", "lzo", "management", "management-rpc", "openssl-crypto", "proxy-cidr-monitor", "proxy-packet", "proxy-smoltcp-stack", "public-ipv6-provider", "rich-config-errors", "ring-crypto", "smoltcp", "system-certificates", "tcp-hole-punch", "test-utils", "tracing-log", "vpn-portal", "wasi-crypto-offload", "wasm-host-tunnel", "wasm-host-tunnel-outbound", "web-client", "wrapped-transport", "zstd"))' -C metadata=b0ac2049d6534571 --out-dir /Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/easytier-core/fded0e7605fd8ef9/out --target /Users/runner/work/AstralGame/AstralGame/work/ios6/targets/armv7-apple-ios.json -Zunstable-options -C strip=debuginfo -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/addr2line/2a5c10e912e92faa/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/adler2/5e2ecf9b948203e5/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/aead/1b184b59a4b4128e/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/aes/4bfdd384c32c92c3/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ahash/74f0747e68e79e5a/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/alloc/b5993c392d13f052/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/allocator-api2/554744f18d609753/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/anyhow/152be29d6560d6d2/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/atomic-waker/bd83047383e44503/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/base64/99878a6f108224e4/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/bitflags/cb3ab4af9d29edbc/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/block-buffer/09154474af56d4f9/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/bytecodec/cf6e89a62a734171/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/byteorder/63f28804372d5535/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/bytes/e4818140eeda779a/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/cfg-if/84f1ed4a7cc0381c/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/cfg-if/f5348d2996ffd1ff/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/chacha20/4a41c3fe38362e17/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/chacha20/50a29540256276a3/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/chacha20poly1305/78decca6bbc277dc/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/chrono/6243f3777778b5e0/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/cidr/b8faf31b73a0b706/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/cipher/bb316309da7ff87e/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/compiler_builtins/34ad4f6b5952eda5/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/core-foundation-sys/786103d2082c5426/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/core/d11a40b0f04e5a74/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/crc-catalog/e7156d72eab70189/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/crc/6cf55a6e684351b0/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/critical-section/3f83dd15cb2dffb3/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/crossbeam-utils/e38de2f46860b325/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/crypto-common/fcede776e2ea3a33/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ctr/71f4b7de6236f587/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/curve25519-dalek/ecbd875c40786470/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/data-encoding/b473cc3a5c56cc39/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/derive_more/d53bd17b7985303e/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/digest/397b5b0fa9560b54/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/either/d1a6bcd4721267c5/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/equivalent/c74a19cf72a572e1/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/erased-serde/9039b631f65072ed/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/errno/852b54c71dcdec60/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/fixedbitset/09ef9a8dea758904/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/foldhash/4dbcaf9bad264452/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/form_urlencoded/63840ceb26e0f070/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/futures-channel/fb6f17ecbf9bf3d4/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/futures-core/2f6eb18278a15196/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/futures-executor/4bc8337738fef30d/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/futures-io/550620fee565b63c/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/futures-sink/383b7f9f98bf44dd/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/futures-task/1c079890815e624f/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/futures-util/4a6d7965a98129d0/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/generic-array/a29f08423ff46d6a/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/getrandom/1a2f03152db3ceaa/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/getrandom/2e36fcdca4ddea65/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/getrandom/8a10658decf47a9d/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ghash/7a1914c1083e4112/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/gimli/d5116f4fb558380d/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/hash32/f7f8794123f1664b/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/hashbrown/0184eb94811fd04f/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/hashbrown/5f46cb29319d7705/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/hashbrown/75c6e4ed5dc1df65/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/hashbrown/bd3e6e414876ff07/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/hashbrown/ce779198d76be438/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/heapless/5b8df9b04da724c2/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/hmac/7edb9b280b7137f8/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/http-body/b9bbf55611a1966c/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/http/4371fd3931e9b35f/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/httparse/5fcfec5f353cba3a/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/hyper/565ccb20615aec49/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/iana-time-zone/63c458e4e04f9149/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/icu_collections/9f9ec67e13d54c85/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/icu_locale_core/8b49c2a4e9db9aea/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/icu_normalizer/f392bbde338aac93/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/icu_normalizer_data/aff8601bf37a3ac0/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/icu_properties/f05ede1e2f64a0b9/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/icu_properties_data/dbc0dad6599c1b9a/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/icu_provider/fd2b4f50ef270b3b/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/idna/35cf002594f43790/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/idna_adapter/1ac59e8d6e83d48d/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/indexmap/5518df052a93f709/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/inout/93930d1f982d41d7/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/instant/bdc9242d83bf80ed/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/inventory/36aa1adfd7c9f222/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ipnet/b6d911205884064a/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/itoa/244266e34aebed38/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/libc/6a1e0c627f69f1dc/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/libc/fee974146724bf0f/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/libm/a78456672b85bac1/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/litemap/b6efccdbaba493e4/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/lock_api/e9ae4c8afc6e33ac/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/log/86fdbdd9aaab6fa4/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/lru/dad2512e415ddbf4/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/managed/ea7dd7fb615eb538/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/md5/4a9e356b99a819a4/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/memchr/6d2ee2f7613c7b73/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/memchr/8fb14861acff5159/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/miniz_oxide/42e531e80c75b84d/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/mio/da946db057d2df76/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/num-traits/944670f35d9520a3/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/object/ac15155153dca6a4/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/once_cell/1c1ee1a3c0ff3b47/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/opaque-debug/894ae0d95918ac3d/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/optionize/af2b919955d34d56/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/panic_abort/9239adcd182b64a4/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/panic_unwind/05e166543269c257/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/parking_lot/1926ecd844e19218/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/parking_lot/63e3aef71ded1410/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/parking_lot_core/a2325a0d6c07aaf7/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/parking_lot_core/ba2bb04c88596390/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/pbjson/1873204201357a1b/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/percent-encoding/3f2d553428d58883/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/pin-project-lite/5862b0d8011c24bf/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/poly1305/a231ececd358f45b/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/polyval/505506184d9489a4/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/portable-atomic/71c6e62081e15b5c/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/potential_utf/ec7c4745c67be56b/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ppv-lite86/d15d52f75c6ddf6e/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/proc_macro/61ee1bc1a13d7300/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/prost-types/f9b290caf4622e3b/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/prost-wkt-types/cb10021ea91df5f9/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/prost-wkt/39530dc76d550215/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/prost/9c22f0286b8bc5de/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/rand/167b5712a89f83c2/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/rand/6a0aa78769ccd499/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/rand_chacha/837054c8be56ede5/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/rand_chacha/fc83af3d6f1b67c7/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/rand_core/62685af881998f09/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/rand_core/7d823ced05c047a9/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/rand_core/934a4edbeb5d864e/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ring/13ade37904f03100/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ringbuf/cb8f36ec58b0c80c/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/rustc-demangle/764274b9081ba187/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/rustc-literal-escaper/a45c631107f61131/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/rustc-std-workspace-alloc/ceb66465524f0319/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/rustc-std-workspace-core/5ddfafad52d0b6ed/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/rustls-pki-types/82fcd7a0cb9b5076/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/rustls-webpki/cdde5da7555abd81/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/rustls/072e93d828eb6c05/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/scopeguard/2fbb83ff7a0bf5a3/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/serde/17c9e52547761277/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/serde_core/d2bdcfb954b804e0/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/serde_json/d71418a59deb115d/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/serde_spanned/1a236831ce1a5fcb/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/sha1/e79e071e7dc116ee/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/sha1_smol/0e18c0cd10ea0a41/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/sha2/c3d25aa4c0ff14a5/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/signal-hook-registry/08ed5a6b2889abe4/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/slab/8a6d0a7daa375b12/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/smallvec/64f49cc95743ef2b/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/socket2/7f7eafeb42eab221/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/spin/6a8ec88c61916901/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/stable_deref_trait/4603481abe18e51b/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/std/9fd3ada3e25efa9e/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/std_detect/3443143a3ab8a50f/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/strum/f7406c87a6741a3f/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/subtle/99434c2a7707375f/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/thiserror/10a2721fe39bf4d9/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/thiserror/b8921f9c9468d08e/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/tinystr/e29aec060829eb38/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/tinyvec/30ad28c5603c9b7c/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/tokio/a4666abdb5ef87f8/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/toml_datetime/c2bc6c872c1357e5/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/toml_parser/031da82540fcf6bb/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/toml_writer/949765c9ffe763bf/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/tracing-core/586eac447ba489d7/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/tracing/7ccf3766154e6970/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/trackable/e4515b9c4159b8be/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/try-lock/09e4c015444b9c4f/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/typeid/e3b50a1d52dc257b/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/typenum/546d1c0a37933a0f/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/typetag/474a5b7cbf3ac60e/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/unicode-width/6468269c02b8bd38/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/universal-hash/9fbcd1475e067fb5/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/untrusted/1094d1be77ec5bd1/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/unwind/61ec772bc9fe1cdc/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/url/b424475adbe9da55/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/utf8_iter/b3462d3686e90967/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/utf_types/1c2e6dafa61a362d/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/uuid/4bd7138a03f4553d/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/want/571c704425fa8cdf/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/winnow/1759de1f4192adb2/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/writeable/bedd54fefdc993b6/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/x25519-dalek/399ca3dbdbf86282/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/yansi/2f1fd69471372873/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/yoke/f0ffa926d3df3b46/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/zerocopy/6cd2b22ea9b597b2/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/zerofrom/c29659b1e2b6b825/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/zeroize/a67b173e67296439/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/zerotrie/3bb076a6ab30391b/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/zerovec/d5a781ba83ab179d/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/zmij/58c663912a2d783e/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/zstd-safe/2ae6c4c2eebca337/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/zstd-sys/62b727dfdf4b9462/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/release/build/array-const-fn-init/2ccb6ff70a88af0b/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/release/build/async-trait/eb2d47bb36be8bd5/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/release/build/auto_impl/f63563019b25c2f1/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/release/build/bon-macros/cb9a75fcdc7a2efc/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/release/build/delegate/9c01864fb1e2a9dc/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/release/build/derive_more-impl/7154ad04af12c270/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/release/build/displaydoc/980475c516a6aacf/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/release/build/educe/86bad616135df1ca/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/release/build/enum-as-inner/960d0309935ff47c/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/release/build/futures-macro/cf3cb03cf32c78cc/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/release/build/guarden-macros/4e08b3a66934700c/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/release/build/optionize-macros/0dabdf24d4546022/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/release/build/prost-derive/03ea516de13ab912/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/release/build/rustversion/18710849e05bd2c7/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/release/build/serde_derive/b09af7a1012ed6c8/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/release/build/strum_macros/e27154dfe86cf04e/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/release/build/thiserror-impl/6fd1784d3b43a6b3/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/release/build/thiserror-impl/eb482e5fa29b9561/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/release/build/tokio-macros/2a146c6e8f445fda/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/release/build/tracing-attributes/8866b499979f8c3c/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/release/build/trackable_derive/a56cb534b98cc4f0/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/release/build/typetag-impl/b5ab74f7111e7b09/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/release/build/yoke-derive/466aab65c864639e/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/release/build/zerocopy-derive/795207017ce71e0a/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/release/build/zerofrom-derive/85c4d32534c6e8ec/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/release/build/zeroize_derive/b66b7169e057750b/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/release/build/zerovec-derive/b0e0f058af0f5afe/out -L dependency=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/release/build/easytier-core/fded0e7605fd8ef9/out --extern aes_gcm=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/aes-gcm/30e91a508e8eabe3/out/libaes_gcm-30e91a508e8eabe3.rlib --extern aes_gcm=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/aes-gcm/30e91a508e8eabe3/out/libaes_gcm-30e91a508e8eabe3.rmeta --extern 'noprelude,nounused:alloc=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/alloc/b5993c392d13f052/out/liballoc-b5993c392d13f052.rlib' --extern 'noprelude,nounused:alloc=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/alloc/b5993c392d13f052/out/liballoc-b5993c392d13f052.rmeta' --extern anyhow=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/anyhow/152be29d6560d6d2/out/libanyhow-152be29d6560d6d2.rlib --extern anyhow=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/anyhow/152be29d6560d6d2/out/libanyhow-152be29d6560d6d2.rmeta --extern arc_swap=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/arc-swap/c2189171a4efc8c3/out/libarc_swap-c2189171a4efc8c3.rlib --extern arc_swap=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/arc-swap/c2189171a4efc8c3/out/libarc_swap-c2189171a4efc8c3.rmeta --extern ariadne=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ariadne/339c2d2040063162/out/libariadne-339c2d2040063162.rlib --extern ariadne=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ariadne/339c2d2040063162/out/libariadne-339c2d2040063162.rmeta --extern async_ringbuf=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/async-ringbuf/53e8aaedbf949205/out/libasync_ringbuf-53e8aaedbf949205.rlib --extern async_ringbuf=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/async-ringbuf/53e8aaedbf949205/out/libasync_ringbuf-53e8aaedbf949205.rmeta --extern async_trait=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/release/build/async-trait/eb2d47bb36be8bd5/out/libasync_trait-eb2d47bb36be8bd5.dylib --extern atomic_shim=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/atomic-shim/806bc700d6f6a629/out/libatomic_shim-806bc700d6f6a629.rlib --extern atomic_shim=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/atomic-shim/806bc700d6f6a629/out/libatomic_shim-806bc700d6f6a629.rmeta --extern auto_impl=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/release/build/auto_impl/f63563019b25c2f1/out/libauto_impl-f63563019b25c2f1.dylib --extern base64=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/base64/99878a6f108224e4/out/libbase64-99878a6f108224e4.rlib --extern base64=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/base64/99878a6f108224e4/out/libbase64-99878a6f108224e4.rmeta --extern bitflags=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/bitflags/662eee5e54fd4419/out/libbitflags-662eee5e54fd4419.rlib --extern bitflags=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/bitflags/662eee5e54fd4419/out/libbitflags-662eee5e54fd4419.rmeta --extern bon=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/bon/129316863d0b2b2d/out/libbon-129316863d0b2b2d.rlib --extern bon=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/bon/129316863d0b2b2d/out/libbon-129316863d0b2b2d.rmeta --extern bytecodec=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/bytecodec/cf6e89a62a734171/out/libbytecodec-cf6e89a62a734171.rlib --extern bytecodec=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/bytecodec/cf6e89a62a734171/out/libbytecodec-cf6e89a62a734171.rmeta --extern bytes=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/bytes/e4818140eeda779a/out/libbytes-e4818140eeda779a.rlib --extern bytes=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/bytes/e4818140eeda779a/out/libbytes-e4818140eeda779a.rmeta --extern chrono=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/chrono/6243f3777778b5e0/out/libchrono-6243f3777778b5e0.rlib --extern chrono=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/chrono/6243f3777778b5e0/out/libchrono-6243f3777778b5e0.rmeta --extern cidr=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/cidr/b8faf31b73a0b706/out/libcidr-b8faf31b73a0b706.rlib --extern cidr=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/cidr/b8faf31b73a0b706/out/libcidr-b8faf31b73a0b706.rmeta --extern 'noprelude,nounused:compiler_builtins=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/compiler_builtins/34ad4f6b5952eda5/out/libcompiler_builtins-34ad4f6b5952eda5.rlib' --extern 'noprelude,nounused:compiler_builtins=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/compiler_builtins/34ad4f6b5952eda5/out/libcompiler_builtins-34ad4f6b5952eda5.rmeta' --extern 'noprelude,nounused:core=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/core/d11a40b0f04e5a74/out/libcore-d11a40b0f04e5a74.rlib' --extern 'noprelude,nounused:core=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/core/d11a40b0f04e5a74/out/libcore-d11a40b0f04e5a74.rmeta' --extern crossbeam_utils=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/crossbeam-utils/e38de2f46860b325/out/libcrossbeam_utils-e38de2f46860b325.rlib --extern crossbeam_utils=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/crossbeam-utils/e38de2f46860b325/out/libcrossbeam_utils-e38de2f46860b325.rmeta --extern dashmap=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/dashmap/bad654bc9ac97638/out/libdashmap-bad654bc9ac97638.rlib --extern dashmap=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/dashmap/bad654bc9ac97638/out/libdashmap-bad654bc9ac97638.rmeta --extern easytier_proto=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/easytier-proto/1dc4350a1d3dd1c9/out/libeasytier_proto-1dc4350a1d3dd1c9.rlib --extern easytier_proto=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/easytier-proto/1dc4350a1d3dd1c9/out/libeasytier_proto-1dc4350a1d3dd1c9.rmeta --extern futures=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/futures/8235141e9e4915de/out/libfutures-8235141e9e4915de.rlib --extern futures=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/futures/8235141e9e4915de/out/libfutures-8235141e9e4915de.rmeta --extern guarden=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/guarden/a7b85bbbd34b382a/out/libguarden-a7b85bbbd34b382a.rlib --extern guarden=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/guarden/a7b85bbbd34b382a/out/libguarden-a7b85bbbd34b382a.rmeta --extern hickory_proto=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/hickory-proto/3c708eebd1751a04/out/libhickory_proto-3c708eebd1751a04.rlib --extern hickory_proto=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/hickory-proto/3c708eebd1751a04/out/libhickory_proto-3c708eebd1751a04.rmeta --extern hmac=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/hmac/7edb9b280b7137f8/out/libhmac-7edb9b280b7137f8.rlib --extern hmac=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/hmac/7edb9b280b7137f8/out/libhmac-7edb9b280b7137f8.rmeta --extern http_body_util=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/http-body-util/49a91a6b6f5ea5b6/out/libhttp_body_util-49a91a6b6f5ea5b6.rlib --extern http_body_util=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/http-body-util/49a91a6b6f5ea5b6/out/libhttp_body_util-49a91a6b6f5ea5b6.rmeta --extern hyper=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/hyper/565ccb20615aec49/out/libhyper-565ccb20615aec49.rlib --extern hyper=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/hyper/565ccb20615aec49/out/libhyper-565ccb20615aec49.rmeta --extern hyper_util=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/hyper-util/87db01ff0d6753c7/out/libhyper_util-87db01ff0d6753c7.rlib --extern hyper_util=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/hyper-util/87db01ff0d6753c7/out/libhyper_util-87db01ff0d6753c7.rmeta --extern idna=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/idna/35cf002594f43790/out/libidna-35cf002594f43790.rlib --extern idna=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/idna/35cf002594f43790/out/libidna-35cf002594f43790.rmeta --extern lzokay_native=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/lzokay-native/41625d7d83f50173/out/liblzokay_native-41625d7d83f50173.rlib --extern lzokay_native=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/lzokay-native/41625d7d83f50173/out/liblzokay_native-41625d7d83f50173.rmeta --extern once_cell=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/once_cell/1c1ee1a3c0ff3b47/out/libonce_cell-1c1ee1a3c0ff3b47.rlib --extern once_cell=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/once_cell/1c1ee1a3c0ff3b47/out/libonce_cell-1c1ee1a3c0ff3b47.rmeta --extern optionize=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/optionize/af2b919955d34d56/out/liboptionize-af2b919955d34d56.rlib --extern optionize=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/optionize/af2b919955d34d56/out/liboptionize-af2b919955d34d56.rmeta --extern ordered_hash_map=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ordered_hash_map/b9833aad5060789b/out/libordered_hash_map-b9833aad5060789b.rlib --extern ordered_hash_map=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ordered_hash_map/b9833aad5060789b/out/libordered_hash_map-b9833aad5060789b.rmeta --extern 'noprelude,nounused:panic_abort=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/panic_abort/9239adcd182b64a4/out/libpanic_abort-9239adcd182b64a4.rlib' --extern 'noprelude,nounused:panic_abort=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/panic_abort/9239adcd182b64a4/out/libpanic_abort-9239adcd182b64a4.rmeta' --extern 'noprelude,nounused:panic_unwind=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/panic_unwind/05e166543269c257/out/libpanic_unwind-05e166543269c257.rlib' --extern 'noprelude,nounused:panic_unwind=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/panic_unwind/05e166543269c257/out/libpanic_unwind-05e166543269c257.rmeta' --extern parking_lot=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/parking_lot/1926ecd844e19218/out/libparking_lot-1926ecd844e19218.rlib --extern parking_lot=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/parking_lot/1926ecd844e19218/out/libparking_lot-1926ecd844e19218.rmeta --extern percent_encoding=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/percent-encoding/3f2d553428d58883/out/libpercent_encoding-3f2d553428d58883.rlib --extern percent_encoding=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/percent-encoding/3f2d553428d58883/out/libpercent_encoding-3f2d553428d58883.rmeta --extern petgraph=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/petgraph/2fa8d71680639dba/out/libpetgraph-2fa8d71680639dba.rlib --extern petgraph=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/petgraph/2fa8d71680639dba/out/libpetgraph-2fa8d71680639dba.rmeta --extern pin_project_lite=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/pin-project-lite/5862b0d8011c24bf/out/libpin_project_lite-5862b0d8011c24bf.rlib --extern pin_project_lite=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/pin-project-lite/5862b0d8011c24bf/out/libpin_project_lite-5862b0d8011c24bf.rmeta --extern prefix_trie=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/prefix-trie/40c80d536753e8f3/out/libprefix_trie-40c80d536753e8f3.rlib --extern prefix_trie=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/prefix-trie/40c80d536753e8f3/out/libprefix_trie-40c80d536753e8f3.rmeta --extern 'noprelude,nounused:proc_macro=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/proc_macro/61ee1bc1a13d7300/out/libproc_macro-61ee1bc1a13d7300.rlib' --extern 'noprelude,nounused:proc_macro=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/proc_macro/61ee1bc1a13d7300/out/libproc_macro-61ee1bc1a13d7300.rmeta' --extern prost=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/prost/9c22f0286b8bc5de/out/libprost-9c22f0286b8bc5de.rlib --extern prost=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/prost/9c22f0286b8bc5de/out/libprost-9c22f0286b8bc5de.rmeta --extern prost_types=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/prost-types/f9b290caf4622e3b/out/libprost_types-f9b290caf4622e3b.rlib --extern prost_types=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/prost-types/f9b290caf4622e3b/out/libprost_types-f9b290caf4622e3b.rmeta --extern quanta=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/quanta/5a9d51ecaf0d9eec/out/libquanta-5a9d51ecaf0d9eec.rlib --extern quanta=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/quanta/5a9d51ecaf0d9eec/out/libquanta-5a9d51ecaf0d9eec.rmeta --extern rand=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/rand/393452384147e6be/out/librand-393452384147e6be.rlib --extern rand=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/rand/393452384147e6be/out/librand-393452384147e6be.rmeta --extern reed_solomon_erasure=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/reed-solomon-erasure/ddd821bc9d654231/out/libreed_solomon_erasure-ddd821bc9d654231.rlib --extern reed_solomon_erasure=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/reed-solomon-erasure/ddd821bc9d654231/out/libreed_solomon_erasure-ddd821bc9d654231.rmeta --extern ring=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ring/13ade37904f03100/out/libring-13ade37904f03100.rlib --extern ring=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ring/13ade37904f03100/out/libring-13ade37904f03100.rmeta --extern rustls=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/rustls/072e93d828eb6c05/out/librustls-072e93d828eb6c05.rlib --extern rustls=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/rustls/072e93d828eb6c05/out/librustls-072e93d828eb6c05.rmeta --extern serde=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/serde/17c9e52547761277/out/libserde-17c9e52547761277.rlib --extern serde=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/serde/17c9e52547761277/out/libserde-17c9e52547761277.rmeta --extern serde_json=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/serde_json/d71418a59deb115d/out/libserde_json-d71418a59deb115d.rlib --extern serde_json=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/serde_json/d71418a59deb115d/out/libserde_json-d71418a59deb115d.rmeta --extern sha2=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/sha2/c3d25aa4c0ff14a5/out/libsha2-c3d25aa4c0ff14a5.rlib --extern sha2=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/sha2/c3d25aa4c0ff14a5/out/libsha2-c3d25aa4c0ff14a5.rmeta --extern smoltcp=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/smoltcp/b080999f0fd015ba/out/libsmoltcp-b080999f0fd015ba.rlib --extern smoltcp=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/smoltcp/b080999f0fd015ba/out/libsmoltcp-b080999f0fd015ba.rmeta --extern snow=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/snow/9b1f47c02bb8116d/out/libsnow-9b1f47c02bb8116d.rlib --extern snow=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/snow/9b1f47c02bb8116d/out/libsnow-9b1f47c02bb8116d.rmeta --extern 'noprelude,nounused:std=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/std/9fd3ada3e25efa9e/out/libstd-9fd3ada3e25efa9e.rlib' --extern 'noprelude,nounused:std=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/std/9fd3ada3e25efa9e/out/libstd-9fd3ada3e25efa9e.rmeta' --extern strum=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/strum/f7406c87a6741a3f/out/libstrum-f7406c87a6741a3f.rlib --extern strum=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/strum/f7406c87a6741a3f/out/libstrum-f7406c87a6741a3f.rmeta --extern stun_codec=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/stun_codec/eb714260fe1768b6/out/libstun_codec-eb714260fe1768b6.rlib --extern stun_codec=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/stun_codec/eb714260fe1768b6/out/libstun_codec-eb714260fe1768b6.rmeta --extern thiserror=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/thiserror/10a2721fe39bf4d9/out/libthiserror-10a2721fe39bf4d9.rlib --extern thiserror=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/thiserror/10a2721fe39bf4d9/out/libthiserror-10a2721fe39bf4d9.rmeta --extern tokio=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/tokio/a4666abdb5ef87f8/out/libtokio-a4666abdb5ef87f8.rlib --extern tokio=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/tokio/a4666abdb5ef87f8/out/libtokio-a4666abdb5ef87f8.rmeta --extern tokio_rustls=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/tokio-rustls/1e14ffba1a32a819/out/libtokio_rustls-1e14ffba1a32a819.rlib --extern tokio_rustls=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/tokio-rustls/1e14ffba1a32a819/out/libtokio_rustls-1e14ffba1a32a819.rmeta --extern tokio_util=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/tokio-util/6a7f1389dd8abf96/out/libtokio_util-6a7f1389dd8abf96.rlib --extern tokio_util=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/tokio-util/6a7f1389dd8abf96/out/libtokio_util-6a7f1389dd8abf96.rmeta --extern toml=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/toml/82cb197add404c58/out/libtoml-82cb197add404c58.rlib --extern toml=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/toml/82cb197add404c58/out/libtoml-82cb197add404c58.rmeta --extern tracing=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/tracing/7ccf3766154e6970/out/libtracing-7ccf3766154e6970.rlib --extern tracing=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/tracing/7ccf3766154e6970/out/libtracing-7ccf3766154e6970.rmeta --extern url=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/url/b424475adbe9da55/out/liburl-b424475adbe9da55.rlib --extern url=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/url/b424475adbe9da55/out/liburl-b424475adbe9da55.rmeta --extern uuid=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/uuid/4bd7138a03f4553d/out/libuuid-4bd7138a03f4553d.rlib --extern uuid=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/uuid/4bd7138a03f4553d/out/libuuid-4bd7138a03f4553d.rmeta --extern webpki_roots=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/webpki-roots/aef3bc7db769039e/out/libwebpki_roots-aef3bc7db769039e.rlib --extern webpki_roots=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/webpki-roots/aef3bc7db769039e/out/libwebpki_roots-aef3bc7db769039e.rmeta --extern wildmatch=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/wildmatch/efb61d05cfad2d34/out/libwildmatch-efb61d05cfad2d34.rlib --extern wildmatch=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/wildmatch/efb61d05cfad2d34/out/libwildmatch-efb61d05cfad2d34.rmeta --extern x25519_dalek=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/x25519-dalek/399ca3dbdbf86282/out/libx25519_dalek-399ca3dbdbf86282.rlib --extern x25519_dalek=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/x25519-dalek/399ca3dbdbf86282/out/libx25519_dalek-399ca3dbdbf86282.rmeta --extern zerocopy=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/zerocopy/c679481ebec1de53/out/libzerocopy-c679481ebec1de53.rlib --extern zerocopy=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/zerocopy/c679481ebec1de53/out/libzerocopy-c679481ebec1de53.rmeta --extern zstd=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/zstd/c7323f6748c8d99f/out/libzstd-c7323f6748c8d99f.rlib --extern zstd=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/zstd/c7323f6748c8d99f/out/libzstd-c7323f6748c8d99f.rmeta -Z unstable-options --cap-lints allow --force-warn=unused_crate_dependencies -L native=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ring/83ed09937edc091a/out -L native=/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/zstd-sys/11ba7c5f3ce6625c/out` (exit status: 101)
 [1;31mXX  cargo build 失败 (exit 101)[0m
