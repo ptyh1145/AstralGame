@@ -75,6 +75,30 @@ def patch_file(path):
         "let force_warnings_into_errors = is_git;",
         "let force_warnings_into_errors = false;", 1)
 
+    # perlasm 现场生成的 .S 里**没有** `#include <ring-core/asm_base.h>`，
+    # 而符号前缀宏（ring_core_x_y_z__）就藏在
+    # asm_base.h -> ring_core_generated/prefix_symbols_asm.h 里。
+    # 预生成的 .S 自带这行 include，现场生成的不带 —— 不补的话汇编符号
+    # 没有前缀，链接时就报 _ring_core_*_sha256_block_data_order_nohw 未定义。
+    old_perl = """        args.push(join_components_with_forward_slashes(dst));
+        run_command_with_args(perl_exe, &args);"""
+    new_perl = """        args.push(join_components_with_forward_slashes(dst));
+        run_command_with_args(perl_exe, &args);
+        // [astral-ios6-patch] 补上 asm_base.h，让符号前缀宏生效
+        if dst.extension().and_then(|e| e.to_str()) == Some("S") {
+            if let Ok(body) = fs::read_to_string(dst) {
+                if !body.contains("asm_base.h") {
+                    let mut with_inc = String::from("#include <ring-core/asm_base.h>\\n");
+                    with_inc.push_str(&body);
+                    let _ = fs::write(dst, with_inc);
+                }
+            }
+        }"""
+    if old_perl not in src:
+        print("    !! 找不到 perlasm 调用处，跳过: %s" % path)
+        return False
+    src = src.replace(old_perl, new_perl, 1)
+
     open(path, "w", encoding="utf-8", newline="").write(src)
     print("    patched: %s" % path)
     return True
