@@ -31,7 +31,14 @@
 #elif defined(__AARCH64EL__) || defined(_M_ARM64)
 #define OPENSSL_64_BIT
 #define OPENSSL_AARCH64
-#elif defined(__ARMEL__) || defined(_M_ARM)
+// [astral-ios6] 新版 clang 对 32 位 ARM（含 iOS 的 armv7s）不再定义
+// 古老的 GCC 兼容宏 __ARMEL__，只定义 __arm__ / __ARM_ARCH。
+// 原判定只看 __ARMEL__，于是 iOS 上 OPENSSL_ARM 没被定义：
+//   * crypto/*.c 里的 neon 分支不编译
+//   * 所有 .S 被 `#if ... defined(OPENSSL_ARM)` 整段预处理掉 → 空 .o
+//     （表现成 ranlib 的 "has no symbols" 和 17 个 _ring_core_* 未定义）
+// 加上 __arm__ 兜底即可。
+#elif defined(__ARMEL__) || defined(_M_ARM) || defined(__arm__)
 #define OPENSSL_32_BIT
 #define OPENSSL_ARM
 // All of following architectures are only supported when `__BYTE_ORDER__` can be used to detect

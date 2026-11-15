@@ -3,7 +3,7 @@
 
 #include <ring-core/asm_base.h>
 
-#if 1 // [astral-ios6] unconditional: build arm asm for iOS
+#if !defined(OPENSSL_NO_ASM) && defined(OPENSSL_ARM) && defined(__APPLE__)
 @ Copyright 2007-2016 The OpenSSL Project Authors. All Rights Reserved.
 @
 @ Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,50 +17,6 @@
 @ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 @ See the License for the specific language governing permissions and
 @ limitations under the License.
-
-
-@ ====================================================================
-@ Written by Andy Polyakov <appro@openssl.org> for the OpenSSL
-@ project.
-@ ====================================================================
-
-@ SHA512 block procedure for ARMv4. September 2007.
-
-@ This code is ~4.5 (four and a half) times faster than code generated
-@ by gcc 3.4 and it spends ~72 clock cycles per byte [on single-issue
-@ Xscale PXA250 core].
-@
-@ July 2010.
-@
-@ Rescheduling for dual-issue pipeline resulted in 6% improvement on
-@ Cortex A8 core and ~40 cycles per processed byte.
-
-@ February 2011.
-@
-@ Profiler-assisted and platform-specific optimization resulted in 7%
-@ improvement on Coxtex A8 core and ~38 cycles per byte.
-
-@ March 2011.
-@
-@ Add NEON implementation. On Cortex A8 it was measured to process
-@ one byte in 23.3 cycles or ~60% faster than integer-only code.
-
-@ August 2012.
-@
-@ Improve NEON performance by 12% on Snapdragon S4. In absolute
-@ terms it's 22.6 cycles per byte, which is disappointing result.
-@ Technical writers asserted that 3-way S4 pipeline can sustain
-@ multiple NEON instructions per cycle, but dual NEON issue could
-@ not be observed, see http://www.openssl.org/~appro/Snapdragon-S4.html
-@ for further details. On side note Cortex-A15 processes one byte in
-@ 16 cycles.
-
-@ Byte order [in]dependence. =========================================
-@
-@ Originally caller was expected to maintain specific *dword* order in
-@ h[0-7], namely with most significant dword at *lower* address, which
-@ was reflected in below two parameters as 0 and 4. Now caller is
-@ expected to maintain native byte order for whole 64-bit values.
 #ifndef __KERNEL__
 # define VFP_ABI_PUSH	vstmdb	sp!,{d8-d15}
 # define VFP_ABI_POP	vldmia	sp!,{d8-d15}
@@ -577,11 +533,11 @@ Loop_neon:
 	vadd.i64	d30,d27
 	@ vadd.i64	d23,d30
 	vshr.u64	d24,d19,#14	@ 1
-#if 1 // [astral-ios6] unconditional: build arm asm for iOS
+#if 1<16
 	vld1.64	{d1},[r1]!	@ handles unaligned
 #endif
 	vshr.u64	d25,d19,#18
-#if 1 // [astral-ios6] unconditional: build arm asm for iOS
+#if 1>0
 	vadd.i64	d23,d30			@ h+=Maj from the past
 #endif
 	vshr.u64	d26,d19,#41
@@ -590,7 +546,7 @@ Loop_neon:
 	vsli.64	d25,d19,#46
 	vmov	d29,d19
 	vsli.64	d26,d19,#23
-#if 1 // [astral-ios6] unconditional: build arm asm for iOS
+#if 1<16 && defined(__ARMEL__)
 	vrev64.8	d1,d1
 #endif
 	veor	d25,d24
@@ -910,11 +866,11 @@ Loop_neon:
 	vadd.i64	d30,d27
 	@ vadd.i64	d22,d30
 	vshr.u64	d24,d18,#14	@ 10
-#if 1 // [astral-ios6] unconditional: build arm asm for iOS
+#if 10<16
 	vld1.64	{d10},[r1]!	@ handles unaligned
 #endif
 	vshr.u64	d25,d18,#18
-#if 1 // [astral-ios6] unconditional: build arm asm for iOS
+#if 10>0
 	vadd.i64	d22,d30			@ h+=Maj from the past
 #endif
 	vshr.u64	d26,d18,#41
@@ -923,7 +879,7 @@ Loop_neon:
 	vsli.64	d25,d18,#46
 	vmov	d29,d18
 	vsli.64	d26,d18,#23
-#if 1 // [astral-ios6] unconditional: build arm asm for iOS
+#if 10<16 && defined(__ARMEL__)
 	vrev64.8	d10,d10
 #endif
 	veor	d25,d24
@@ -947,11 +903,11 @@ Loop_neon:
 	vadd.i64	d30,d27
 	@ vadd.i64	d21,d30
 	vshr.u64	d24,d17,#14	@ 11
-#if 1 // [astral-ios6] unconditional: build arm asm for iOS
+#if 11<16
 	vld1.64	{d11},[r1]!	@ handles unaligned
 #endif
 	vshr.u64	d25,d17,#18
-#if 1 // [astral-ios6] unconditional: build arm asm for iOS
+#if 11>0
 	vadd.i64	d21,d30			@ h+=Maj from the past
 #endif
 	vshr.u64	d26,d17,#41
@@ -960,7 +916,7 @@ Loop_neon:
 	vsli.64	d25,d17,#46
 	vmov	d29,d17
 	vsli.64	d26,d17,#23
-#if 1 // [astral-ios6] unconditional: build arm asm for iOS
+#if 11<16 && defined(__ARMEL__)
 	vrev64.8	d11,d11
 #endif
 	veor	d25,d24
@@ -984,11 +940,11 @@ Loop_neon:
 	vadd.i64	d30,d27
 	@ vadd.i64	d20,d30
 	vshr.u64	d24,d16,#14	@ 12
-#if 1 // [astral-ios6] unconditional: build arm asm for iOS
+#if 12<16
 	vld1.64	{d12},[r1]!	@ handles unaligned
 #endif
 	vshr.u64	d25,d16,#18
-#if 1 // [astral-ios6] unconditional: build arm asm for iOS
+#if 12>0
 	vadd.i64	d20,d30			@ h+=Maj from the past
 #endif
 	vshr.u64	d26,d16,#41
@@ -997,7 +953,7 @@ Loop_neon:
 	vsli.64	d25,d16,#46
 	vmov	d29,d16
 	vsli.64	d26,d16,#23
-#if 1 // [astral-ios6] unconditional: build arm asm for iOS
+#if 12<16 && defined(__ARMEL__)
 	vrev64.8	d12,d12
 #endif
 	veor	d25,d24
@@ -1021,11 +977,11 @@ Loop_neon:
 	vadd.i64	d30,d27
 	@ vadd.i64	d19,d30
 	vshr.u64	d24,d23,#14	@ 13
-#if 1 // [astral-ios6] unconditional: build arm asm for iOS
+#if 13<16
 	vld1.64	{d13},[r1]!	@ handles unaligned
 #endif
 	vshr.u64	d25,d23,#18
-#if 1 // [astral-ios6] unconditional: build arm asm for iOS
+#if 13>0
 	vadd.i64	d19,d30			@ h+=Maj from the past
 #endif
 	vshr.u64	d26,d23,#41
@@ -1034,7 +990,7 @@ Loop_neon:
 	vsli.64	d25,d23,#46
 	vmov	d29,d23
 	vsli.64	d26,d23,#23
-#if 1 // [astral-ios6] unconditional: build arm asm for iOS
+#if 13<16 && defined(__ARMEL__)
 	vrev64.8	d13,d13
 #endif
 	veor	d25,d24
@@ -1058,11 +1014,11 @@ Loop_neon:
 	vadd.i64	d30,d27
 	@ vadd.i64	d18,d30
 	vshr.u64	d24,d22,#14	@ 14
-#if 1 // [astral-ios6] unconditional: build arm asm for iOS
+#if 14<16
 	vld1.64	{d14},[r1]!	@ handles unaligned
 #endif
 	vshr.u64	d25,d22,#18
-#if 1 // [astral-ios6] unconditional: build arm asm for iOS
+#if 14>0
 	vadd.i64	d18,d30			@ h+=Maj from the past
 #endif
 	vshr.u64	d26,d22,#41
@@ -1071,7 +1027,7 @@ Loop_neon:
 	vsli.64	d25,d22,#46
 	vmov	d29,d22
 	vsli.64	d26,d22,#23
-#if 1 // [astral-ios6] unconditional: build arm asm for iOS
+#if 14<16 && defined(__ARMEL__)
 	vrev64.8	d14,d14
 #endif
 	veor	d25,d24
@@ -1095,11 +1051,11 @@ Loop_neon:
 	vadd.i64	d30,d27
 	@ vadd.i64	d17,d30
 	vshr.u64	d24,d21,#14	@ 15
-#if 1 // [astral-ios6] unconditional: build arm asm for iOS
+#if 15<16
 	vld1.64	{d15},[r1]!	@ handles unaligned
 #endif
 	vshr.u64	d25,d21,#18
-#if 1 // [astral-ios6] unconditional: build arm asm for iOS
+#if 15>0
 	vadd.i64	d17,d30			@ h+=Maj from the past
 #endif
 	vshr.u64	d26,d21,#41
@@ -1108,7 +1064,7 @@ Loop_neon:
 	vsli.64	d25,d21,#46
 	vmov	d29,d21
 	vsli.64	d26,d21,#23
-#if 1 // [astral-ios6] unconditional: build arm asm for iOS
+#if 15<16 && defined(__ARMEL__)
 	vrev64.8	d15,d15
 #endif
 	veor	d25,d24
@@ -1162,7 +1118,7 @@ L16_79_neon:
 	vsli.64	d25,d20,#46
 	vmov	d29,d20
 	vsli.64	d26,d20,#23
-#if 1 // [astral-ios6] unconditional: build arm asm for iOS
+#if 16<16 && defined(__ARMEL__)
 	vrev64.8	,
 #endif
 	veor	d25,d24
@@ -1186,11 +1142,11 @@ L16_79_neon:
 	vadd.i64	d30,d27
 	@ vadd.i64	d23,d30
 	vshr.u64	d24,d19,#14	@ 17
-#if 1 // [astral-ios6] unconditional: build arm asm for iOS
+#if 17<16
 	vld1.64	{d1},[r1]!	@ handles unaligned
 #endif
 	vshr.u64	d25,d19,#18
-#if 1 // [astral-ios6] unconditional: build arm asm for iOS
+#if 17>0
 	vadd.i64	d23,d30			@ h+=Maj from the past
 #endif
 	vshr.u64	d26,d19,#41
@@ -1199,7 +1155,7 @@ L16_79_neon:
 	vsli.64	d25,d19,#46
 	vmov	d29,d19
 	vsli.64	d26,d19,#23
-#if 1 // [astral-ios6] unconditional: build arm asm for iOS
+#if 17<16 && defined(__ARMEL__)
 	vrev64.8	,
 #endif
 	veor	d25,d24
@@ -1250,7 +1206,7 @@ L16_79_neon:
 	vsli.64	d25,d18,#46
 	vmov	d29,d18
 	vsli.64	d26,d18,#23
-#if 1 // [astral-ios6] unconditional: build arm asm for iOS
+#if 18<16 && defined(__ARMEL__)
 	vrev64.8	,
 #endif
 	veor	d25,d24
@@ -1274,11 +1230,11 @@ L16_79_neon:
 	vadd.i64	d30,d27
 	@ vadd.i64	d21,d30
 	vshr.u64	d24,d17,#14	@ 19
-#if 1 // [astral-ios6] unconditional: build arm asm for iOS
+#if 19<16
 	vld1.64	{d3},[r1]!	@ handles unaligned
 #endif
 	vshr.u64	d25,d17,#18
-#if 1 // [astral-ios6] unconditional: build arm asm for iOS
+#if 19>0
 	vadd.i64	d21,d30			@ h+=Maj from the past
 #endif
 	vshr.u64	d26,d17,#41
@@ -1287,7 +1243,7 @@ L16_79_neon:
 	vsli.64	d25,d17,#46
 	vmov	d29,d17
 	vsli.64	d26,d17,#23
-#if 1 // [astral-ios6] unconditional: build arm asm for iOS
+#if 19<16 && defined(__ARMEL__)
 	vrev64.8	,
 #endif
 	veor	d25,d24

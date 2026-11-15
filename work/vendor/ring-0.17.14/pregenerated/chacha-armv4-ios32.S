@@ -3,7 +3,7 @@
 
 #include <ring-core/asm_base.h>
 
-#if 1 // [astral-ios6] unconditional: build arm asm for iOS
+#if !defined(OPENSSL_NO_ASM) && defined(OPENSSL_ARM) && defined(__APPLE__)
 @ Silence ARMv8 deprecated IT instruction warnings. This file is used by both
 @ ARMv7 and ARMv8 processors and does not use ARMv8 instructions.
 
