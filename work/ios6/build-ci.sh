@@ -259,19 +259,24 @@ say "ring 使用 vendored 副本（已内置 iOS 32 位汇编修复）"
 
 # 关键：强制 ring 重新跑 build script 并重新生成汇编。
 #
-# 手动 rm target/.../{.fingerprint,build,deps} 试过几轮都没效果：cargo 仍会
-# 出现 "Compiling ring" 但 build script 的 out/ 是空的、libring_core*.a 不存在，
-# 说明它复用了缓存状态。用 cargo 官方的 `clean -p` 更彻底。
-say "强制 ring 重编（cargo clean -p ring）"
-cargo +nightly -Zjson-target-spec clean -p ring --target "$SPEC" \
-  || warn "cargo clean -p ring 失败（继续）"
+# 之前几轮一直失败的原因（很隐蔽）：
+#   **build script 是给 host 编译并运行的**，所以它的产物在
+#   `target/release/build/ring-<hash>/`（没有 triple 那一层），
+#   而不是 `target/<triple>/release/build/`。
+#   我们一直在清后者，等于没清到 build script 的缓存，
+#   cargo 就始终复用"已成功执行"的旧状态（out/ 空、libring_core*.a 不存在），
+#   最终表现为 17 个 _ring_core_* 符号 undefined。
+#
+# 所以这里必须清理 **host 侧** 的 ring 构建状态。
+say "强制 ring 重编（清 host 侧 build script 缓存）"
+cargo +nightly clean -p ring || warn "cargo clean -p ring 失败（继续）"
 echo "    cargo clean -p ring 完成"
 
-# 兜底：再手动删一遍（cargo clean 偶尔会漏掉 build script 的输出目录）
-REL="$CRATE/target/armv7-apple-ios/release"
-for p in "$REL/.fingerprint"/ring* \
-         "$REL/build"/ring \
-         "$REL/deps"/libring-* ; do
+for p in "$CRATE"/target/release/build/ring-* \
+         "$CRATE"/target/release/.fingerprint/ring-* \
+         "$CRATE"/target/armv7-apple-ios/release/build/ring-* \
+         "$CRATE"/target/armv7-apple-ios/release/.fingerprint/ring-* \
+         "$CRATE"/target/armv7-apple-ios/release/deps/libring-* ; do
   [ -e "$p" ] && rm -rf "$p"
 done
 echo "    兜底清理完成"
@@ -279,8 +284,7 @@ echo "    兜底清理完成"
 # C 依赖的 build 输出也清掉：rust-cache 里可能存着用旧 -arch armv7 编的
 # 目标文件，ld64 遇到架构不符的归档成员会**静默丢弃**，最后表现成
 #   ld: symbol(s) not found ... _ring_core_*_sha512_block_data_order_nohw
-# 这类"加密符号莫名缺失"，很难排查。
-BUILD_DIR="$REL/build"
+BUILD_DIR="$CRATE/target/armv7-apple-ios/release/build"
 if [ -d "$BUILD_DIR" ]; then
   rm -rf "$BUILD_DIR"
   echo "    已清理 target/.../build（强制 C 依赖按 armv7s 重编）"
@@ -294,7 +298,8 @@ if [ $RC -ne 0 ]; then
   # 失败时把 ring 的中间产物打印出来（排 ring 汇编问题用，只读不写）
   say "构建失败 —— dump ring 汇编诊断"
   RINGOUT=""
-  for d in "$CRATE"/target/armv7-apple-ios/release/build/ring/*; do
+  # build script 在 host 侧：target/release/build/ring-<hash>
+  for d in "$CRATE"/target/release/build/ring-*; do
     [ -d "$d" ] && RINGOUT="$d" && break
   done
   if [ -n "$RINGOUT" ]; then
