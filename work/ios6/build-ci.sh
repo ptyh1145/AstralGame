@@ -49,6 +49,17 @@ grep -q -- '___sincos_stret' "$LIB_M" && warn "含 ___sincos_stret（iOS7+），
 grep -q -- '_objc_readClassPair' "$LIB_OBJC" && warn "含 _objc_readClassPair（iOS8+），SDK 偏新" \
   || echo "    iOS 6 特征: 无 _objc_readClassPair  OK"
 
+# 补 libc.tbd：std（build-std）里对 unix 声明了 #[link(name = "c")]，
+# 链接时会传 -lc；但 iOS 的 libc 符号全在 libSystem 里，这个 6.1 SDK 没有
+# libc.tbd 别名（真实 Xcode 的 iOS SDK 是有的），于是 ld 报
+# `ld: library not found for -lc`。
+# 直接复制 libSystem.tbd 即可：tbd 里的 install-name 仍是
+# /usr/lib/libSystem.B.dylib，ld 只会按它记录 LC_LOAD_DYLIB，语义完全等价。
+if [ ! -f "$SDK_PATH/usr/lib/libc.tbd" ]; then
+  cp "$LIB_SYS" "$SDK_PATH/usr/lib/libc.tbd"
+  echo "    补 libc.tbd（libSystem 别名）: OK"
+fi
+
 # ---------------------------------------------------------------- 2. target JSON
 say "派生纯 armv7 目标（基于 armv7s spec，注入 SDK 链接参数）"
 export RUSTC_BOOTSTRAP=1
@@ -186,9 +197,15 @@ BIN="$CRATE/target/armv7-apple-ios/release/astral-tund"
 [ -f "$BIN" ] || die "找不到产物 astral-tund"
 
 # ---------------------------------------------------------------- 4. 后处理
+# rustc 1.102 对 armv7s 的 minimum deployment target 是 10.0，它会强制
+# `-target armv7s-apple-ios10.0.0`，覆盖我们给 clang 的 -miphoneos-version-min=6.0，
+# 产物会被标成 min=10.0。这里改回 6.0（必须在 ldid 签名之前）。
+say "修正 Mach-O 最低版本 -> iOS $MIN_IOS"
+python3 "$HERE/fix_macho_ver.py" "$BIN" "$MIN_IOS" "6.1" || warn "版本修正失败（继续）"
+
 say "校验产物"
 file "$BIN" | sed 's/^/    /'
-otool -l "$BIN" | grep -A4 LC_VERSION_MIN_IPHONEOS | sed 's/^/    /' || warn "无 LC_VERSION_MIN_IPHONEOS"
+otool -l "$BIN" | grep -A4 -E 'LC_VERSION_MIN_IPHONEOS|LC_BUILD_VERSION' | sed 's/^/    /' || warn "无 iOS 版本命令"
 otool -L "$BIN" | head -12 | sed 's/^/    /'
 
 say "签名（越狱设备 ad-hoc）"
