@@ -258,14 +258,29 @@ say "修补 ring 的 iOS 32 位汇编支持"
 python3 "$HERE/patch_ring_asm.py" "$HOME/.cargo/registry/src" \
   || warn "ring 汇编补丁失败（继续尝试编译）"
 
-# 关键：清掉所有 build script 的输出目录，强制 C/汇编依赖按当前的
-# -arch armv7s 重新编译。
-# 原因：rust-cache 会把 target/.../build 缓存下来，里面 ring 的
-# libring_core_*.a 可能是早先用 -arch armv7 编的；ld64 遇到架构不符的
-# 归档成员会**静默丢弃**，最后表现成
-#   ld: symbol(s) not found ... _ring_core_*__sha512_block_data_order_nohw
-# 这类"加密符号莫名缺失"，很难排查。清掉最省事。
-BUILD_DIR="$CRATE/target/armv7-apple-ios/release/build"
+# 关键：强制 ring 重新跑 build script。
+#
+# 只删 target/.../build 是**没用**的：cargo 的 `.fingerprint` 记录着
+# "build script 已成功执行"，只要缓存的 rlib 还在，它就直接复用，
+# 连 build script 都不会跑 —— 我们改的 build.rs 补丁自然永远不生效
+# （症状：日志里 `!! 没找到 ring 的 build 目录`）。
+#
+# 所以要把 ring 的 fingerprint / build 输出 / rlib 一起删掉，
+# 逼 cargo 重编 ring（build script 会按打好补丁的逻辑重新生成汇编）。
+say "强制 ring 重编（补丁改了 build.rs，缓存的 fingerprint 会跳过它）"
+REL="$CRATE/target/armv7-apple-ios/release"
+for p in "$REL/.fingerprint"/ring-* \
+         "$REL/build"/ring-* \
+         "$REL/deps"/libring-* ; do
+  [ -e "$p" ] && rm -rf "$p"
+done
+echo "    已清理 ring 的 fingerprint/build/deps"
+
+# C 依赖的 build 输出也清掉：rust-cache 里可能存着用旧 -arch armv7 编的
+# 目标文件，ld64 遇到架构不符的归档成员会**静默丢弃**，最后表现成
+#   ld: symbol(s) not found ... _ring_core_*_sha512_block_data_order_nohw
+# 这类"加密符号莫名缺失"，很难排查。
+BUILD_DIR="$REL/build"
 if [ -d "$BUILD_DIR" ]; then
   rm -rf "$BUILD_DIR"
   echo "    已清理 target/.../build（强制 C 依赖按 armv7s 重编）"
