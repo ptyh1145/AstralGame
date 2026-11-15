@@ -390,16 +390,20 @@ else
     || die "ObjC 编译失败"
 
   echo "    [2/4] 链接 App（含 Rust 静态库）"
-  # 注意：**不能**用 -Wl,-force_load —— 那会把 staticlib 里所有 .o 全拉进来，
-  # 包括本 App 用不到的 security-framework / std 分支，而它们引用了
-  # iOS 10+ 才有的符号（kSecUseAuthenticationContext、renamex_np 等），
-  # 导致链接失败。直接作为输入让 ld 按需拉取即可。
+  # 关键：必须带 -Wl,-dead_strip（rustc 的 bin 默认行为）。
+  # 不加的话，ld 会把可达 .o 里**所有**未定义引用都要求解析，
+  # 而 security-framework / std 里有一堆 iOS 10+ 才有的符号
+  # （SecTrustEvaluateWithError、kSecUseDataProtectionKeychain、
+  #   renamex_np、fclonefileat …，共 100+ 个），在 8.1 SDK 上必然失败。
+  # dead_strip 先做可达性分析，未达代码不参与符号解析。
+  # 另外不要用 -force_load（会把整个 staticlib 全拉进来）。
   clang "${UI_CFLAGS[@]}" \
     "$OUT/main.o" \
     "$LIB" \
     -framework UIKit -framework Foundation -framework CoreGraphics \
     -framework CoreFoundation -framework SystemConfiguration -framework Security \
     -lc -lm -liconv -lresolv \
+    -Wl,-dead_strip -Wl,-dead_strip_dylibs \
     -Wl,-U,__tlv_bootstrap -Wl,-U,__tlv_atexit \
     -o "$APP/AstralGame" \
     || die "链接 App 失败"
