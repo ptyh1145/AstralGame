@@ -1,63 +1,57 @@
-# 修补 vendored libc：把 utun/ctl 相关符号从 macos-only 放开到 any(macos, ios)。
+# 修补 vendored libc：把 src/unix/bsd/apple/mod.rs 里所有 macos-only 的 cfg
+# 一次性放开到 any(macos, ios)。
+#
+# 背景：nix/tun 在 iOS 分支里引用 libc 的 utun/ctl 符号（sockaddr_ctl、
+# AF_SYS_CONTROL、SYSPROTO_CONTROL、UTUN_OPT_IFNAME、ctl_info、CTLIOCGINFO），
+# 这些在 libc 里全被 #[cfg(target_os = "macos")] 挡着。而它们互相引用形成
+# 依赖网（如 ctl_info 用 MAX_KCTL_NAME、ifreq 联合用 in6_ifstat 等），
+# 逐个放开会连锁报 E0425。所以干脆把整个 apple 模块的 macos 门全放开，
+# 让 iOS 编译期按 macOS 语义暴露同一组符号（Darwin 共用 libSystem/内核 ABI）。
+#
 # 用法: python3 patch_libc_ios.py <libc_src_dir>
-import sys, os
+import sys, os, glob
 
 root = sys.argv[1]
-f = os.path.join(root, "src", "unix", "bsd", "apple", "mod.rs")
-s = open(f, encoding="utf-8").read()
-orig = s
+targets = []
+for pat in [
+    "src/unix/bsd/apple/mod.rs",
+    "src/unix/bsd/apple/b32/mod.rs",
+    "src/unix/bsd/apple/b64/mod.rs",
+    "src/unix/bsd/apple/b64/aarch64/mod.rs",
+    "src/unix/bsd/apple/b64/x86_64/mod.rs",
+]:
+    p = os.path.join(root, pat)
+    if os.path.exists(p):
+        targets.append(p)
 
-MACOS_CFG = '#[cfg(target_os = "macos")]'
-ANY_CFG = '#[cfg(any(target_os = "macos", target_os = "ios"))]'
-MACOS_IF = 'if #[cfg(target_os = "macos")]'
-ANY_IF = 'if #[cfg(any(target_os = "macos", target_os = "ios"))]'
+old = 'cfg(target_os = "macos")'
+new = 'cfg(any(target_os = "macos", target_os = "ios"))'
 
-def patch_attr(anchor):
-    """把 anchor 之前最近的 struct-level #[cfg(target_os=macos)] 改为 any(...)."""
-    global s
-    i = s.find(anchor)
+total = 0
+for f in targets:
+    s = open(f, encoding="utf-8").read()
+    n = s.count(old)
+    if n:
+        s = s.replace(old, new)
+        open(f, "w", encoding="utf-8", newline="").write(s)
+        print("patched %s : %d 处" % (os.path.basename(f), n))
+        total += n
+
+print("共修改 %d 处 cfg" % total)
+
+# 校验关键符号现在都暴露给 iOS
+mod = os.path.join(root, "src/unix/bsd/apple/mod.rs")
+s = open(mod, encoding="utf-8").read()
+checks = ["sockaddr_ctl", "ctl_info", "AF_SYS_CONTROL", "SYSPROTO_CONTROL",
+          "UTUN_OPT_IFNAME", "CTLIOCGINFO", "MAX_KCTL_NAME",
+          "in6_ifstat", "icmp6_ifstat", "in6_addrlifetime", "proc_fdinfo"]
+for a in checks:
+    i = s.find("pub struct " + a)
     if i < 0:
-        raise SystemExit("anchor not found: " + anchor)
-    j = s.rfind(MACOS_CFG, 0, i)
-    if j < 0:
-        raise SystemExit("no attr cfg before " + anchor)
-    s = s[:j] + ANY_CFG + s[j + len(MACOS_CFG):]
-
-def patch_cfgif(anchor):
-    """把 anchor 之前最近的 'if #[cfg(target_os=macos)]' 改为 any(...)."""
-    global s
-    i = s.find(anchor)
+        i = s.find("pub const " + a)
     if i < 0:
-        raise SystemExit("anchor not found: " + anchor)
-    j = s.rfind(MACOS_IF, 0, i)
-    if j < 0:
-        raise SystemExit("no cfg_if before " + anchor)
-    s = s[:j] + ANY_IF + s[j + len(MACOS_IF):]
-
-patch_attr("pub struct sockaddr_ctl")
-patch_attr("pub struct ctl_info")
-patch_cfgif("pub const AF_SYS_CONTROL")
-patch_cfgif("pub const UTUN_OPT_IFNAME")
-patch_cfgif("pub const CTLIOCGINFO")
-# ctl_info 结构体里引用了 MAX_KCTL_NAME（kern_control.h），它也在同一个
-# macos-only cfg_if 块里，不放开 iOS 会报 E0425。
-patch_cfgif("pub const MAX_KCTL_NAME")
-
-open(f, "w", encoding="utf-8", newline="").write(s)
-print("patched:", os.path.basename(f))
-print("changed:", s != orig)
-# 校验所有目标现在都是 any(macos, ios)
-checks = {
-    "sockaddr_ctl": "pub struct sockaddr_ctl",
-    "ctl_info": "pub struct ctl_info",
-    "AF_SYS_CONTROL": "pub const AF_SYS_CONTROL",
-    "UTUN_OPT_IFNAME": "pub const UTUN_OPT_IFNAME",
-    "CTLIOCGINFO": "pub const CTLIOCGINFO",
-}
-for name, anchor in checks.items():
-    if anchor in s:
-        # 该符号之前最近的 cfg 必须含 ios
-        i = s.find(anchor)
-        window = s[max(0, i - 200):i]
-        ok = 'target_os = "ios"' in window
-        print(("  OK  " if ok else "  FAIL") + " " + name)
+        print("FAIL 找不到符号 " + a)
+        continue
+    w = s[max(0, i - 160):i]
+    ok = 'target_os = "ios"' in w
+    print(("OK  " if ok else "??  ") + a)

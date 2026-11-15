@@ -130,7 +130,7 @@ pub type thread_latency_qos_policy_t = *mut thread_latency_qos_policy;
 pub type thread_throughput_qos_policy_data_t = thread_throughput_qos_policy;
 pub type thread_throughput_qos_policy_t = *mut thread_throughput_qos_policy;
 
-#[cfg(target_os = "macos")]
+#[cfg(any(target_os = "macos", target_os = "ios"))]
 pub type pthread_jit_write_callback_t = Option<extern "C" fn(ctx: *mut c_void) -> c_int>;
 
 pub type os_clockid_t = u32;
@@ -520,7 +520,7 @@ s2! {
         pub ifmam_refcount: i32,
     }
 
-    #[cfg(target_os = "macos")]
+    #[cfg(any(target_os = "macos", target_os = "ios"))]
     #[exhaustive] // FIXME(exhaustive): review for 1.0
     pub struct rt_metrics {
         pub rmx_locks: u32,
@@ -540,7 +540,7 @@ s2! {
     }
 
     #[exhaustive] // FIXME(exhaustive): review for 1.0
-    #[cfg(target_os = "macos")]
+    #[cfg(any(target_os = "macos", target_os = "ios"))]
     pub struct rt_msghdr {
         pub rtm_msglen: c_ushort,
         pub rtm_version: c_uchar,
@@ -557,7 +557,7 @@ s2! {
     }
 
     #[exhaustive] // FIXME(exhaustive): review for 1.0
-    #[cfg(target_os = "macos")]
+    #[cfg(any(target_os = "macos", target_os = "ios"))]
     pub struct rt_msghdr2 {
         pub rtm_msglen: c_ushort,
         pub rtm_version: c_uchar,
@@ -642,7 +642,7 @@ s2! {
     }
 
     #[exhaustive] // FIXME(exhaustive): review for 1.0
-    #[cfg(target_os = "macos")]
+    #[cfg(any(target_os = "macos", target_os = "ios"))]
     pub struct proc_taskinfo {
         pub pti_virtual_size: u64,
         pub pti_resident_size: u64,
@@ -665,7 +665,7 @@ s2! {
     }
 
     #[exhaustive] // FIXME(exhaustive): review for 1.0
-    #[cfg(target_os = "macos")]
+    #[cfg(any(target_os = "macos", target_os = "ios"))]
     pub struct proc_bsdinfo {
         pub pbi_flags: u32,
         pub pbi_status: u32,
@@ -691,7 +691,7 @@ s2! {
         pub pbi_start_tvusec: u64,
     }
 
-    #[cfg(target_os = "macos")]
+    #[cfg(any(target_os = "macos", target_os = "ios"))]
     pub struct proc_bsdshortinfo {
         /// Process ID.
         pub pbsi_pid: u32,
@@ -722,7 +722,7 @@ s2! {
     }
 
     #[exhaustive] // FIXME(exhaustive): review for 1.0
-    #[cfg(target_os = "macos")]
+    #[cfg(any(target_os = "macos", target_os = "ios"))]
     pub struct proc_taskallinfo {
         pub pbsd: proc_bsdinfo,
         pub ptinfo: proc_taskinfo,
@@ -877,7 +877,7 @@ s2! {
 
     // sys/if_arp.h
     #[exhaustive] // FIXME(exhaustive): review for 1.0
-    #[cfg(target_os = "macos")]
+    #[cfg(any(target_os = "macos", target_os = "ios"))]
     pub struct arphdr {
         pub ar_hrd: u16,
         pub ar_pro: u16,
@@ -893,7 +893,7 @@ s2! {
 
     // net/ndrv.h
     #[exhaustive] // FIXME(exhaustive): review for 1.0
-    #[cfg(target_os = "macos")]
+    #[cfg(any(target_os = "macos", target_os = "ios"))]
     pub struct sockaddr_ndrv {
         pub snd_len: c_uchar,
         pub snd_family: c_uchar,
@@ -1011,7 +1011,7 @@ s2! {
     }
 
     #[exhaustive] // FIXME(exhaustive): review for 1.0
-    #[cfg(target_os = "macos")]
+    #[cfg(any(target_os = "macos", target_os = "ios"))]
     pub struct vinfo_stat {
         pub vst_dev: u32,
         pub vst_mode: u16,
@@ -1037,7 +1037,7 @@ s2! {
     }
 
     #[exhaustive] // FIXME(exhaustive): review for 1.0
-    #[cfg(target_os = "macos")]
+    #[cfg(any(target_os = "macos", target_os = "ios"))]
     pub struct vnode_info {
         pub vi_stat: vinfo_stat,
         pub vi_type: c_int,
@@ -1046,7 +1046,7 @@ s2! {
     }
 
     #[exhaustive] // FIXME(exhaustive): review for 1.0
-    #[cfg(target_os = "macos")]
+    #[cfg(any(target_os = "macos", target_os = "ios"))]
     pub struct vnode_info_path {
         pub vip_vi: vnode_info,
         // Normally it's `vip_path: [c_char; MAXPATHLEN]` but because libc supports an old rustc
@@ -1055,7 +1055,7 @@ s2! {
     }
 
     #[exhaustive] // FIXME(exhaustive): review for 1.0
-    #[cfg(target_os = "macos")]
+    #[cfg(any(target_os = "macos", target_os = "ios"))]
     pub struct proc_vnodepathinfo {
         pub pvi_cdir: vnode_info_path,
         pub pvi_rdir: vnode_info_path,
@@ -1305,7 +1305,7 @@ s2! {
     }
 
     #[exhaustive] // FIXME(exhaustive): review for 1.0
-    #[cfg(target_os = "macos")]
+    #[cfg(any(target_os = "macos", target_os = "ios"))]
     pub struct in6_addrlifetime {
         pub ia6t_expire: time_t,
         pub ia6t_preferred: time_t,
@@ -1314,7 +1314,7 @@ s2! {
     }
 
     #[exhaustive] // FIXME(exhaustive): review for 1.0
-    #[cfg(target_os = "macos")]
+    #[cfg(any(target_os = "macos", target_os = "ios"))]
     pub struct in6_ifstat {
         pub ifs6_in_receive: crate::u_quad_t,
         pub ifs6_in_hdrerr: crate::u_quad_t,
@@ -1344,7 +1344,7 @@ s2! {
     }
 
     #[exhaustive] // FIXME(exhaustive): review for 1.0
-    #[cfg(target_os = "macos")]
+    #[cfg(any(target_os = "macos", target_os = "ios"))]
     pub struct icmp6_ifstat {
         pub ifs6_in_msg: crate::u_quad_t,
         pub ifs6_in_error: crate::u_quad_t,
@@ -1390,7 +1390,7 @@ s2! {
 
     // net/if_mib.h
     #[exhaustive] // FIXME(exhaustive): review for 1.0
-    #[cfg(target_os = "macos")]
+    #[cfg(any(target_os = "macos", target_os = "ios"))]
     pub struct ifmibdata {
         /// Name of interface
         pub ifmd_name: [c_char; crate::IFNAMSIZ],
@@ -1442,7 +1442,7 @@ s2! {
 
     // sys/proc_info.h
     #[exhaustive] // FIXME(exhaustive): review for 1.0
-    #[cfg(target_os = "macos")]
+    #[cfg(any(target_os = "macos", target_os = "ios"))]
     pub struct proc_fdinfo {
         pub proc_fd: i32,
         pub proc_fdtype: u32,
@@ -1491,7 +1491,7 @@ s2! {
     }
 
     #[exhaustive] // FIXME(exhaustive): review for 1.0
-    #[cfg(target_os = "macos")]
+    #[cfg(any(target_os = "macos", target_os = "ios"))]
     pub struct proc_threadinfo {
         pub pth_user_time: u64,
         pub pth_system_time: u64,
@@ -1832,7 +1832,7 @@ s2! {
     }
 
     #[exhaustive] // FIXME(exhaustive): review for 1.0
-    #[cfg(target_os = "macos")]
+    #[cfg(any(target_os = "macos", target_os = "ios"))]
     pub struct in6_ifreq {
         pub ifr_name: [c_char; crate::IFNAMSIZ],
         pub ifr_ifru: __c_anonymous_ifr_ifru6,
@@ -2064,7 +2064,7 @@ cfg_if! {
             }
         }
 
-        #[cfg(target_os = "macos")]
+        #[cfg(any(target_os = "macos", target_os = "ios"))]
         impl PartialEq for __c_anonymous_ifr_ifru6 {
             fn eq(&self, other: &__c_anonymous_ifr_ifru6) -> bool {
                 unsafe {
@@ -2084,10 +2084,10 @@ cfg_if! {
             }
         }
 
-        #[cfg(target_os = "macos")]
+        #[cfg(any(target_os = "macos", target_os = "ios"))]
         impl Eq for __c_anonymous_ifr_ifru6 {}
 
-        #[cfg(target_os = "macos")]
+        #[cfg(any(target_os = "macos", target_os = "ios"))]
         impl hash::Hash for __c_anonymous_ifr_ifru6 {
             fn hash<H: hash::Hasher>(&self, state: &mut H) {
                 unsafe {
@@ -3920,7 +3920,7 @@ pub const NET_RT_IFLIST2: c_int = 0x0006;
 pub const NET_RT_DUMP2: c_int = 0x0007;
 
 cfg_if! {
-    if #[cfg(target_os = "macos")] {
+    if #[cfg(any(target_os = "macos", target_os = "ios"))] {
         // net/route.h
         pub const RTF_DELCLONE: c_int = 0x80;
         pub const RTF_CLONING: c_int = 0x100;
@@ -4792,9 +4792,9 @@ extern "C" {
     pub fn pthread_main_np() -> c_int;
     pub fn pthread_threadid_np(thread: crate::pthread_t, thread_id: *mut u64) -> c_int;
 
-    #[cfg(target_os = "macos")]
+    #[cfg(any(target_os = "macos", target_os = "ios"))]
     pub fn pthread_jit_write_protect_np(enabled: c_int);
-    #[cfg(target_os = "macos")]
+    #[cfg(any(target_os = "macos", target_os = "ios"))]
     pub fn pthread_jit_write_protect_supported_np() -> c_int;
     // An array of pthread_jit_write_with_callback_np must declare
     // the list of callbacks e.g.
@@ -4802,12 +4802,12 @@ extern "C" {
     // static callbacks: [libc::pthread_jit_write_callback_t; 2] = [native_jit_write_cb,
     // std::mem::transmute::<libc::pthread_jit_write_callback_t>(std::ptr::null())];
     // (a handy PTHREAD_JIT_WRITE_CALLBACK_NP macro for other languages).
-    #[cfg(target_os = "macos")]
+    #[cfg(any(target_os = "macos", target_os = "ios"))]
     pub fn pthread_jit_write_with_callback_np(
         callback: crate::pthread_jit_write_callback_t,
         ctx: *mut c_void,
     ) -> c_int;
-    #[cfg(target_os = "macos")]
+    #[cfg(any(target_os = "macos", target_os = "ios"))]
     pub fn pthread_jit_write_freeze_callbacks_np();
     pub fn pthread_cpu_number_np(cpu_number_out: *mut size_t) -> c_int;
 
@@ -4926,7 +4926,7 @@ extern "C" {
         data: *mut c_void,
     ) -> c_int;
     pub fn fmount(src: *const c_char, fd: c_int, flags: c_int, data: *mut c_void) -> c_int;
-    #[cfg(target_os = "macos")]
+    #[cfg(any(target_os = "macos", target_os = "ios"))]
     pub fn ptrace(request: c_int, pid: crate::pid_t, addr: *mut c_char, data: c_int) -> c_int;
     pub fn quotactl(special: *const c_char, cmd: c_int, id: c_int, data: *mut c_char) -> c_int;
     pub fn sethostname(name: *const c_char, len: c_int) -> c_int;
@@ -5138,22 +5138,22 @@ extern "C" {
         fd: c_int,
         newfd: c_int,
     ) -> c_int;
-    #[cfg(target_os = "macos")]
+    #[cfg(any(target_os = "macos", target_os = "ios"))]
     pub fn posix_spawn_file_actions_addchdir_np(
         actions: *mut posix_spawn_file_actions_t,
         path: *const c_char,
     ) -> c_int;
-    #[cfg(target_os = "macos")]
+    #[cfg(any(target_os = "macos", target_os = "ios"))]
     pub fn posix_spawn_file_actions_addfchdir_np(
         actions: *mut posix_spawn_file_actions_t,
         fd: c_int,
     ) -> c_int;
-    #[cfg(target_os = "macos")]
+    #[cfg(any(target_os = "macos", target_os = "ios"))]
     pub fn posix_spawn_file_actions_addchdir(
         actions: *mut posix_spawn_file_actions_t,
         path: *const c_char,
     ) -> c_int;
-    #[cfg(target_os = "macos")]
+    #[cfg(any(target_os = "macos", target_os = "ios"))]
     pub fn posix_spawn_file_actions_addfchdir(
         actions: *mut posix_spawn_file_actions_t,
         fd: c_int,
@@ -5260,7 +5260,7 @@ extern "C" {
     /// # Notes
     ///
     /// `id` is of type [`uuid_t`].
-    #[cfg(target_os = "macos")]
+    #[cfg(any(target_os = "macos", target_os = "ios"))]
     pub fn gethostuuid(id: *mut u8, timeout: *const crate::timespec) -> c_int;
 
     pub fn gethostid() -> c_long;
@@ -5279,7 +5279,7 @@ extern "C" {
     pub fn _NSGetEnviron() -> *mut *mut *mut c_char;
     pub fn _NSGetProgname() -> *mut *mut c_char;
 
-    #[cfg(target_os = "macos")]
+    #[cfg(any(target_os = "macos", target_os = "ios"))]
     #[deprecated(since = "0.2.55", note = "Use the `mach2` crate instead")]
     pub fn mach_vm_map(
         target_task: crate::vm_map_t,
@@ -5455,7 +5455,7 @@ pub unsafe fn mach_task_self() -> crate::mach_port_t {
 
 cfg_if! {
     // Prohibited on iOS/tvOS/watchOS/visionOS
-    if #[cfg(target_os = "macos")] {
+    if #[cfg(any(target_os = "macos", target_os = "ios"))] {
         extern "C" {
             pub fn clock_settime(clock_id: crate::clockid_t, tp: *const crate::timespec) -> c_int;
 

@@ -39,7 +39,7 @@ s2! {
     }
 
     #[exhaustive] // FIXME(exhaustive): review for 1.0
-    #[cfg(target_os = "macos")]
+    #[cfg(any(target_os = "macos", target_os = "ios"))]
     pub struct bpf_hdr {
         pub bh_tstamp: crate::timeval,
         pub bh_caplen: u32,
@@ -60,7 +60,7 @@ s_no_extra_traits2! {
 }
 
 cfg_if! {
-    if #[cfg(target_os = "macos")] {
+    if #[cfg(any(target_os = "macos", target_os = "ios"))] {
         pub const BIOCSETF: c_ulong = 0x80084267;
         pub const BIOCSRTIMEOUT: c_ulong = 0x8008426d;
         pub const BIOCGRTIMEOUT: c_ulong = 0x4008426e;
