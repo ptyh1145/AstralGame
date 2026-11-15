@@ -24,394 +24,275 @@
      Locking 615 packages to highest compatible versions
       Adding generic-array v0.14.7 (available: v0.14.9)
  Downloading crates ...
-  Downloaded wasm-bindgen-macro v0.2.130
   Downloaded wasm-bindgen-shared v0.2.130
+  Downloaded wasm-bindgen-macro v0.2.130
   Downloaded cfg-if v1.0.5
-  Downloaded sha1_smol v1.0.1
-  Downloaded rustversion v1.0.23
+  Downloaded futures-macro v0.3.34
   Downloaded uuid v1.29.2
   Downloaded wasm-bindgen v0.2.130
-  Downloaded unicode-ident v1.0.27
-  Downloaded wasm-bindgen-macro-support v0.2.130
-  Downloaded syn v3.0.10
-  Downloaded quote v1.0.47
-  Downloaded proc-macro2 v1.0.107
-  Downloaded bumpalo v3.20.4
-  Downloaded serde_core v1.0.229
-  Downloaded serde_derive v1.0.229
-  Downloaded rand v0.10.3
-  Downloaded rand_core v0.10.1
-  Downloaded r-efi v6.0.0
-  Downloaded js-sys v0.3.107
-  Downloaded futures-util v0.3.34
-  Downloaded slab v0.4.12
-  Downloaded pin-project-lite v0.2.17
-  Downloaded memchr v2.8.3
-  Downloaded futures-task v0.3.34
   Downloaded futures-sink v0.3.34
-  Downloaded futures-core v0.3.34
-  Downloaded futures-channel v0.3.34
-  Downloaded chacha20 v0.10.2
   Downloaded cpufeatures v0.3.1
-  Downloaded tokio-macros v2.7.2
-  Downloaded signal-hook-registry v1.4.8
-  Downloaded errno v0.3.15
-  Downloaded parking_lot_core v0.9.12
-  Downloaded smallvec v1.16.5
-  Downloaded bitflags v2.13.2
-  Downloaded lock_api v0.4.14
-  Downloaded lazy_static v1.5.1
-  Downloaded zstd-safe v8.3.0
-  Downloaded rand_core v0.6.4
-  Downloaded litemap v0.8.3
-  Downloaded zerocopy-derive v0.8.63
-  Downloaded allocator-api2 v0.2.21
-  Downloaded unicode-xid v0.2.6
-  Downloaded getrandom v0.4.3
-  Downloaded futures-macro v0.3.34
-  Downloaded futures-io v0.3.34
   Downloaded windows-link v0.2.1
-  Downloaded parking_lot v0.12.5
-  Downloaded redox_syscall v0.5.18
+  Downloaded litemap v0.8.3
+  Downloaded futures-core v0.3.34
   Downloaded scopeguard v1.2.0
-  Downloaded mio v1.2.5
-  Downloaded wasi v0.11.1+wasi-snapshot-preview1
-  Downloaded bytes v1.12.1
-  Downloaded pkg-config v0.3.34
-  Downloaded jobserver v0.1.35
-  Downloaded find-msvc-tools v0.1.15
-  Downloaded zerocopy v0.7.35
-  Downloaded byteorder v1.5.0
-  Downloaded x25519-dalek v2.0.1
-  Downloaded zeroize v1.9.1
+  Downloaded lazy_static v1.5.1
+  Downloaded futures-io v0.3.34
   Downloaded zeroize_derive v1.5.0
-  Downloaded getrandom v0.2.17
-  Downloaded subtle v2.6.1
   Downloaded rustc_version v0.4.1
-  Downloaded semver v1.0.28
+  Downloaded utf8_iter v1.1.0
+  Downloaded zerofrom v0.1.8
+  Downloaded quote v1.0.47
+  Downloaded futures-task v0.3.34
+  Downloaded tokio-macros v2.7.2
+  Downloaded errno v0.3.15
   Downloaded curve25519-dalek-derive v0.1.1
   Downloaded cpufeatures v0.2.17
-  Downloaded rustls-pki-types v1.16.0
+  Downloaded wildmatch v2.7.0
   Downloaded percent-encoding v2.3.2
   Downloaded idna_adapter v1.2.2
-  Downloaded zerofrom v0.1.8
+  Downloaded stable_deref_trait v1.2.1
+  Downloaded sha1_smol v1.0.1
+  Downloaded rand_core v0.10.1
+  Downloaded slab v0.4.12
+  Downloaded pin-project-lite v0.2.17
+  Downloaded signal-hook-registry v1.4.8
+  Downloaded redox_syscall v0.5.18
+  Downloaded lock_api v0.4.14
+  Downloaded pkg-config v0.3.34
+  Downloaded shlex v2.0.1
+  Downloaded jobserver v0.1.35
+  Downloaded find-msvc-tools v0.1.15
+  Downloaded zerocopy-derive v0.7.35
+  Downloaded byteorder v1.5.0
+  Downloaded zeroize v1.9.1
+  Downloaded rand_core v0.6.4
+  Downloaded subtle v2.6.1
+  Downloaded utf_types v1.0.0
+  Downloaded zerovec-derive v0.11.7
   Downloaded zerofrom-derive v0.1.8
   Downloaded synstructure v0.14.0
   Downloaded yoke-derive v0.8.4
-  Downloaded stable_deref_trait v1.2.1
-  Downloaded writeable v0.6.4
-  Downloaded ipnet v2.12.2
-  Downloaded cidr v0.3.2
+  Downloaded tinystr v0.8.5
+  Downloaded rand_chacha v0.3.1
   Downloaded array-const-fn-init v0.1.1
-  Downloaded petgraph v0.8.3
-  Downloaded hashbrown v0.15.5
-  Downloaded foldhash v0.1.5
-  Downloaded fixedbitset v0.5.9
-  Downloaded ordered_hash_map v0.6.1
-  Downloaded optionize v0.5.3
-  Downloaded optionize-macros v0.5.3
-  Downloaded proc-macro-crate v3.5.0
-  Downloaded toml_edit v0.25.19+spec-1.1.0
-  Downloaded derive_more v2.1.1
-  Downloaded convert_case v0.10.0
-  Downloaded darling v0.24.1
-  Downloaded darling_macro v0.24.1
-  Downloaded darling_core v0.24.1
-  Downloaded strsim v0.11.1
-  Downloaded ident_case v1.0.1
-  Downloaded thiserror v1.0.69
-  Downloaded thiserror-impl v1.0.69
-  Downloaded windows-registry v0.6.1
-  Downloaded windows-strings v0.5.1
+  Downloaded windows-result v0.4.1
   Downloaded tower-service v0.3.3
-  Downloaded core-foundation-sys v0.8.7
-  Downloaded want v0.3.2
-  Downloaded http-body v1.1.0
-  Downloaded fnv v1.0.7
-  Downloaded atomic-waker v1.1.2
-  Downloaded rand_core v0.9.5
-  Downloaded guarden-macros v0.3.0
+  Downloaded ghash v0.5.1
+  Downloaded windows-targets v0.48.5
+  Downloaded unicode-ident v1.0.27
+  Downloaded proc-macro2 v1.0.107
+  Downloaded rustversion v1.0.23
+  Downloaded serde_core v1.0.229
+  Downloaded serde_derive v1.0.229
+  Downloaded getrandom v0.4.3
+  Downloaded r-efi v6.0.0
+  Downloaded futures-channel v0.3.34
+  Downloaded chacha20 v0.10.2
   Downloaded socket2 v0.6.5
-  Downloaded zstd v0.14.4
-  Downloaded shlex v2.0.1
-  Downloaded zerocopy-derive v0.7.35
-  Downloaded serde v1.0.229
-  Downloaded wildmatch v2.7.0
+  Downloaded parking_lot v0.12.5
+  Downloaded parking_lot_core v0.9.12
+  Downloaded smallvec v1.16.5
+  Downloaded bitflags v2.13.2
+  Downloaded wasi v0.11.1+wasi-snapshot-preview1
+  Downloaded zstd-safe v8.3.0
+  Downloaded getrandom v0.2.17
+  Downloaded semver v1.0.28
+  Downloaded rustls-pki-types v1.16.0
   Downloaded web-time v1.1.0
-  Downloaded url v2.5.8
-  Downloaded utf8_iter v1.1.0
-  Downloaded utf_types v1.0.0
-  Downloaded zerovec v0.11.9
-  Downloaded zerovec-derive v0.11.7
   Downloaded yoke v0.8.4
-  Downloaded zerotrie v0.2.5
   Downloaded displaydoc v0.2.7
   Downloaded icu_provider v2.4.0
+  Downloaded writeable v0.6.4
+  Downloaded fixedbitset v0.5.9
+  Downloaded proc-macro-crate v3.5.0
+  Downloaded unicode-xid v0.2.6
+  Downloaded darling_macro v0.24.1
+  Downloaded strsim v0.11.1
+  Downloaded ident_case v1.0.1
+  Downloaded windows-registry v0.6.1
+  Downloaded want v0.3.2
+  Downloaded fnv v1.0.7
+  Downloaded time-core v0.1.9
+  Downloaded polyval v0.6.2
+  Downloaded ctr v0.9.2
+  Downloaded home v0.5.12
+  Downloaded sys-info v0.9.1
+  Downloaded wasm-bindgen-macro-support v0.2.130
+  Downloaded bumpalo v3.20.4
+  Downloaded rand v0.10.3
+  Downloaded memchr v2.8.3
+  Downloaded mio v1.2.5
+  Downloaded bytes v1.12.1
+  Downloaded zstd v0.14.4
+  Downloaded x25519-dalek v2.0.1
+  Downloaded serde v1.0.229
+  Downloaded url v2.5.8
+  Downloaded zerovec v0.11.9
+  Downloaded zerotrie v0.2.5
   Downloaded icu_locale_core v2.4.0
-  Downloaded tinystr v0.8.5
-  Downloaded rand v0.8.8
-  Downloaded quanta v0.12.6
-  Downloaded derive_more-impl v2.1.1
-  Downloaded unicode-segmentation v1.13.3
-  Downloaded hyper-util v0.1.21
-  Downloaded windows-result v0.4.1
+  Downloaded ordered_hash_map v0.6.1
+  Downloaded windows-strings v0.5.1
   Downloaded system-configuration v0.7.0
-  Downloaded system-configuration-sys v0.6.0
   Downloaded try-lock v0.2.5
-  Downloaded httparse v1.10.1
-  Downloaded h2 v0.4.20
-  Downloaded base64 v0.23.1
-  Downloaded hickory-proto v0.25.2
-  Downloaded rand v0.9.5
-  Downloaded rand_chacha v0.9.0
-  Downloaded data-encoding v2.11.1
+  Downloaded http-body v1.1.0
+  Downloaded atomic-waker v1.1.2
+  Downloaded rand_core v0.9.5
   Downloaded async-trait v0.1.92
-  Downloaded zip v8.6.0
-  Downloaded zopfli v0.8.4
-  Downloaded simd-adler32 v0.3.10
+  Downloaded guarden v0.3.0
+  Downloaded guarden-macros v0.3.0
+  Downloaded futures-executor v0.3.34
   Downloaded num-conv v0.2.2
   Downloaded powerfmt v0.2.1
   Downloaded sha1 v0.11.0
-  Downloaded digest v0.11.3
-  Downloaded ctutils v0.4.8
-  Downloaded cmov v0.5.4
   Downloaded crypto-common v0.2.2
-  Downloaded hybrid-array v0.4.15
-  Downloaded const-oid v0.10.3
-  Downloaded ppmd-rust v1.5.2
-  Downloaded pbkdf2 v0.13.0
-  Downloaded constant_time_eq v0.4.2
-  Downloaded bzip2 v0.6.1
-  Downloaded wasm-bindgen-futures v0.4.80
-  Downloaded tower-layer v0.3.3
+  Downloaded block-buffer v0.12.1
+  Downloaded dirs v6.0.0
+  Downloaded plist v1.10.3
+  Downloaded toml v0.8.23
+  Downloaded globwalk v0.8.1
+  Downloaded js-sys v0.3.107
+  Downloaded futures-util v0.3.34
   Downloaded cc v1.11.2
-  Downloaded syn v2.0.119
-  Downloaded curve25519-dalek v4.1.3
+  Downloaded zerocopy v0.7.35
   Downloaded webpki-roots v1.0.12
   Downloaded idna v1.1.0
   Downloaded icu_properties v2.4.0
+  Downloaded ppv-lite86 v0.2.21
+  Downloaded crossbeam-utils v0.8.23
+  Downloaded prost-derive v0.14.6
+  Downloaded either v1.19.0
+  Downloaded anyhow v1.0.104
+  Downloaded autocfg v1.5.1
+  Downloaded ipnet v2.12.2
+  Downloaded foldhash v0.1.5
+  Downloaded allocator-api2 v0.2.21
+  Downloaded optionize v0.5.3
+  Downloaded optionize-macros v0.5.3
+  Downloaded convert_case v0.10.0
+  Downloaded thiserror v1.0.69
+  Downloaded thiserror-impl v1.0.69
+  Downloaded system-configuration-sys v0.6.0
   Downloaded core-foundation v0.9.4
-  Downloaded http v1.5.0
   Downloaded http-body-util v0.1.5
-  Downloaded tinyvec v1.13.3
+  Downloaded rand_chacha v0.9.0
   Downloaded enum-as-inner v0.6.1
-  Downloaded guarden v0.3.0
-  Downloaded futures v0.3.34
-  Downloaded futures-executor v0.3.34
+  Downloaded data-encoding v2.11.1
   Downloaded zstd v0.13.5
   Downloaded zstd-safe v7.4.1
-  Downloaded crc32fast v1.5.5
-  Downloaded time v0.3.55
-  Downloaded time-macros v0.2.32
-  Downloaded time-core v0.1.9
+  Downloaded simd-adler32 v0.3.10
   Downloaded deranged v0.5.9
-  Downloaded block-buffer v0.12.1
-  Downloaded hmac v0.13.0
-  Downloaded sha2 v0.11.1
-  Downloaded flate2 v1.1.11
-  Downloaded deflate64 v0.1.12
-  Downloaded libbz2-rs-sys v0.2.6
-  Downloaded aes v0.9.4
-  Downloaded cpubits v0.1.1
-  Downloaded cipher v0.5.2
-  Downloaded inout v0.2.6
-  Downloaded tower-http v0.6.11
-  Downloaded tower v0.5.3
-  Downloaded tokio v1.54.1
-  Downloaded zstd-sys v2.1.3+zstd.1.5.7
-  Downloaded fiat-crypto v0.2.9
-  Downloaded web-sys v0.3.107
-  Downloaded autocfg v1.5.1
-  Downloaded hyper v1.12.0
-  Downloaded typed-path v0.12.4
-  Downloaded lzma-rust2 v0.16.5
-  Downloaded zlib-rs v0.6.8
-  Downloaded reqwest v0.13.5
-  Downloaded windows-sys v0.61.2
-  Downloaded libloading v0.8.9
-  Downloaded c2rust-bitfields v0.18.0
-  Downloaded c2rust-bitfields-derive v0.18.0
-  Downloaded terminal_size v0.4.4
-  Downloaded tabled_derive v0.12.0
-  Downloaded sys-locale v0.3.2
-  Downloaded dirs v6.0.0
-  Downloaded encoding-utils v0.1.0
-  Downloaded redox_users v0.4.6
-  Downloaded rust-i18n v4.2.4
-  Downloaded rust-i18n-support v4.2.4
-  Downloaded triomphe v0.1.17
-  Downloaded etherparse v0.13.0
-  Downloaded arrayvec v0.7.8
-  Downloaded testing_table v0.3.0
-  Downloaded papergrid v0.18.0
-  Downloaded bytecount v0.6.9
-  Downloaded shellexpand v3.1.2
-  Downloaded dirs-sys v0.5.0
-  Downloaded redox_users v0.5.3
-  Downloaded libredox v0.1.25
-  Downloaded option-ext v0.2.0
-  Downloaded xml-rs v0.8.29
-  Downloaded which v4.4.2
-  Downloaded home v0.5.12
-  Downloaded sys-info v0.9.1
-  Downloaded plist v1.10.3
-  Downloaded codepage v0.1.3
-  Downloaded dirs v4.0.0
-  Downloaded dirs-sys v0.3.7
-  Downloaded seahash v4.1.0
-  Downloaded clap_lex v1.1.1
-  Downloaded colorchoice v1.0.5
-  Downloaded atomic_refcell v0.1.14
-  Downloaded form_urlencoded v1.2.2
-  Downloaded dunce v1.0.5
-  Downloaded nix v0.29.0
-  Downloaded tabled v0.22.0
-  Downloaded quick-xml v0.42.0
-  Downloaded unicase v2.10.0
-  Downloaded anstream v1.0.0
-  Downloaded utf8parse v0.2.2
-  Downloaded is_terminal_polyfill v1.70.2
-  Downloaded anstyle-wincon v3.0.11
-  Downloaded once_cell_polyfill v1.70.2
-  Downloaded anstyle-query v1.1.5
-  Downloaded anstyle-parse v1.0.0
-  Downloaded boringtun-easytier v0.6.1
-  Downloaded ip_network_table v0.2.0
-  Downloaded ip_network_table-deps-treebitmap v0.5.0
-  Downloaded ip_network v0.4.1
-  Downloaded hex v0.4.3
-  Downloaded blake2 v0.10.6
-  Downloaded base64 v0.13.1
-  Downloaded atomic-write-file v0.3.1
-  Downloaded async-recursion v1.2.0
-  Downloaded potential_utf v0.1.6
-  Downloaded icu_normalizer_data v2.4.0
-  Downloaded tracing-core v0.1.36
-  Downloaded valuable v0.1.1
-  Downloaded once_cell v1.21.4
-  Downloaded critical-section v1.2.0
-  Downloaded tracing-attributes v0.1.31
-  Downloaded log v0.4.35
-  Downloaded toml v1.2.1+spec-1.1.0
-  Downloaded toml_writer v1.2.0+spec-1.1.0
-  Downloaded toml_parser v1.1.5+spec-1.1.0
-  Downloaded toml_datetime v1.1.3+spec-1.1.0
-  Downloaded serde_spanned v1.1.3
-  Downloaded equivalent v1.0.3
-  Downloaded tokio-rustls v0.26.6
-  Downloaded untrusted v0.9.0
-  Downloaded windows-targets v0.52.6
-  Downloaded fs_extra v1.3.0
-  Downloaded netlink-packet-utils v0.5.2
-  Downloaded parking v2.2.1
-  Downloaded machine-uid v0.6.0
-  Downloaded encoding_index_tests v0.1.4
-  Downloaded rustix v0.38.44
-  Downloaded clap_builder v4.6.7
-  Downloaded icu_properties_data v2.4.0
-  Downloaded icu_collections v2.4.0
-  Downloaded portable-atomic v1.15.0
-  Downloaded indexmap v2.14.2
-  Downloaded rustls-webpki v0.103.17
-  Downloaded netlink-sys v0.9.0
-  Downloaded natpmp v0.5.0
-  Downloaded netdev v0.31.0
-  Downloaded system-configuration v0.6.1
-  Downloaded netlink-sys v0.8.8
-  Downloaded netlink-packet-core v0.7.0
-  Downloaded dlopen2 v0.5.0
-  Downloaded tagptr v0.2.0
-  Downloaded event-listener v5.4.2
-  Downloaded crossbeam-channel v0.5.17
-  Downloaded async-lock v3.5.0
-  Downloaded event-listener-strategy v0.5.4
-  Downloaded tracing-log v0.2.0
-  Downloaded thread_local v1.1.10
-  Downloaded nu-ansi-term v0.50.3
-  Downloaded shlex v1.3.0
-  Downloaded cexpr v0.6.0
-  Downloaded humantime-serde v1.1.1
-  Downloaded humantime v2.4.0
-  Downloaded humansize v2.1.3
-  Downloaded resolv-conf v0.7.6
-  Downloaded ipconfig v0.3.4
-  Downloaded hickory-client v0.25.2
-  Downloaded nibble_vec v0.1.0
-  Downloaded endian-type v0.1.2
-  Downloaded globwalk v0.9.1
-  Downloaded git-version v0.3.9
-  Downloaded git-version-macro v0.3.9
+  Downloaded digest v0.11.3
+  Downloaded ctutils v0.4.8
+  Downloaded cmov v0.5.4
+  Downloaded hybrid-array v0.4.15
+  Downloaded pbkdf2 v0.13.0
+  Downloaded aes-gcm v0.10.3
+  Downloaded toml_edit v0.22.27
+  Downloaded ignore v0.4.34
   Downloaded gethostname v1.1.0
   Downloaded forwarded-header-value v0.1.1
   Downloaded nonempty v0.7.0
-  Downloaded encoding-index-singlebyte v1.20141219.5
-  Downloaded nix v0.25.1
-  Downloaded hashbrown v0.17.1
-  Downloaded tokio-util v0.7.20
-  Downloaded netlink-packet-route v0.17.1
-  Downloaded moka v0.12.16
-  Downloaded tracing-subscriber v0.3.23
-  Downloaded sharded-slab v0.1.7
-  Downloaded clang-sys v1.9.1
-  Downloaded prefix-trie v0.7.0
-  Downloaded flume v0.12.0
-  Downloaded encoding v0.2.33
-  Downloaded encoding-index-korean v1.20141219.5
-  Downloaded nom v7.1.3
-  Downloaded minimal-lexical v0.2.1
+  Downloaded syn v3.0.10
+  Downloaded syn v2.0.119
+  Downloaded curve25519-dalek v4.1.3
+  Downloaded rand v0.8.8
+  Downloaded quanta v0.12.6
+  Downloaded prost-types v0.14.6
+  Downloaded prost v0.14.6
+  Downloaded num-traits v0.2.19
+  Downloaded cidr v0.3.2
+  Downloaded toml_edit v0.25.19+spec-1.1.0
+  Downloaded derive_more v2.1.1
+  Downloaded derive_more-impl v2.1.1
+  Downloaded darling v0.24.1
+  Downloaded darling_core v0.24.1
+  Downloaded core-foundation-sys v0.8.7
+  Downloaded httparse v1.10.1
+  Downloaded base64 v0.23.1
+  Downloaded tinyvec v1.13.3
+  Downloaded rand v0.9.5
+  Downloaded futures v0.3.34
+  Downloaded zopfli v0.8.4
+  Downloaded crc32fast v1.5.5
+  Downloaded typed-path v0.12.4
+  Downloaded time-macros v0.2.32
+  Downloaded const-oid v0.10.3
+  Downloaded ppmd-rust v1.5.2
+  Downloaded winnow v0.7.15
+  Downloaded rusticata-macros v4.1.0
   Downloaded oid-registry v0.8.1
-  Downloaded asn1-rs v0.7.2
   Downloaded asn1-rs-impl v0.2.0
   Downloaded asn1-rs-derive v0.6.0
   Downloaded synstructure v0.13.2
-  Downloaded num-integer v0.1.47
-  Downloaded pem v4.0.0
-  Downloaded pnet_datalink v0.35.0
-  Downloaded pnet_sys v0.35.0
-  Downloaded pnet_base v0.35.0
-  Downloaded no-std-net v0.6.0
-  Downloaded ipnetwork v0.20.0
-  Downloaded paste v1.0.15
-  Downloaded memoffset v0.9.1
-  Downloaded network-interface v2.0.5
-  Downloaded derive_builder v0.20.2
-  Downloaded derive_builder_macro v0.20.2
-  Downloaded derive_builder_core v0.20.2
-  Downloaded darling v0.20.11
-  Downloaded darling_macro v0.20.11
-  Downloaded crossbeam v0.8.5
-  Downloaded crossbeam-queue v0.3.14
-  Downloaded clap_complete_nushell v4.6.2
-  Downloaded clap_derive v4.6.7
-  Downloaded wintun v0.5.1
-  Downloaded icu_normalizer v2.4.0
-  Downloaded tracing v0.1.44
-  Downloaded winnow v1.0.5
-  Downloaded itertools v0.13.0
-  Downloaded hickory-server v0.25.2
-  Downloaded hickory-resolver v0.25.2
-  Downloaded encoding-index-tradchinese v1.20141219.5
-  Downloaded encoding-index-simpchinese v1.20141219.5
+  Downloaded flume v0.12.0
+  Downloaded fiat-crypto v0.2.9
+  Downloaded zerocopy v0.8.63
+  Downloaded zerocopy-derive v0.8.63
+  Downloaded raw-cpuid v11.6.0
+  Downloaded itertools v0.15.0
+  Downloaded prefix-trie v0.10.2
+  Downloaded hashbrown v0.15.5
+  Downloaded unicode-segmentation v1.13.3
+  Downloaded hyper-util v0.1.21
+  Downloaded hyper v1.12.0
+  Downloaded http v1.5.0
+  Downloaded h2 v0.4.20
+  Downloaded zip v8.6.0
+  Downloaded windows_x86_64_gnullvm v0.48.5
+  Downloaded nom v7.1.3
+  Downloaded minimal-lexical v0.2.1
+  Downloaded asn1-rs v0.7.2
   Downloaded der-parser v10.0.0
   Downloaded num-bigint v0.4.8
-  Downloaded encoding-index-japanese v1.20141219.5
-  Downloaded darling_core v0.20.11
-  Downloaded clap_complete v4.6.11
-  Downloaded clap v4.6.7
-  Downloaded portable-atomic-util v0.2.8
-  Downloaded ariadne v0.6.0
-  Downloaded yansi v1.0.1
-  Downloaded unicode-width v0.2.3
-  Downloaded arc-swap v1.9.5
-  Downloaded ghash v0.5.1
-  Downloaded polyval v0.6.2
-  Downloaded ctr v0.9.2
-  Downloaded aws-lc-rs v1.19.0
+  Downloaded hash32 v0.3.1
+  Downloaded defmt v1.2.0
+  Downloaded defmt-macros v1.2.0
+  Downloaded defmt-parser v1.1.0
+  Downloaded bitflags v1.3.2
+  Downloaded zmij v1.0.23
+  Downloaded itoa v1.0.19
+  Downloaded spin v0.9.9
+  Downloaded tokio v1.54.1
+  Downloaded zstd-sys v2.1.3+zstd.1.5.7
+  Downloaded web-sys v0.3.107
+  Downloaded petgraph v0.8.3
+  Downloaded hickory-proto v0.25.2
+  Downloaded time v0.3.55
+  Downloaded windows_x86_64_msvc v0.48.5
+  Downloaded windows_x86_64_gnu v0.48.5
+  Downloaded windows_i686_msvc v0.48.5
+  Downloaded serde_json v1.0.154
+  Downloaded reed-solomon-erasure v6.0.0
+  Downloaded windows-sys v0.61.2
+  Downloaded thread_local v1.1.10
+  Downloaded sharded-slab v0.1.7
+  Downloaded nu-ansi-term v0.50.3
   Downloaded bindgen v0.72.1
+  Downloaded shlex v1.3.0
+  Downloaded itertools v0.13.0
+  Downloaded clang-sys v1.9.1
+  Downloaded cexpr v0.6.0
+  Downloaded humantime-serde v1.1.1
+  Downloaded humantime v2.4.0
+  Downloaded endian-type v0.1.2
+  Downloaded humansize v2.1.3
   Downloaded hkdf v0.12.4
+  Downloaded hickory-server v0.25.2
+  Downloaded prefix-trie v0.7.0
+  Downloaded hickory-resolver v0.25.2
+  Downloaded resolv-conf v0.7.6
+  Downloaded ipconfig v0.3.4
+  Downloaded hickory-client v0.25.2
   Downloaded radix_trie v0.2.1
-  Downloaded aes-gcm v0.10.3
-  Downloaded aes v0.8.4
+  Downloaded nibble_vec v0.1.0
+  Downloaded globwalk v0.9.1
+  Downloaded git-version v0.3.9
+  Downloaded git-version-macro v0.3.9
+  Downloaded generic-array v0.14.7
+  Downloaded version_check v0.9.5
+  Downloaded block-buffer v0.10.4
+  Downloaded md5 v0.7.0
   Downloaded hmac v0.12.1
   Downloaded crc v3.4.0
   Downloaded crc-catalog v2.5.0
@@ -421,211 +302,330 @@
   Downloaded heck v0.5.0
   Downloaded sha2 v0.10.9
   Downloaded getrandom v0.3.4
+  Downloaded wasip2 v1.0.4+wasi-0.2.12
   Downloaded wit-bindgen v0.57.1
   Downloaded r-efi v5.3.0
-  Downloaded rustls v0.23.46
-  Downloaded windows_x86_64_gnullvm v0.52.6
-  Downloaded windows_i686_gnullvm v0.52.6
-  Downloaded windows_aarch64_gnullvm v0.52.6
-  Downloaded wasip2 v1.0.4+wasi-0.2.12
-  Downloaded security-framework v3.7.0
-  Downloaded core-foundation v0.10.1
-  Downloaded rustls-platform-verifier-android v0.2.0
-  Downloaded rustls-native-certs v0.8.5
-  Downloaded schannel v0.1.30
-  Downloaded openssl-probe v0.2.2
-  Downloaded walkdir v2.5.0
-  Downloaded winapi-util v0.1.11
-  Downloaded same-file v1.0.6
-  Downloaded simdutf8 v0.1.5
-  Downloaded jni-sys v0.4.1
-  Downloaded jni-sys-macros v0.4.1
-  Downloaded jni-macros v0.22.4
-  Downloaded quinn v0.11.12
-  Downloaded rustc-hash v2.1.3
-  Downloaded quinn-udp v0.5.16
-  Downloaded cfg_aliases v0.2.2
-  Downloaded rand_pcg v0.10.2
-  Downloaded lru-slab v0.1.3
-  Downloaded fastbloom v0.17.0
-  Downloaded globwalk v0.8.1
-  Downloaded rusticata-macros v4.1.0
-  Downloaded trackable v1.3.0
-  Downloaded crypto-common v0.1.7
-  Downloaded generic-array v0.14.7
-  Downloaded version_check v0.9.5
-  Downloaded block-buffer v0.10.4
-  Downloaded md5 v0.7.0
+  Downloaded poly1305 v0.8.0
   Downloaded universal-hash v0.5.1
   Downloaded opaque-debug v0.3.1
-  Downloaded cipher v0.4.4
   Downloaded inout v0.1.4
+  Downloaded chacha20 v0.9.1
   Downloaded aead v0.5.2
   Downloaded managed v0.8.0
-  Downloaded hash32 v0.3.1
-  Downloaded linux-raw-sys v0.4.15
-  Downloaded nix v0.31.3
-  Downloaded jni v0.22.4
-  Downloaded combine v4.6.9
-  Downloaded ignore v0.4.34
-  Downloaded globset v0.4.21
-  Downloaded crossbeam-deque v0.8.8
-  Downloaded crossbeam-epoch v0.9.21
-  Downloaded base62 v2.2.6
-  Downloaded rust-i18n-macro v4.2.4
-  Downloaded glob v0.3.4
-  Downloaded rcgen v0.14.10
-  Downloaded yasna v0.6.0
-  Downloaded bit-vec v0.9.1
-  Downloaded cmake v0.1.58
-  Downloaded thiserror v2.0.21
-  Downloaded thiserror-impl v2.0.21
-  Downloaded stun_codec v0.4.0
-  Downloaded trackable_derive v1.0.0
-  Downloaded sha1 v0.10.7
-  Downloaded digest v0.10.7
+  Downloaded snow v0.10.0
   Downloaded chacha20poly1305 v0.10.1
-  Downloaded poly1305 v0.8.0
-  Downloaded chacha20 v0.9.1
+  Downloaded cipher v0.4.4
+  Downloaded smoltcp v0.14.0
   Downloaded heapless v0.9.3
-  Downloaded defmt v1.2.0
-  Downloaded windows-sys v0.59.0
-  Downloaded simd_cesu8 v1.2.0
-  Downloaded quinn-proto v0.11.19
-  Downloaded x509-parser v0.18.1
-  Downloaded typenum v1.20.1
-  Downloaded defmt-macros v1.2.0
-  Downloaded defmt-parser v1.1.0
-  Downloaded bitflags v1.3.2
-  Downloaded zmij v1.0.23
-  Downloaded itoa v1.0.19
-  Downloaded reed-solomon-erasure v6.0.0
-  Downloaded parking_lot v0.11.2
-  Downloaded parking_lot_core v0.8.6
+  Downloaded sys-locale v0.3.2
+  Downloaded shellexpand v3.1.2
+  Downloaded dirs-sys v0.5.0
+  Downloaded redox_users v0.5.3
+  Downloaded libredox v0.1.25
+  Downloaded option-ext v0.2.0
+  Downloaded xml-rs v0.8.29
+  Downloaded which v4.4.2
+  Downloaded quick-xml v0.42.0
+  Downloaded encoding-utils v0.1.0
+  Downloaded codepage v0.1.3
+  Downloaded dirs v4.0.0
+  Downloaded redox_users v0.4.6
+  Downloaded toml_write v0.1.2
+  Downloaded toml_datetime v0.6.11
+  Downloaded serde_spanned v0.6.9
+  Downloaded nohash-hasher v0.2.0
+  Downloaded arraydeque v0.5.1
+  Downloaded encoding_rs_io v0.1.8
+  Downloaded anstyle v1.0.14
+  Downloaded rustix v0.38.44
+  Downloaded dirs-sys v0.3.7
+  Downloaded seahash v4.1.0
+  Downloaded rust-i18n v4.2.4
+  Downloaded rust-i18n-support v4.2.4
+  Downloaded triomphe v0.1.17
+  Downloaded serde-saphyr v1.3.0
+  Downloaded granit-parser v1.3.0
+  Downloaded annotate-snippets v0.12.18
+  Downloaded normpath v1.5.2
+  Downloaded itertools v0.11.0
+  Downloaded globset v0.4.21
+  Downloaded linux-raw-sys v0.4.15
   Downloaded redox_syscall v0.2.16
   Downloaded instant v0.1.13
   Downloaded lru v0.7.8
+  Downloaded hashbrown v0.12.3
   Downloaded ahash v0.7.8
-  Downloaded rand_chacha v0.3.1
-  Downloaded ppv-lite86 v0.2.21
-  Downloaded crossbeam-utils v0.8.23
-  Downloaded prost-types v0.14.6
-  Downloaded prost v0.14.6
-  Downloaded prost-derive v0.14.6
-  Downloaded either v1.19.0
-  Downloaded anyhow v1.0.104
-  Downloaded num-traits v0.2.19
+  Downloaded libm v0.2.16
+  Downloaded hmac v0.13.0
+  Downloaded lzokay-native v0.2.1
+  Downloaded lzma-rust2 v0.16.5
+  Downloaded sha2 v0.11.1
+  Downloaded flate2 v1.1.11
+  Downloaded deflate64 v0.1.12
+  Downloaded bzip2 v0.6.1
+  Downloaded cpubits v0.1.1
+  Downloaded inout v0.2.6
+  Downloaded wasm-bindgen-futures v0.4.80
+  Downloaded security-framework-sys v2.17.0
+  Downloaded core-foundation v0.10.1
+  Downloaded openssl-probe v0.2.2
+  Downloaded same-file v1.0.6
+  Downloaded zlib-rs v0.6.8
+  Downloaded constant_time_eq v0.4.2
+  Downloaded libbz2-rs-sys v0.2.6
+  Downloaded aes v0.9.4
+  Downloaded cipher v0.5.2
+  Downloaded reqwest v0.13.5
+  Downloaded tower-http v0.6.11
+  Downloaded tower-layer v0.3.3
+  Downloaded tower v0.5.3
   Downloaded sync_wrapper v1.0.2
   Downloaded rustls-platform-verifier v0.7.1
-  Downloaded security-framework-sys v2.17.0
-  Downloaded siphasher v1.0.4
-  Downloaded foldhash v0.2.0
-  Downloaded mime v0.3.18
-  Downloaded snow v0.10.0
-  Downloaded syn v1.0.109
-  Downloaded spin v0.9.9
-  Downloaded hashbrown v0.12.3
-  Downloaded raw-cpuid v11.6.0
-  Downloaded multimap v0.10.1
-  Downloaded prost-wkt v0.7.2
-  Downloaded typetag-impl v0.2.23
-  Downloaded inventory v0.3.25
-  Downloaded typeid v1.0.3
+  Downloaded webpki-root-certs v1.0.12
+  Downloaded security-framework v3.7.0
+  Downloaded rustls-platform-verifier-android v0.2.0
+  Downloaded rustls-native-certs v0.8.5
+  Downloaded schannel v0.1.30
+  Downloaded jni v0.22.4
+  Downloaded walkdir v2.5.0
+  Downloaded winapi-util v0.1.11
+  Downloaded simd_cesu8 v1.2.0
+  Downloaded simdutf8 v0.1.5
+  Downloaded ip_network_table v0.2.0
+  Downloaded blake2 v0.10.6
+  Downloaded potential_utf v0.1.6
+  Downloaded winapi-x86_64-pc-windows-gnu v0.4.0
+  Downloaded winapi-i686-pc-windows-gnu v0.4.0
+  Downloaded anstream v1.0.0
+  Downloaded utf8parse v0.2.2
+  Downloaded is_terminal_polyfill v1.70.2
+  Downloaded colorchoice v1.0.5
+  Downloaded anstyle-wincon v3.0.11
+  Downloaded once_cell_polyfill v1.70.2
+  Downloaded anstyle-query v1.1.5
+  Downloaded anstyle-parse v1.0.0
+  Downloaded boringtun-easytier v0.6.1
+  Downloaded nix v0.25.1
+  Downloaded ip_network_table-deps-treebitmap v0.5.0
+  Downloaded ip_network v0.4.1
+  Downloaded hex v0.4.3
+  Downloaded base64 v0.13.1
+  Downloaded atomic_refcell v0.1.14
+  Downloaded atomic-write-file v0.3.1
+  Downloaded async-recursion v1.2.0
+  Downloaded icu_properties_data v2.4.0
+  Downloaded icu_collections v2.4.0
+  Downloaded icu_normalizer_data v2.4.0
+  Downloaded form_urlencoded v1.2.2
+  Downloaded tracing-core v0.1.36
+  Downloaded valuable v0.1.1
+  Downloaded once_cell v1.21.4
+  Downloaded critical-section v1.2.0
+  Downloaded tracing-attributes v0.1.31
+  Downloaded log v0.4.35
+  Downloaded glob v0.3.4
+  Downloaded yasna v0.6.0
+  Downloaded num-integer v0.1.47
+  Downloaded pem v4.0.0
+  Downloaded pnet_datalink v0.35.0
+  Downloaded pnet_sys v0.35.0
+  Downloaded pnet_base v0.35.0
+  Downloaded no-std-net v0.6.0
+  Downloaded ipnetwork v0.20.0
+  Downloaded paste v1.0.15
+  Downloaded memoffset v0.9.1
+  Downloaded netlink-sys v0.9.0
+  Downloaded natpmp v0.5.0
+  Downloaded netdev v0.31.0
+  Downloaded system-configuration v0.6.1
+  Downloaded netlink-sys v0.8.8
+  Downloaded netlink-packet-utils v0.5.2
+  Downloaded netlink-packet-core v0.7.0
+  Downloaded icu_normalizer v2.4.0
+  Downloaded tracing v0.1.44
+  Downloaded portable-atomic v1.15.0
+  Downloaded crossbeam-epoch v0.9.21
+  Downloaded base62 v2.2.6
+  Downloaded rust-i18n-macro v4.2.4
+  Downloaded rcgen v0.14.10
+  Downloaded bit-vec v0.9.1
+  Downloaded x509-parser v0.18.1
+  Downloaded nix v0.31.3
+  Downloaded network-interface v2.0.5
+  Downloaded netlink-packet-route v0.17.1
+  Downloaded iana-time-zone v0.1.65
+  Downloaded windows-core v0.62.2
   Downloaded windows-interface v0.59.3
   Downloaded windows-implement v0.60.2
   Downloaded iana-time-zone-haiku v0.1.2
   Downloaded android_system_properties v0.1.6
+  Downloaded prost-reflect v0.16.5
+  Downloaded pbjson-build v0.9.0
+  Downloaded itertools v0.14.0
   Downloaded pbjson v0.9.0
-  Downloaded enum-ordinalize v4.4.2
-  Downloaded bstr v1.13.1
-  Downloaded serde_json v1.0.154
-  Downloaded libm v0.2.16
-  Downloaded itertools v0.15.0
-  Downloaded webpki-root-certs v1.0.12
+  Downloaded base64 v0.22.1
+  Downloaded encoding v0.2.33
+  Downloaded encoding-index-tradchinese v1.20141219.5
+  Downloaded encoding_index_tests v0.1.4
+  Downloaded encoding-index-singlebyte v1.20141219.5
+  Downloaded encoding-index-simpchinese v1.20141219.5
+  Downloaded encoding-index-korean v1.20141219.5
+  Downloaded encoding-index-japanese v1.20141219.5
+  Downloaded derive_builder v0.20.2
+  Downloaded derive_builder_macro v0.20.2
+  Downloaded derive_builder_core v0.20.2
+  Downloaded darling v0.20.11
+  Downloaded darling_macro v0.20.11
+  Downloaded crypto-common v0.1.7
+  Downloaded typenum v1.20.1
+  Downloaded parking_lot v0.11.2
+  Downloaded parking_lot_core v0.8.6
+  Downloaded jni-sys v0.4.1
+  Downloaded jni-sys-macros v0.4.1
+  Downloaded jni-macros v0.22.4
+  Downloaded rustc-hash v2.1.3
+  Downloaded quinn-udp v0.5.16
+  Downloaded async-ringbuf v0.3.10
+  Downloaded ringbuf v0.5.3
+  Downloaded ariadne v0.6.0
+  Downloaded winapi v0.3.9
+  Downloaded combine v4.6.9
+  Downloaded quinn v0.11.12
+  Downloaded cfg_aliases v0.2.2
+  Downloaded quinn-proto v0.11.19
+  Downloaded rand_pcg v0.10.2
+  Downloaded lru-slab v0.1.3
+  Downloaded fastbloom v0.17.0
+  Downloaded siphasher v1.0.4
+  Downloaded foldhash v0.2.0
+  Downloaded mime v0.3.18
   Downloaded hyper-rustls v0.27.10
   Downloaded multiversion_no_op v1.0.0
-  Downloaded core_detect v1.0.0
-  Downloaded prost-wkt-build v0.7.2
-  Downloaded tempfile v3.27.0
-  Downloaded fastrand v2.5.0
-  Downloaded typetag v0.2.23
-  Downloaded erased-serde v0.4.11
-  Downloaded iana-time-zone v0.1.65
-  Downloaded windows-core v0.62.2
-  Downloaded pbjson-build v0.9.0
-  Downloaded indoc v2.0.8
-  Downloaded windows_x86_64_msvc v0.52.6
-  Downloaded windows_x86_64_gnu v0.52.6
-  Downloaded windows_aarch64_msvc v0.52.6
-  Downloaded smoltcp v0.14.0
-  Downloaded prost-wkt-types v0.7.2
-  Downloaded prost-build v0.14.6
-  Downloaded prettyplease v0.3.0
-  Downloaded base64 v0.22.1
-  Downloaded educe v0.8.2
+  Downloaded atomic-shim v0.2.0
+  Downloaded portable-atomic-util v0.2.8
+  Downloaded yansi v1.0.1
+  Downloaded unicode-width v0.2.3
   Downloaded xmltree v0.12.0
+  Downloaded xml v1.4.0
+  Downloaded winreg v0.56.0
+  Downloaded windows-service v0.8.1
+  Downloaded widestring v1.2.1
   Downloaded windows-numerics v0.3.1
   Downloaded windows-future v0.3.2
   Downloaded windows-threading v0.2.1
   Downloaded windows-collections v0.3.2
-  Downloaded windows-targets v0.48.5
-  Downloaded windows_i686_msvc v0.52.6
+  Downloaded encoding_rs v0.8.44
+  Downloaded core_detect v1.0.0
   Downloaded regex v1.13.1
+  Downloaded prost-wkt-types v0.7.2
+  Downloaded regex-syntax v0.8.11
   Downloaded aho-corasick v1.1.5
-  Downloaded prost-reflect v0.16.5
-  Downloaded async-ringbuf v0.3.10
-  Downloaded ringbuf v0.5.3
-  Downloaded winreg v0.56.0
-  Downloaded windows-service v0.8.1
-  Downloaded windows_i686_gnu v0.52.6
-  Downloaded prefix-trie v0.10.2
+  Downloaded prost-wkt-build v0.7.2
+  Downloaded tempfile v3.27.0
+  Downloaded regex-automata v0.4.18
+  Downloaded prost-build v0.14.6
+  Downloaded rustix v1.1.6
+  Downloaded fastrand v2.5.0
+  Downloaded prettyplease v0.3.0
+  Downloaded prost-wkt v0.7.2
+  Downloaded typeid v1.0.3
+  Downloaded multimap v0.10.1
+  Downloaded typetag v0.2.23
+  Downloaded typetag-impl v0.2.23
+  Downloaded inventory v0.3.25
+  Downloaded erased-serde v0.4.11
+  Downloaded indoc v2.0.8
+  Downloaded enum-ordinalize v4.4.2
   Downloaded enum-ordinalize-derive v4.4.2
-  Downloaded atomic-shim v0.2.0
-  Downloaded xml v1.4.0
-  Downloaded itertools v0.14.0
   Downloaded delegate v0.13.5
   Downloaded auto_impl v1.4.0
   Downloaded dashmap v6.2.1
-  Downloaded widestring v1.2.1
-  Downloaded toml_datetime v0.6.11
-  Downloaded serde_spanned v0.6.9
+  Downloaded educe v0.8.2
+  Downloaded hashbrown v0.14.5
   Downloaded bon v3.10.3
   Downloaded bon-macros v3.10.3
-  Downloaded toml_write v0.1.2
-  Downloaded nohash-hasher v0.2.0
-  Downloaded regex-syntax v0.8.11
-  Downloaded hashbrown v0.14.5
-  Downloaded arraydeque v0.5.1
-  Downloaded encoding_rs_io v0.1.8
-  Downloaded zerocopy v0.8.63
   Downloaded chrono v0.4.45
-  Downloaded toml v0.8.23
-  Downloaded encoding_rs v0.8.44
-  Downloaded toml_edit v0.22.27
-  Downloaded anstyle v1.0.14
-  Downloaded normpath v1.5.2
-  Downloaded regex-automata v0.4.18
-  Downloaded annotate-snippets v0.12.18
-  Downloaded granit-parser v1.3.0
-  Downloaded rustix v1.1.6
-  Downloaded winnow v0.7.15
-  Downloaded itertools v0.11.0
-  Downloaded winapi v0.3.9
-  Downloaded windows_x86_64_gnullvm v0.48.5
-  Downloaded windows_aarch64_gnullvm v0.48.5
-  Downloaded serde-saphyr v1.3.0
-  Downloaded windows_x86_64_msvc v0.48.5
-  Downloaded windows_aarch64_msvc v0.48.5
-  Downloaded windows_x86_64_gnu v0.48.5
-  Downloaded windows_i686_gnu v0.48.5
-  Downloaded windows_i686_msvc v0.48.5
-  Downloaded windows-sys v0.52.0
-  Downloaded winapi-i686-pc-windows-gnu v0.4.0
-  Downloaded winapi-x86_64-pc-windows-gnu v0.4.0
   Downloaded linux-raw-sys v0.12.1
-  Downloaded lzokay-native v0.2.1
-  Downloaded aws-lc-sys v0.47.0
   Downloaded windows v0.62.2
+  Downloaded tracing-log v0.2.0
+  Downloaded arc-swap v1.9.5
+  Downloaded aes v0.8.4
+  Downloaded machine-uid v0.6.0
+  Downloaded tracing-subscriber v0.3.23
+  Downloaded darling_core v0.20.11
+  Downloaded crossbeam v0.8.5
+  Downloaded crossbeam-queue v0.3.14
+  Downloaded clap_complete_nushell v4.6.2
+  Downloaded clap_complete v4.6.11
+  Downloaded clap v4.6.7
+  Downloaded clap_derive v4.6.7
+  Downloaded clap_builder v4.6.7
+  Downloaded unicase v2.10.0
+  Downloaded bytecount v0.6.9
+  Downloaded windows_i686_gnullvm v0.52.6
+  Downloaded bstr v1.13.1
+  Downloaded crossbeam-deque v0.8.8
+  Downloaded dlopen2 v0.5.0
+  Downloaded moka v0.12.16
+  Downloaded tagptr v0.2.0
+  Downloaded event-listener v5.4.2
+  Downloaded parking v2.2.1
+  Downloaded crossbeam-channel v0.5.17
+  Downloaded async-lock v3.5.0
+  Downloaded clap_lex v1.1.1
+  Downloaded toml v1.2.1+spec-1.1.0
+  Downloaded toml_writer v1.2.0+spec-1.1.0
+  Downloaded toml_parser v1.1.5+spec-1.1.0
+  Downloaded serde_spanned v1.1.3
+  Downloaded fs_extra v1.3.0
+  Downloaded dunce v1.0.5
+  Downloaded winnow v1.0.5
+  Downloaded toml_datetime v1.1.3+spec-1.1.0
+  Downloaded indexmap v2.14.2
+  Downloaded hashbrown v0.17.1
+  Downloaded equivalent v1.0.3
+  Downloaded windows_aarch64_gnullvm v0.52.6
+  Downloaded tokio-util v0.7.20
+  Downloaded tokio-rustls v0.26.6
+  Downloaded rustls-webpki v0.103.17
+  Downloaded rustls v0.23.46
+  Downloaded terminal_size v0.4.4
+  Downloaded syn v1.0.109
+  Downloaded sha1 v0.10.7
+  Downloaded aws-lc-rs v1.19.0
+  Downloaded digest v0.10.7
+  Downloaded arrayvec v0.7.8
+  Downloaded tabled_derive v0.12.0
+  Downloaded event-listener-strategy v0.5.4
+  Downloaded libloading v0.8.9
+  Downloaded c2rust-bitfields v0.18.0
+  Downloaded c2rust-bitfields-derive v0.18.0
+  Downloaded testing_table v0.3.0
+  Downloaded papergrid v0.18.0
+  Downloaded windows_aarch64_msvc v0.52.6
+  Downloaded windows_aarch64_gnullvm v0.48.5
+  Downloaded windows_i686_gnu v0.52.6
+  Downloaded tabled v0.22.0
+  Downloaded etherparse v0.13.0
+  Downloaded nix v0.29.0
+  Downloaded trackable_derive v1.0.0
+  Downloaded trackable v1.3.0
+  Downloaded untrusted v0.9.0
+  Downloaded windows-targets v0.52.6
+  Downloaded cmake v0.1.58
+  Downloaded thiserror v2.0.21
+  Downloaded thiserror-impl v2.0.21
+  Downloaded stun_codec v0.4.0
+  Downloaded windows_aarch64_msvc v0.48.5
+  Downloaded windows_i686_gnu v0.48.5
+  Downloaded windows_x86_64_gnullvm v0.52.6
+  Downloaded wintun v0.5.1
+  Downloaded windows_x86_64_msvc v0.52.6
+  Downloaded windows_x86_64_gnu v0.52.6
+  Downloaded windows_i686_msvc v0.52.6
+  Downloaded windows-sys v0.59.0
+  Downloaded windows-sys v0.52.0
+  Downloaded aws-lc-sys v0.47.0
   Downloaded windows v0.48.0
 [1;34m==> 修补依赖的 crate-type（cdylib/staticlib → rlib）[0m
     patched: .cargo/registry/src/index.crates.io-1949cf8c6b5b557f/boringtun-easytier-0.6.1/Cargo.toml
@@ -641,7 +641,7 @@
     扫描 /Users/runner/.cargo/git/checkouts : 28 个 Cargo.toml
     共改写 9 个 crate
 [1;34m==> ring 使用 vendored 副本（已内置 iOS 32 位汇编修复）[0m
-[1;34m==> 强制 ring 重编（cargo clean -p ring）[0m
+[1;34m==> 强制 ring 重编（清 host 侧 build script 缓存）[0m
      Removed 0 files
     cargo clean -p ring 完成
     兜底清理完成
@@ -650,13 +650,13 @@
  Downloading crates ...
   Downloaded getopts v0.2.24
   Downloaded cfg-if v1.0.4
-  Downloaded rustc-literal-escaper v0.0.8
   Downloaded adler2 v2.0.1
   Downloaded addr2line v0.27.1
+  Downloaded rustc-literal-escaper v0.0.8
   Downloaded rustc-demangle v0.1.28
   Downloaded miniz_oxide v0.9.1
-  Downloaded object v0.39.1
   Downloaded gimli v0.34.0
+  Downloaded object v0.39.1
   Downloaded libc v0.2.191
    Compiling compiler_builtins v0.1.160 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/compiler-builtins/compiler-builtins)
    Compiling core v0.0.0 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/core)
@@ -673,8 +673,8 @@
    Compiling syn v2.0.119
    Compiling portable-atomic v1.15.0
    Compiling memchr v2.8.3
-   Compiling either v1.19.0
    Compiling serde v1.0.229
+   Compiling either v1.19.0
    Compiling jobserver v0.1.35
    Compiling generic-array v0.14.7
    Compiling find-msvc-tools v0.1.15
@@ -688,179 +688,158 @@
    Compiling heck v0.5.0
    Compiling synstructure v0.14.0
    Compiling anyhow v1.0.104
+   Compiling regex-automata v0.4.18
+   Compiling autocfg v1.5.1
    Compiling equivalent v1.0.3
    Compiling hashbrown v0.17.1
-   Compiling autocfg v1.5.1
-   Compiling regex-automata v0.4.18
-   Compiling indexmap v2.14.2
    Compiling zerofrom-derive v0.1.8
+   Compiling indexmap v2.14.2
    Compiling log v0.4.35
    Compiling rustversion v1.0.23
    Compiling yoke-derive v0.8.4
-   Compiling bitflags v2.13.2
-   Compiling zerovec-derive v0.11.7
-   Compiling tokio-macros v2.7.2
    Compiling regex v1.13.1
+   Compiling bitflags v2.13.2
+   Compiling tokio-macros v2.7.2
+   Compiling zerovec-derive v0.11.7
    Compiling itertools v0.15.0
    Compiling num-traits v0.2.19
    Compiling displaydoc v0.2.7
-   Compiling zmij v1.0.23
    Compiling crossbeam-utils v0.8.23
+   Compiling zmij v1.0.23
    Compiling ident_case v1.0.1
+   Compiling prost-derive v0.14.6
    Compiling strsim v0.11.1
    Compiling futures-macro v0.3.34
-   Compiling prost-derive v0.14.6
    Compiling ring v0.17.14 (/Users/runner/work/AstralGame/AstralGame/work/vendor/ring-0.17.14)
+   Compiling crossbeam-epoch v0.9.21
    Compiling serde_json v1.0.154
    Compiling bytes v1.12.1
    Compiling zerocopy v0.8.63
    Compiling prettyplease v0.3.0
-   Compiling crossbeam-epoch v0.9.21
    Compiling prost v0.14.6
-   Compiling icu_properties_data v2.4.0
-   Compiling crossbeam-deque v0.8.8
-   Compiling rustix v1.1.6
-   Compiling icu_normalizer_data v2.4.0
-   Compiling cfg-if v1.0.5
    Compiling cfg_aliases v0.2.2
    Compiling getrandom v0.4.3
+   Compiling rustc-std-workspace-core v1.99.0 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/rustc-std-workspace-core)
+   Compiling alloc v0.0.0 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/alloc)
+   Compiling unwind v0.0.0 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/unwind)
+   Compiling adler2 v2.0.1
+   Compiling rustc-demangle v0.1.28
+warning: ring@0.17.14: /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib: file: /Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ring/f948757db7f7c54c/out/libring_core_0_17_14_.a(937d06ac3ae344cb-x25519-asm-arm.o) has no symbols
+warning: ring@0.17.14: /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib: file: /Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ring/f948757db7f7c54c/out/libring_core_0_17_14_.a(f087bdaea2658443-poly1305_arm_asm.o) has no symbols
+warning: ring@0.17.14: /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib: file: /Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ring/f948757db7f7c54c/out/libring_core_0_17_14_.a(4f701d2e06800872-bsaes-armv7-ios32.o) has no symbols
+warning: ring@0.17.14: /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib: file: /Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ring/f948757db7f7c54c/out/libring_core_0_17_14_.a(4f701d2e06800872-ghash-armv4-ios32.o) has no symbols
+warning: ring@0.17.14: /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib: file: /Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ring/f948757db7f7c54c/out/libring_core_0_17_14_.a(4f701d2e06800872-vpaes-armv7-ios32.o) has no symbols
+warning: ring@0.17.14: /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib: file: /Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ring/f948757db7f7c54c/out/libring_core_0_17_14_.a(4f701d2e06800872-armv4-mont-ios32.o) has no symbols
+warning: ring@0.17.14: /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib: file: /Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ring/f948757db7f7c54c/out/libring_core_0_17_14_.a(4f701d2e06800872-chacha-armv4-ios32.o) has no symbols
+warning: ring@0.17.14: /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib: file: /Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ring/f948757db7f7c54c/out/libring_core_0_17_14_.a(4f701d2e06800872-sha256-armv4-ios32.o) has no symbols
+warning: ring@0.17.14: /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib: file: /Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ring/f948757db7f7c54c/out/libring_core_0_17_14_.a(4f701d2e06800872-sha512-armv4-ios32.o) has no symbols
+warning: ring@0.17.14: /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib: file: /Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ring/f948757db7f7c54c/out/libring_core_0_17_14_.a(937d06ac3ae344cb-x25519-asm-arm.o) has no symbols
+warning: ring@0.17.14: /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib: file: /Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ring/f948757db7f7c54c/out/libring_core_0_17_14_.a(f087bdaea2658443-poly1305_arm_asm.o) has no symbols
+warning: ring@0.17.14: /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib: file: /Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ring/f948757db7f7c54c/out/libring_core_0_17_14_.a(4f701d2e06800872-bsaes-armv7-ios32.o) has no symbols
+warning: ring@0.17.14: /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib: file: /Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ring/f948757db7f7c54c/out/libring_core_0_17_14_.a(4f701d2e06800872-ghash-armv4-ios32.o) has no symbols
+warning: ring@0.17.14: /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib: file: /Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ring/f948757db7f7c54c/out/libring_core_0_17_14_.a(4f701d2e06800872-vpaes-armv7-ios32.o) has no symbols
+warning: ring@0.17.14: /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib: file: /Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ring/f948757db7f7c54c/out/libring_core_0_17_14_.a(4f701d2e06800872-armv4-mont-ios32.o) has no symbols
+warning: ring@0.17.14: /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib: file: /Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ring/f948757db7f7c54c/out/libring_core_0_17_14_.a(4f701d2e06800872-chacha-armv4-ios32.o) has no symbols
+warning: ring@0.17.14: /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib: file: /Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ring/f948757db7f7c54c/out/libring_core_0_17_14_.a(4f701d2e06800872-sha256-armv4-ios32.o) has no symbols
+warning: ring@0.17.14: /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib: file: /Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ring/f948757db7f7c54c/out/libring_core_0_17_14_.a(4f701d2e06800872-sha512-armv4-ios32.o) has no symbols
+   Compiling cfg-if v1.0.4
+   Compiling rustc-literal-escaper v0.0.8
    Compiling thiserror v2.0.21
+   Compiling icu_properties_data v2.4.0
+   Compiling rustix v1.1.6
+   Compiling icu_normalizer_data v2.4.0
+   Compiling crossbeam-deque v0.8.8
+   Compiling cfg-if v1.0.5
    Compiling prost-types v0.14.6
-warning: ring@0.17.14: /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib: file: /Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ring/f948757db7f7c54c/out/libring_core_0_17_14_.a(937d06ac3ae344cb-x25519-asm-arm.o) has no symbols
-warning: ring@0.17.14: /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib: file: /Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ring/f948757db7f7c54c/out/libring_core_0_17_14_.a(f087bdaea2658443-poly1305_arm_asm.o) has no symbols
-warning: ring@0.17.14: /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib: file: /Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ring/f948757db7f7c54c/out/libring_core_0_17_14_.a(4f701d2e06800872-bsaes-armv7-ios32.o) has no symbols
-warning: ring@0.17.14: /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib: file: /Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ring/f948757db7f7c54c/out/libring_core_0_17_14_.a(4f701d2e06800872-ghash-armv4-ios32.o) has no symbols
-warning: ring@0.17.14: /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib: file: /Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ring/f948757db7f7c54c/out/libring_core_0_17_14_.a(4f701d2e06800872-vpaes-armv7-ios32.o) has no symbols
-warning: ring@0.17.14: /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib: file: /Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ring/f948757db7f7c54c/out/libring_core_0_17_14_.a(4f701d2e06800872-armv4-mont-ios32.o) has no symbols
-warning: ring@0.17.14: /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib: file: /Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ring/f948757db7f7c54c/out/libring_core_0_17_14_.a(4f701d2e06800872-chacha-armv4-ios32.o) has no symbols
-warning: ring@0.17.14: /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib: file: /Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ring/f948757db7f7c54c/out/libring_core_0_17_14_.a(4f701d2e06800872-sha256-armv4-ios32.o) has no symbols
-warning: ring@0.17.14: /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib: file: /Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ring/f948757db7f7c54c/out/libring_core_0_17_14_.a(4f701d2e06800872-sha512-armv4-ios32.o) has no symbols
-warning: ring@0.17.14: /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib: file: /Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ring/f948757db7f7c54c/out/libring_core_0_17_14_.a(937d06ac3ae344cb-x25519-asm-arm.o) has no symbols
-warning: ring@0.17.14: /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib: file: /Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ring/f948757db7f7c54c/out/libring_core_0_17_14_.a(f087bdaea2658443-poly1305_arm_asm.o) has no symbols
-warning: ring@0.17.14: /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib: file: /Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ring/f948757db7f7c54c/out/libring_core_0_17_14_.a(4f701d2e06800872-bsaes-armv7-ios32.o) has no symbols
-warning: ring@0.17.14: /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib: file: /Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ring/f948757db7f7c54c/out/libring_core_0_17_14_.a(4f701d2e06800872-ghash-armv4-ios32.o) has no symbols
-warning: ring@0.17.14: /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib: file: /Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ring/f948757db7f7c54c/out/libring_core_0_17_14_.a(4f701d2e06800872-vpaes-armv7-ios32.o) has no symbols
-warning: ring@0.17.14: /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib: file: /Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ring/f948757db7f7c54c/out/libring_core_0_17_14_.a(4f701d2e06800872-armv4-mont-ios32.o) has no symbols
-warning: ring@0.17.14: /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib: file: /Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ring/f948757db7f7c54c/out/libring_core_0_17_14_.a(4f701d2e06800872-chacha-armv4-ios32.o) has no symbols
-warning: ring@0.17.14: /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib: file: /Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ring/f948757db7f7c54c/out/libring_core_0_17_14_.a(4f701d2e06800872-sha256-armv4-ios32.o) has no symbols
-warning: ring@0.17.14: /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib: file: /Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ring/f948757db7f7c54c/out/libring_core_0_17_14_.a(4f701d2e06800872-sha512-armv4-ios32.o) has no symbols
    Compiling encoding_rs v0.8.44
    Compiling thiserror-impl v2.0.21
    Compiling tracing-attributes v0.1.31
    Compiling bstr v1.13.1
-   Compiling errno v0.3.15
-   Compiling getrandom v0.3.4
-   Compiling same-file v1.0.6
-   Compiling semver v1.0.28
-   Compiling foldhash v0.1.5
-   Compiling walkdir v2.5.0
-   Compiling rustc-std-workspace-core v1.99.0 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/rustc-std-workspace-core)
-   Compiling alloc v0.0.0 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/alloc)
-   Compiling adler2 v2.0.1
-   Compiling unwind v0.0.0 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/unwind)
-   Compiling cfg-if v1.0.4
-   Compiling rustc-demangle v0.1.28
-   Compiling rustc-literal-escaper v0.0.8
-   Compiling rustc_version v0.4.1
-   Compiling hashbrown v0.15.5
-   Compiling globset v0.4.21
-   Compiling fastrand v2.5.0
-   Compiling once_cell v1.21.4
-   Compiling glob v0.3.4
-   Compiling fixedbitset v0.5.9
-   Compiling petgraph v0.8.3
-   Compiling tempfile v3.27.0
-   Compiling ignore v0.4.34
-   Compiling winnow v1.0.5
    Compiling rustc-std-workspace-alloc v1.99.0 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/rustc-std-workspace-alloc)
    Compiling gimli v0.34.0
    Compiling miniz_oxide v0.9.1
    Compiling std_detect v0.1.5 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/std_detect)
-   Compiling panic_unwind v0.0.0 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/panic_unwind)
    Compiling panic_abort v0.0.0 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/panic_abort)
-   Compiling multimap v0.10.1
+   Compiling panic_unwind v0.0.0 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/panic_unwind)
+   Compiling errno v0.3.15
+   Compiling semver v1.0.28
+   Compiling foldhash v0.1.5
+   Compiling getrandom v0.3.4
+   Compiling same-file v1.0.6
+   Compiling walkdir v2.5.0
+   Compiling rustc_version v0.4.1
+   Compiling hashbrown v0.15.5
+   Compiling globset v0.4.21
+   Compiling addr2line v0.27.1
+   Compiling fixedbitset v0.5.9
+   Compiling fastrand v2.5.0
+   Compiling once_cell v1.21.4
+   Compiling glob v0.3.4
+   Compiling tempfile v3.27.0
+   Compiling petgraph v0.8.3
+   Compiling ignore v0.4.34
+   Compiling winnow v1.0.5
    Compiling multiversion_no_op v1.0.0
+   Compiling multimap v0.10.1
    Compiling prost-build v0.14.6
    Compiling toml_parser v1.1.5+spec-1.1.0
    Compiling darling_core v0.24.1
-   Compiling itoa v1.0.19
-   Compiling toml_datetime v1.1.3+spec-1.1.0
-   Compiling unicode-segmentation v1.13.3
-   Compiling addr2line v0.27.1
-   Compiling rustls v0.23.46
    Compiling libm v0.2.16
    Compiling typeid v1.0.3
+   Compiling itoa v1.0.19
+   Compiling toml_datetime v1.1.3+spec-1.1.0
+   Compiling rustls v0.23.46
+   Compiling unicode-segmentation v1.13.3
    Compiling convert_case v0.10.0
    Compiling toml_edit v0.25.19+spec-1.1.0
-   Compiling clang-sys v1.9.1
-   Compiling darling_macro v0.24.1
-   Compiling curve25519-dalek v4.1.3
-   Compiling async-trait v0.1.92
-   Compiling syn v1.0.109
-   Compiling pkg-config v0.3.34
-   Compiling erased-serde v0.4.11
-   Compiling unicode-xid v0.2.6
-   Compiling zstd-sys v2.1.3+zstd.1.5.7
-   Compiling derive_more-impl v2.1.1
-   Compiling darling v0.24.1
-   Compiling proc-macro-crate v3.5.0
-   Compiling ahash v0.7.8
-   Compiling minimal-lexical v0.2.1
-   Compiling typetag v0.2.23
-   Compiling thiserror v1.0.69
-   Compiling bitflags v1.3.2
-   Compiling scopeguard v1.2.0
-   Compiling fnv v1.0.7
-   Compiling simdutf8 v0.1.5
-   Compiling core_detect v1.0.0
-   Compiling httparse v1.10.1
-   Compiling darling_core v0.20.11
-   Compiling globwalk v0.8.1
-   Compiling nom v7.1.3
    Compiling proc_macro v0.0.0 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/proc_macro)
+   Compiling darling_macro v0.24.1
+   Compiling clang-sys v1.9.1
+   Compiling curve25519-dalek v4.1.3
 warning: deployment target in IPHONEOS_DEPLOYMENT_TARGET was set to 8.0, but the minimum supported by `rustc` is 10.0
 
+   Compiling smallvec v1.16.5
 warning: `libc` (lib) generated 1 warning
    Compiling getrandom v0.2.17
-   Compiling smallvec v1.16.5
    Compiling pin-project-lite v0.2.17
    Compiling critical-section v1.2.0
+   Compiling scopeguard v1.2.0
    Compiling rand_core v0.6.4
    Compiling typenum v1.20.1
    Compiling lock_api v0.4.14
    Compiling subtle v2.6.1
    Compiling stable_deref_trait v1.2.1
-   Compiling crypto-common v0.1.7
    Compiling zeroize v1.9.1
+   Compiling crypto-common v0.1.7
    Compiling futures-core v0.3.34
    Compiling parking_lot v0.12.5
    Compiling zerofrom v0.1.8
-   Compiling socket2 v0.6.5
    Compiling yoke v0.8.4
+   Compiling socket2 v0.6.5
    Compiling signal-hook-registry v1.4.8
    Compiling mio v1.2.5
    Compiling core-foundation-sys v0.8.7
    Compiling zerovec v0.11.9
-   Compiling futures-sink v0.3.34
    Compiling tokio v1.54.1
    Compiling slab v0.4.12
+   Compiling futures-sink v0.3.34
    Compiling futures-channel v0.3.34
-   Compiling futures-io v0.3.34
    Compiling futures-task v0.3.34
+   Compiling futures-io v0.3.34
    Compiling futures-util v0.3.34
    Compiling tinystr v0.8.5
    Compiling tracing-core v0.1.36
+   Compiling rand_core v0.10.1
    Compiling utf_types v1.0.0
    Compiling litemap v0.8.3
    Compiling writeable v0.6.4
-   Compiling rand_core v0.10.1
    Compiling icu_locale_core v2.4.0
    Compiling utf8_iter v1.1.0
    Compiling potential_utf v0.1.6
    Compiling zerotrie v0.2.5
+   Compiling icu_provider v2.4.0
    Compiling icu_collections v2.4.0
    Compiling block-buffer v0.10.4
-   Compiling icu_provider v2.4.0
    Compiling untrusted v0.9.0
    Compiling digest v0.10.7
 warning: hiding a lifetime that's elided elsewhere is confusing
@@ -989,47 +968,69 @@ help: use `'_` for type paths
 91 |     pub(super) fn value(&self, cpu_features: cpu::Features) -> bigint::Modulus<'_, N> {
    |                                                                                +++
 
-   Compiling chacha20 v0.10.2
    Compiling tracing v0.1.44
+   Compiling chacha20 v0.10.2
    Compiling rustls-pki-types v1.16.0
-   Compiling icu_normalizer v2.4.0
 warning: `ring` (lib) generated 10 warnings (1 duplicate) (run `cargo fix --lib -p ring` to apply 9 suggestions)
+   Compiling ppv-lite86 v0.2.21
+   Compiling icu_normalizer v2.4.0
    Compiling icu_properties v2.4.0
    Compiling rand v0.10.3
-   Compiling ppv-lite86 v0.2.21
    Compiling inout v0.1.4
    Compiling ipnet v2.12.2
-   Compiling unicode-width v0.2.3
    Compiling byteorder v1.5.0
+   Compiling unicode-width v0.2.3
    Compiling idna_adapter v1.2.2
    Compiling cipher v0.4.4
    Compiling universal-hash v0.5.1
-   Compiling percent-encoding v2.3.2
    Compiling opaque-debug v0.3.1
+   Compiling percent-encoding v2.3.2
    Compiling form_urlencoded v1.2.2
    Compiling idna v1.1.0
    Compiling rand_core v0.9.5
    Compiling rustls-webpki v0.103.17
    Compiling tinyvec v1.13.3
-   Compiling rand_chacha v0.9.0
+   Compiling async-trait v0.1.92
+   Compiling pkg-config v0.3.34
+   Compiling syn v1.0.109
+   Compiling erased-serde v0.4.11
+   Compiling unicode-xid v0.2.6
+   Compiling derive_more-impl v2.1.1
+   Compiling zstd-sys v2.1.3+zstd.1.5.7
    Compiling url v2.5.8
+   Compiling rand_chacha v0.9.0
    Compiling http v1.5.0
    Compiling sha1_smol v1.0.1
-   Compiling utf8parse v0.2.2
    Compiling parking v2.2.1
+   Compiling utf8parse v0.2.2
    Compiling deranged v0.5.9
    Compiling num-conv v0.2.2
    Compiling powerfmt v0.2.1
    Compiling time-core v0.1.9
-   Compiling event-listener v5.4.2
+   Compiling darling v0.24.1
+   Compiling proc-macro-crate v3.5.0
+   Compiling ahash v0.7.8
+   Compiling fnv v1.0.7
+   Compiling httparse v1.10.1
+   Compiling minimal-lexical v0.2.1
+   Compiling bitflags v1.3.2
+   Compiling core_detect v1.0.0
+   Compiling simdutf8 v0.1.5
+   Compiling thiserror v1.0.69
+   Compiling typetag v0.2.23
    Compiling time v0.3.55
-   Compiling uuid v1.29.2
+   Compiling nom v7.1.3
+   Compiling globwalk v0.8.1
+   Compiling darling_core v0.20.11
    Compiling anstyle-parse v1.0.0
+   Compiling uuid v1.29.2
+   Compiling event-listener v5.4.2
    Compiling rand v0.9.5
    Compiling hmac v0.12.1
    Compiling tokio-util v0.7.20
    Compiling iana-time-zone v0.1.65
    Compiling aead v0.5.2
+   Compiling siphasher v1.0.4
    Compiling inventory v0.3.25
    Compiling anstyle v1.0.14
    Compiling anstyle-query v1.1.5
@@ -1037,58 +1038,57 @@ warning: `ring` (lib) generated 10 warnings (1 duplicate) (run `cargo fix --lib 
    Compiling is_terminal_polyfill v1.70.2
    Compiling data-encoding v2.11.1
    Compiling foldhash v0.2.0
-   Compiling siphasher v1.0.4
-   Compiling toml_datetime v0.6.11
-   Compiling serde_spanned v0.6.9
    Compiling prost-wkt-build v0.7.2
+   Compiling serde_spanned v0.6.9
+   Compiling toml_datetime v0.6.11
    Compiling libloading v0.8.9
    Compiling enum-as-inner v0.6.1
    Compiling typetag-impl v0.2.23
    Compiling thiserror-impl v1.0.69
    Compiling itertools v0.14.0
-   Compiling parking_lot_core v0.8.6
    Compiling arraydeque v0.5.1
+   Compiling parking_lot_core v0.8.6
    Compiling system-configuration-sys v0.6.0
-   Compiling bindgen v0.72.1
    Compiling toml_write v0.1.2
    Compiling winnow v0.7.15
+   Compiling bindgen v0.72.1
    Compiling annotate-snippets v0.12.18
    Compiling pbjson-build v0.9.0
    Compiling granit-parser v1.3.0
-   Compiling trackable_derive v1.0.0
    Compiling toml_edit v0.22.27
    Compiling hickory-proto v0.25.2
    Compiling prost-wkt-types v0.7.2
    Compiling anstream v1.0.0
    Compiling chrono v0.4.45
+   Compiling trackable_derive v1.0.0
+   Compiling darling_macro v0.20.11
    Compiling event-listener-strategy v0.5.4
+   Compiling cexpr v0.6.0
+   Compiling encoding_rs_io v0.1.8
+   Compiling derive_more v2.1.1
    Compiling terminal_size v0.4.4
    Compiling http-body v1.1.0
-   Compiling poly1305 v0.8.0
    Compiling chacha20 v0.9.1
+   Compiling poly1305 v0.8.0
    Compiling crossbeam-channel v0.5.17
    Compiling core-foundation v0.10.1
    Compiling security-framework-sys v2.17.0
    Compiling instant v0.1.13
-   Compiling derive_more v2.1.1
+   Compiling try-lock v0.2.5
    Compiling allocator-api2 v0.2.21
-   Compiling arc-swap v1.9.5
+   Compiling base64 v0.23.1
    Compiling clap_lex v1.1.1
    Compiling unicase v2.10.0
    Compiling base64 v0.22.1
-   Compiling base64 v0.23.1
-   Compiling try-lock v0.2.5
-   Compiling cexpr v0.6.0
-   Compiling darling_macro v0.20.11
-   Compiling encoding_rs_io v0.1.8
+   Compiling arc-swap v1.9.5
    Compiling prost-reflect v0.16.5
    Compiling memoffset v0.9.1
    Compiling enum-ordinalize-derive v4.4.2
    Compiling itertools v0.13.0
    Compiling heapless v0.9.3
-   Compiling indoc v2.0.8
    Compiling nohash-hasher v0.2.0
    Compiling rustix v0.38.44
+   Compiling indoc v2.0.8
    Compiling zstd-safe v8.3.0
    Compiling rustc-hash v2.1.3
    Compiling shlex v1.3.0
@@ -1096,17 +1096,17 @@ warning: `ring` (lib) generated 10 warnings (1 duplicate) (run `cargo fix --lib 
    Compiling easytier-proto v2.7.0 (https://github.com/ldoubil/EasyTier.git?branch=main-astral#758827a9)
    Compiling triomphe v0.1.17
    Compiling enum-ordinalize v4.4.2
-   Compiling darling v0.20.11
-   Compiling want v0.3.2
    Compiling clap_builder v4.6.7
+   Compiling want v0.3.2
+   Compiling security-framework v3.7.0
+   Compiling chacha20poly1305 v0.10.1
    Compiling optionize-macros v0.5.3
    Compiling hashbrown v0.12.3
-   Compiling security-framework v3.7.0
-   Compiling prost-wkt v0.7.2
-   Compiling chacha20poly1305 v0.10.1
    Compiling async-lock v3.5.0
-   Compiling toml v0.8.23
+   Compiling darling v0.20.11
+   Compiling prost-wkt v0.7.2
    Compiling trackable v1.3.0
+   Compiling toml v0.8.23
    Compiling x25519-dalek v2.0.1
    Compiling polyval v0.6.2
    Compiling hash32 v0.3.1
@@ -1117,109 +1117,109 @@ warning: `ring` (lib) generated 10 warnings (1 duplicate) (run `cargo fix --lib 
    Compiling cidr v0.3.2
    Compiling hashbrown v0.14.5
    Compiling atomic-waker v1.1.2
+   Compiling option-ext v0.2.0
    Compiling crc-catalog v2.5.0
    Compiling tagptr v0.2.0
-   Compiling option-ext v0.2.0
    Compiling lazy_static v1.5.1
    Compiling snow v0.10.0
    Compiling nix v0.31.3
    Compiling quinn-udp v0.5.16
-   Compiling strum_macros v0.28.0
    Compiling clap_derive v4.6.7
+   Compiling strum_macros v0.28.0
    Compiling auto_impl v1.4.0
    Compiling zerocopy-derive v0.7.35
    Compiling itertools v0.11.0
-   Compiling base62 v2.2.6
-   Compiling normpath v1.5.2
    Compiling smoltcp v0.14.0
    Compiling reed-solomon-erasure v6.0.0
+   Compiling base62 v2.2.6
+   Compiling normpath v1.5.2
    Compiling strum v0.28.0
    Compiling clap v4.6.7
    Compiling zerocopy v0.7.35
    Compiling rust-i18n-support v4.2.4
    Compiling sharded-slab v0.1.7
    Compiling moka v0.12.16
-   Compiling dirs-sys v0.5.0
    Compiling crc v3.4.0
-   Compiling dashmap v6.2.1
+   Compiling dirs-sys v0.5.0
    Compiling hyper v1.12.0
-   Compiling optionize v0.5.3
+   Compiling dashmap v6.2.1
    Compiling system-configuration v0.6.1
    Compiling rand v0.8.8
    Compiling ghash v0.5.1
+   Compiling optionize v0.5.3
    Compiling bytecodec v0.5.0
+   Compiling derive_builder_core v0.20.2
+   Compiling lru v0.7.8
    Compiling kcp-sys v0.1.0 (https://github.com/EasyTier/kcp-sys?rev=268533568d734ae89dc89603078da3ca522effe1#26853356)
    Compiling rustls-platform-verifier v0.7.1
-   Compiling lru v0.7.8
    Compiling parking_lot v0.11.2
-   Compiling derive_builder_core v0.20.2
    Compiling educe v0.8.2
    Compiling pbjson v0.9.0
    Compiling fastbloom v0.17.0
-   Compiling tokio-rustls v0.26.6
-   Compiling ctr v0.9.2
-   Compiling aes v0.8.4
-   Compiling webpki-roots v1.0.12
-   Compiling sha1 v0.10.7
-   Compiling futures-executor v0.3.34
-   Compiling rand_pcg v0.10.2
-   Compiling tracing-log v0.2.0
-   Compiling ringbuf v0.5.3
-   Compiling quick-xml v0.42.0
-   Compiling serde_spanned v1.1.3
-   Compiling nibble_vec v0.1.0
-   Compiling thread_local v1.1.10
-   Compiling dirs-sys v0.3.7
-   Compiling managed v0.8.0
-   Compiling home v0.5.12
-   Compiling yansi v1.0.1
-   Compiling md5 v0.7.0
-   Compiling no-std-net v0.6.0
-   Compiling endian-type v0.1.2
-   Compiling ip_network v0.4.1
-   Compiling ip_network_table-deps-treebitmap v0.5.0
-   Compiling lru-slab v0.1.3
-   Compiling resolv-conf v0.7.6
-   Compiling atomic-shim v0.2.0
-   Compiling toml_writer v1.2.0+spec-1.1.0
-   Compiling nu-ansi-term v0.50.3
-   Compiling bytecount v0.6.9
    Compiling rust-i18n v4.2.4
    Compiling guarden-macros v0.3.0
    Compiling bon-macros v3.10.3
+   Compiling tokio-rustls v0.26.6
+   Compiling aes v0.8.4
+   Compiling ctr v0.9.2
+   Compiling webpki-roots v1.0.12
+   Compiling sha1 v0.10.7
+   Compiling futures-executor v0.3.34
+   Compiling tracing-log v0.2.0
+   Compiling rand_pcg v0.10.2
+   Compiling ringbuf v0.5.3
+   Compiling quick-xml v0.42.0
+   Compiling serde_spanned v1.1.3
+   Compiling dirs-sys v0.3.7
+   Compiling nibble_vec v0.1.0
+   Compiling thread_local v1.1.10
+   Compiling lru-slab v0.1.3
+   Compiling ip_network v0.4.1
+   Compiling ip_network_table-deps-treebitmap v0.5.0
+   Compiling no-std-net v0.6.0
+   Compiling managed v0.8.0
+   Compiling atomic-shim v0.2.0
+   Compiling yansi v1.0.1
+   Compiling endian-type v0.1.2
+   Compiling bytecount v0.6.9
+   Compiling md5 v0.7.0
+   Compiling resolv-conf v0.7.6
+   Compiling toml_writer v1.2.0+spec-1.1.0
+   Compiling nu-ansi-term v0.50.3
+   Compiling home v0.5.12
    Compiling globwalk v0.9.1
    Compiling quinn v0.11.12
    Compiling network-interface v2.0.5
    Compiling delegate v0.13.5
+   Compiling paste v1.0.15
    Compiling array-const-fn-init v0.1.1
    Compiling thunk-rs v0.3.5 (https://github.com/EasyTier/thunk.git#cbbeec75)
-   Compiling paste v1.0.15
    Compiling prefix-trie v0.10.2
    Compiling easytier v2.7.0 (https://github.com/ldoubil/EasyTier.git?branch=main-astral#758827a9)
-   Compiling guarden v0.3.0
-   Compiling papergrid v0.18.0
+   Compiling which v4.4.2
    Compiling tracing-subscriber v0.3.23
-   Compiling bon v3.10.3
-   Compiling toml v1.2.1+spec-1.1.0
-   Compiling quinn-proto v0.11.19
+   Compiling papergrid v0.18.0
    Compiling hickory-resolver v0.25.2
-   Compiling ip_network_table v0.2.0
+   Compiling toml v1.2.1+spec-1.1.0
+   Compiling ariadne v0.6.0
+   Compiling stun_codec v0.4.0
    Compiling radix_trie v0.2.1
    Compiling pnet_base v0.35.0
-   Compiling stun_codec v0.4.0
-   Compiling ariadne v0.6.0
+   Compiling ip_network_table v0.2.0
+   Compiling quinn-proto v0.11.19
+   Compiling bon v3.10.3
    Compiling plist v1.10.3
-   Compiling which v4.4.2
    Compiling dirs v4.0.0
    Compiling async-ringbuf v0.3.10
    Compiling futures v0.3.34
    Compiling aes-gcm v0.10.3
+   Compiling guarden v0.3.0
    Compiling derive_builder_macro v0.20.2
    Compiling zstd v0.14.4
    Compiling netdev v0.31.0
    Compiling hyper-util v0.1.21
-   Compiling encoding-utils v0.1.0
    Compiling dirs v6.0.0
+   Compiling encoding-utils v0.1.0
    Compiling rust-i18n-macro v4.2.4
    Compiling clap_complete v4.6.11
    Compiling ordered_hash_map v0.6.1
@@ -1235,10 +1235,10 @@ warning: `ring` (lib) generated 10 warnings (1 duplicate) (run `cargo fix --lib 
    Compiling quanta v0.12.6
    Compiling ipnetwork v0.20.0
    Compiling pnet_sys v0.35.0
-   Compiling xml v1.4.0
-   Compiling nonempty v0.7.0
    Compiling base64 v0.13.1
+   Compiling xml v1.4.0
    Compiling hex v0.4.3
+   Compiling nonempty v0.7.0
    Compiling xml-rs v0.8.29
    Compiling wildmatch v2.7.0
    Compiling humantime v2.4.0
@@ -1250,8 +1250,8 @@ warning: `ring` (lib) generated 10 warnings (1 duplicate) (run `cargo fix --lib 
    Compiling xmltree v0.12.0
    Compiling humantime-serde v1.1.1
    Compiling easytier-core v2.7.0 (https://github.com/ldoubil/EasyTier.git?branch=main-astral#758827a9)
-   Compiling boringtun-easytier v0.6.1
    Compiling forwarded-header-value v0.1.1
+   Compiling boringtun-easytier v0.6.1
    Compiling tokio-websockets v0.13.2 (https://github.com/EasyTier/tokio-websockets#dc9771c7)
    Compiling pnet_datalink v0.35.0
    Compiling crossbeam v0.8.5
@@ -1259,8 +1259,8 @@ warning: `ring` (lib) generated 10 warnings (1 duplicate) (run `cargo fix --lib 
    Compiling rcgen v0.14.10
    Compiling clap_complete_nushell v4.6.2
    Compiling shellexpand v3.1.2
-   Compiling atomic-write-file v0.3.1
    Compiling natpmp v0.5.0
+   Compiling atomic-write-file v0.3.1
    Compiling derive_builder v0.20.2
    Compiling hickory-client v0.25.2
    Compiling flume v0.12.0
@@ -1269,16 +1269,16 @@ warning: `ring` (lib) generated 10 warnings (1 duplicate) (run `cargo fix --lib 
    Compiling humansize v2.1.3
    Compiling gethostname v1.1.0
    Compiling seahash v4.1.0
-   Compiling atomic_refcell v0.1.14
    Compiling sys-locale v0.3.2
+   Compiling atomic_refcell v0.1.14
    Compiling async-recursion v1.2.0
    Compiling astral-tund v0.1.0 (/Users/runner/work/AstralGame/AstralGame/work/astral-tund)
 error: linking with `cc` failed: exit status: 1
  |
- = note:  "cc" "-arch" "armv7s" "-miphoneos-version-min=8.0" "-isysroot" "/Users/runner/work/AstralGame/AstralGame/work/ios6/sdk/iPhoneOS8.1.sdk" "/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/astral-tund/fc1f69e82315c835/out/rustcsjpoTB/symbols.o" "<17 object files omitted>" "/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/lazy_static/7dee8fbee1f8c555/out/liblazy_static-7dee8fbee1f8c555.rlib" "/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/easytier/48 ...[truncated 54789 chars]
+ = note:  "cc" "-arch" "armv7s" "-miphoneos-version-min=8.0" "-isysroot" "/Users/runner/work/AstralGame/AstralGame/work/ios6/sdk/iPhoneOS8.1.sdk" "/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/astral-tund/fc1f69e82315c835/out/rustckbIHEV/symbols.o" "<17 object files omitted>" "/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/lazy_static/7dee8fbee1f8c555/out/liblazy_static-7dee8fbee1f8c555.rlib" "/Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/easytier/48 ...[truncated 54789 chars]
  = note: some arguments are omitted. use `--verbose` to show all linker arguments
  = note: clang: warning: overriding '-miphoneos-version-min=8.0' option with '-target armv7s-apple-ios10.0.0' [-Woverriding-option]
-         ld: warning: CPU_SUBTYPE_ARM_ALL subtype is deprecated: /Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/astral-tund/fc1f69e82315c835/out/rustcsjpoTB/symbols.o
+         ld: warning: CPU_SUBTYPE_ARM_ALL subtype is deprecated: /Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/astral-tund/fc1f69e82315c835/out/rustckbIHEV/symbols.o
          Undefined symbols for architecture armv7s:
            "__tlv_bootstrap", referenced from:
                __RNvNtNtCski1VVKd0Smi_3std6thread7current7CURRENT in libstd-a91222fa49971296.rlib(std-a91222fa49971296.std.ec56fd024dd2ba10-cgu.10.rcgu.o)
@@ -1347,23 +1347,5 @@ error: linking with `cc` failed: exit status: 1
 warning: `astral-tund` (bin "astral-tund") generated 1 warning (1 duplicate)
 error: could not compile `astral-tund` (bin "astral-tund") due to 1 previous error; 1 warning emitted
 [1;34m==> 构建失败 —— dump ring 汇编诊断[0m
-    ring build dir: /Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ring/835ee0a3bc52b40a
-    --- /Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ring/835ee0a3bc52b40a 目录内容 ---
-      total 0
-      drwxr-xr-x  4 runner  staff  128 Nov 15 13:07 .
-      drwxr-xr-x  4 runner  staff  128 Nov 15 13:05 ..
-      drwxr-xr-x  7 runner  staff  224 Nov 15 13:07 fingerprint
-      drwxr-xr-x  5 runner  staff  160 Nov 15 13:07 out
-    --- /Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/ring/835ee0a3bc52b40a/out 目录内容 ---
-      total 4840
-      drwxr-xr-x  5 runner  staff      160 Nov 15 13:07 .
-      drwxr-xr-x  4 runner  staff      128 Nov 15 13:07 ..
-      -rw-r--r--  1 runner  staff  1206560 Nov 15 13:07 libring-835ee0a3bc52b40a.rlib
-      -rw-r--r--  1 runner  staff  1209839 Nov 15 13:07 libring-835ee0a3bc52b40a.rmeta
-      -rw-r--r--  1 runner  staff    53361 Nov 15 13:07 ring-835ee0a3bc52b40a.d
-    --- build script 输出（尾部 40 行）---
-    --- out/ 下的 .S 文件 ---
-    --- out/ 下的 .o 文件 ---
-    --- ring_core_generated 目录 ---
-    !! 没找到 libring_core*.a
+    !! 没找到 ring 的 build 目录
 [1;31mXX  cargo build 失败 (exit 101)[0m
