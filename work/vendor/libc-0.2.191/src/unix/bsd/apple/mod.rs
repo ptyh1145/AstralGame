@@ -819,7 +819,7 @@ s2! {
     }
 
     #[exhaustive] // FIXME(exhaustive): review for 1.0
-    #[cfg(target_os = "macos")]
+    #[cfg(any(target_os = "macos", target_os = "ios"))]
     pub struct sockaddr_inarp {
         pub sin_len: c_uchar,
         pub sin_family: c_uchar,
@@ -1411,7 +1411,7 @@ s2! {
     }
 
     #[exhaustive] // FIXME(exhaustive): review for 1.0
-    #[cfg(target_os = "macos")]
+    #[cfg(any(target_os = "macos", target_os = "ios"))]
     pub struct ifs_iso_8802_3 {
         pub dot3StatsAlignmentErrors: u32,
         pub dot3StatsFCSErrors: u32,
@@ -1880,7 +1880,7 @@ s_no_extra_traits2! {
 }
 
 cfg_if! {
-    if #[cfg(target_os = "macos")] {
+    if #[cfg(any(target_os = "macos", target_os = "ios"))] {
         s_no_extra_traits2! {
             #[unsafe(union_default_via_zeroed)]
             pub union __c_anonymous_ifr_ifru6 {
@@ -2355,7 +2355,7 @@ pub const PROT_WRITE: c_int = 2;
 pub const PROT_EXEC: c_int = 4;
 
 cfg_if! {
-    if #[cfg(target_os = "macos")] {
+    if #[cfg(any(target_os = "macos", target_os = "ios"))] {
         // ptrace.h
         pub const PT_TRACE_ME: c_int = 0;
         pub const PT_READ_I: c_int = 1;
@@ -3977,7 +3977,7 @@ cfg_if! {
 pub const KERN_PROCARGS2: c_int = 49;
 
 cfg_if! {
-    if #[cfg(target_os = "macos")] {
+    if #[cfg(any(target_os = "macos", target_os = "ios"))] {
         // sys/proc_info.h
         pub const PROC_PIDTASKALLINFO: c_int = 2;
         pub const PROC_PIDTBSDINFO: c_int = 3;
@@ -4553,7 +4553,7 @@ pub const HOST_VM_INFO64_COUNT: mach_msg_type_number_t =
     (size_of::<vm_statistics64_data_t>() / size_of::<integer_t>()) as mach_msg_type_number_t;
 
 cfg_if! {
-    if #[cfg(target_os = "macos")] {
+    if #[cfg(any(target_os = "macos", target_os = "ios"))] {
         // bsd/net/if_mib.h
         /// Non-interface-specific
         pub const IFMIB_SYSTEM: c_int = 1;
