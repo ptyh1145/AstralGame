@@ -72,28 +72,36 @@ jobs:
             protoc --version
           fi
 
-      - name: Provide iOS 6.1 SDK
+      - name: Provide iOS SDK
         env:
           IOS6_SDK_URL: ${{ secrets.IOS6_SDK_URL }}
         run: |
           set -euo pipefail
           mkdir -p work/ios6/sdk
-          if [ -d "work/ios6/sdk/iPhoneOS6.1.sdk" ]; then
-            echo "SDK 已就位"
-          elif [ -f "sdk/iPhoneOS6.1.sdk.tar.gz" ]; then
-            echo "解压 sdk/iPhoneOS6.1.sdk.tar.gz"
-            tar -xzf sdk/iPhoneOS6.1.sdk.tar.gz -C work/ios6/sdk
-          elif [ -d "sdk/iPhoneOS6.1.sdk" ]; then
-            cp -R sdk/iPhoneOS6.1.sdk work/ios6/sdk/
-          elif [ -n "${IOS6_SDK_URL:-}" ]; then
-            curl -fL --retry 3 -o /tmp/ios6sdk.tar.gz "$IOS6_SDK_URL"
-            tar -xzf /tmp/ios6sdk.tar.gz -C work/ios6/sdk
-          else
-            echo "::error::缺少 iOS 6.1 SDK"
-            exit 1
+          # 优先 iOS 8.1：rustc 1.102 的 std 按 iOS 10 的 API 面编译，
+          # 8.1 SDK 已提供 __tlv_bootstrap / openat 等符号，链接最干净。
+          # 6.1 SDK 作为后备（只做 iOS 6/7 时才需要）。
+          for v in 8.1 6.1; do
+            if [ -d "sdk/iPhoneOS$v.sdk" ]; then
+              echo "复制 sdk/iPhoneOS$v.sdk"
+              cp -R "sdk/iPhoneOS$v.sdk" work/ios6/sdk/
+            elif [ -f "sdk/iPhoneOS$v.sdk.tar.gz" ]; then
+              echo "解压 sdk/iPhoneOS$v.sdk.tar.gz"
+              tar -xzf "sdk/iPhoneOS$v.sdk.tar.gz" -C work/ios6/sdk
+            fi
+          done
+          if [ ! -d work/ios6/sdk/iPhoneOS8.1.sdk ] && [ ! -d work/ios6/sdk/iPhoneOS6.1.sdk ]; then
+            if [ -n "${IOS6_SDK_URL:-}" ]; then
+              curl -fL --retry 3 -o /tmp/ios6sdk.tar.gz "$IOS6_SDK_URL"
+              tar -xzf /tmp/ios6sdk.tar.gz -C work/ios6/sdk
+            else
+              echo "::error::缺少 iOS SDK（sdk/iPhoneOS8.1.sdk.tar.gz 或 6.1）"
+              exit 1
+            fi
           fi
           ls work/ios6/sdk
-          test -f work/ios6/sdk/iPhoneOS6.1.sdk/usr/lib/libSystem.tbd
+          test -f work/ios6/sdk/iPhoneOS8.1.sdk/usr/lib/libSystem.tbd \
+            || test -f work/ios6/sdk/iPhoneOS6.1.sdk/usr/lib/libSystem.tbd
 
       - name: Build (armv7 / iOS 6.0)
         run: |

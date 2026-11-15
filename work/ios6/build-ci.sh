@@ -24,16 +24,24 @@ die()  { printf "\033[1;31mXX  %s\033[0m\n" "$*"; exit 1; }
 
 # ---------------------------------------------------------------- 1. SDK
 say "定位 iOS SDK"
+# 优先 8.1：rustc 1.102 的 std 是按 iOS 10 的 API 面编的，8.1 SDK 已经提供
+# 了 __tlv_bootstrap / openat / *at 系列，能省掉一堆 -Wl,-U 放行；
+# 6.1 SDK 作为后备（只有做 iOS 6/7 时才会用到）。
 SDK_PATH=""
 for cand in \
+  "$HERE/sdk/iPhoneOS8.1.sdk" \
+  "$REPO_ROOT/ios81-sdk/iPhoneOS8.1.sdk" \
+  "$REPO_ROOT/sdk/iPhoneOS8.1.sdk" \
   "$HERE/sdk/iPhoneOS6.1.sdk" \
   "$REPO_ROOT/ios6-sdk/iPhoneOS6.1.sdk" \
   "$REPO_ROOT/sdk/iPhoneOS6.1.sdk"
 do
   [ -z "$SDK_PATH" ] && [ -d "$cand" ] && SDK_PATH="$cand"
 done
-[ -n "$SDK_PATH" ] || die "找不到 iPhoneOS6.1.sdk（见 README；runner 不带）"
+[ -n "$SDK_PATH" ] || die "找不到 iPhoneOS8.1.sdk / iPhoneOS6.1.sdk（见 README；runner 不带）"
 echo "    SDK = $SDK_PATH"
+SDK_IS_61=0
+case "$SDK_PATH" in *iPhoneOS6.1*) SDK_IS_61=1 ;; esac
 
 say "校验 SDK 真伪"
 LIB_SYS="$SDK_PATH/usr/lib/libSystem.tbd"
@@ -44,10 +52,18 @@ for f in "$LIB_SYS" "$LIB_M" "$LIB_OBJC"; do
 done
 grep -q 'armv7' "$LIB_SYS" || die "libSystem.tbd 里没有 armv7 —— 不是 32 位 SDK"
 echo "    armv7 支持: OK"
-grep -q -- '___sincos_stret' "$LIB_M" && warn "含 ___sincos_stret（iOS7+），SDK 偏新" \
-  || echo "    iOS 6 特征: 无 ___sincos_stret  OK"
-grep -q -- '_objc_readClassPair' "$LIB_OBJC" && warn "含 _objc_readClassPair（iOS8+），SDK 偏新" \
-  || echo "    iOS 6 特征: 无 _objc_readClassPair  OK"
+if [ "$SDK_IS_61" = "1" ]; then
+  # 这两条只在用 6.1 SDK 时才有意义（判断它是不是被"加料"过的新 SDK）。
+  grep -q -- '___sincos_stret' "$LIB_M" && warn "含 ___sincos_stret（iOS7+），SDK 偏新" \
+    || echo "    iOS 6 特征: 无 ___sincos_stret  OK"
+  grep -q -- '_objc_readClassPair' "$LIB_OBJC" && warn "含 _objc_readClassPair（iOS8+），SDK 偏新" \
+    || echo "    iOS 6 特征: 无 _objc_readClassPair  OK"
+else
+  echo "    用的是 iOS 8.x SDK（armv7 + TLS + *at 符号齐全），跳过 iOS6 特征检查"
+fi
+
+# 下面两步只对 6.1 SDK 有意义，8.1 SDK 自带 libc/libm 别名、platform 字段也合法。
+if [ "$SDK_IS_61" = "1" ]; then
 
 # 补经典库名别名（libc / libm / libpthread / libdl）。
 # 原因：std（build-std）和各种 C 依赖会传 -lc / -lm / -lpthread / -ldl，
@@ -85,6 +101,8 @@ alias_lib libdl     "$SDK_PATH/usr/lib/libSystem.tbd"
 # 把 v3 tbd 的 `platform: (null)` 统一改成 `platform: ios`。
 say "修补 SDK 的 tbd platform 字段（(null) -> ios）"
 python3 "$HERE/fix_sdk_tbd.py" "$SDK_PATH" || warn "tbd 修补失败（继续）"
+
+fi  # SDK_IS_61
 
 # ---------------------------------------------------------------- 2. target JSON
 say "派生纯 armv7 目标（基于 armv7s spec，注入 SDK 链接参数）"
@@ -138,19 +156,13 @@ spec.pop("is_like_darwin", None)  # 该字段不存在于 JSON，误加会报错
 #   （报 "unknown argument: '-platform_version'"，且会把后面的 ios/6.0 当文件）。
 # -isysroot <6.1 SDK>：链接器找库/headers 用我们的 iOS 6.1 SDK
 #
-# 下面的 -Wl,-U,<sym>：放行"iOS 8+ dyld 原生提供、但 6.1 SDK 的 tbd 没列出"
-# 的符号。rustc 1.102 的 std 是按 iOS 10 的 API 面编译的，会引用它们：
-#   __tlv_bootstrap / __tlv_atexit  → 线程局部存储（iOS 8 起有）
-#   openat/fstatat/renameat/unlinkat → POSIX.1-2008 的 *at 系列（iOS 8 起有）
-# 运行时这些符号在 iOS 8+ 上都能解析到，所以放行是安全的。
-# 另外两个由 src/shim.rs 自己实现（不依赖额外库）：
-#   clock_gettime         → iOS 10 才有的，不能放行
-#   CCRandomGenerateBytes → 用 libSystem 的 arc4random_buf 替代
-spec["pre-link-args"] = {
-    "darwin-cc": [
-        "-arch", "armv7s",
-        "-miphoneos-version-min=" + min_ios,
-        "-isysroot", sdk,
+# 下面的 -Wl,-U,<sym>：**只在 6.1 SDK 上需要**，用来放行
+# "iOS 8+ dyld 原生提供、但 6.1 SDK 的 tbd 没列出" 的符号
+# （__tlv_bootstrap / __tlv_atexit / openat / *at 系列）。
+# 用 iOS 8.1 SDK 时这些符号本来就在 tbd 里，不需要放行。
+extra_link = []
+if "iPhoneOS6.1" in sdk:
+    extra_link = [
         "-Wl,-U,__tlv_bootstrap",
         "-Wl,-U,__tlv_atexit",
         "-Wl,-U,_openat",
@@ -158,6 +170,15 @@ spec["pre-link-args"] = {
         "-Wl,-U,_renameat",
         "-Wl,-U,_unlinkat",
     ]
+# 另外两个由 src/shim.rs 自己实现（不依赖额外库）：
+#   clock_gettime         → iOS 10 才有的，任何 8.x/9.x SDK 都没有
+#   CCRandomGenerateBytes → 用 libSystem 的 arc4random_buf 替代
+spec["pre-link-args"] = {
+    "darwin-cc": [
+        "-arch", "armv7s",
+        "-miphoneos-version-min=" + min_ios,
+        "-isysroot", sdk,
+    ] + extra_link
 }
 spec.pop("post-link-args", None)
 
@@ -227,6 +248,15 @@ say "修补依赖的 crate-type（cdylib/staticlib → rlib）"
 python3 "$HERE/patch_crate_types.py" \
   "$HOME/.cargo/registry/src" \
   "$HOME/.cargo/git/checkouts" || warn "crate-type 修补脚本失败（继续尝试编译）"
+
+# ring 0.17 的 ASM_TARGETS 里 32 位 arm 只配了 Linux/Horizon，没有 Apple：
+# iOS/armv7 上 asm_target=None → 汇编完全不编译 → 链接期
+# _ring_core_*_sha256_block_data_order_nohw 等 17 个符号全部 undefined。
+# 这里补上 arm+APPLE_ABI+"ios32"，并强制走 perl 现场生成（只生成当前
+# target，不会去碰 nasm）。
+say "修补 ring 的 iOS 32 位汇编支持"
+python3 "$HERE/patch_ring_asm.py" "$HOME/.cargo/registry/src" \
+  || warn "ring 汇编补丁失败（继续尝试编译）"
 
 # 关键：清掉所有 build script 的输出目录，强制 C/汇编依赖按当前的
 # -arch armv7s 重新编译。
