@@ -319,6 +319,12 @@ fn handle_daemon_cmd(line: &str) -> String {
             astral_tund::astral_set_dhcp(on);
             "rc=0\n".to_string()
         }
+        "QUIC" if parts.len() >= 2 => {
+            // QUIC 1 / QUIC 0 —— 传输协议（1=QUIC, 0=TCP）
+            let on: u8 = if parts[1].trim() == "1" { 1 } else { 0 };
+            astral_tund::astral_set_quic(on);
+            "rc=0\n".to_string()
+        }
         "STOP" => {
             let rc = astral_tund::astral_stop();
             format!("rc={rc}\n")

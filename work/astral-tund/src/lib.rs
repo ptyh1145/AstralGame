@@ -189,7 +189,8 @@ pub extern "C" fn astral_start(
 async fn bring_up(room: &str, secret: &str, ipv4: &str, peer: &str) -> Result<uuid::Uuid> {
     let host = hostname_store().lock().unwrap().clone();
     let dhcp = DHCP_ON.load(Ordering::SeqCst) != 0;
-    let toml = cli::build_toml(&host, room, secret, ipv4, &[peer.to_string()], dhcp);
+    let quic = QUIC_ON.load(Ordering::SeqCst) != 0;
+    let toml = cli::build_toml(&host, room, secret, ipv4, &[peer.to_string()], dhcp, quic);
 
     let (ip, prefix) = match ipv4.split_once('/') {
         Some((ip, p)) => (ip.to_string(), p.parse::<u8>().unwrap_or(24)),
@@ -294,4 +295,13 @@ static DHCP_ON: AtomicU8 = AtomicU8::new(0);
 pub extern "C" fn astral_set_dhcp(on: u8) {
     DHCP_ON.store(if on != 0 { 1 } else { 0 }, Ordering::SeqCst);
     push_log(&format!("自动分配虚拟IP: {}", on != 0));
+}
+
+/// 是否走 QUIC（false = TCP，官方默认）。
+static QUIC_ON: AtomicU8 = AtomicU8::new(0);
+
+#[no_mangle]
+pub extern "C" fn astral_set_quic(on: u8) {
+    QUIC_ON.store(if on != 0 { 1 } else { 0 }, Ordering::SeqCst);
+    push_log(&format!("传输协议: {}", if on != 0 { "QUIC" } else { "TCP" }));
 }

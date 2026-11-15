@@ -35,6 +35,7 @@ pub fn build_toml(
     ipv4: &str,
     peers: &[String],
     dhcp: bool,
+    quic: bool,
 ) -> String {
     let peer_block: String = peers
         .iter()
@@ -48,6 +49,25 @@ pub fn build_toml(
         "dhcp = true\ndhcpv6 = false".to_string()
     } else {
         format!("dhcp = false\ndhcpv6 = false\nipv4 = \"{}\"", esc(ipv4))
+    };
+
+    // 传输协议：与官方 _flagsBlock 的 ternary 完全一致
+    //   TCP  → 允许 QUIC 代理（其他节点可用 QUIC 连过来）
+    //   其他 → 关闭 QUIC 输入/中继
+    let (proto_name, quic_block) = if quic {
+        (
+            "quic",
+            "disable_quic_input = true\ndisable_relay_quic = true\n\
+             enable_relay_foreign_network_quic = false"
+                .to_string(),
+        )
+    } else {
+        (
+            "tcp",
+            "disable_quic_input = false\ndisable_relay_quic = false\n\
+             enable_quic_proxy = true\nenable_relay_foreign_network_quic = true"
+                .to_string(),
+        )
     };
 
     format!(
@@ -67,14 +87,12 @@ network_secret = "{secret}"
 [flags]
 disable_p2p = false
 data_compress_algo = 2
-default_protocol = "tcp"
+default_protocol = "{proto_name}"
 dev_name = "ASGame"
 disable_kcp_input = true
 disable_relay_kcp = true
 enable_relay_foreign_network_kcp = false
-disable_quic_input = true
-disable_relay_quic = true
-enable_relay_foreign_network_quic = false
+{quic_block}
 "#,
         host = esc(hostname),
         addr_block = addr_block,
@@ -93,6 +111,7 @@ pub fn build_toml_simple(room: &str, secret: &str, ipv4: &str, peer: &str) -> St
         secret,
         ipv4,
         &[peer.to_string()],
+        false,
         false,
     )
 }
