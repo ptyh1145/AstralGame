@@ -49,16 +49,30 @@ grep -q -- '___sincos_stret' "$LIB_M" && warn "含 ___sincos_stret（iOS7+），
 grep -q -- '_objc_readClassPair' "$LIB_OBJC" && warn "含 _objc_readClassPair（iOS8+），SDK 偏新" \
   || echo "    iOS 6 特征: 无 _objc_readClassPair  OK"
 
-# 补 libc.tbd：std（build-std）里对 unix 声明了 #[link(name = "c")]，
-# 链接时会传 -lc；但 iOS 的 libc 符号全在 libSystem 里，这个 6.1 SDK 没有
-# libc.tbd 别名（真实 Xcode 的 iOS SDK 是有的），于是 ld 报
-# `ld: library not found for -lc`。
-# 直接复制 libSystem.tbd 即可：tbd 里的 install-name 仍是
-# /usr/lib/libSystem.B.dylib，ld 只会按它记录 LC_LOAD_DYLIB，语义完全等价。
-if [ ! -f "$SDK_PATH/usr/lib/libc.tbd" ]; then
-  cp "$LIB_SYS" "$SDK_PATH/usr/lib/libc.tbd"
-  echo "    补 libc.tbd（libSystem 别名）: OK"
-fi
+# 补经典库名别名（libc / libm / libpthread / libdl）。
+# 原因：std（build-std）和各种 C 依赖会传 -lc / -lm / -lpthread / -ldl，
+# 但 iOS 把这些符号全都并进 libSystem / libsystem_m 里，这个 6.1 SDK
+# 只提供了 libSystem.tbd 和 system/libsystem_m.tbd，没有经典名字的别名
+# （真实 Xcode 的 iOS SDK 是有的），于是 ld 报
+# `ld: library not found for -lc` / `-lm` ...
+# 复制对应 tbd 成别名即可：tbd 里的 install-name 保持不变
+# （/usr/lib/libSystem.B.dylib、/usr/lib/system/libsystem_m.dylib），
+# ld 只按 install-name 记录 LC_LOAD_DYLIB，语义完全等价，真机都有这些 dylib。
+alias_lib() {
+  name="$1"; srcfile="$2"
+  if [ ! -f "$SDK_PATH/usr/lib/$name.tbd" ]; then
+    if [ -f "$srcfile" ]; then
+      cp "$srcfile" "$SDK_PATH/usr/lib/$name.tbd"
+      echo "    补 $name.tbd -> $(basename "$srcfile")"
+    else
+      warn "找不到 $(basename "$srcfile")，无法补 $name.tbd"
+    fi
+  fi
+}
+alias_lib libc      "$SDK_PATH/usr/lib/libSystem.tbd"
+alias_lib libm      "$SDK_PATH/usr/lib/system/libsystem_m.tbd"
+alias_lib libpthread "$SDK_PATH/usr/lib/libSystem.tbd"
+alias_lib libdl     "$SDK_PATH/usr/lib/libSystem.tbd"
 
 # ---------------------------------------------------------------- 2. target JSON
 say "派生纯 armv7 目标（基于 armv7s spec，注入 SDK 链接参数）"
