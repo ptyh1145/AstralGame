@@ -8,6 +8,10 @@ publish = false
 name = "astral-tund"
 path = "src/main.rs"
 
+# 用 vendored libc 补 utun 符号给 iOS 用（详见 work/vendor/libc-0.2.191/README）
+[patch.crates-io]
+libc = { path = "../vendor/libc-0.2.191" }
+
 [dependencies]
 anyhow = "1"
 libc = "0.2"

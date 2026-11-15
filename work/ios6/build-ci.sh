@@ -75,46 +75,31 @@ spec = json.load(open(src))
 # llvm-target 保持 armv7s-apple-ios 不改：
 #   代码生成由 cpu+features 完全控制（LLVM setCPU("generic") 后
 #   显式 features 决定最终指令集），triple 的 arch 部分不影响。
-#   保留 armv7s 是因为如果未来有代码路径读到 llvm_arch，
-#   armv7s 在 rustc 白名单里而 armv7 不在（bug!）。
+#   保留 armv7s 是因为 rustc 的 add_apple_link_args 会把 llvm_arch
+#   拿去 match（白名单只有 armv7k/armv7s/arm64...，armv7 不在 → bug!）。
 spec["cpu"] = "generic"
 spec["features"] = "+v7,+thumb2,+vfp3,+vfp3d16,+neon"
 
-# --- 链接器 flavor：gnu-cc（不是 darwin-cc）---
-# darwin-cc 会触发 rustc 的 add_apple_link_args()：
-#   1. 从 llvm-target 提取 arch 做 match → armv7 不在白名单 → bug!
-#   2. os=macos 时加 -arch + -mmacosx-version-min（与我们的 iOS flag 冲突）
-# gnu-cc 跳过所有 Apple 专属逻辑，所有平台参数完全由 pre-link-args 控制。
-# gnu-cc 仍然调用 clang 做 cc 驱动（与 darwin-cc 相同的进程），
-# 只是不注入额外的 Apple 后处理。
-#
-# 关键：rustc 校验 target spec —— "linker_flavor 必须 iff is_like_darwin"。
-# 从 armv7s spec 派生的 spec 自带 is_like_darwin=true（强制 darwin flavor），
-# 所以必须同步设成 false，才能合法使用 gnu-cc。
-# is_like_darwin=false 的影响（查过 rustc 源码）：
-#   * add_apple_link_args → 直接 return（绕过 armv7 bug!）
-#   * add_apple_sdk → 返回 None（不注入宿主 SDKROOT）
-#   * strip/dsymutil 只在有 debuginfo 时触发（我们 strip=none + debug=0，无影响）
-#   * -lSystem 等默认库由 clang 驱动根据 -arch/-platform_version/-isysroot 自动推断
-spec["linker-flavor"] = "gnu-cc"
-spec["is_like_darwin"] = False
+# --- os：iOS（真实语义）---
+# 之前用 os="macos" 是因为 libc 把 utun 的 6 个符号全挡在 macos-only。
+# 现在用 vendored libc（work/vendor/libc-0.2.191）+ [patch.crates-io]，
+# 把 sockaddr_ctl / AF_SYS_CONTROL / SYSPROTO_CONTROL / UTUN_OPT_IFNAME /
+# ctl_info / CTLIOCGINFO 放开给 target_os="ios"，所以可以放心用真 iOS 语义。
+# 注意：这样 rustc 的 darwin flavor 会走 iOS 分支（-target 而非 -mmacosx-version-min），
+# 不再有 macos 版 flag 冲突。
+spec["os"] = "ios"
+# linker-flavor 保持派生 spec 自带的 "darwin-cc"（is_like_darwin=true 的合法 flavor）。
+# 只要 os=ios 且 llvm-target 是 armv7s，add_apple_link_args 就不触发 bug!。
+spec.pop("is_like_darwin", None)  # 该字段不存在于 JSON，误加会报错
 
-# --- target_os 覆盖 ---
-# libc 0.2.191 把 sockaddr_ctl / AF_SYS_CONTROL / SYSPROTO_CONTROL /
-# UTUN_OPT_IFNAME / ctl_info / CTLIOCGINFO 全部挡在 #[cfg(target_os="macos")]
-# 后面，os="ios" 下 nix/tun 直接编译失败。
-# 本 daemon 的核心就是 utun，所以编译期按 macOS 语义走（Darwin 共用 libSystem），
-# 链接期强制 iOS 平台（见 pre-link-args），产物仍是 iOS 二进制。
-os_override = os.environ.get("TARGET_OS_OVERRIDE", "macos")
-spec["os"] = os_override
-
-# --- pre-link-args：唯一的 Apple 平台参数来源 ---
-# -arch armv7s：ld64 白名单里的 arch（armv7 不在），产物 V7S thin binary
-#   armv7s ⊇ armv7 超集，所有 armv7 iOS 6 设备（3GS/4/4s/5）可执行。
-# -platform_version ios 6.0 6.1：写入 LC_VERSION_MIN_IPHONEOS min=6.0 sdk=6.1
+# --- pre-link-args：Apple 平台参数 ---
+# -arch armv7s：ld64 白名单里的 arch（armv7 不在）。
+#   ⚠ 注意：V7S 产物只在 A5+（iPhone 4S/iPad 2+）上跑；A4（iPhone 3GS/4）
+#   不会加载 V7S 二进制。这是现代 ld64 已移除 armv7 的代价。
+# -platform_version ios <min> 6.1：LC_VERSION_MIN_IPHONEOS min=<min> sdk=6.1
 # -isysroot <6.1 SDK>：链接器找库/headers 用我们的 iOS 6.1 SDK
 spec["pre-link-args"] = {
-    "gnu-cc": [
+    "darwin-cc": [
         "-arch", "armv7s",
         "-platform_version", "ios", min_ios, "6.1",
         "-isysroot", sdk
@@ -125,7 +110,7 @@ spec.pop("post-link-args", None)
 json.dump(spec, open(dst, "w"), indent=2, sort_keys=True)
 print("    arch=%s cpu=%s" % (spec.get("arch"), spec.get("cpu")))
 print("    llvm-target=%s (保留 armv7s, 代码生成由 cpu+features 控制)" % spec.get("llvm-target"))
-print("    linker-flavor=%s (绕过 add_apple_link_args 的 armv7 bug!)" % spec.get("linker-flavor"))
+print("    linker-flavor=%s" % spec.get("linker-flavor"))
 print("    os=%s" % spec.get("os"))
 print("    pre-link-args: %s" % json.dumps(spec["pre-link-args"])[:300])
 PY
@@ -137,14 +122,15 @@ cd "$CRATE"
 
 # 宿主侧必须是干净环境：一旦 export SDKROOT，build script 链接就会崩
 unset SDKROOT
-unset IPHONEOS_DEPLOYMENT_TARGET
 unset RUSTFLAGS
+# IPHONEOS_DEPLOYMENT_TARGET 控制 rustc 的 apple_deployment_target()，
+# 让 versioned_llvm_target 变成 armv7s-apple-ios6.0（即 clang 的 -target）。
+# 宿主（macOS）rustc 只读 MACOSX_DEPLOYMENT_TARGET，不受此影响。
+export IPHONEOS_DEPLOYMENT_TARGET="$MIN_IOS"
 
 # C 依赖（ring / zstd-sys 等）走目标专属变量，只影响目标侧编译。
-# CRATE_CC_NO_DEFAULTS=1 很关键：因为目标 os 被设成 macos，
-# cc-rs 会自动拼出 --target=armv7-apple-macosx -mmacosx-version-min=15.5，
-# 与我们的 -miphoneos-version-min=6.0 直接冲突（clang 报 invalid argument）。
-# 关掉它的默认旗标后，一切只由 CFLAGS_<target> 决定。
+# CRATE_CC_NO_DEFAULTS=1：不依赖 cc-rs 自动推导平台 flag，
+# 一切只由 CFLAGS_<target> 决定，避免 cc-rs 用宿主推断出冲突的版本。
 CLANG="$(xcrun --sdk macosx -f clang)"
 export CRATE_CC_NO_DEFAULTS=1
 # 关掉 strip：`-C strip=debuginfo` + `-Z embed-metadata=no` 叠加 cdylib
@@ -153,10 +139,17 @@ export CRATE_CC_NO_DEFAULTS=1
 export CARGO_PROFILE_RELEASE_STRIP=none
 export CARGO_PROFILE_RELEASE_DEBUG=0
 export CARGO_INCREMENTAL=0
-export CC_armv7_ios6="$CLANG"
-export CFLAGS_armv7_ios6="-O2 -fPIC -arch armv7 -miphoneos-version-min=$MIN_IOS -isysroot $SDK_PATH -Qunused-arguments"
-export CXX_armv7_ios6="$CLANG"
-export CXXFLAGS_armv7_ios6="$CFLAGS_armv7_ios6"
+# cc-rs 的 env 变量名基于 TARGET triple（可能解析成多种形态），
+# 保险起见把 armv7s/armv7 × apple-ios/ios 的组合都设上同一组 CFLAGS。
+C_CFLAGS="-O2 -fPIC -arch armv7 -miphoneos-version-min=$MIN_IOS -isysroot $SDK_PATH -Qunused-arguments"
+export CC_armv7s_apple_ios="$CLANG";   export CFLAGS_armv7s_apple_ios="$C_CFLAGS"
+export CC_armv7s_ios="$CLANG";         export CFLAGS_armv7s_ios="$C_CFLAGS"
+export CC_armv7_apple_ios="$CLANG";    export CFLAGS_armv7_apple_ios="$C_CFLAGS"
+export CC_armv7_ios="$CLANG";          export CFLAGS_armv7_ios="$C_CFLAGS"
+export CXX_armv7s_apple_ios="$CLANG";  export CXXFLAGS_armv7s_apple_ios="$C_CFLAGS"
+export CXX_armv7s_ios="$CLANG";        export CXXFLAGS_armv7s_ios="$C_CFLAGS"
+export CXX_armv7_apple_ios="$CLANG";   export CXXFLAGS_armv7_apple_ios="$C_CFLAGS"
+export CXX_armv7_ios="$CLANG";         export CXXFLAGS_armv7_ios="$C_CFLAGS"
 
 # --- 先预取依赖，然后修补 easytier-core 的 crate-type -------------------------
 # easytier-core 声明了 crate-type = ["rlib","cdylib"]。darwin 上 cdylib 需要
