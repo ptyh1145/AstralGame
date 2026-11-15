@@ -1,8 +1,8 @@
-status=failure
-commit=693c04b83b97f7251dd5153d6df54714c4b890c3
-run=43722312275
-run_url=https://github.com/ptyh1145/AstralGame/actions/runs/43722312275
-time=2026-11-15T14:20:18Z
+status=success
+commit=b5e5ab1f0e7cdc657907fd4b2fad3ede04c1a51b
+run=43723915253
+run_url=https://github.com/ptyh1145/AstralGame/actions/runs/43723915253
+time=2026-11-15T14:34:23Z
 runner_image=macos15
 xcode=Xcode 16.4
 rustc=rustc 1.102.0-nightly (5f4effd57 2026-11-13)

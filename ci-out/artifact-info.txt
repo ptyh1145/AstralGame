@@ -1,0 +1,6 @@
+dist/astral-tund: Mach-O executable arm_v7s
+      cmd LC_VERSION_MIN_IPHONEOS
+  cmdsize 16
+  version 8.0
+      sdk 8.0
+Load command 10
