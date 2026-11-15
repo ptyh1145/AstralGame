@@ -50,6 +50,8 @@ int CCRandomGenerateBytes(void *bytes, size_t count) {
 // ---------------------------------------------------------------- 界面
 
 @interface AstralViewController : UIViewController <UITextFieldDelegate>
+@property (nonatomic, strong) UITextField *codeField;
+@property (nonatomic, strong) UIButton *joinButton;
 @property (nonatomic, strong) UITextField *roomField;
 @property (nonatomic, strong) UITextField *secretField;
 @property (nonatomic, strong) UITextField *peerField;
@@ -67,13 +69,23 @@ int CCRandomGenerateBytes(void *bytes, size_t count) {
     self.view.backgroundColor = [UIColor colorWithWhite:0.96 alpha:1.0];
 
     CGFloat w = self.view.bounds.size.width;
-    CGFloat y = 20;
+    CGFloat y = 12;
 
-    self.roomField = [self makeField:@"房间名" y:y]; y += 52;
+    // 房间码：官方短码服务（astral-share），输入 6 位码即可自动拉取房间配置
+    self.codeField = [self makeField:@"房间码（6 位，可留空）" y:y]; y += 46;
+    self.joinButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    self.joinButton.frame = CGRectMake(16, y, w - 32, 34);
+    [self.joinButton setTitle:@"用房间码加入" forState:UIControlStateNormal];
+    [self.joinButton addTarget:self action:@selector(joinByCode)
+              forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.joinButton];
+    y += 44;
+
+    self.roomField = [self makeField:@"房间名" y:y]; y += 46;
     self.roomField.text = @"test";
-    self.secretField = [self makeField:@"密码" y:y]; y += 52;
+    self.secretField = [self makeField:@"密码" y:y]; y += 46;
     self.secretField.text = @"123456";
-    self.peerField = [self makeField:@"服务器 (tcp://ip:11010)" y:y]; y += 52;
+    self.peerField = [self makeField:@"服务器 (tcp://ip:11010)" y:y]; y += 46;
 
     self.connectButton = [UIButton buttonWithType:UIButtonTypeSystem];
     self.connectButton.frame = CGRectMake(16, y, w - 32, 44);
@@ -82,17 +94,17 @@ int CCRandomGenerateBytes(void *bytes, size_t count) {
     [self.connectButton addTarget:self action:@selector(toggleConnect)
                  forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.connectButton];
-    y += 56;
+    y += 52;
 
     self.stateLabel = [[UILabel alloc] initWithFrame:CGRectMake(16, y, w - 32, 24)];
-    self.stateLabel.font = [UIFont systemFontOfSize:15];
+    self.stateLabel.font = [UIFont systemFontOfSize:14];
     self.stateLabel.textColor = [UIColor darkGrayColor];
     self.stateLabel.text = @"状态：未连接";
     [self.view addSubview:self.stateLabel];
-    y += 32;
+    y += 28;
 
     self.logView = [[UITextView alloc] initWithFrame:CGRectMake(16, y, w - 32,
-                                    self.view.bounds.size.height - y - 60)];
+                                    self.view.bounds.size.height - y - 56)];
     self.logView.editable = NO;
     self.logView.font = [UIFont fontWithName:@"Menlo" size:11] ?: [UIFont systemFontOfSize:11];
     self.logView.backgroundColor = [UIColor whiteColor];
@@ -162,30 +174,118 @@ int CCRandomGenerateBytes(void *bytes, size_t count) {
     }
 }
 
+// 短码服务：GET http://103.194.107.25:8080/v1/codes/{6位码}
+// 返回 {"network_name","network_secret","peers":[{"uri":"tcp://..."}],...}
+// 这就是官方"房间码"联机用的服务。
+- (NSString *)normalizeCode:(NSString *)raw {
+    NSMutableString *b = [NSMutableString string];
+    NSString *up = [(raw ?: @"") uppercaseString];
+    for (NSUInteger i = 0; i < up.length; i++) {
+        unichar c = [up characterAtIndex:i];
+        if ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z')) {
+            [b appendFormat:@"%C", c];
+        }
+    }
+    return b;
+}
+
+- (void)joinByCode {
+    [self.view endEditing:YES];
+    NSString *code = [self normalizeCode:self.codeField.text];
+    if (code.length != 6) {
+        [self alert:@"房间码应为 6 位字母数字"];
+        return;
+    }
+    self.stateLabel.text = @"正在查询房间码…";
+    NSString *urlStr = [NSString stringWithFormat:
+                        @"http://103.194.107.25:8080/v1/codes/%@", code];
+    NSURL *url = [NSURL URLWithString:urlStr];
+    if (!url) { [self alert:@"房间码格式错误"]; return; }
+
+    __weak AstralViewController *weakSelf = self;
+    NSURLSessionDataTask *task =
+        [[NSURLSession sharedSession] dataTaskWithURL:url
+            completionHandler:^(NSData *data, NSURLResponse *resp, NSError *err) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            AstralViewController *me = weakSelf;
+            if (!me) return;
+            if (err) {
+                me.stateLabel.text = @"房间码服务连接失败";
+                [me alert:[NSString stringWithFormat:@"网络错误：%@",
+                           err.localizedDescription]];
+                return;
+            }
+            NSInteger status = [(NSHTTPURLResponse *)resp statusCode];
+            if (status == 404) { [me alert:@"房间码无效或已过期"]; return; }
+            if (status == 429) { [me alert:@"查询过于频繁，请稍后再试"]; return; }
+            if (status < 200 || status >= 300) {
+                [me alert:[NSString stringWithFormat:@"短码服务错误 (%ld)",
+                           (long)status]];
+                return;
+            }
+            NSDictionary *j = [NSJSONSerialization JSONObjectWithData:data
+                                                             options:0
+                                                               error:NULL];
+            if (![j isKindOfClass:[NSDictionary class]]) {
+                [me alert:@"房间码返回格式异常"]; return;
+            }
+            NSString *name = j[@"network_name"];
+            NSString *secret = j[@"network_secret"];
+            NSArray *peers = j[@"peers"];
+            NSString *uri = @"";
+            if ([peers isKindOfClass:[NSArray class]] && peers.count > 0) {
+                id p0 = peers[0];
+                if ([p0 isKindOfClass:[NSDictionary class]]) {
+                    uri = p0[@"uri"] ?: @"";
+                }
+            }
+            if (name.length == 0 || secret.length == 0) {
+                [me alert:@"房间码载荷不完整（缺少房间名/密码）"]; return;
+            }
+            // 回填到界面，便于用户看到实际配置
+            me.roomField.text = name;
+            me.secretField.text = secret;
+            me.peerField.text = uri;
+            me.stateLabel.text = [NSString stringWithFormat:
+                @"已解析房间「%@」，服务器 %@", name,
+                uri.length ? uri : @"(空，仅靠已有节点)"];
+            [me startWithRoom:name secret:secret peer:uri];
+        });
+    }];
+    [task resume];
+}
+
+- (void)alert:(NSString *)msg {
+    UIAlertView *a = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                message:msg
+                                               delegate:nil
+                                      cancelButtonTitle:@"好"
+                                      otherButtonTitles:nil];
+    [a show];
+}
+
+- (void)startWithRoom:(NSString *)room secret:(NSString *)secret peer:(NSString *)peer {
+    astral_clear_log();
+    NSString *ipv4 = @"10.144.144.5/24";
+    int rc = astral_start([room UTF8String], [secret UTF8String],
+                          [ipv4 UTF8String], [peer UTF8String]);
+    if (rc != 0) {
+        [self alert:@"启动失败，请看下方日志"];
+    }
+}
+
 - (void)toggleConnect {
     [self.view endEditing:YES];
     if (astral_state() == 2) {
         astral_stop();
         return;
     }
-    astral_clear_log();
     NSString *peer = self.peerField.text ?: @"";
     peer = [peer stringByTrimmingCharactersInSet:
             [NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    // ipv4 固定；EasyTier 侧不用 DHCP
-    NSString *ipv4 = @"10.144.144.5/24";
-    int rc = astral_start([self.roomField.text UTF8String],
-                          [self.secretField.text UTF8String],
-                          [ipv4 UTF8String],
-                          [peer UTF8String]);
-    if (rc != 0) {
-        UIAlertView *a = [[UIAlertView alloc] initWithTitle:@"启动失败"
-                                                    message:@"请看下方日志"
-                                                   delegate:nil
-                                          cancelButtonTitle:@"好"
-                                          otherButtonTitles:nil];
-        [a show];
-    }
+    [self startWithRoom:(self.roomField.text ?: @"")
+                 secret:(self.secretField.text ?: @"")
+                   peer:peer];
 }
 
 - (void)copyLog {
