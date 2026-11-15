@@ -54,7 +54,10 @@ say "派生纯 armv7 目标（基于 armv7s spec，注入 SDK 链接参数）"
 export RUSTC_BOOTSTRAP=1
 TARGET_DIR="${TARGET_DIR:-$HERE/targets}"
 mkdir -p "$TARGET_DIR"
-SPEC="$TARGET_DIR/armv7-ios6.json"
+# 目标名必须是三段式：有些 crate 的 build.rs 会用
+# `TARGET.split('-').nth(2)` 粗解析平台名（如 sys-info），
+# 两段式（armv7-ios6）会让它 unwrap 到 None 直接 panic。
+SPEC="$TARGET_DIR/armv7-apple-ios.json"
 TMP_SPEC="$TARGET_DIR/_armv7s.json"
 
 rustc -Z unstable-options --print target-spec-json --target armv7s-apple-ios > "$TMP_SPEC" \
@@ -168,7 +171,7 @@ if [ $RC -ne 0 ]; then
   die "cargo build 失败 (exit $RC)"
 fi
 
-BIN="$CRATE/target/armv7-ios6/release/astral-tund"
+BIN="$CRATE/target/armv7-apple-ios/release/astral-tund"
 [ -f "$BIN" ] || BIN="$(find "$CRATE/target" -name astral-tund -type f 2>/dev/null | head -1)"
 [ -f "$BIN" ] || die "找不到产物 astral-tund"
 
