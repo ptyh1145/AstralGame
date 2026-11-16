@@ -24,8 +24,8 @@
     <string>1</string>
     <key>NSAppTransportSecurity</key>
     <dict>
-        <!-- 房间码服务用的是明文 HTTP（http://103.194.107.25:8080），
-             iOS 9+ 默认 ATS 会拦截；iOS 8 没有 ATS 不受影响。 -->
+        <!-- Room code service uses plain HTTP (http://103.194.107.25:8080);
+             iOS 9+ default ATS would block it; iOS 8 has no ATS, unaffected. -->
         <key>NSAllowsArbitraryLoads</key>
         <true/>
     </dict>

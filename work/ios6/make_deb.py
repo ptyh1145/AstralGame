@@ -1,14 +1,14 @@
-"""把 App + CLI + LaunchDaemon 打成越狱用的 .deb。
+"""Build App + CLI + LaunchDaemon into a jailbreak .deb.
 
-deb 就是 ar 归档，里面三个成员：
+deb is an ar archive with three members:
   debian-binary   "2.0\n"
   control.tar.gz  control / postinst / prerm
-  data.tar.gz     实际文件树
+  data.tar.gz     actual file tree
 
-macOS 没有 dpkg-deb，所以这里手写（ar 格式很简单）。
+macOS has no dpkg-deb, so this writes ar by hand (simple format).
 
-用法: python3 make_deb.py <dist_dir> <output.deb>
-  dist_dir 里应有: AstralGame.app/  astral-tund
+Usage: python3 make_deb.py <dist_dir> <output.deb>
+  dist_dir should contain: AstralGame.app/  astral-tund
 """
 import io
 import os
@@ -83,7 +83,7 @@ LAUNCHD = """<?xml version="1.0" encoding="UTF-8"?>
 
 
 def tar_gz(entries, gz_mode="w:gz"):
-    """entries: [(arcname, bytes, mode)] -> gzip 压缩的 tar bytes"""
+    """entries: [(arcname, bytes, mode)] -> gzip-compressed tar bytes"""
     raw = io.BytesIO()
     with tarfile.open(fileobj=raw, mode="w") as tf:
         for arcname, data, mode in entries:
@@ -107,9 +107,9 @@ def gz(data):
 
 def ar_member(name, data):
     assert len(name) <= 16, name
-    # GNU ar 格式：所有数字字段必须【右对齐】（数字靠右、前面补空格）。
-    # 之前用 ljust（左对齐），老 dpkg 解析时会算错成员偏移/大小，
-    # 把截断的数据管道给 tar 子进程 → Broken pipe。
+    # GNU ar format: all numeric fields must be RIGHT-aligned (number on the right, spaces on the left).
+    # Before, ljust (left-aligned) made old dpkg compute wrong offsets/sizes,
+    # passing truncated data to the tar subprocess -> Broken pipe.
     hdr = (
         name.ljust(16)
         + str(0).rjust(12)      # mtime
@@ -131,12 +131,12 @@ def main():
     cli = os.path.join(dist, "astral-tund")
     for p in (app, cli):
         if not os.path.exists(p):
-            raise SystemExit("缺少 " + p)
+            raise SystemExit("missing " + p)
 
-    # ---- data.tar.gz：App + CLI + LaunchDaemon ----
-    # 关键：App 必须放在 /Applications/ 下，SpringBoard 只扫这个目录找图标。
-    # 之前放在 ./AstralGame.app（装到根目录 /），dpkg 报成功但桌面不出图标，
-    # postinst 里 chmod 的 /Applications/AstralGame.app 路径也对不上。
+    # ---- data.tar.gz: App + CLI + LaunchDaemon ----
+    # Key: App must go under /Applications/ (SpringBoard only scans this dir for icons).
+    # Before it was placed at ./AstralGame.app (root /), dpkg reported success but no icon,
+    # and the /Applications/AstralGame.app path in postinst did not match.
     data_entries = []
     for root, dirs, files in os.walk(app):
         rel_root = os.path.relpath(root, dist).replace(os.sep, "/")
@@ -165,7 +165,7 @@ def main():
     ]
     ctrl_gz = gz(tar_gz(ctrl_entries))
 
-    # ---- ar 归档 ----
+    # ---- ar archive ----
     blob = b"!<arch>\n"
     blob += ar_member("debian-binary", b"2.0\n")
     blob += ar_member("control.tar.gz", ctrl_gz)
