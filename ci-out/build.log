@@ -38,15 +38,15 @@
 [1;34m==> 编译[0m
     Updating crates.io index
  Downloading crates ...
-  Downloaded adler2 v2.0.1
   Downloaded cfg-if v1.0.4
-  Downloaded getopts v0.2.24
   Downloaded addr2line v0.27.1
+  Downloaded adler2 v2.0.1
+  Downloaded getopts v0.2.24
   Downloaded gimli v0.34.0
   Downloaded miniz_oxide v0.9.1
   Downloaded object v0.39.1
-  Downloaded rustc-literal-escaper v0.0.8
   Downloaded rustc-demangle v0.1.28
+  Downloaded rustc-literal-escaper v0.0.8
    Compiling compiler_builtins v0.1.160 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/compiler-builtins/compiler-builtins)
    Compiling core v0.0.0 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/core)
    Compiling object v0.39.1
@@ -60,26 +60,26 @@
    Compiling parking_lot_core v0.9.12
    Compiling crossbeam-utils v0.8.23
    Compiling zerocopy v0.8.63
-   Compiling icu_normalizer_data v2.4.0
    Compiling icu_properties_data v2.4.0
    Compiling getrandom v0.4.3
    Compiling thiserror v2.0.21
+   Compiling icu_normalizer_data v2.4.0
    Compiling getrandom v0.3.4
    Compiling num-traits v0.2.19
    Compiling libm v0.2.16
-   Compiling rustix v1.1.6
    Compiling typeid v1.0.3
-   Compiling erased-serde v0.4.11
+   Compiling rustix v1.1.6
    Compiling crossbeam-epoch v0.9.21
+   Compiling erased-serde v0.4.11
    Compiling curve25519-dalek v4.1.3
    Compiling zmij v1.0.23
    Compiling httparse v1.10.1
-   Compiling typetag v0.2.23
    Compiling thiserror v1.0.69
+   Compiling typetag v0.2.23
    Compiling ahash v0.7.8
    Compiling serde_json v1.0.154
-   Compiling system-configuration-sys v0.6.0
    Compiling parking_lot_core v0.8.6
+   Compiling system-configuration-sys v0.6.0
    Compiling anyhow v1.0.104
    Compiling rustix v0.38.44
    Compiling heapless v0.9.3
@@ -88,8 +88,8 @@
    Compiling reed-solomon-erasure v6.0.0
    Compiling smoltcp v0.14.0
    Compiling crossbeam-deque v0.8.8
-   Compiling quinn-udp v0.5.16
    Compiling nix v0.31.3
+   Compiling quinn-udp v0.5.16
    Compiling snow v0.10.0
    Compiling quinn v0.11.12
    Compiling rust-i18n v4.2.4
@@ -633,24 +633,24 @@ warning: astral-tund@0.1.0: 2 warnings generated.
    Compiling memchr v2.8.3
    Compiling unwind v0.0.0 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/unwind)
    Compiling adler2 v2.0.1
-   Compiling cfg-if v1.0.4
    Compiling rustc-demangle v0.1.28
+   Compiling cfg-if v1.0.4
    Compiling rustc-literal-escaper v0.0.8
    Compiling rustc-std-workspace-alloc v1.99.0 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/rustc-std-workspace-alloc)
    Compiling panic_unwind v0.0.0 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/panic_unwind)
-   Compiling gimli v0.34.0
-   Compiling miniz_oxide v0.9.1
-   Compiling hashbrown v0.17.1
-   Compiling std_detect v0.1.5 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/std_detect)
    Compiling panic_abort v0.0.0 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/panic_abort)
+   Compiling gimli v0.34.0
+   Compiling hashbrown v0.17.1
+   Compiling miniz_oxide v0.9.1
+   Compiling std_detect v0.1.5 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/std_detect)
    Compiling addr2line v0.27.1
    Compiling proc_macro v0.0.0 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/proc_macro)
 warning: deployment target in IPHONEOS_DEPLOYMENT_TARGET was set to 8.0, but the minimum supported by `rustc` is 10.0
 
    Compiling cfg-if v1.0.5
-warning: `libc` (lib) generated 1 warning
-   Compiling getrandom v0.2.17
    Compiling smallvec v1.16.5
+   Compiling getrandom v0.2.17
+warning: `libc` (lib) generated 1 warning
    Compiling pin-project-lite v0.2.17
    Compiling scopeguard v1.2.0
    Compiling critical-section v1.2.0
@@ -667,26 +667,26 @@ warning: `libc` (lib) generated 1 warning
    Compiling futures-core v0.3.34
    Compiling parking_lot v0.12.5
    Compiling zerofrom v0.1.8
-   Compiling socket2 v0.6.5
    Compiling yoke v0.8.4
+   Compiling socket2 v0.6.5
    Compiling signal-hook-registry v1.4.8
    Compiling mio v1.2.5
    Compiling core-foundation-sys v0.8.7
-   Compiling zerovec v0.11.9
-   Compiling futures-sink v0.3.34
    Compiling tokio v1.54.1
+   Compiling zerovec v0.11.9
    Compiling slab v0.4.12
+   Compiling futures-sink v0.3.34
    Compiling log v0.4.35
    Compiling futures-channel v0.3.34
-   Compiling futures-io v0.3.34
    Compiling futures-task v0.3.34
+   Compiling futures-io v0.3.34
    Compiling futures-util v0.3.34
    Compiling tinystr v0.8.5
    Compiling tracing-core v0.1.36
-   Compiling rand_core v0.10.1
    Compiling utf_types v1.0.0
    Compiling litemap v0.8.3
    Compiling writeable v0.6.4
+   Compiling rand_core v0.10.1
    Compiling icu_locale_core v2.4.0
    Compiling utf8_iter v1.1.0
    Compiling potential_utf v0.1.6
@@ -697,7 +697,7 @@ warning: `libc` (lib) generated 1 warning
    Compiling itoa v1.0.19
    Compiling untrusted v0.9.0
    Compiling digest v0.10.7
-   Compiling tracing v0.1.44
+   Compiling chacha20 v0.10.2
 warning: hiding a lifetime that's elided elsewhere is confusing
   --> /Users/runner/work/AstralGame/AstralGame/work/vendor/ring-0.17.14/src/polyfill/slice/as_chunks.rs:19:44
    |
@@ -824,59 +824,59 @@ help: use `'_` for type paths
 91 |     pub(super) fn value(&self, cpu_features: cpu::Features) -> bigint::Modulus<'_, N> {
    |                                                                                +++
 
-   Compiling chacha20 v0.10.2
+   Compiling tracing v0.1.44
    Compiling rustls-pki-types v1.16.0
-   Compiling equivalent v1.0.3
 warning: `ring` (lib) generated 10 warnings (1 duplicate) (run `cargo fix --lib -p ring` to apply 9 suggestions)
+   Compiling equivalent v1.0.3
    Compiling icu_normalizer v2.4.0
    Compiling icu_properties v2.4.0
    Compiling ppv-lite86 v0.2.21
    Compiling rand v0.10.4
    Compiling inout v0.1.4
    Compiling ipnet v2.12.2
-   Compiling byteorder v1.5.0
    Compiling unicode-width v0.2.3
-   Compiling idna_adapter v1.2.2
+   Compiling byteorder v1.5.0
    Compiling cipher v0.4.4
+   Compiling idna_adapter v1.2.2
    Compiling universal-hash v0.5.1
-   Compiling opaque-debug v0.3.1
    Compiling percent-encoding v2.3.2
+   Compiling opaque-debug v0.3.1
    Compiling form_urlencoded v1.2.2
    Compiling idna v1.1.0
    Compiling rand_core v0.9.5
    Compiling rustls-webpki v0.103.17
    Compiling tinyvec v1.13.3
-   Compiling url v2.5.8
    Compiling rand_chacha v0.9.0
+   Compiling url v2.5.8
    Compiling http v1.5.0
    Compiling sha1_smol v1.0.1
-   Compiling parking v2.2.1
+   Compiling utf8parse v0.2.2
    Compiling deranged v0.5.9
    Compiling num-conv v0.2.2
    Compiling powerfmt v0.2.1
    Compiling time-core v0.1.9
-   Compiling utf8parse v0.2.2
-   Compiling anstyle-parse v1.0.0
-   Compiling time v0.3.55
-   Compiling uuid v1.29.2
+   Compiling parking v2.2.1
    Compiling event-listener v5.4.2
+   Compiling time v0.3.55
+   Compiling anstyle-parse v1.0.0
+   Compiling uuid v1.29.2
    Compiling rand v0.9.5
    Compiling hmac v0.12.1
    Compiling tokio-util v0.7.20
    Compiling iana-time-zone v0.1.65
-   Compiling aead v0.5.2
    Compiling prost v0.14.6
+   Compiling aead v0.5.2
    Compiling inventory v0.3.25
-   Compiling data-encoding v2.11.1
-   Compiling anstyle v1.0.14
    Compiling anstyle-query v1.1.5
    Compiling colorchoice v1.0.5
    Compiling is_terminal_polyfill v1.70.2
+   Compiling anstyle v1.0.14
+   Compiling data-encoding v2.11.1
    Compiling foldhash v0.2.0
    Compiling siphasher v1.0.4
-   Compiling anstream v1.0.0
    Compiling indexmap v2.14.2
    Compiling hickory-proto v0.25.2
+   Compiling anstream v1.0.0
    Compiling chrono v0.4.45
    Compiling event-listener-strategy v0.5.4
    Compiling terminal_size v0.4.4
@@ -887,16 +887,16 @@ warning: `ring` (lib) generated 10 warnings (1 duplicate) (run `cargo fix --lib 
    Compiling core-foundation v0.10.1
    Compiling security-framework-sys v2.17.0
    Compiling instant v0.1.13
+   Compiling clap_lex v1.1.1
    Compiling allocator-api2 v0.2.21
-   Compiling base64 v0.22.1
+   Compiling strsim v0.11.1
    Compiling foldhash v0.1.5
+   Compiling unicase v2.10.0
    Compiling either v1.19.0
    Compiling bitflags v1.3.2
    Compiling base64 v0.23.1
-   Compiling clap_lex v1.1.1
-   Compiling strsim v0.11.1
-   Compiling unicase v2.10.0
    Compiling arc-swap v1.9.5
+   Compiling base64 v0.22.1
    Compiling try-lock v0.2.5
    Compiling want v0.3.2
    Compiling clap_builder v4.6.7
@@ -915,22 +915,22 @@ warning: `ring` (lib) generated 10 warnings (1 duplicate) (run `cargo fix --lib 
    Compiling spin v0.9.9
    Compiling cidr v0.3.2
    Compiling derive_more v2.1.1
-   Compiling hashbrown v0.14.5
-   Compiling trackable v1.3.0
    Compiling atomic-waker v1.1.2
-   Compiling option-ext v0.2.0
    Compiling crc-catalog v2.5.0
    Compiling tagptr v0.2.0
+   Compiling hashbrown v0.14.5
    Compiling winnow v1.0.5
    Compiling lazy_static v1.5.1
+   Compiling trackable v1.3.0
+   Compiling option-ext v0.2.0
+   Compiling bytecodec v0.5.0
+   Compiling dirs-sys v0.5.0
    Compiling sharded-slab v0.1.7
+   Compiling dashmap v6.2.1
    Compiling toml_parser v1.1.5+spec-1.1.0
    Compiling moka v0.12.16
    Compiling crc v3.4.0
-   Compiling dirs-sys v0.5.0
-   Compiling dashmap v6.2.1
    Compiling hyper v1.12.0
-   Compiling bytecodec v0.5.0
    Compiling optionize v0.5.3
    Compiling system-configuration v0.6.1
    Compiling rand v0.8.8
@@ -939,70 +939,70 @@ warning: `ring` (lib) generated 10 warnings (1 duplicate) (run `cargo fix --lib 
    Compiling rustls-platform-verifier v0.7.1
    Compiling lru v0.7.8
    Compiling parking_lot v0.11.2
-   Compiling triomphe v0.1.17
    Compiling pbjson v0.9.0
+   Compiling triomphe v0.1.17
    Compiling fastbloom v0.17.0
    Compiling prost-types v0.14.6
    Compiling tokio-rustls v0.26.6
-   Compiling ctr v0.9.2
    Compiling aes v0.8.4
+   Compiling ctr v0.9.2
    Compiling zerocopy v0.7.35
    Compiling webpki-roots v1.0.12
    Compiling sha1 v0.10.7
    Compiling futures-executor v0.3.34
-   Compiling tracing-log v0.2.0
    Compiling rand_pcg v0.10.2
+   Compiling tracing-log v0.2.0
    Compiling ringbuf v0.5.3
    Compiling quick-xml v0.42.0
    Compiling serde_spanned v1.1.3
    Compiling toml_datetime v1.1.3+spec-1.1.0
-   Compiling nibble_vec v0.1.0
    Compiling dirs-sys v0.3.7
+   Compiling nibble_vec v0.1.0
    Compiling thread_local v1.1.10
    Compiling no-std-net v0.6.0
-   Compiling managed v0.8.0
    Compiling fixedbitset v0.5.9
-   Compiling yansi v1.0.1
-   Compiling atomic-shim v0.2.0
+   Compiling toml_writer v1.2.0+spec-1.1.0
+   Compiling md5 v0.7.0
    Compiling ip_network v0.4.1
    Compiling ip_network_table-deps-treebitmap v0.5.0
-   Compiling strum v0.28.0
-   Compiling endian-type v0.1.2
-   Compiling bytecount v0.6.9
-   Compiling md5 v0.7.0
    Compiling resolv-conf v0.7.6
-   Compiling toml_writer v1.2.0+spec-1.1.0
-   Compiling nu-ansi-term v0.50.3
-   Compiling fnv v1.0.7
    Compiling home v0.5.12
+   Compiling endian-type v0.1.2
+   Compiling base62 v2.2.6
+   Compiling fastrand v2.5.0
+   Compiling nu-ansi-term v0.50.3
    Compiling lru-slab v0.1.3
    Compiling rustc-hash v2.1.3
-   Compiling fastrand v2.5.0
-   Compiling base62 v2.2.6
-   Compiling rust-i18n-support v4.2.4
-   Compiling quinn-proto v0.11.19
-   Compiling which v4.4.2
-   Compiling tracing-subscriber v0.3.23
+   Compiling atomic-shim v0.2.0
+   Compiling managed v0.8.0
+   Compiling yansi v1.0.1
+   Compiling strum v0.28.0
+   Compiling bytecount v0.6.9
+   Compiling fnv v1.0.7
    Compiling papergrid v0.18.0
-   Compiling toml v1.2.1+spec-1.1.0
-   Compiling hickory-resolver v0.25.2
-   Compiling stun_codec v0.4.0
-   Compiling radix_trie v0.2.1
-   Compiling ip_network_table v0.2.0
    Compiling ariadne v0.6.0
+   Compiling quinn-proto v0.11.19
+   Compiling tracing-subscriber v0.3.23
+   Compiling rust-i18n-support v4.2.4
+   Compiling radix_trie v0.2.1
+   Compiling which v4.4.2
+   Compiling hickory-resolver v0.25.2
+   Compiling ip_network_table v0.2.0
+   Compiling stun_codec v0.4.0
+   Compiling toml v1.2.1+spec-1.1.0
    Compiling petgraph v0.8.3
    Compiling pnet_base v0.35.0
-   Compiling dirs v4.0.0
    Compiling encoding-utils v0.1.0
+   Compiling dirs v4.0.0
    Compiling plist v1.10.3
    Compiling async-ringbuf v0.3.10
    Compiling futures v0.3.34
    Compiling aes-gcm v0.10.3
    Compiling clap_complete v4.6.11
-   Compiling netdev v0.31.0
    Compiling hyper-util v0.1.21
-   Compiling dirs v6.0.0
+   Compiling netdev v0.31.0
    Compiling zstd v0.14.4
+   Compiling dirs v6.0.0
    Compiling prefix-trie v0.10.2
    Compiling ordered_hash_map v0.6.1
    Compiling pem v4.0.0
@@ -1014,34 +1014,34 @@ warning: `ring` (lib) generated 10 warnings (1 duplicate) (run `cargo fix --lib 
    Compiling testing_table v0.3.0
    Compiling blake2 v0.10.6
    Compiling guarden v0.3.0
-   Compiling crossbeam-queue v0.3.14
    Compiling quanta v0.12.6
+   Compiling crossbeam-queue v0.3.14
    Compiling ipnetwork v0.20.0
    Compiling pnet_sys v0.35.0
-   Compiling bon v3.10.3
-   Compiling base64 v0.13.1
-   Compiling hex v0.4.3
-   Compiling xml-rs v0.8.29
    Compiling wildmatch v2.7.0
-   Compiling humantime v2.4.0
    Compiling simdutf8 v0.1.5
+   Compiling hex v0.4.3
+   Compiling bon v3.10.3
    Compiling xml v1.4.0
+   Compiling base64 v0.13.1
    Compiling nonempty v0.7.0
-   Compiling forwarded-header-value v0.1.1
-   Compiling xmltree v0.12.0
-   Compiling service-manager v0.8.0 (https://github.com/EasyTier/service-manager-rs.git?branch=main#5eb28f7a)
-   Compiling tokio-websockets v0.13.2 (https://github.com/EasyTier/tokio-websockets#dc9771c7)
+   Compiling humantime v2.4.0
+   Compiling xml-rs v0.8.29
    Compiling humantime-serde v1.1.1
-   Compiling easytier-core v2.7.0 (https://github.com/ldoubil/EasyTier.git?branch=main-astral#758827a9)
    Compiling boringtun-easytier v0.6.1
+   Compiling forwarded-header-value v0.1.1
+   Compiling service-manager v0.8.0 (https://github.com/EasyTier/service-manager-rs.git?branch=main#5eb28f7a)
+   Compiling xmltree v0.12.0
+   Compiling easytier-core v2.7.0 (https://github.com/ldoubil/EasyTier.git?branch=main-astral#758827a9)
+   Compiling tokio-websockets v0.13.2 (https://github.com/EasyTier/tokio-websockets#dc9771c7)
    Compiling pnet_datalink v0.35.0
    Compiling crossbeam v0.8.5
-   Compiling hickory-server v0.25.2
    Compiling rcgen v0.14.10
+   Compiling hickory-server v0.25.2
    Compiling tabled v0.22.0
-   Compiling shellexpand v3.1.2
-   Compiling natpmp v0.5.0
    Compiling clap_complete_nushell v4.6.2
+   Compiling natpmp v0.5.0
+   Compiling shellexpand v3.1.2
    Compiling hickory-client v0.25.2
    Compiling atomic-write-file v0.3.1
    Compiling flume v0.12.0
@@ -1049,11 +1049,11 @@ warning: `ring` (lib) generated 10 warnings (1 duplicate) (run `cargo fix --lib 
    Compiling hkdf v0.12.4
    Compiling humansize v2.1.3
    Compiling gethostname v1.1.0
+   Compiling derive_builder v0.20.2
+   Compiling git-version v0.3.9
    Compiling seahash v4.1.0
    Compiling atomic_refcell v0.1.14
-   Compiling git-version v0.3.9
    Compiling sys-locale v0.3.2
-   Compiling derive_builder v0.20.2
 warning: field `runtime` is never read
   --> src/lib.rs:98:5
    |
@@ -1067,12 +1067,12 @@ warning: field `runtime` is never read
 
 warning: `astral-tund` (lib) generated 2 warnings (1 duplicate)
 warning: linker stderr: clang: overriding '-miphoneos-version-min=8.0' option with '-target armv7s-apple-ios10.0.0' [-Woverriding-option]
-         ld: CPU_SUBTYPE_ARM_ALL subtype is deprecated: /Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/astral-tund/4140f39546e50ca1/out/rustcolARxV/symbols.o
+         ld: CPU_SUBTYPE_ARM_ALL subtype is deprecated: /Users/runner/work/AstralGame/AstralGame/work/astral-tund/target/armv7-apple-ios/release/build/astral-tund/4140f39546e50ca1/out/rustcU8Npnn/symbols.o
  |
  = note: `#[warn(linker_messages)]` on by default
 
 warning: `astral-tund` (bin "astral-tund") generated 2 warnings (1 duplicate)
-    Finished `release` profile [optimized] target(s) in 21m 24s
+    Finished `release` profile [optimized] target(s) in 17m 07s
     修复版本命令: LC_VERSION_MIN_IPHONEOS -> min=8.0 sdk=8.0
 [1;34m==> 编译 arm64（64 位设备）[0m
    Compiling compiler_builtins v0.1.160 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/compiler-builtins/compiler-builtins)
@@ -1089,9 +1089,9 @@ warning: `astral-tund` (bin "astral-tund") generated 2 warnings (1 duplicate)
    Compiling crossbeam-utils v0.8.23
    Compiling zerocopy v0.8.63
    Compiling ring v0.17.14 (/Users/runner/work/AstralGame/AstralGame/work/vendor/ring-0.17.14)
+   Compiling thiserror v2.0.21
    Compiling getrandom v0.4.3
    Compiling icu_normalizer_data v2.4.0
-   Compiling thiserror v2.0.21
    Compiling icu_properties_data v2.4.0
    Compiling getrandom v0.3.4
    Compiling num-traits v0.2.19
@@ -1108,11 +1108,11 @@ warning: `astral-tund` (bin "astral-tund") generated 2 warnings (1 duplicate)
    Compiling ahash v0.7.8
    Compiling zstd-sys v2.1.3+zstd.1.5.7
    Compiling serde_json v1.0.154
-   Compiling system-configuration-sys v0.6.0
    Compiling parking_lot_core v0.8.6
+   Compiling system-configuration-sys v0.6.0
    Compiling anyhow v1.0.104
-   Compiling heapless v0.9.3
    Compiling rustix v0.38.44
+   Compiling heapless v0.9.3
    Compiling memoffset v0.9.1
    Compiling prost-wkt-types v0.7.2
    Compiling encoding_rs v0.8.44
@@ -1140,67 +1140,68 @@ warning: `astral-tund` (bin "astral-tund") generated 2 warnings (1 duplicate)
    Compiling rustc-demangle v0.1.28
    Compiling rustc-literal-escaper v0.0.8
    Compiling rustc-std-workspace-alloc v1.99.0 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/rustc-std-workspace-alloc)
-   Compiling panic_unwind v0.0.0 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/panic_unwind)
    Compiling panic_abort v0.0.0 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/panic_abort)
+   Compiling panic_unwind v0.0.0 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/panic_unwind)
    Compiling gimli v0.34.0
    Compiling miniz_oxide v0.9.1
-   Compiling std_detect v0.1.5 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/std_detect)
    Compiling hashbrown v0.17.1
+   Compiling std_detect v0.1.5 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/std_detect)
    Compiling addr2line v0.27.1
    Compiling proc_macro v0.0.0 (/Users/runner/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/library/proc_macro)
 warning: deployment target in IPHONEOS_DEPLOYMENT_TARGET was set to 8.0, but the minimum supported by `rustc` is 10.0
 
-warning: `libc` (lib) generated 1 warning
    Compiling cfg-if v1.0.5
+warning: `libc` (lib) generated 1 warning
    Compiling getrandom v0.2.17
    Compiling smallvec v1.16.5
    Compiling pin-project-lite v0.2.17
-   Compiling scopeguard v1.2.0
    Compiling critical-section v1.2.0
+   Compiling scopeguard v1.2.0
+   Compiling once_cell v1.21.4
    Compiling errno v0.3.15
    Compiling rand_core v0.6.4
    Compiling typenum v1.20.1
    Compiling lock_api v0.4.14
-   Compiling once_cell v1.21.4
-   Compiling subtle v2.6.1
    Compiling bytes v1.12.1
+   Compiling subtle v2.6.1
    Compiling stable_deref_trait v1.2.1
    Compiling zeroize v1.9.1
    Compiling bitflags v2.13.2
+   Compiling crypto-common v0.1.7
    Compiling futures-core v0.3.34
    Compiling parking_lot v0.12.5
    Compiling zerofrom v0.1.8
-   Compiling crypto-common v0.1.7
    Compiling yoke v0.8.4
    Compiling socket2 v0.6.5
    Compiling signal-hook-registry v1.4.8
    Compiling mio v1.2.5
    Compiling core-foundation-sys v0.8.7
-   Compiling tokio v1.54.1
    Compiling zerovec v0.11.9
-   Compiling slab v0.4.12
    Compiling futures-sink v0.3.34
+   Compiling tokio v1.54.1
+   Compiling slab v0.4.12
    Compiling log v0.4.35
    Compiling futures-channel v0.3.34
-   Compiling futures-task v0.3.34
    Compiling futures-io v0.3.34
-   Compiling futures-util v0.3.34
+   Compiling futures-task v0.3.34
    Compiling tinystr v0.8.5
+   Compiling futures-util v0.3.34
    Compiling tracing-core v0.1.36
-   Compiling rand_core v0.10.1
    Compiling utf_types v1.0.0
    Compiling litemap v0.8.3
    Compiling writeable v0.6.4
-   Compiling utf8_iter v1.1.0
+   Compiling rand_core v0.10.1
    Compiling icu_locale_core v2.4.0
+   Compiling utf8_iter v1.1.0
    Compiling potential_utf v0.1.6
    Compiling zerotrie v0.2.5
    Compiling icu_collections v2.4.0
    Compiling icu_provider v2.4.0
    Compiling block-buffer v0.10.4
-   Compiling untrusted v0.9.0
    Compiling itoa v1.0.19
+   Compiling untrusted v0.9.0
    Compiling digest v0.10.7
+   Compiling chacha20 v0.10.2
 warning: hiding a lifetime that's elided elsewhere is confusing
   --> /Users/runner/work/AstralGame/AstralGame/work/vendor/ring-0.17.14/src/polyfill/slice/as_chunks.rs:19:44
    |
@@ -1328,21 +1329,20 @@ help: use `'_` for type paths
    |                                                                                +++
 
    Compiling tracing v0.1.44
-   Compiling chacha20 v0.10.2
    Compiling rustls-pki-types v1.16.0
    Compiling cpufeatures v0.2.17
    Compiling equivalent v1.0.3
    Compiling icu_normalizer v2.4.0
-warning: `ring` (lib) generated 10 warnings (1 duplicate) (run `cargo fix --lib -p ring` to apply 9 suggestions)
    Compiling icu_properties v2.4.0
-   Compiling ppv-lite86 v0.2.21
+warning: `ring` (lib) generated 10 warnings (1 duplicate) (run `cargo fix --lib -p ring` to apply 9 suggestions)
    Compiling rand v0.10.4
+   Compiling ppv-lite86 v0.2.21
    Compiling inout v0.1.4
    Compiling ipnet v2.12.2
    Compiling unicode-width v0.2.3
    Compiling byteorder v1.5.0
-   Compiling idna_adapter v1.2.2
    Compiling cipher v0.4.4
+   Compiling idna_adapter v1.2.2
    Compiling universal-hash v0.5.1
    Compiling percent-encoding v2.3.2
    Compiling opaque-debug v0.3.1
@@ -1351,37 +1351,37 @@ warning: `ring` (lib) generated 10 warnings (1 duplicate) (run `cargo fix --lib 
    Compiling rand_core v0.9.5
    Compiling rustls-webpki v0.103.17
    Compiling tinyvec v1.13.3
-   Compiling url v2.5.8
    Compiling rand_chacha v0.9.0
+   Compiling url v2.5.8
    Compiling http v1.5.0
+   Compiling utf8parse v0.2.2
+   Compiling sha1_smol v1.0.1
    Compiling parking v2.2.1
    Compiling deranged v0.5.9
    Compiling num-conv v0.2.2
-   Compiling sha1_smol v1.0.1
    Compiling powerfmt v0.2.1
    Compiling time-core v0.1.9
-   Compiling utf8parse v0.2.2
-   Compiling anstyle-parse v1.0.0
-   Compiling time v0.3.55
-   Compiling uuid v1.29.2
    Compiling event-listener v5.4.2
+   Compiling uuid v1.29.2
+   Compiling time v0.3.55
+   Compiling anstyle-parse v1.0.0
    Compiling rand v0.9.5
    Compiling tokio-util v0.7.20
    Compiling hmac v0.12.1
    Compiling iana-time-zone v0.1.65
    Compiling aead v0.5.2
    Compiling prost v0.14.6
-   Compiling foldhash v0.2.0
-   Compiling siphasher v1.0.4
-   Compiling data-encoding v2.11.1
    Compiling anstyle v1.0.14
    Compiling anstyle-query v1.1.5
    Compiling colorchoice v1.0.5
    Compiling is_terminal_polyfill v1.70.2
    Compiling inventory v0.3.25
+   Compiling foldhash v0.2.0
+   Compiling siphasher v1.0.4
+   Compiling data-encoding v2.11.1
    Compiling indexmap v2.14.2
-   Compiling anstream v1.0.0
    Compiling hickory-proto v0.25.2
+   Compiling anstream v1.0.0
    Compiling chrono v0.4.45
    Compiling event-listener-strategy v0.5.4
    Compiling terminal_size v0.4.4
@@ -1392,51 +1392,51 @@ warning: `ring` (lib) generated 10 warnings (1 duplicate) (run `cargo fix --lib 
    Compiling core-foundation v0.10.1
    Compiling security-framework-sys v2.17.0
    Compiling instant v0.1.13
-   Compiling either v1.19.0
-   Compiling bitflags v1.3.2
-   Compiling clap_lex v1.1.1
    Compiling strsim v0.11.1
    Compiling unicase v2.10.0
-   Compiling simdutf8 v0.1.5
-   Compiling try-lock v0.2.5
-   Compiling base64 v0.23.1
-   Compiling base64 v0.22.1
+   Compiling clap_lex v1.1.1
    Compiling allocator-api2 v0.2.21
    Compiling foldhash v0.1.5
+   Compiling either v1.19.0
+   Compiling base64 v0.23.1
    Compiling arc-swap v1.9.5
-   Compiling hashbrown v0.15.5
+   Compiling base64 v0.22.1
+   Compiling simdutf8 v0.1.5
+   Compiling bitflags v1.3.2
+   Compiling try-lock v0.2.5
    Compiling want v0.3.2
+   Compiling hashbrown v0.15.5
    Compiling clap_builder v4.6.7
    Compiling hashbrown v0.12.3
    Compiling security-framework v3.7.0
+   Compiling prost-wkt v0.7.2
    Compiling chacha20poly1305 v0.10.1
    Compiling async-lock v3.5.0
-   Compiling prost-wkt v0.7.2
    Compiling x25519-dalek v2.0.1
    Compiling polyval v0.6.2
    Compiling hash32 v0.3.1
    Compiling rand_chacha v0.3.1
    Compiling sha2 v0.10.9
    Compiling core-foundation v0.9.4
-   Compiling cidr v0.3.2
    Compiling spin v0.9.9
+   Compiling cidr v0.3.2
    Compiling derive_more v2.1.1
-   Compiling atomic-waker v1.1.2
+   Compiling hashbrown v0.14.5
+   Compiling option-ext v0.2.0
    Compiling crc-catalog v2.5.0
    Compiling tagptr v0.2.0
-   Compiling winnow v1.0.5
-   Compiling option-ext v0.2.0
-   Compiling trackable v1.3.0
    Compiling lazy_static v1.5.1
-   Compiling hashbrown v0.14.5
-   Compiling sharded-slab v0.1.7
-   Compiling dashmap v6.2.1
+   Compiling winnow v1.0.5
+   Compiling trackable v1.3.0
+   Compiling atomic-waker v1.1.2
    Compiling bytecodec v0.5.0
    Compiling toml_parser v1.1.5+spec-1.1.0
-   Compiling dirs-sys v0.5.0
+   Compiling hyper v1.12.0
+   Compiling dashmap v6.2.1
+   Compiling sharded-slab v0.1.7
    Compiling moka v0.12.16
    Compiling crc v3.4.0
-   Compiling hyper v1.12.0
+   Compiling dirs-sys v0.5.0
    Compiling optionize v0.5.3
    Compiling system-configuration v0.6.1
    Compiling rand v0.8.8
@@ -1445,8 +1445,8 @@ warning: `ring` (lib) generated 10 warnings (1 duplicate) (run `cargo fix --lib 
    Compiling rustls-platform-verifier v0.7.1
    Compiling lru v0.7.8
    Compiling parking_lot v0.11.2
-   Compiling triomphe v0.1.17
    Compiling pbjson v0.9.0
+   Compiling triomphe v0.1.17
    Compiling fastbloom v0.17.0
    Compiling prost-types v0.14.6
    Compiling tokio-rustls v0.26.6
@@ -1456,48 +1456,48 @@ warning: `ring` (lib) generated 10 warnings (1 duplicate) (run `cargo fix --lib 
    Compiling sha1 v0.10.7
    Compiling webpki-roots v1.0.12
    Compiling futures-executor v0.3.34
-   Compiling tracing-log v0.2.0
    Compiling rand_pcg v0.10.2
+   Compiling tracing-log v0.2.0
    Compiling ringbuf v0.5.3
    Compiling quick-xml v0.42.0
    Compiling serde_spanned v1.1.3
    Compiling toml_datetime v1.1.3+spec-1.1.0
    Compiling nibble_vec v0.1.0
-   Compiling thread_local v1.1.10
    Compiling dirs-sys v0.3.7
-   Compiling atomic-shim v0.2.0
-   Compiling lru-slab v0.1.3
-   Compiling rustc-hash v2.1.3
-   Compiling endian-type v0.1.2
-   Compiling ip_network v0.4.1
-   Compiling ip_network_table-deps-treebitmap v0.5.0
-   Compiling md5 v0.7.0
-   Compiling resolv-conf v0.7.6
-   Compiling toml_writer v1.2.0+spec-1.1.0
-   Compiling no-std-net v0.6.0
+   Compiling thread_local v1.1.10
+   Compiling managed v0.8.0
+   Compiling fixedbitset v0.5.9
+   Compiling yansi v1.0.1
    Compiling bytecount v0.6.9
    Compiling fnv v1.0.7
-   Compiling yansi v1.0.1
-   Compiling fastrand v2.5.0
-   Compiling strum v0.28.0
-   Compiling home v0.5.12
-   Compiling managed v0.8.0
+   Compiling endian-type v0.1.2
+   Compiling md5 v0.7.0
    Compiling nu-ansi-term v0.50.3
-   Compiling fixedbitset v0.5.9
+   Compiling resolv-conf v0.7.6
+   Compiling atomic-shim v0.2.0
+   Compiling toml_writer v1.2.0+spec-1.1.0
+   Compiling home v0.5.12
+   Compiling lru-slab v0.1.3
+   Compiling rustc-hash v2.1.3
+   Compiling ip_network v0.4.1
+   Compiling ip_network_table-deps-treebitmap v0.5.0
    Compiling base62 v2.2.6
-   Compiling rust-i18n-support v4.2.4
-   Compiling petgraph v0.8.3
-   Compiling tracing-subscriber v0.3.23
-   Compiling ariadne v0.6.0
-   Compiling which v4.4.2
-   Compiling papergrid v0.18.0
+   Compiling fastrand v2.5.0
+   Compiling no-std-net v0.6.0
+   Compiling strum v0.28.0
    Compiling pnet_base v0.35.0
+   Compiling rust-i18n-support v4.2.4
+   Compiling ip_network_table v0.2.0
+   Compiling quinn-proto v0.11.19
+   Compiling which v4.4.2
    Compiling toml v1.2.1+spec-1.1.0
    Compiling hickory-resolver v0.25.2
+   Compiling tracing-subscriber v0.3.23
    Compiling stun_codec v0.4.0
-   Compiling ip_network_table v0.2.0
    Compiling radix_trie v0.2.1
-   Compiling quinn-proto v0.11.19
+   Compiling papergrid v0.18.0
+   Compiling ariadne v0.6.0
+   Compiling petgraph v0.8.3
    Compiling dirs v4.0.0
    Compiling plist v1.10.3
    Compiling async-ringbuf v0.3.10
@@ -1506,14 +1506,14 @@ warning: `ring` (lib) generated 10 warnings (1 duplicate) (run `cargo fix --lib 
    Compiling encoding-utils v0.1.0
    Compiling clap_complete v4.6.11
    Compiling netdev v0.31.0
-   Compiling hyper-util v0.1.21
    Compiling dirs v6.0.0
+   Compiling hyper-util v0.1.21
    Compiling zstd v0.14.4
    Compiling prefix-trie v0.10.2
    Compiling ordered_hash_map v0.6.1
-   Compiling lzokay-native v0.2.1
-   Compiling pem v4.0.0
    Compiling nix v0.25.1
+   Compiling pem v4.0.0
+   Compiling lzokay-native v0.2.1
    Compiling http-body-util v0.1.5
    Compiling yasna v0.6.0
    Compiling prefix-trie v0.7.0
@@ -1524,41 +1524,41 @@ warning: `ring` (lib) generated 10 warnings (1 duplicate) (run `cargo fix --lib 
    Compiling crossbeam-queue v0.3.14
    Compiling ipnetwork v0.20.0
    Compiling pnet_sys v0.35.0
+   Compiling xml-rs v0.8.29
+   Compiling wildmatch v2.7.0
    Compiling bon v3.10.3
    Compiling humantime v2.4.0
-   Compiling hex v0.4.3
-   Compiling wildmatch v2.7.0
-   Compiling xml-rs v0.8.29
-   Compiling nonempty v0.7.0
-   Compiling xml v1.4.0
    Compiling base64 v0.13.1
+   Compiling xml v1.4.0
+   Compiling hex v0.4.3
+   Compiling nonempty v0.7.0
+   Compiling forwarded-header-value v0.1.1
    Compiling boringtun-easytier v0.6.1
    Compiling xmltree v0.12.0
    Compiling service-manager v0.8.0 (https://github.com/EasyTier/service-manager-rs.git?branch=main#5eb28f7a)
-   Compiling forwarded-header-value v0.1.1
-   Compiling easytier-core v2.7.0 (https://github.com/ldoubil/EasyTier.git?branch=main-astral#758827a9)
    Compiling humantime-serde v1.1.1
+   Compiling easytier-core v2.7.0 (https://github.com/ldoubil/EasyTier.git?branch=main-astral#758827a9)
    Compiling pnet_datalink v0.35.0
    Compiling crossbeam v0.8.5
-   Compiling tabled v0.22.0
-   Compiling hickory-server v0.25.2
    Compiling rcgen v0.14.10
-   Compiling shellexpand v3.1.2
-   Compiling natpmp v0.5.0
+   Compiling hickory-server v0.25.2
+   Compiling tabled v0.22.0
    Compiling clap_complete_nushell v4.6.2
-   Compiling hickory-client v0.25.2
+   Compiling natpmp v0.5.0
+   Compiling shellexpand v3.1.2
    Compiling atomic-write-file v0.3.1
-   Compiling flume v0.12.0
+   Compiling hickory-client v0.25.2
    Compiling tokio-websockets v0.13.2 (https://github.com/EasyTier/tokio-websockets#dc9771c7)
+   Compiling flume v0.12.0
    Compiling tun-easytier v1.1.1 (https://github.com/EasyTier/rust-tun?rev=43621f70b02c47086b40d34fdde997719668a6c0#43621f70)
    Compiling hkdf v0.12.4
    Compiling humansize v2.1.3
    Compiling gethostname v1.1.0
-   Compiling seahash v4.1.0
-   Compiling git-version v0.3.9
-   Compiling sys-locale v0.3.2
    Compiling derive_builder v0.20.2
+   Compiling sys-locale v0.3.2
+   Compiling git-version v0.3.9
    Compiling atomic_refcell v0.1.14
+   Compiling seahash v4.1.0
 warning: field `runtime` is never read
   --> src/lib.rs:98:5
    |
@@ -1572,7 +1572,7 @@ warning: field `runtime` is never read
 
 warning: `astral-tund` (lib) generated 2 warnings (1 duplicate)
 warning: `astral-tund` (bin "astral-tund") generated 1 warning (1 duplicate)
-    Finished `release` profile [optimized] target(s) in 14m 55s
+    Finished `release` profile [optimized] target(s) in 12m 26s
 [1;34m==> 修正 arm64 最低版本 -> iOS 8.0[0m
     修复版本命令: LC_VERSION_MIN_IPHONEOS -> min=8.0 sdk=8.0
 [1;34m==> 合并 32/64 位（lipo）[0m
@@ -1608,7 +1608,7 @@ warning: `astral-tund` (bin "astral-tund") generated 1 warning (1 duplicate)
 [1;34m==> 签名（越狱设备 ad-hoc）[0m
     ldid -S 完成
 [1;34m==> 产物: /Users/runner/work/AstralGame/AstralGame/dist/astral-tund[0m
-b4976a92fa03a253ec4eb85f11959d7365c7e40a90b31410a30d23fb5cfe230d  astral-tund
+27ace86922c56b73d47ac59b1ceb5069fe2bb45ad3d4cc9828e28500a9b78d94  astral-tund
 [1;34m==> 编译原生界面并打包 .ipa[0m
     [1/5] 编译 main.m（armv7s + arm64）
     [2/5] 链接 32 位
@@ -3182,7 +3182,7 @@ ld: warning: object file (/Users/runner/work/AstralGame/AstralGame/work/astral-t
         ldid -S 完成
     [4/4] 打包 ipa
 [1;34m==> GUI 产物: /Users/runner/work/AstralGame/AstralGame/dist/AstralGame.ipa[0m
-9693462d690925ca7ff07f82e2074c8c8c47feb13f38eaa2b366b5e71fd6177a  AstralGame.ipa
+ce84f5bd9d926c577bb10d1132c367b602167af53430132ac4f9d1dd23da5c53  AstralGame.ipa
     /Users/runner/work/AstralGame/AstralGame/dist/AstralGame.app/AstralGame: Mach-O universal binary with 2 architectures: [arm_v7s:
     - Mach-O executable arm_v7s] [arm64]
     /Users/runner/work/AstralGame/AstralGame/dist/AstralGame.app/AstralGame (for architecture armv7s):	Mach-O executable arm_v7s
@@ -3214,4 +3214,4 @@ ld: warning: object file (/Users/runner/work/AstralGame/AstralGame/work/astral-t
 deb: /Users/runner/work/AstralGame/AstralGame/dist/com.astral.game.ios_1.0_iphoneos-arm.deb (51.7 MB)
   data entries: 4
 [1;34m==> deb: /Users/runner/work/AstralGame/AstralGame/dist/com.astral.game.ios_1.0_iphoneos-arm.deb[0m
-bd53c5fdc8bced5562f9461e4addf06a7cd1a54bad477379e297e50530ab20d5  com.astral.game.ios_1.0_iphoneos-arm.deb
+84e31a5a3b4bfb2a61a0860f2e4a0cbff9d5926432cd533d6084c1502f442eb3  com.astral.game.ios_1.0_iphoneos-arm.deb
