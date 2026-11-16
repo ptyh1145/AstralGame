@@ -125,6 +125,68 @@ def ar_member(name, data):
     return out
 
 
+import shutil
+import subprocess
+import tempfile
+
+
+def build_pkg_tree(dist):
+    """Write the pkg directory tree for dpkg-deb --build.
+    Returns (tree_dir, data_entries_count). Caller must clean up tree_dir.
+    """
+    app = os.path.join(dist, "AstralGame.app")
+    cli = os.path.join(dist, "astral-tund")
+    tree = tempfile.mkdtemp(prefix="astral_deb_")
+
+    # DEBIAN control scripts (must be 755 for postinst/prerm)
+    debian = os.path.join(tree, "DEBIAN")
+    os.makedirs(debian)
+    def write(fn, data, mode):
+        p = os.path.join(debian, fn)
+        with open(p, "wb") as f:
+            f.write(data)
+        os.chmod(p, mode)
+    write("control", CONTROL.encode("utf-8"), 0o644)
+    write("postinst", POSTINST.encode("utf-8"), 0o755)
+    write("prerm", PRERM.encode("utf-8"), 0o755)
+
+    # Applications/AstralGame.app  (SpringBoard only scans /Applications for icons)
+    dst_app = os.path.join(tree, "Applications", "AstralGame.app")
+    shutil.copytree(app, dst_app, symlinks=True)
+    bin_path = os.path.join(dst_app, "AstralGame")
+    if os.path.exists(bin_path):
+        os.chmod(bin_path, 0o755)
+
+    # usr/bin/astral-tund
+    dst_usr = os.path.join(tree, "usr", "bin")
+    os.makedirs(dst_usr, exist_ok=True)
+    shutil.copy2(cli, os.path.join(dst_usr, "astral-tund"))
+    os.chmod(os.path.join(dst_usr, "astral-tund"), 0o755)
+
+    # Library/LaunchDaemons/com.astral.tund.plist
+    dst_ld = os.path.join(tree, "Library", "LaunchDaemons")
+    os.makedirs(dst_ld, exist_ok=True)
+    with open(os.path.join(dst_ld, "com.astral.tund.plist"), "wb") as f:
+        f.write(LAUNCHD.encode("utf-8"))
+    os.chmod(os.path.join(dst_ld, "com.astral.tund.plist"), 0o644)
+
+    n = 0
+    for _, _, files in os.walk(tree):
+        n += len(files)
+    return tree, n
+
+
+def build_with_dpkg_deb(dist, out):
+    """Use real dpkg-deb (standard ar/gzip/tar format every dpkg accepts)."""
+    tree, n = build_pkg_tree(dist)
+    try:
+        cmd = ["dpkg-deb", "--build", "--root-owner-group", "-Zgzip", tree, out]
+        subprocess.run(cmd, check=True)
+    finally:
+        shutil.rmtree(tree, ignore_errors=True)
+    return n
+
+
 def main():
     dist, out = sys.argv[1], sys.argv[2]
     app = os.path.join(dist, "AstralGame.app")
@@ -133,10 +195,16 @@ def main():
         if not os.path.exists(p):
             raise SystemExit("missing " + p)
 
-    # ---- data.tar.gz: App + CLI + LaunchDaemon ----
-    # Key: App must go under /Applications/ (SpringBoard only scans this dir for icons).
-    # Before it was placed at ./AstralGame.app (root /), dpkg reported success but no icon,
-    # and the /Applications/AstralGame.app path in postinst did not match.
+    dpkg_deb = shutil.which("dpkg-deb")
+    if dpkg_deb:
+        n = build_with_dpkg_deb(dist, out)
+        sz = os.path.getsize(out)
+        print("deb: %s (%.1f MB) [dpkg-deb]" % (out, sz / 1048576))
+        print("  data entries:", n)
+        return
+
+    print("!! dpkg-deb not found; falling back to hand-built ar (may not install on old dpkg)")
+    # ---- fallback: hand-built ar (standard gzip deflate) ----
     data_entries = []
     for root, dirs, files in os.walk(app):
         rel_root = os.path.relpath(root, dist).replace(os.sep, "/")
@@ -157,7 +225,6 @@ def main():
 
     data_gz = gz(tar_gz(data_entries))
 
-    # ---- control.tar.gz ----
     ctrl_entries = [
         ("./control", CONTROL.encode("utf-8"), 0o644),
         ("./postinst", POSTINST.encode("utf-8"), 0o755),
@@ -165,7 +232,6 @@ def main():
     ]
     ctrl_gz = gz(tar_gz(ctrl_entries))
 
-    # ---- ar archive ----
     blob = b"!<arch>\n"
     blob += ar_member("debian-binary", b"2.0\n")
     blob += ar_member("control.tar.gz", ctrl_gz)

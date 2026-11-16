@@ -71,6 +71,11 @@ jobs:
       - name: Install ldid
         run: brew install ldid || true
 
+      # 标准 dpkg-deb 打 deb：手写 ar 在老 dpkg 上会 Broken pipe（ar 字段/压缩格式
+      # 兼容性问题）。macOS 上 brew install dpkg 提供 dpkg-deb，make_deb.py 优先用它。
+      - name: Install dpkg (standard deb packaging)
+        run: brew install dpkg || true
+
       # prost-build / prost-wkt-types 的 build script 需要 protoc。
       # 仓库 README 指定 23.3，这里固定该版本；失败再退回 brew。
       - name: Install protoc 23.3
