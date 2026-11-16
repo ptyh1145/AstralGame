@@ -29,15 +29,22 @@ Description: Astral Game iOS LAN multiplayer client (jailbreak)
 """
 
 POSTINST = """#!/bin/bash
-set -e
+# postinst: runs AFTER unpack (all files are on disk).
+# So daemon setup (configure) is correct here; keep every step non-fatal.
+set -u
 chmod 755 /usr/bin/astral-tund 2>/dev/null || true
 chmod 755 /Applications/AstralGame.app/AstralGame 2>/dev/null || true
 
-# Daemon: run as root, create utun + run EasyTier
+# Stop any old daemon first (unload never depends on new files).
 launchctl unload /Library/LaunchDaemons/com.astral.tund.plist 2>/dev/null || true
-launchctl load /Library/LaunchDaemons/com.astral.tund.plist 2>/dev/null || true
 
-# Refresh springboard icon (differs per jailbreak; try them all)
+# Load daemon ONLY if the plist is really on disk (avoid racing unpack).
+# Never fail the package if launchd is old/missing.
+if [ -f /Library/LaunchDaemons/com.astral.tund.plist ]; then
+  launchctl load /Library/LaunchDaemons/com.astral.tund.plist 2>/dev/null || true
+fi
+
+# Refresh springboard icon (differs per jailbreak; try them all).
 uicache 2>/dev/null || killall -9 SpringBoard 2>/dev/null || true
 
 echo "Astral Game installed. Daemon: /usr/bin/astral-tund --daemon"
