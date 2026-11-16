@@ -23,9 +23,9 @@ Section: Games
 Priority: optional
 Depends: firmware (>= 8.0)
 Maintainer: astral
-Description: Astral Game iOS 联机客户端（越狱版）
- 原生 UIKit 界面 + EasyTier 组网核心。
- 守护进程以 root 运行（建 utun 需要），App 通过 /var/run/astral.sock 控制。
+Description: Astral Game iOS LAN multiplayer client (jailbreak)
+ Native UIKit UI + EasyTier networking core.
+ Daemon runs as root (needs utun). App controls it via /var/run/astral.sock.
 """
 
 POSTINST = """#!/bin/bash
@@ -33,14 +33,14 @@ set -e
 chmod 755 /usr/bin/astral-tund 2>/dev/null || true
 chmod 755 /Applications/AstralGame.app/AstralGame 2>/dev/null || true
 
-# 守护进程：以 root 常驻，负责建 utun + 跑 EasyTier
+# Daemon: run as root, create utun + run EasyTier
 launchctl unload /Library/LaunchDaemons/com.astral.tund.plist 2>/dev/null || true
 launchctl load /Library/LaunchDaemons/com.astral.tund.plist 2>/dev/null || true
 
-# 刷新桌面图标（不同越狱环境命令不一样，都试一遍）
+# Refresh springboard icon (differs per jailbreak; try them all)
 uicache 2>/dev/null || killall -9 SpringBoard 2>/dev/null || true
 
-echo "Astral Game 安装完成。守护进程: /usr/bin/astral-tund --daemon"
+echo "Astral Game installed. Daemon: /usr/bin/astral-tund --daemon"
 exit 0
 """
 
@@ -61,9 +61,7 @@ LAUNCHD = """<?xml version="1.0" encoding="UTF-8"?>
         <string>--daemon</string>
     </array>
     <key>RunAtLoad</key><true/>
-    <!-- 不要 KeepAlive=true：万一守护进程因 bind 失败等原因退出，
-         launchd 会立刻重拉，形成无限重启循环（发热/耗电/日志暴涨）。
-         这里只在「异常退出」时重启，并强制 10 秒节流。 -->
+    <!-- KeepAlive on abnormal exit only, with 10s throttle (avoid restart loop) -->
     <key>KeepAlive</key>
     <dict>
         <key>SuccessfulExit</key><false/>
@@ -102,13 +100,16 @@ def gz(data):
 
 def ar_member(name, data):
     assert len(name) <= 16, name
+    # GNU ar 格式：所有数字字段必须【右对齐】（数字靠右、前面补空格）。
+    # 之前用 ljust（左对齐），老 dpkg 解析时会算错成员偏移/大小，
+    # 把截断的数据管道给 tar 子进程 → Broken pipe。
     hdr = (
         name.ljust(16)
-        + "0".ljust(12)      # mtime
-        + "0".ljust(6)       # uid
-        + "0".ljust(6)       # gid
-        + "100644".ljust(8)  # mode
-        + str(len(data)).ljust(10)
+        + str(0).rjust(12)      # mtime
+        + str(0).rjust(6)       # uid
+        + str(0).rjust(6)       # gid
+        + "100644".rjust(8)     # mode (octal)
+        + str(len(data)).rjust(10)  # size (decimal)
         + "`\n"
     ).encode("ascii")
     out = hdr + data
