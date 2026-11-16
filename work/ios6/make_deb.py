@@ -126,17 +126,20 @@ def main():
             raise SystemExit("缺少 " + p)
 
     # ---- data.tar.gz：App + CLI + LaunchDaemon ----
+    # 关键：App 必须放在 /Applications/ 下，SpringBoard 只扫这个目录找图标。
+    # 之前放在 ./AstralGame.app（装到根目录 /），dpkg 报成功但桌面不出图标，
+    # postinst 里 chmod 的 /Applications/AstralGame.app 路径也对不上。
     data_entries = []
     for root, dirs, files in os.walk(app):
         rel_root = os.path.relpath(root, dist).replace(os.sep, "/")
         for d in dirs:
-            data_entries.append(("./" + rel_root + "/" + d + "/", b"", 0o755))
+            data_entries.append(("./Applications/" + rel_root + "/" + d + "/", b"", 0o755))
         for fn in files:
             full = os.path.join(root, fn)
             with open(full, "rb") as f:
                 body = f.read()
             mode = 0o755 if fn == "AstralGame" else 0o644
-            data_entries.append(("./" + rel_root + "/" + fn, body, mode))
+            data_entries.append(("./Applications/" + rel_root + "/" + fn, body, mode))
 
     with open(cli, "rb") as f:
         data_entries.append(("./usr/bin/astral-tund", f.read(), 0o755))
