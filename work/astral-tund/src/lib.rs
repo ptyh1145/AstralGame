@@ -143,11 +143,17 @@ pub extern "C" fn astral_start(
 
     set_state(STATE_STARTING, "启动中");
 
-    // 后台线程跑 tokio runtime，UI 线程不阻塞
+    // 后台线程跑 tokio runtime，UI 线程不阻塞。
+    // 用 current_thread 而不是 multi_thread：32 位 armv7s 用
+    // has-thread-local=false 编出（TLS 用 pthread_key 模拟），多线程 runtime
+    // 的 worker 调度依赖 TLS，在 iOS 6/8 老 dyld 上会挂死在 build()——
+    // 症状就是状态永远停在"启动中"、连"打开 utun ..."都打不出来。
+    // EasyTier 是单实例网络任务，current_thread 足够，且工程下方 astral_stop
+    // 已验证该 runtime 类型在此环境可用。
     std::thread::spawn(move || {
-        let rt = match tokio::runtime::Builder::new_multi_thread()
+        push_log("后台线程: 创建 tokio runtime ...");
+        let rt = match tokio::runtime::Builder::new_current_thread()
             .enable_all()
-            .worker_threads(2)
             .build()
         {
             Ok(rt) => rt,
@@ -157,6 +163,7 @@ pub extern "C" fn astral_start(
                 return;
             }
         };
+        push_log("后台线程: runtime 就绪，进入 bring_up ...");
 
         let result: Result<uuid::Uuid> = rt.block_on(async { bring_up(&room, &secret, &ipv4, &peer).await });
 
