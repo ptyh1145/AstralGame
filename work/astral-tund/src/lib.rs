@@ -7,11 +7,24 @@
 //!   * 只暴露 4 个函数，避免把 Rust 类型泄漏给 ObjC。
 
 use std::ffi::{CStr, CString};
+use std::os::fd::RawFd;
 use std::os::raw::c_char;
 use std::sync::atomic::{AtomicU8, Ordering};
 use std::sync::{Mutex, OnceLock};
 
 use anyhow::{Context, Result};
+
+/// RAII: 持有 utun fd，任何提前返回（configure/create/attach 失败）时自动
+/// close，避免反复点连接把 utun0..7 全部泄漏占满（表现为 EBUSY）。
+struct UtunFd(RawFd);
+impl Drop for UtunFd {
+    fn drop(&mut self) {
+        if self.0 >= 0 {
+            unsafe {libc::close(self.0)};
+            self.0 = -1;
+        }
+    }
+}
 
 pub mod bridge;
 pub mod cli;
@@ -206,8 +219,29 @@ async fn bring_up(room: &str, secret: &str, ipv4: &str, peer: &str) -> Result<uu
     let subnet = cli::cidr_network(&ip, prefix);
 
     push_log("打开 utun ...");
-    let fd = utun::open_utun(0).context("打开 utun 失败（需要 root）")?;
-    let real_name = utun::ifname(fd).unwrap_or_else(|_| "utun0".to_string());
+    // 逐个尝试 utun0..utun7：老设备上 utun0 常被残留 daemon / 别的 VPN
+    // 工具占住，connect 返回 EBUSY(os error 16)。写死 unit 0 会导致反复
+    // 点连接永远失败。找一个空闲的 unit 用。
+    let mut opened: Option<(std::os::fd::RawFd, String)> = None;
+    let mut last_err = String::new();
+    for unit in 0..8u32 {
+        match utun::open_utun(unit) {
+            Ok(fd) => {
+                let name = utun::ifname(fd).unwrap_or_else(|_| format!("utun{unit}"));
+                push_log(&format!("utun 已打开: fd={fd} ifname={name}"));
+                opened = Some((fd, name));
+                break;
+            }
+            Err(e) => {
+                last_err = e.to_string();
+                push_log(&format!("utun{unit} 打开失败: {e}"));
+            }
+        }
+    }
+    let (fd, real_name) = opened.ok_or_else(|| {
+        anyhow::anyhow!("打开 utun 失败（0-7 全忙，需要 root）: {last_err}")
+    })?;
+    let mut fd_guard = UtunFd(fd); // 失败路径自动 close；成功 attach 后交出所有权
     push_log(&format!("utun fd={fd} ifname={real_name}"));
 
     if dhcp {
@@ -227,6 +261,8 @@ async fn bring_up(room: &str, secret: &str, ipv4: &str, peer: &str) -> Result<uu
     push_log(&format!("instance_id = {id}"));
 
     bridge::attach_tun_fd(id, fd)?;
+    // fd 所有权已交给 EasyTier，禁止 guard 再 close（否则关闭它持有的 fd）
+    fd_guard.0 = -1;
     push_log("tun fd 已注入，组网已启动");
     Ok(id)
 }
