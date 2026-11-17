@@ -356,20 +356,44 @@ int CCRandomGenerateBytes(void *bytes, size_t count) {
     return [[NSString alloc] initWithData:out encoding:NSUTF8StringEncoding];
 }
 
+// 生成随机字符串（官方创建房间时自动生成房间名/密码，用户无需填写）。
+// alphabet 去掉了易混淆的 l/I/1 和 O/0。
+static NSString *randomString(NSUInteger len) {
+    static NSString *const alphabet = @"abcdefghijkmnopqrstuvwxyz23456789";
+    NSMutableString *s = [NSMutableString stringWithCapacity:len];
+    for (NSUInteger i = 0; i < len; i++) {
+        uint32_t r = arc4random_uniform((uint32_t)alphabet.length);
+        [s appendFormat:@"%C", [alphabet characterAtIndex:r]];
+    }
+    return s;
+}
+
 // 创建房间：POST /v1/codes 换取 6 位房间码
 // 请求体就是官方的 RoomInvitePayload，peers 填我们连的服务器地址。
+// 和官方一致：房间名/密码没被用户改过（还是默认值或空）时自动生成，
+// 不必手动设置；填了自定义值则尊重用户输入。
 - (void)createRoom {
     [self.view endEditing:YES];
     NSString *room = self.roomField.text ?: @"";
     NSString *secret = self.secretField.text ?: @"";
+    room = [room stringByTrimmingCharactersInSet:
+            [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    secret = [secret stringByTrimmingCharactersInSet:
+              [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    BOOL autoRoom = (room.length == 0 || [room isEqualToString:@"test"]);
+    BOOL autoSecret = (secret.length == 0 || [secret isEqualToString:@"123456"]);
+    if (autoRoom) {
+        room = [NSString stringWithFormat:@"room-%@", randomString(6)];
+        self.roomField.text = room;
+    }
+    if (autoSecret) {
+        secret = randomString(12);
+        self.secretField.text = secret;
+    }
     NSString *peer = self.peerField.text ?: @"";
     NSString *nick = self.nickField.text ?: @"";
     peer = [peer stringByTrimmingCharactersInSet:
             [NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    if (room.length == 0 || secret.length == 0) {
-        [self alert:@"房间名和密码不能为空"];
-        return;
-    }
 
     NSMutableArray *peerArr = [NSMutableArray array];
     if (peer.length > 0) {
