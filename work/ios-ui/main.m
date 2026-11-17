@@ -82,7 +82,15 @@ int CCRandomGenerateBytes(void *bytes, size_t count) {
     self.view.backgroundColor = [UIColor colorWithWhite:0.96 alpha:1.0];
 
     CGFloat w = self.view.bounds.size.width;
-    CGFloat y = 12;
+    // 本 VC 被 UINavigationController 包裹。原先 y=12 在部分 iOS 版本上
+    // 把"房间码"框压到导航栏后面看不见 -> 点"用房间码加入"总报"6 位"。
+    // iOS 7+ 用 topLayoutGuide 取导航栏高度；iOS 6 没有该 API，运行时判断，
+    // 退回固定 56pt（状态栏20 + 导航栏44 的经典高度），保证老设备不 crash。
+    CGFloat topSafe = 56;
+    if ([self respondsToSelector:@selector(topLayoutGuide)]) {
+        topSafe = (CGFloat)self.topLayoutGuide.length;
+    }
+    CGFloat y = topSafe + 8;
 
     // 房间码：官方短码服务（astral-share），输入 6 位码即可自动拉取房间配置
     self.codeField = [self makeField:@"房间码（6 位，可留空）" y:y]; y += 46;
