@@ -16,9 +16,6 @@
 
 use libc::{c_int, c_void, size_t, timespec, timeval};
 
-const CLOCK_REALTIME: c_int = 0;
-const CLOCK_MONOTONIC: c_int = 6;
-
 /// 用 `gettimeofday` 实现 `clock_gettime`。
 ///
 /// std 的 `Timespec::now` 和 quanta 的 `Clock::now` 都会调用它；
@@ -30,14 +27,18 @@ const CLOCK_MONOTONIC: c_int = 6;
 #[no_mangle]
 pub unsafe extern "C" fn clock_gettime(clk_id: c_int, tp: *mut timespec) -> c_int {
     if tp.is_null() {
+        *libc::__error() = libc::EINVAL;
         return -1;
     }
-    if clk_id != CLOCK_REALTIME && clk_id != CLOCK_MONOTONIC {
-        // CLOCK_PROCESS_CPUTIME_ID 等其它时钟不支持
-        return -1;
-    }
+    // 不要再对 clock id 做白名单过滤。std 的 Instant::now() 在 Darwin 上用
+    // CLOCK_UPTIME_RAW / CLOCK_MONOTONIC_RAW 等（值 != 0/6），旧版这里直接
+    // return -1 且没设 errno，残留的 ENOENT 被 std 的 cvt().unwrap() 读到 ->
+    // 一启动就 panic（time.rs:107）。所有 id 统一用 gettimeofday 近似即可：
+    // 超时/耗时统计不依赖严格单调或精确时钟源，系统时间足够。
+    let _ = clk_id;  // 有意忽略
     let mut tv: timeval = std::mem::zeroed();
     if libc::gettimeofday(&mut tv, std::ptr::null_mut()) != 0 {
+        *libc::__error() = libc::EINVAL;
         return -1;
     }
     (*tp).tv_sec = tv.tv_sec as libc::time_t;
