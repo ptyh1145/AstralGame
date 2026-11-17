@@ -174,12 +174,32 @@ async fn main() -> Result<()> {
     };
     let subnet = cidr_network(&ip, prefix);
 
+    // ⓪ 启动即探测：这条日志直接回答"这台设备上到底有没有 ifconfig / route"。
+    //    探测只做一次，结果缓存；地址配置优先走 ioctl，不依赖这些命令。
+    let t = utun::tools();
+
     if a.dry_run {
         println!("===== EasyTier TOML =====");
         println!("{toml}");
-        println!("===== 将要执行的设备配置 =====");
-        println!("/sbin/ifconfig {ifname} inet {ip} {ip} netmask <prefix {prefix}> up");
-        println!("/sbin/route -n add -net {subnet} -interface {ifname}");
+        println!("===== 设备配置计划 =====");
+        println!("接口 {ifname}  地址 {ip}/{prefix}  路由 {subnet}");
+        match &t.ifconfig {
+            Some(p) => println!(
+                "地址: ioctl 优先；失败则 {p} {ifname} inet {ip} {ip} netmask ... up",
+                p = p.display()
+            ),
+            None => println!("地址: 纯 ioctl（未找到 ifconfig，也不需要）"),
+        }
+        match &t.route {
+            Some(p) => println!(
+                "路由: {p} -n add -net {subnet} -interface {ifname}",
+                p = p.display()
+            ),
+            None => println!(
+                "路由: 未找到 route 命令！需 Cydia 装 inetutils/network-cmds，\
+                 或手动执行 route -n add -net {subnet} -interface {ifname}"
+            ),
+        }
         return Ok(());
     }
 
