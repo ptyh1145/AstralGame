@@ -272,16 +272,20 @@ async fn bring_up(room: &str, secret: &str, ipv4: &str, peer: &str) -> Result<uu
     let mut fd_guard = UtunFd(fd); // 失败路径自动 close；成功 attach 后交出所有权
     push_log(&format!("utun fd={fd} ifname={real_name}"));
 
+    // 无论是否 DHCP，都必须给 utun 配地址。
+    //
+    // DHCP 模式下 EasyTier 只在**内部**协商地址，而 iOS 没有 NEIPv4Settings /
+    // setTunnelNetworkSettings，协商结果没有途径落到内核接口上。接口一旦没有
+    // 地址，内核就不会把包路由进 utun，EasyTier 也读不到任何东西 ——
+    // 表现就是「进了房间但对面看不到我」。所以这里先按 ipv4 参数配一个保底
+    // 地址，让接口活起来；最终以 EasyTier 协商结果为准（同网段即可）。
     if dhcp {
-        // DHCP 模式：地址由 EasyTier 内部的 DHCP 客户端分配并配置，
-        // 我们手动再配一次会覆盖/冲突，所以跳过。
-        push_log("自动分配虚拟IP（DHCP）：地址由 EasyTier 分配，跳过手动配置");
-    } else {
-        utun::configure_iface(&real_name, &ip, prefix).context("配置接口地址失败")?;
-        push_log(&format!("接口已配置 {ip}/{prefix}"));
-        if let Err(e) = utun::add_subnet_route(&real_name, &subnet) {
-            push_log(&format!("加路由失败（不致命）: {e}"));
-        }
+        push_log("DHCP 模式：先按 ipv4 参数配保底地址（否则 utun 无地址，包进不来）");
+    }
+    utun::configure_iface(&real_name, &ip, prefix).context("配置接口地址失败")?;
+    push_log(&format!("接口已配置 {ip}/{prefix}"));
+    if let Err(e) = utun::add_subnet_route(&real_name, &subnet) {
+        push_log(&format!("加路由失败（不致命）: {e}"));
     }
 
     push_log("启动 EasyTier 实例 ...");

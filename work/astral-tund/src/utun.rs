@@ -205,9 +205,19 @@ const SIOCSIFADDR: libc::c_ulong = 0x8020_690c;
 const SIOCSIFDSTADDR: libc::c_ulong = 0x8020_690e;
 const SIOCSIFFLAGS: libc::c_ulong = 0x8020_6910;
 const SIOCSIFNETMASK: libc::c_ulong = 0x8020_6916;
-// _IOWR('i', 17, struct ifreq) = 0xc0000000 | (32 << 16) | ('i' << 8) | 17
+const SIOCSIFMTU: libc::c_ulong = 0x8020_6934;
+// _IOWR('i', n, struct ifreq) = 0xc0000000 | (32 << 16) | ('i' << 8) | n
 const SIOCGIFFLAGS: libc::c_ulong = 0xc020_6911;
+const SIOCGIFADDR: libc::c_ulong = 0xc020_6921;
+const SIOCGIFMTU: libc::c_ulong = 0xc020_6933;
 const IFF_UP: libc::c_short = 0x1;
+
+/// 与 EasyTier 虚拟网络的 MTU 保持一致（默认 1380，已含加密 + FEC 开销）。
+///
+/// 不设的话 utun 沿用默认的大 MTU，内核会把 1500 字节的包原样丢进来，
+/// EasyTier 再封装就超过底层链路 MTU —— 大包在途中被丢，表现是
+/// 「能看到对面节点、ping 得通小包，但 TCP 握手/传输起不来」。
+pub const TUN_MTU: i32 = 1380;
 
 #[repr(C)]
 struct IfReq {
@@ -247,6 +257,30 @@ impl IfReq {
 
     fn flags(&self) -> libc::c_short {
         libc::c_short::from_ne_bytes([self.ifr_ifru[0], self.ifr_ifru[1]])
+    }
+
+    /// ifru_mtu 是 union 开头的 int
+    fn put_mtu(&mut self, mtu: i32) {
+        self.ifr_ifru[0..4].copy_from_slice(&mtu.to_ne_bytes());
+    }
+
+    fn get_mtu(&self) -> i32 {
+        i32::from_ne_bytes([
+            self.ifr_ifru[0],
+            self.ifr_ifru[1],
+            self.ifr_ifru[2],
+            self.ifr_ifru[3],
+        ])
+    }
+
+    /// 从 union 里取出 sockaddr_in 的 sin_addr
+    fn get_ipv4(&self) -> Ipv4Addr {
+        Ipv4Addr::new(
+            self.ifr_ifru[4],
+            self.ifr_ifru[5],
+            self.ifr_ifru[6],
+            self.ifr_ifru[7],
+        )
     }
 }
 
@@ -313,11 +347,35 @@ fn configure_on_sock(sock: RawFd, ifname: &str, ip: Ipv4Addr, mask: Ipv4Addr) ->
             println!("[utun] 设置掩码失败（不致命）: {e:#}");
         }
 
-        // ④ 置 IFF_UP —— 必须有，否则接口不工作。先读回原 flags 再或上，别冲掉别的位
+        // ④ MTU 与 EasyTier 虚拟网对齐（放在 UP 之前，避免起来瞬间用大 MTU 收包）
+        let mut rq = IfReq::new(ifname)?;
+        rq.put_mtu(TUN_MTU);
+        if let Err(e) = do_ioctl(sock, SIOCSIFMTU, &mut rq) {
+            println!("[utun] 设置 MTU={TUN_MTU} 失败（大包可能不通）: {e:#}");
+        }
+
+        // ⑤ 置 IFF_UP —— 必须有，否则接口不工作。先读回原 flags 再或上，别冲掉别的位
         let mut rq = IfReq::new(ifname)?;
         do_ioctl(sock, SIOCGIFFLAGS, &mut rq).context("SIOCGIFFLAGS")?;
         rq.put_flags(rq.flags() | IFF_UP);
         do_ioctl(sock, SIOCSIFFLAGS, &mut rq).context("SIOCSIFFLAGS")?;
+
+        // ⑥ 读回自证：让日志直接显示最终生效的地址/MTU/UP 状态，
+        //    不用再上机敲 ifconfig 去猜配置到底有没有落下。
+        let mut ra = IfReq::new(ifname)?;
+        if libc::ioctl(sock, SIOCGIFADDR, &mut ra as *mut IfReq) == 0 {
+            let addr = ra.get_ipv4();
+            let mut rm = IfReq::new(ifname)?;
+            let mtu = if libc::ioctl(sock, SIOCGIFMTU, &mut rm as *mut IfReq) == 0 {
+                rm.get_mtu()
+            } else {
+                -1
+            };
+            let mut rf = IfReq::new(ifname)?;
+            let up = libc::ioctl(sock, SIOCGIFFLAGS, &mut rf as *mut IfReq) == 0
+                && (rf.flags() & IFF_UP) != 0;
+            println!("[utun] 读回 {ifname}: addr={addr} mtu={mtu} up={up}");
+        }
     }
     Ok(())
 }
