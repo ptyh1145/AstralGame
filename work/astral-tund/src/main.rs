@@ -303,7 +303,7 @@ async fn run_daemon() -> Result<()> {
             if reader.read_line(&mut line).await.is_err() {
                 return;
             }
-            let resp = handle_daemon_cmd(line.trim_end_matches(['\r', '\n']));
+            let resp = handle_daemon_cmd(line.trim_end_matches(['\r', '\n'])).await;
             let _ = wr.write_all(resp.as_bytes()).await;
             let _ = wr.flush().await;
         });
@@ -314,7 +314,7 @@ fn cstring(s: &str) -> std::ffi::CString {
     std::ffi::CString::new(s).unwrap_or_else(|_| std::ffi::CString::new("").unwrap())
 }
 
-fn handle_daemon_cmd(line: &str) -> String {
+async fn handle_daemon_cmd(line: &str) -> String {
     // 只按空格切 5 段；**不能先 trim 整行**——peer 为空时命令形如
     // "START room secret 10.144.144.5/24 " （末尾一个空格），trim 掉就只剩
     // 4 段，START 会掉进 default 分支返回 "ERR unknown command: START"，
@@ -371,6 +371,23 @@ fn handle_daemon_cmd(line: &str) -> String {
             .into_owned();
             format!("state={st}\ntext={txt}\n")
         }
+        // PEERS —— 房间成员列表（谁在房间里、各自的虚拟 IP）。
+        // 数据与 AstralGame 的 get_network_status 同源：network_info()
+        //   → 本机 my_node_info + 其它节点 routes。
+        "PEERS" => match astral_tund::current_instance_id() {
+            None => "ERR not running\n".to_string(),
+            Some(id) => match astral_tund::bridge::members(id).await {
+                None => "ERR instance not ready\n".to_string(),
+                Some(list) => {
+                    let mut s = format!("count={}\n", list.len());
+                    for m in &list {
+                        s.push_str(&m.to_line());
+                        s.push('\n');
+                    }
+                    s
+                }
+            },
+        },
         "LOG" => unsafe {
             std::ffi::CStr::from_ptr(astral_tund::astral_log())
                 .to_string_lossy()

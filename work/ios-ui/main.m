@@ -70,6 +70,7 @@ int CCRandomGenerateBytes(void *bytes, size_t count) {
 @property (nonatomic, strong) UIButton *createButton;
 @property (nonatomic, strong) UIButton *connectButton;
 @property (nonatomic, strong) UILabel *stateLabel;
+@property (nonatomic, strong) UITextView *peersView;
 @property (nonatomic, strong) UITextView *logView;
 @property (nonatomic, strong) NSTimer *pollTimer;
 @end
@@ -147,6 +148,16 @@ int CCRandomGenerateBytes(void *bytes, size_t count) {
     self.stateLabel.text = @"状态：未连接";
     [self.view addSubview:self.stateLabel];
     y += 28;
+
+    // 房间成员：谁在房间里、各自的虚拟 IP（数据来自 daemon 的 PEERS 命令）
+    self.peersView = [[UITextView alloc] initWithFrame:CGRectMake(16, y, w - 32, 96)];
+    self.peersView.editable = NO;
+    self.peersView.font = [UIFont fontWithName:@"Menlo" size:11]
+                          ?: [UIFont systemFontOfSize:11];
+    self.peersView.backgroundColor = [UIColor colorWithWhite:0.95 alpha:1.0];
+    self.peersView.text = @"房间成员：（未连接）";
+    [self.view addSubview:self.peersView];
+    y += 102;
 
     self.logView = [[UITextView alloc] initWithFrame:CGRectMake(16, y, w - 32,
                                     self.view.bounds.size.height - y - 56)];
@@ -247,6 +258,39 @@ int CCRandomGenerateBytes(void *bytes, size_t count) {
     if (full.length > 0 && ![full isEqualToString:self.logView.text]) {
         self.logView.text = full;
         [self.logView scrollRangeToVisible:NSMakeRange(full.length, 0)];
+    }
+
+    // 房间成员：0.5s 轮询里每 4 次拉一次（2 秒），只在已连接时查，
+    // 避免把 UI 线程压在 socket 往返上。
+    static int peersTick = 0;
+    if (++peersTick >= 4) {
+        peersTick = 0;
+        if (st == 2) {
+            NSString *peers = [self sockSend:@"PEERS"];
+            if (peers.length > 0) {
+                NSString *show = peers;
+                NSInteger n = 0;
+                if ([show hasPrefix:@"count="]) {
+                    NSRange nl = [show rangeOfString:@"\n"];
+                    if (nl.location != NSNotFound) {
+                        n = [[show substringWithRange:
+                              NSMakeRange(6, nl.location - 6)] integerValue];
+                        show = [show substringFromIndex:nl.location + 1];
+                    }
+                }
+                if (n <= 0) {
+                    show = @"（还没有其它设备加入）";
+                }
+                if (![show isEqualToString:self.peersView.text]) {
+                    self.peersView.text = show;
+                }
+            } else {
+                self.peersView.text = @"房间成员：（守护进程无响应）";
+            }
+        } else {
+            self.peersView.text = (st == 1 ? @"房间成员：（连接中…）"
+                                           : @"房间成员：（未连接）");
+        }
     }
 }
 

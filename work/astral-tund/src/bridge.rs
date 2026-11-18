@@ -94,6 +94,81 @@ pub async fn my_ipv4(id: Uuid) -> Option<String> {
     }
 }
 
+/// 房间成员快照（用于 UI 显示「谁在房间里、各自虚拟 IP」）。
+pub struct Member {
+    /// 是否本机
+    pub local: bool,
+    pub hostname: String,
+    pub ipv4: String,
+    pub peer_id: u32,
+    /// 到该节点的跳数（0/1 = 直连）
+    pub cost: u32,
+}
+
+impl Member {
+    /// 一行可读文本：`[我] Astral 100.100.100.3 (peer=1234, cost=0)`
+    pub fn to_line(&self) -> String {
+        let me = if self.local { "[我] " } else { "" };
+        let name = if self.hostname.is_empty() {
+            format!("peer{}", self.peer_id)
+        } else {
+            self.hostname.clone()
+        };
+        let ip = if self.ipv4.is_empty() {
+            "-".to_string()
+        } else {
+            self.ipv4.clone()
+        };
+        format!(
+            "{me}{name}  {ip}  (peer={}, cost={})",
+            self.peer_id, self.cost
+        )
+    }
+}
+
+/// 读回房间成员列表：本机取 `my_node_info`，其它节点取 `routes`。
+///
+/// 与 AstralGame 的 `peer_route_pairs_from_info` 同源——`routes` 表里是
+/// **其它** peer（不含本机行），所以本机必须单独从 `my_node_info` 取。
+pub async fn members(id: Uuid) -> Option<Vec<Member>> {
+    let info = MANAGER.network_info(id).await?;
+    let mut out = Vec::new();
+
+    if let Some(me) = info.my_node_info.as_ref() {
+        out.push(Member {
+            local: true,
+            hostname: me.hostname.clone(),
+            ipv4: me
+                .virtual_ipv4
+                .as_ref()
+                .and_then(|a| a.address.clone())
+                .unwrap_or_default(),
+            peer_id: me.peer_id,
+            cost: 0,
+        });
+    }
+
+    for r in info.routes.iter() {
+        // 本机那一行（inst_id == "local"）已经由上面处理
+        if r.inst_id == "local" {
+            continue;
+        }
+        out.push(Member {
+            local: false,
+            hostname: r.hostname.clone(),
+            ipv4: r
+                .ipv4_addr
+                .as_ref()
+                .and_then(|a| a.address.clone())
+                .unwrap_or_default(),
+            peer_id: r.peer_id,
+            cost: r.cost,
+        });
+    }
+
+    Some(out)
+}
+
 /// 关闭实例。注意 `delete_network_instances` 返回被删除的 id 列表。
 pub async fn close_instance(id: Uuid) -> Result<()> {
     MANAGER

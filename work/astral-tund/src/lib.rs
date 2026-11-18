@@ -144,6 +144,13 @@ fn session_store() -> &'static Mutex<Option<Session>> {
     SESSION.get_or_init(|| Mutex::new(None))
 }
 
+/// 当前运行中的实例 id（未运行时为 None）。
+///
+/// daemon 的 `PEERS` 命令靠它去 `bridge::members()` 查房间成员。
+pub fn current_instance_id() -> Option<uuid::Uuid> {
+    session_store().lock().ok().and_then(|s| s.as_ref().map(|x| x.instance_id))
+}
+
 fn cstr_arg(p: *const c_char, name: &str) -> Result<String> {
     if p.is_null() {
         anyhow::bail!("{name} 为空指针");
