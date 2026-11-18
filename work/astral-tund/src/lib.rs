@@ -75,6 +75,33 @@ fn state_text_store() -> &'static Mutex<CString> {
     STATE_TEXT.get_or_init(|| Mutex::new(CString::new("idle").unwrap()))
 }
 
+/// 打开 EasyTier 内部的 tracing 日志。
+///
+/// 为什么必须有：EasyTier 全程用 `tracing` 输出"连上 peer / 分配到 IP /
+/// tun 设备就绪 / 加入网络"这些关键事件，而**没有 subscriber 时它们会被
+/// 静默丢弃**——之前排查"安卓看不到 iOS"时日志里一片空白，就是因为只看到
+/// 我们自己 println 的那几行，协议层在干什么完全不可见。
+///
+/// 幂等：多次调用只生效一次。输出走 stderr，daemon 模式下由 launchd
+/// 重定向进 /var/log/astral-tund.log。
+pub fn init_tracing() {
+    static ONCE: OnceLock<()> = OnceLock::new();
+    ONCE.get_or_init(|| {
+        let installed = tracing_subscriber::fmt()
+            .with_max_level(tracing::Level::INFO)
+            .with_target(true)
+            .with_ansi(false)
+            .with_writer(std::io::stderr)
+            .try_init()
+            .is_ok();
+        if installed {
+            push_log("tracing 已启用：EasyTier 内部日志（peer/IP/tun）会一并输出");
+        } else {
+            push_log("tracing 初始化失败（可能已有全局 subscriber），继续运行");
+        }
+    });
+}
+
 /// 追加一行日志（同时打印到 stderr，方便 Xcode / Console 里看）
 pub fn push_log(line: &str) {
     eprintln!("[astral] {line}");
@@ -137,6 +164,7 @@ pub extern "C" fn astral_start(
     ipv4: *const c_char,
     peer: *const c_char,
 ) -> i32 {
+    init_tracing();
     let (room, secret, ipv4, peer) =
         match (cstr_arg(room, "room"), cstr_arg(secret, "secret"),
                cstr_arg(ipv4, "ipv4"), cstr_arg(peer, "peer")) {
@@ -263,7 +291,8 @@ async fn bring_up(room: &str, secret: &str, ipv4: &str, peer: &str) -> Result<uu
     bridge::attach_tun_fd(id, fd)?;
     // fd 所有权已交给 EasyTier，禁止 guard 再 close（否则关闭它持有的 fd）
     fd_guard.0 = -1;
-    push_log("tun fd 已注入，组网已启动");
+    push_log("tun fd 已注入：EasyTier 接管 utun，开始与 peer 握手");
+    push_log("提示：真实组网状态看上面的 tracing 日志（peer 连接 / 子网 / 分配到的 IP）");
     Ok(id)
 }
 

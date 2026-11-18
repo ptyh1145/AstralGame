@@ -277,6 +277,10 @@ async fn run_daemon() -> Result<()> {
     use tokio::io::{AsyncBufReadExt, AsyncWriteExt, BufReader};
     use tokio::net::UnixListener;
 
+    // 尽早装 subscriber：daemon 一启动就能看到 EasyTier 的协议层日志
+    astral_tund::init_tracing();
+    println!("[daemon] 启动（PID {}），日志 -> /var/log/astral-tund.log", std::process::id());
+
     let _ = std::fs::remove_file(SOCK_PATH);
     let listener = UnixListener::bind(SOCK_PATH)
         .with_context(|| format!("bind {SOCK_PATH} 失败（需要 root）"))?;
@@ -299,7 +303,7 @@ async fn run_daemon() -> Result<()> {
             if reader.read_line(&mut line).await.is_err() {
                 return;
             }
-            let resp = handle_daemon_cmd(line.trim());
+            let resp = handle_daemon_cmd(line.trim_end_matches(['\r', '\n']));
             let _ = wr.write_all(resp.as_bytes()).await;
             let _ = wr.flush().await;
         });
@@ -311,14 +315,23 @@ fn cstring(s: &str) -> std::ffi::CString {
 }
 
 fn handle_daemon_cmd(line: &str) -> String {
+    // 只按空格切 5 段；**不能先 trim 整行**——peer 为空时命令形如
+    // "START room secret 10.144.144.5/24 " （末尾一个空格），trim 掉就只剩
+    // 4 段，START 会掉进 default 分支返回 "ERR unknown command: START"，
+    // 表现就是 UI 一直在"连接中"而实例从未启动。
     let parts: Vec<&str> = line.splitn(5, ' ').collect();
     match *parts.first().unwrap_or(&"") {
-        "START" if parts.len() == 5 => {
-            // CString 必须活到调用结束
-            let room = cstring(parts[1]);
-            let secret = cstring(parts[2]);
-            let ipv4 = cstring(parts[3]);
-            let peer = cstring(parts[4]);
+        // peer 允许为空：只给 4 段（START room secret ipv4）也算合法
+        "START" if parts.len() >= 4 => {
+            let room = cstring(parts[1].trim());
+            let secret = cstring(parts[2].trim());
+            let ipv4 = cstring(parts[3].trim());
+            let peer = cstring(parts.get(4).map(|s| s.trim()).unwrap_or(""));
+            // 注意 secret 不打印明文
+            println!(
+                "[daemon] START room={:?} ipv4={:?} peer={:?}",
+                parts[1], parts[3], peer.to_string_lossy()
+            );
             let rc = astral_tund::astral_start(
                 room.as_ptr(),
                 secret.as_ptr(),

@@ -37,6 +37,15 @@ anyhow = "1"
 libc = "0.2"
 lazy_static = "1"
 uuid = "1"
+# EasyTier 内部全部用 tracing 打日志（连 peer、分配 IP、tun 就绪…）。
+# 不装 subscriber 这些行会被直接丢弃，等于组网过程完全不可见。
+tracing = "1"
+tracing-subscriber = { version = "0.3", default-features = false, features = [
+    "fmt",
+    "std",
+    "smallvec",
+    "ansi",
+] }
 tokio = { version = "1", features = [
     "rt-multi-thread",
     "macros",
