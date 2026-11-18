@@ -1,5 +1,14 @@
 //! CLI 与 UI 共用的配置构造逻辑。
 
+/// 房间虚拟网段（DHCP 初始网段），与 AstralGame 的
+/// `kRoomDhcpIpv4Cidr` / `kRoomDhcpIpv6Cidr` 完全一致。
+///
+/// EasyTier 的 `dhcp` / `dhcpv6` 字段接受 bool 或 CIDR 字符串（untagged
+/// DhcpConfig）。写裸 `true` 会落到默认网段，和安卓端不在同一个虚拟网络里，
+/// 表现就是「双方都进了房间、却谁也看不见谁」。
+pub const DHCP_V4_CIDR: &str = "100.100.100.0/24";
+pub const DHCP_V6_CIDR: &str = "fdae::/120";
+
 /// 转义放进 TOML 双引号字符串的内容
 pub fn esc(s: &str) -> String {
     s.replace('\\', "\\\\").replace('"', "\\\"")
@@ -24,10 +33,11 @@ pub fn cidr_network(ip: &str, prefix: u8) -> String {
     )
 }
 
-/// 生成 EasyTier 的 TOML 配置（与 Astral Game 里 buildTomlConfig 对齐）。
+/// 生成 EasyTier 的 TOML 配置（与 AstralGame 的 `buildTomlConfig` 对齐）。
 ///
-/// `dhcp = true` 时由 EasyTier 自动分配虚拟 IP（官方默认行为，
-/// 也最容易和安卓/Windows 版互通）；false 时写死 `ipv4`。
+/// `dhcp = true` 时写 `dhcp = "100.100.100.0/24"` + `dhcpv6 = "fdae::/120"`，
+/// 由 EasyTier 在**同一虚拟网段**内协商地址（与安卓端完全一致）；
+/// `false` 时写死 `ipv4`。
 pub fn build_toml(
     hostname: &str,
     room: &str,
@@ -44,9 +54,12 @@ pub fn build_toml(
         .collect::<Vec<_>>()
         .join("\n");
 
-    // DHCP 模式不写 ipv4（写了会被忽略/冲突），由 EasyTier 分配
+    // 与 AstralGame 的 p2p_config_service.dart 逐字对齐：
+    //   dhcp    = "100.100.100.0/24"   ← 带网段，不是裸 true
+    //   dhcpv6  = "fdae::/120"
+    // 这样 iOS 与安卓落在同一虚拟网段，EasyTier 的 DHCP 才会分配可互通的地址。
     let addr_block = if dhcp {
-        "dhcp = true\ndhcpv6 = false".to_string()
+        format!("dhcp = \"{DHCP_V4_CIDR}\"\ndhcpv6 = \"{DHCP_V6_CIDR}\"")
     } else {
         format!("dhcp = false\ndhcpv6 = false\nipv4 = \"{}\"", esc(ipv4))
     };

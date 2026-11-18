@@ -312,6 +312,39 @@ pub fn configure_iface(ifname: &str, addr: &str, prefix: u8) -> Result<()> {
     run(prog, &[ifname, "inet", ip_s, ip_s, "netmask", &mask, "up"])
 }
 
+/// 只把接口置 UP 并设好 MTU，**暂不配地址**。
+///
+/// DHCP 模式（= AstralGame 的默认机制）下，地址要等 EasyTier 协商出来才能配，
+/// 但 fd 注入前接口必须是 UP 的，否则 EasyTier 在 fd 上读写会失败。
+pub fn prepare_iface(ifname: &str) -> Result<()> {
+    unsafe {
+        let sock = libc::socket(libc::AF_INET, libc::SOCK_DGRAM, 0);
+        if sock < 0 {
+            bail!("socket(AF_INET, SOCK_DGRAM) 失败: {}", std::io::Error::last_os_error());
+        }
+        let r = prepare_on_sock(sock, ifname);
+        libc::close(sock);
+        r
+    }
+}
+
+fn prepare_on_sock(sock: RawFd, ifname: &str) -> Result<()> {
+    unsafe {
+        let mut rq = IfReq::new(ifname)?;
+        rq.put_mtu(TUN_MTU);
+        if let Err(e) = do_ioctl(sock, SIOCSIFMTU, &mut rq) {
+            println!("[utun] 设置 MTU={TUN_MTU} 失败（大包可能不通）: {e:#}");
+        }
+
+        let mut rq = IfReq::new(ifname)?;
+        do_ioctl(sock, SIOCGIFFLAGS, &mut rq).context("SIOCGIFFLAGS")?;
+        rq.put_flags(rq.flags() | IFF_UP);
+        do_ioctl(sock, SIOCSIFFLAGS, &mut rq).context("SIOCSIFFLAGS")?;
+    }
+    println!("[utun] {ifname} 已 UP（MTU {TUN_MTU}），地址等 EasyTier 协商后再配");
+    Ok(())
+}
+
 fn configure_iface_ioctl(ifname: &str, ip: Ipv4Addr, prefix: u8) -> Result<()> {
     let mask = prefix_to_v4(prefix)?;
     unsafe {

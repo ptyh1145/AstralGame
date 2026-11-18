@@ -69,6 +69,31 @@ pub fn attach_tun_fd(id: Uuid, fd: i32) -> Result<()> {
         .context("EasyTier 未能接管 tun fd")
 }
 
+/// 读回本机被 EasyTier 分配的虚拟 IPv4（DHCP 协商结果），去掉 `/prefix`。
+///
+/// 数据来源与 AstralGame 的 `get_network_status` 完全一致：
+///   `MANAGER.network_info(id)` → `my_node_info.virtual_ipv4`
+/// （安卓端先由 VpnService.Builder 把地址配进 tun；iOS 没有 NEIPv4Settings，
+///   只能自己读回来再 ioctl，这是唯一等价做法。）
+///
+/// 尚未协商出地址时返回 `None`，调用方应轮询等待。
+pub async fn my_ipv4(id: Uuid) -> Option<String> {
+    let info = MANAGER.network_info(id).await?;
+    let addr = info
+        .my_node_info
+        .as_ref()?
+        .virtual_ipv4
+        .as_ref()?
+        .address
+        .clone()?;
+    let ip = addr.split('/').next().unwrap_or(&addr).trim().to_string();
+    if ip.is_empty() || ip == "0.0.0.0" {
+        None
+    } else {
+        Some(ip)
+    }
+}
+
 /// 关闭实例。注意 `delete_network_instances` 返回被删除的 id 列表。
 pub async fn close_instance(id: Uuid) -> Result<()> {
     MANAGER

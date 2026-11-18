@@ -116,11 +116,10 @@ int CCRandomGenerateBytes(void *bytes, size_t count) {
     dhcpLabel.font = [UIFont systemFontOfSize:15];
     [self.view addSubview:dhcpLabel];
     self.dhcpSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(w - 70, y + 6, 51, 31)];
-    // 默认关：安卓端是 VpnService 静态配 100.100.100.x，iOS 必须与之对齐。
-    // 开 DHCP 时 EasyTier 只在内部协商地址，而 iOS 没有 NEIPv4Settings，
-    // 没法把协商结果写进 utun —— 接口会一直没有 IP，包进不来也出不去，
-    // 表现就是「进了房间但对面看不到我」。
-    self.dhcpSwitch.on = NO;
+    // 默认开，与 AstralGame 的 isDhcp=true 一致。TOML 里写的是
+    // dhcp = "100.100.100.0/24"（不是裸 true，否则 EasyTier 会落到默认网段，
+    // 和安卓端不在同一个虚拟网络）。地址由 EasyTier 协商，daemon 读回后配进 utun。
+    self.dhcpSwitch.on = YES;
     [self.view addSubview:self.dhcpSwitch];
     y += 48;
 

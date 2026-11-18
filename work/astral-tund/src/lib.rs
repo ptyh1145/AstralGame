@@ -244,7 +244,6 @@ async fn bring_up(room: &str, secret: &str, ipv4: &str, peer: &str) -> Result<uu
         Some((ip, p)) => (ip.to_string(), p.parse::<u8>().unwrap_or(24)),
         None => (ipv4.to_string(), 24u8),
     };
-    let subnet = cli::cidr_network(&ip, prefix);
 
     push_log("打开 utun ...");
     // 逐个尝试 utun0..utun7：老设备上 utun0 常被残留 daemon / 别的 VPN
@@ -272,21 +271,14 @@ async fn bring_up(room: &str, secret: &str, ipv4: &str, peer: &str) -> Result<uu
     let mut fd_guard = UtunFd(fd); // 失败路径自动 close；成功 attach 后交出所有权
     push_log(&format!("utun fd={fd} ifname={real_name}"));
 
-    // 无论是否 DHCP，都必须给 utun 配地址。
+    // 与 AstralGame 一致的顺序：
+    //   接口先 UP（EasyTier 要在 fd 上读写）→ 起实例 → 注 fd → 读回分配的 IP → 配地址
     //
-    // DHCP 模式下 EasyTier 只在**内部**协商地址，而 iOS 没有 NEIPv4Settings /
-    // setTunnelNetworkSettings，协商结果没有途径落到内核接口上。接口一旦没有
-    // 地址，内核就不会把包路由进 utun，EasyTier 也读不到任何东西 ——
-    // 表现就是「进了房间但对面看不到我」。所以这里先按 ipv4 参数配一个保底
-    // 地址，让接口活起来；最终以 EasyTier 协商结果为准（同网段即可）。
-    if dhcp {
-        push_log("DHCP 模式：先按 ipv4 参数配保底地址（否则 utun 无地址，包进不来）");
-    }
-    utun::configure_iface(&real_name, &ip, prefix).context("配置接口地址失败")?;
-    push_log(&format!("接口已配置 {ip}/{prefix}"));
-    if let Err(e) = utun::add_subnet_route(&real_name, &subnet) {
-        push_log(&format!("加路由失败（不致命）: {e}"));
-    }
+    // DHCP 模式的地址只能从 EasyTier 读回：iOS 没有 NEIPv4Settings /
+    // setTunnelNetworkSettings，协商结果没有别的途径落到内核接口上。接口没有
+    // 地址时内核不会把包路由进 utun，EasyTier 也读不到东西——表现就是
+    // 「进了房间但对面看不到我」。
+    utun::prepare_iface(&real_name).context("激活 utun 接口失败")?;
 
     push_log("启动 EasyTier 实例 ...");
     let id = bridge::create_instance(&toml)?;
@@ -295,7 +287,38 @@ async fn bring_up(room: &str, secret: &str, ipv4: &str, peer: &str) -> Result<uu
     bridge::attach_tun_fd(id, fd)?;
     // fd 所有权已交给 EasyTier，禁止 guard 再 close（否则关闭它持有的 fd）
     fd_guard.0 = -1;
-    push_log("tun fd 已注入：EasyTier 接管 utun，开始与 peer 握手");
+    push_log("tun fd 已注入：EasyTier 接管 utun");
+
+    // 地址：DHCP 要等 EasyTier 协商完（与 AstralGame 的 get_network_status 同一来源）
+    let mut final_ip = ip.clone();
+    if dhcp {
+        push_log("等待 EasyTier 分配虚拟 IP（DHCP）...");
+        let mut got: Option<String> = None;
+        for _ in 0..24 {
+            tokio::time::sleep(std::time::Duration::from_millis(500)).await;
+            if let Some(a) = bridge::my_ipv4(id).await {
+                got = Some(a);
+                break;
+            }
+        }
+        match got {
+            Some(a) => {
+                push_log(&format!("EasyTier 已分配 {a}"));
+                final_ip = a;
+            }
+            None => push_log(&format!(
+                "12 秒内未拿到 DHCP 地址，回退到 ipv4 参数 {ip}"
+            )),
+        }
+    }
+
+    utun::configure_iface(&real_name, &final_ip, prefix).context("配置接口地址失败")?;
+    push_log(&format!("接口已配置 {final_ip}/{prefix}"));
+
+    let final_subnet = cli::cidr_network(&final_ip, prefix);
+    if let Err(e) = utun::add_subnet_route(&real_name, &final_subnet) {
+        push_log(&format!("加路由失败（不致命）: {e}"));
+    }
     push_log("提示：真实组网状态看上面的 tracing 日志（peer 连接 / 子网 / 分配到的 IP）");
     Ok(id)
 }
