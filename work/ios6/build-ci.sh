@@ -269,7 +269,18 @@ export CXX_aarch64_ios="$CLANG";           export CXXFLAGS_aarch64_ios="$C_CFLAG
 # 里 ICE（内部编译器错误）。我们只需要它的 rlib。
 # cargo 不会校验 git checkout 的工作树，所以就地改掉再编即可。
 say "预取依赖"
-cargo +nightly fetch || warn "cargo fetch 有警告，继续"
+# 依赖解析错误（例如版本要求不存在）会让 fetch 返回非 0；这类错误必须当场停下，
+# 否则会被拖到编译阶段，日志里只剩一堆莫名其妙的符号/类型错误，很难定位。
+set +e
+FETCH_OUT="$(cargo +nightly fetch 2>&1)"
+FETCH_RC=$?
+echo "$FETCH_OUT"
+if [ "$FETCH_RC" != "0" ]; then
+  if echo "$FETCH_OUT" | grep -q "^error"; then
+    die "cargo fetch 失败（依赖解析错误，见上面的 error 行）"
+  fi
+  warn "cargo fetch 返回 $FETCH_RC（无 error 行，继续）"
+fi
 
 # 只要某个依赖声明了 crate-type 含 cdylib / staticlib，cargo 就会给那次编译
 # 加上 --crate-type cdylib/staticlib，rustc 在自定义 target 上会在
