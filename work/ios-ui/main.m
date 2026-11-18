@@ -359,10 +359,11 @@ int CCRandomGenerateBytes(void *bytes, size_t count) {
     return [[NSString alloc] initWithData:out encoding:NSUTF8StringEncoding];
 }
 
-// 生成随机字符串（官方创建房间时自动生成房间名/密码，用户无需填写）。
-// alphabet 去掉了易混淆的 l/I/1 和 O/0。
+// 生成随机字符串，字符集与 AstralGame 的 P2PConfigService.generateRoomCode
+// 逐字一致：去掉易混淆的 0/O/1/I/l，保证两端生成的房间码可以互抄。
 static NSString *randomString(NSUInteger len) {
-    static NSString *const alphabet = @"abcdefghijkmnopqrstuvwxyz23456789";
+    static NSString *const alphabet =
+        @"23456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz";
     NSMutableString *s = [NSMutableString stringWithCapacity:len];
     for (NSUInteger i = 0; i < len; i++) {
         uint32_t r = arc4random_uniform((uint32_t)alphabet.length);
@@ -402,12 +403,14 @@ static NSString *virtualIpv4(NSString *nick, NSString *room) {
               [NSCharacterSet whitespaceAndNewlineCharacterSet]];
     BOOL autoRoom = (room.length == 0 || [room isEqualToString:@"test"]);
     BOOL autoSecret = (secret.length == 0 || [secret isEqualToString:@"123456"]);
+    // 与 AstralGame 完全一致：房间名 10 位、密码 16 位，同一字符集
+    // （connection_service.dart 用 generateRoomCode(length:10) / (length:16)）
     if (autoRoom) {
-        room = [NSString stringWithFormat:@"room-%@", randomString(6)];
+        room = randomString(10);
         self.roomField.text = room;
     }
     if (autoSecret) {
-        secret = randomString(12);
+        secret = randomString(16);
         self.secretField.text = secret;
     }
     NSString *peer = self.peerField.text ?: @"";
