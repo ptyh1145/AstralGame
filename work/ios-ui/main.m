@@ -116,7 +116,11 @@ int CCRandomGenerateBytes(void *bytes, size_t count) {
     dhcpLabel.font = [UIFont systemFontOfSize:15];
     [self.view addSubview:dhcpLabel];
     self.dhcpSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(w - 70, y + 6, 51, 31)];
-    self.dhcpSwitch.on = YES;   // 默认开，和官方一致
+    // 默认关：安卓端是 VpnService 静态配 100.100.100.x，iOS 必须与之对齐。
+    // 开 DHCP 时 EasyTier 只在内部协商地址，而 iOS 没有 NEIPv4Settings，
+    // 没法把协商结果写进 utun —— 接口会一直没有 IP，包进不来也出不去，
+    // 表现就是「进了房间但对面看不到我」。
+    self.dhcpSwitch.on = NO;
     [self.view addSubview:self.dhcpSwitch];
     y += 48;
 
@@ -368,6 +372,23 @@ static NSString *randomString(NSUInteger len) {
     return s;
 }
 
+// 虚拟 IP：必须和安卓同网段（100.100.100.0/24，房主 .1、客人 .2 起顺排）。
+//
+// 不能再用写死的 100.100.100.250：
+//   * 同房间两台 iOS 会撞成同一个 IP，EasyTier 直接把其中一台判为冲突；
+//   * 静态配置必须每台唯一，否则路由/ARP 层面根本互相看不见。
+// 用「昵称 + 房间名」做 FNV-1a 散列落到 .100~.240，避开房主与低段客人。
+static NSString *virtualIpv4(NSString *nick, NSString *room) {
+    NSString *seed = [NSString stringWithFormat:@"%@|%@", nick ?: @"", room ?: @""];
+    uint32_t h = 2166136261u; // FNV-1a offset basis
+    for (NSUInteger i = 0; i < seed.length; i++) {
+        h ^= (uint32_t)[seed characterAtIndex:i];
+        h *= 16777619u;
+    }
+    int host = 100 + (int)(h % 141); // 100..240
+    return [NSString stringWithFormat:@"100.100.100.%d/24", host];
+}
+
 // 创建房间：POST /v1/codes 换取 6 位房间码
 // 请求体就是官方的 RoomInvitePayload，peers 填我们连的服务器地址。
 // 和官方一致：房间名/密码没被用户改过（还是默认值或空）时自动生成，
@@ -476,12 +497,15 @@ static NSString *randomString(NSUInteger len) {
 - (void)startWithRoom:(NSString *)room secret:(NSString *)secret peer:(NSString *)peer {
     [self saveSettings];
     astral_clear_log();
-    NSString *ipv4 = @"100.100.100.250/24";
 
     // 昵称 → EasyTier hostname（房间成员列表里显示）
     NSString *nick = self.nickField.text ?: @"";
     nick = [nick stringByTrimmingCharactersInSet:
             [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+
+    // 虚拟 IP：必须在昵称之后算（用它做散列种子），保证同房间不撞地址
+    NSString *ipv4 = virtualIpv4(nick, room);
+
     if (nick.length > 0) {
         if (![self sockSend:[NSString stringWithFormat:@"HOST %@", nick]]) {
             astral_set_hostname([nick UTF8String]);
