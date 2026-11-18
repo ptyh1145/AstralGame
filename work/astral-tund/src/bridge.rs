@@ -86,7 +86,10 @@ pub async fn my_ipv4(id: Uuid) -> Option<String> {
         .as_ref()?
         .address
         .clone()?;
-    let ip = addr.split('/').next().unwrap_or(&addr).trim().to_string();
+    // proto 的 Ipv4Addr.address 不是 String，必须先 to_string()
+    // （AstralGame 里就是 `.map(|ip| ip.to_string())`，这里同样处理）
+    let raw = addr.to_string();
+    let ip = raw.split('/').next().unwrap_or(&raw).trim().to_string();
     if ip.is_empty() || ip == "0.0.0.0" {
         None
     } else {
@@ -158,6 +161,7 @@ fn members_from_info(info: easytier::proto::api::manage::NetworkInstanceRunningI
                 .ipv4_addr
                 .as_ref()
                 .and_then(|a| a.address.clone())
+                .map(|ip| ip.to_string())
                 .unwrap_or_default(),
             peer_id: r.peer_id,
             cost: r.cost,
