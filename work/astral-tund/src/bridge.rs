@@ -177,8 +177,7 @@ fn members_from_info(info: easytier::proto::api::manage::NetworkInstanceRunningI
         let nat = p.get_udp_nat_type();
         let conn = p
             .get_conn_protos()
-            .first()
-            .cloned()
+            .and_then(|v| v.first().cloned())
             .unwrap_or_default();
         let ver = r.version.clone();
         out.push(Member {
