@@ -124,7 +124,7 @@ int CCRandomGenerateBytes(void *bytes, size_t count) {
     self.secretField = [self makeField:@"密码" y:y]; y += 46;
     self.secretField.text = @"123456";
     self.peerField = [self makeField:@"服务器 (tcp://ip:11010)" y:y]; y += 46;
-    self.nickField = [self makeField:@"昵称（显示在房间里）" y:y]; y += 46;
+    self.nickField = [self makeField:@"用户名（房间成员列表显示）" y:y]; y += 46;
     self.nickField.text = @"iPhone";
 
     // 自动分配虚拟IP（DHCP）：官方默认开启，互通时最稳
@@ -425,8 +425,20 @@ int CCRandomGenerateBytes(void *bytes, size_t count) {
     return [[NSString alloc] initWithData:out encoding:NSUTF8StringEncoding];
 }
 
-// 生成随机字符串，字符集与 AstralGame 的 P2PConfigService.generateRoomCode
-// 逐字一致：去掉易混淆的 0/O/1/I/l，保证两端生成的房间码可以互抄。
+// 随机 ID：与 AstralGame 的 ConnectionService._randomId 一致（小写字母+数字）。
+// network_name 用它拼 'ag_' + 10 位（'ag_xxxxxxxxxx'）。
+static NSString *randomId(NSUInteger len) {
+    static NSString *const alphabet = @"abcdefghijklmnopqrstuvwxyz0123456789";
+    NSMutableString *s = [NSMutableString stringWithCapacity:len];
+    for (NSUInteger i = 0; i < len; i++) {
+        uint32_t r = arc4random_uniform((uint32_t)alphabet.length);
+        [s appendFormat:@"%C", [alphabet characterAtIndex:r]];
+    }
+    return s;
+}
+
+// generateRoomCode：与 AstralGame 的 P2PConfigService.generateRoomCode
+// 逐字一致（去掉易混淆的 0/O/1/I/l），仅用于 network_secret。
 static NSString *randomString(NSUInteger len) {
     static NSString *const alphabet =
         @"23456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz";
@@ -469,10 +481,12 @@ static NSString *virtualIpv4(NSString *nick, NSString *room) {
               [NSCharacterSet whitespaceAndNewlineCharacterSet]];
     BOOL autoRoom = (room.length == 0 || [room isEqualToString:@"test"]);
     BOOL autoSecret = (secret.length == 0 || [secret isEqualToString:@"123456"]);
-    // 与 AstralGame 完全一致：房间名 10 位、密码 16 位，同一字符集
-    // （connection_service.dart 用 generateRoomCode(length:10) / (length:16)）
+    // 与 AstralGame 的 createAndConnect 一致：
+    //   network_name   = 'ag_' + _randomId(10)   ← ag_ 前缀 + 小写字母数字
+    //   network_secret = generateRoomCode(length: 16)
+    // 房间名里没有 'ag_' 前缀的话，安卓端按前缀过滤房间列表时会看不到 iOS 建的房。
     if (autoRoom) {
-        room = randomString(10);
+        room = [NSString stringWithFormat:@"ag_%@", randomId(10)];
         self.roomField.text = room;
     }
     if (autoSecret) {
@@ -497,7 +511,10 @@ static NSString *virtualIpv4(NSString *nick, NSString *room) {
         @"network_name": room,
         @"network_secret": secret,
         @"peers": peerArr,
-        @"display_name": nick,
+        // 与官方一致：display_name 是**房间标签**（安卓端房间卡片上显示的
+        // 名字），默认 = gameName，不是玩家名。玩家名是 EasyTier 的 hostname，
+        // 在成员列表里显示，两者别混。
+        @"display_name": @"\u5176\u4ed6\u6e38\u620f",
         @"transport": @"easytier"
     };
     NSData *body = [NSJSONSerialization dataWithJSONObject:payload options:0 error:NULL];
@@ -568,15 +585,20 @@ static NSString *virtualIpv4(NSString *nick, NSString *room) {
     [self saveSettings];
     astral_clear_log();
 
-    // 昵称 → EasyTier hostname（房间成员列表里显示）
+    // 用户名 → EasyTier hostname（= 房间成员列表里的设备名）。
+    // 与 AstralGame 一致：空则用 "Astral"（不是把房间名当玩家名）。
     NSString *nick = self.nickField.text ?: @"";
     nick = [nick stringByTrimmingCharactersInSet:
             [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if (nick.length == 0) {
+        nick = @"Astral";
+        self.nickField.text = nick;
+    }
 
     // 虚拟 IP：必须在昵称之后算（用它做散列种子），保证同房间不撞地址
     NSString *ipv4 = virtualIpv4(nick, room);
 
-    if (nick.length > 0) {
+    {
         if (![self sockSend:[NSString stringWithFormat:@"HOST %@", nick]]) {
             astral_set_hostname([nick UTF8String]);
         }
