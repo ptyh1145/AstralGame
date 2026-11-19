@@ -450,23 +450,129 @@ unsafe fn do_ioctl(sock: RawFd, req: libc::c_ulong, r: &mut IfReq) -> Result<()>
 /// 这个代价值得不偿失——`route` 命令在所有越狱环境下都有，探测一下即可。
 pub fn add_subnet_route(ifname: &str, cidr: &str) -> Result<()> {
     let t = tools();
-    let prog = t.route.as_ref().ok_or_else(|| {
-        anyhow::anyhow!(
-            "找不到 route 命令，无法添加路由。请任选一种方式：\n  \
-             a) Cydia 安装 inetutils 或 network-cmds\n  \
-             b) 手动执行: route -n add -net {cidr} -interface {ifname}"
-        )
-    })?;
-
-    match run(prog, &["-n", "add", "-net", cidr, "-interface", ifname]) {
-        Ok(()) => Ok(()),
-        // 重连时路由已存在属于正常情况
-        Err(e) if is_route_exists(&e) => {
-            println!("[utun] 路由 {cidr} 已存在，跳过");
-            Ok(())
+    match t.route.as_ref() {
+        Some(prog) => match run(prog, &["-n", "add", "-net", cidr, "-interface", ifname]) {
+            Ok(()) => Ok(()),
+            // 重连时路由已存在属于正常情况
+            Err(e) if is_route_exists(&e) => {
+                println!("[utun] 路由 {cidr} 已存在，跳过");
+                Ok(())
+            }
+            Err(e) => Err(e),
+        },
+        None => {
+            // 没有 route 命令（大部分精简越狱系统都没有）。
+            // 直接走 PF_ROUTE routing socket —— /sbin/route 内部就是往这个
+            // socket 写 RTM_ADD 消息，纯 syscall，root 即可，iOS 内核原生支持。
+            println!("[utun] 无 route 命令，改用 PF_ROUTE 添加路由 {cidr} -> {ifname}");
+            add_route_pf(ifname, cidr)
         }
-        Err(e) => Err(e),
     }
+}
+
+// ==================== PF_ROUTE（Darwin routing socket）====================
+//
+// 消息布局（64 位 Darwin，参见 xnu bsd/net/route.h）：
+//   struct rt_msghdr {          // 136 字节（含 rt_metrics 12×u64=96）
+//     u_short msglen;  u_char version;  u_char type;
+//     u_short index;   int flags;  int addrs;  int pid;  int seq;
+//     int errno;  int use;  u_int32 inits;  struct rt_metrics rmx;
+//   }
+//   之后依次跟 3 个 sockaddr（各按 4 字节对齐）：
+//     RTA_DST(16) + RTA_GATEWAY(16, sockaddr_dl 带 if_index) + RTA_NETMASK(16)
+//
+// gateway 用 sockaddr_dl（链路层 + 接口号）等价于命令行的 `-interface utunX`。
+
+const AF_ROUTE_DARWIN: libc::c_int = 17;
+const AF_LINK_DARWIN: u8 = 18;
+const AF_INET_DARWIN: u8 = 2;
+const SOCK_RAW_DARWIN: libc::c_int = 3;
+const RTM_ADD_DARWIN: u8 = 0x1;
+const RTM_VERSION_DARWIN: u8 = 0x4;
+const RTF_UP_DARWIN: i32 = 0x1;
+const RTF_STATIC_DARWIN: i32 = 0x800;
+const RTA_DST: i32 = 0x1;
+const RTA_GW: i32 = 0x2;
+const RTA_MASK: i32 = 0x8;
+const RTMSG_HDR_LEN: usize = 136;
+const SOCK_IN_LEN: usize = 16;
+
+fn put_i32(buf: &mut [u8], off: usize, v: i32) {
+    buf[off..off + 4].copy_from_slice(&v.to_ne_bytes());
+}
+
+fn put_u16(buf: &mut [u8], off: usize, v: u16) {
+    buf[off..off + 2].copy_from_slice(&v.to_ne_bytes());
+}
+
+/// 用 PF_ROUTE routing socket 添加 `net/prefix -> ifname` 的接口路由
+pub fn add_route_pf(ifname: &str, cidr: &str) -> Result<()> {
+    let (net, prefix) = parse_cidr(cidr)?;
+    let if_index = unsafe { libc::if_nametoindex(ifname.as_ptr() as *const libc::c_char) };
+    if if_index == 0 {
+        bail!("接口 {ifname} 不存在（if_nametoindex == 0）");
+    }
+
+    let mask = prefix_to_v4(prefix)?;
+    let total = RTMSG_HDR_LEN + SOCK_IN_LEN * 3;
+    let mut buf = vec![0u8; total];
+
+    // rt_msghdr
+    put_u16(&mut buf, 0, total as u16); // rtm_msglen
+    buf[2] = RTM_VERSION_DARWIN;
+    buf[3] = RTM_ADD_DARWIN;
+    put_u16(&mut buf, 4, if_index as u16); // rtm_index
+    put_i32(&mut buf, 8, RTF_UP_DARWIN | RTF_STATIC_DARWIN);
+    put_i32(&mut buf, 12, RTA_DST | RTA_GW | RTA_MASK); // rtm_addrs
+    put_i32(&mut buf, 16, unsafe { libc::getpid() } as i32); // rtm_pid
+    put_i32(&mut buf, 20, 1); // rtm_seq（一次一条，固定值即可）
+    // rtm_errno / rtm_use / rtm_inits / rtm_rmx 全 0
+
+    // RTA_DST: sockaddr_in（网段地址）
+    let dst = RTMSG_HDR_LEN;
+    buf[dst] = SOCK_IN_LEN as u8;
+    buf[dst + 1] = AF_INET_DARWIN;
+    buf[dst + 4..dst + 8].copy_from_slice(&net.octets());
+
+    // RTA_GATEWAY: sockaddr_dl（带接口号，指明走 utunX）
+    let gw = dst + SOCK_IN_LEN;
+    buf[gw] = SOCK_IN_LEN as u8;
+    buf[gw + 1] = AF_LINK_DARWIN;
+    put_u16(&mut buf, gw + 2, if_index as u16); // sdl_index
+
+    // RTA_NETMASK: sockaddr_in
+    let nm = gw + SOCK_IN_LEN;
+    buf[nm] = SOCK_IN_LEN as u8;
+    buf[nm + 1] = AF_INET_DARWIN;
+    buf[nm + 4..nm + 8].copy_from_slice(&mask.octets());
+
+    unsafe {
+        let s = libc::socket(AF_ROUTE_DARWIN, SOCK_RAW_DARWIN, 0);
+        if s < 0 {
+            bail!("PF_ROUTE socket 创建失败: {}", std::io::Error::last_os_error());
+        }
+        let w = libc::write(s, buf.as_ptr() as *const libc::c_void, buf.len());
+        let w_err = std::io::Error::last_os_error();
+        libc::close(s);
+        if w < 0 {
+            bail!("写路由消息失败: {w_err}");
+        }
+    }
+    println!(
+        "[utun] PF_ROUTE 已提交路由: {net}/{prefix} -> {ifname} (if_index={if_index})"
+    );
+    Ok(())
+}
+
+fn parse_cidr(cidr: &str) -> Result<(Ipv4Addr, u8)> {
+    let (ip, p) = cidr
+        .split_once('/')
+        .ok_or_else(|| anyhow::anyhow!("CIDR 格式错误: {cidr}"))?;
+    let net: Ipv4Addr = ip
+        .parse()
+        .map_err(|_| anyhow::anyhow!("IP 格式错误: {ip}"))?;
+    let prefix: u8 = p.parse().map_err(|_| anyhow::anyhow!("前缀非法: {p}"))?;
+    Ok((net, prefix))
 }
 
 fn is_route_exists(e: &anyhow::Error) -> bool {

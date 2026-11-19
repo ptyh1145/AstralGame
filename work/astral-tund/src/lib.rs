@@ -361,9 +361,13 @@ async fn bring_up(room: &str, secret: &str, ipv4: &str, peer: &str) -> Result<(u
     push_log(&format!("接口已配置 {final_ip}/{prefix}"));
 
     let final_subnet = cli::cidr_network(&final_ip, prefix);
+    // 路由是数据面的命根子：没有它，能收包但回包会走 Wi-Fi 默认网关丢掉。
+    // 之前标"不致命"是错的——日志显示这台设备没有 route 命令、路由从未加上，
+    // 表现正是"成员列表互通、ping 100% 丢包"。路由失败直接终止并给出原因。
     if let Err(e) = utun::add_subnet_route(&real_name, &final_subnet) {
-        push_log(&format!("加路由失败（不致命）: {e}"));
+        return Err(anyhow::anyhow!("添加路由失败（数据面无法工作）: {e:#}"));
     }
+    push_log(&format!("路由已添加: {final_subnet} -> {real_name}"));
     push_log("提示：真实组网状态看上面的 tracing 日志（peer 连接 / 子网 / 分配到的 IP）");
     // 把 fd 一并交回：EasyTier 建设备时用的是 close_fd_on_drop(false)，
     // 它不会替我们关这个 fd。断开时必须自己 close，否则 utun 一直被占，
