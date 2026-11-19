@@ -48,8 +48,12 @@ pub fn create_instance(toml: &str) -> Result<Uuid> {
         .collect::<Vec<_>>()
         .join(", ");
     println!(
-        "[bridge] network={} keep_ipv4={:?} peers=[{}]",
+        "[bridge] network={} hostname={:?} keep_ipv4={:?} peers=[{}]",
         net.network_name,
+        // 玩家名排查：config 层的 hostname 实际值。若这里有值而成员列表仍
+        // 显示空名，问题就在 EasyTier global_ctx 的 runtime 覆盖链
+        // （global_ctx.rs:177：runtime.node.hostname 会覆盖 TOML）。
+        cfg.get_hostname(),
         cfg.get_ipv4().map(|i| i.to_string()),
         peers
     );
