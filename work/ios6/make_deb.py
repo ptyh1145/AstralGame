@@ -17,11 +17,11 @@ import tarfile
 
 CONTROL = """Package: com.astral.game.ios
 Name: Astral Game
-Version: 1.0
+Version: 1.1
 Architecture: iphoneos-arm
 Section: Games
 Priority: optional
-Depends: firmware (>= 8.0)
+Depends: firmware (>= 8.0), network-cmds
 Maintainer: astral
 Description: Astral Game iOS LAN multiplayer client (jailbreak)
  Native UIKit UI + EasyTier networking core.
