@@ -468,8 +468,10 @@ static NSString *virtualIpv4(NSString *nick, NSString *room) {
     }
     NSDictionary *payload = @{
         @"v": @1,
-        @"game_id": @"minecraft",
-        @"game_name": @"\u6211\u7684\u4e16\u754c",
+        // 与 AstralGame 的 assets/games/rules.json 对齐：id=other / name_zh=其他游戏。
+        // 不绑定具体游戏，也就不会套用某个游戏的端口转发/魔法墙规则。
+        @"game_id": @"other",
+        @"game_name": @"\u5176\u4ed6\u6e38\u620f",
         @"network_name": room,
         @"network_secret": secret,
         @"peers": peerArr,
