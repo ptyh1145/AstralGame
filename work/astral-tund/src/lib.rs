@@ -136,9 +136,26 @@ fn set_state(st: u8, text: &str) {
 struct Session {
     instance_id: uuid::Uuid,
     runtime: Option<tokio::runtime::Runtime>,
+    /// 我们自己开的 utun fd。EasyTier 以 close_fd_on_drop(false) 接管，
+    /// 删除实例时**不会**关它，所以必须由 astral_stop 负责 close。
+    tun_fd: RawFd,
 }
 
 static SESSION: OnceLock<Mutex<Option<Session>>> = OnceLock::new();
+
+/// 断开请求：让停在 park() 的工作线程退出（光靠 park 会永远卡住）。
+static STOP_FLAG: AtomicU8 = AtomicU8::new(0);
+
+/// 工作线程句柄，astral_stop 用 `thread().unpark()` 唤醒它。
+static WORKER: OnceLock<Mutex<Option<std::thread::JoinHandle<()>>>> = OnceLock::new();
+
+fn worker_store() -> &'static Mutex<Option<std::thread::JoinHandle<()>>> {
+    WORKER.get_or_init(|| Mutex::new(None))
+}
+
+fn stop_requested() -> bool {
+    STOP_FLAG.load(Ordering::SeqCst) != 0
+}
 
 fn session_store() -> &'static Mutex<Option<Session>> {
     SESSION.get_or_init(|| Mutex::new(None))
@@ -189,6 +206,8 @@ pub extern "C" fn astral_start(
         return -2;
     }
 
+    // 新一轮连接：清掉上一轮的停止标志
+    STOP_FLAG.store(0, Ordering::SeqCst);
     set_state(STATE_STARTING, "启动中");
 
     // 后台线程跑 tokio runtime，UI 线程不阻塞。
@@ -198,7 +217,7 @@ pub extern "C" fn astral_start(
     // 症状就是状态永远停在"启动中"、连"打开 utun ..."都打不出来。
     // EasyTier 是单实例网络任务，current_thread 足够，且工程下方 astral_stop
     // 已验证该 runtime 类型在此环境可用。
-    std::thread::spawn(move || {
+    let handle = std::thread::spawn(move || {
         push_log("后台线程: 创建 tokio runtime ...");
         let rt = match tokio::runtime::Builder::new_current_thread()
             .enable_all()
@@ -213,21 +232,39 @@ pub extern "C" fn astral_start(
         };
         push_log("后台线程: runtime 就绪，进入 bring_up ...");
 
-        let result: Result<uuid::Uuid> = rt.block_on(async { bring_up(&room, &secret, &ipv4, &peer).await });
+        let result: Result<(uuid::Uuid, RawFd)> =
+            rt.block_on(async { bring_up(&room, &secret, &ipv4, &peer).await });
 
         match result {
-            Ok(id) => {
+            Ok((id, fd)) => {
+                // 启动过程中用户就点了断开：直接清理，不要先报"已连接"再挂着
+                if stop_requested() {
+                    push_log("启动期间收到断开请求，直接关闭实例");
+                    if let Err(e) = rt.block_on(bridge::close_instance(id)) {
+                        push_log(&format!("关闭实例失败: {e}"));
+                    }
+                    if fd >= 0 {
+                        unsafe { libc::close(fd) };
+                    }
+                    push_log("已清理，未进入连接状态");
+                    set_state(STATE_IDLE, "已停止");
+                    return;
+                }
+
                 push_log(&format!("实例已启动: {id}"));
-                // 让 runtime 常驻，UI 侧靠 astral_stop 结束
                 *session_store().lock().unwrap() = Some(Session {
                     instance_id: id,
-                    runtime: None, // runtime 由本线程持有，见下面 park
+                    runtime: None, // runtime 由本线程持有，见下面的 park
+                    tun_fd: fd,
                 });
                 set_state(STATE_RUNNING, "已连接");
-                // 保持线程与 runtime 存活
-                loop {
+
+                // 停在这里等 astral_stop。每轮都检查停止标志：unpark 之后能立刻
+                // 退出，不会像原来那样 park 在死循环里、连带 runtime 一起漏掉。
+                while !stop_requested() {
                     std::thread::park();
                 }
+                push_log("工作线程收到断开信号，退出");
             }
             Err(e) => {
                 set_state(STATE_ERROR, "连接失败");
@@ -236,12 +273,13 @@ pub extern "C" fn astral_start(
         }
         drop(rt);
     });
+    *worker_store().lock().unwrap() = Some(handle);
 
     0
 }
 
 /// 真正建立连接：开 utun → 配地址 → 建 EasyTier 实例 → 注入 fd
-async fn bring_up(room: &str, secret: &str, ipv4: &str, peer: &str) -> Result<uuid::Uuid> {
+async fn bring_up(room: &str, secret: &str, ipv4: &str, peer: &str) -> Result<(uuid::Uuid, RawFd)> {
     let host = hostname_store().lock().unwrap().clone();
     let dhcp = DHCP_ON.load(Ordering::SeqCst) != 0;
     let quic = QUIC_ON.load(Ordering::SeqCst) != 0;
@@ -327,20 +365,29 @@ async fn bring_up(room: &str, secret: &str, ipv4: &str, peer: &str) -> Result<uu
         push_log(&format!("加路由失败（不致命）: {e}"));
     }
     push_log("提示：真实组网状态看上面的 tracing 日志（peer 连接 / 子网 / 分配到的 IP）");
-    Ok(id)
+    // 把 fd 一并交回：EasyTier 建设备时用的是 close_fd_on_drop(false)，
+    // 它不会替我们关这个 fd。断开时必须自己 close，否则 utun 一直被占，
+    // 下次连接就 EBUSY（0..7 逐个试也只能撑 8 次）。
+    Ok((id, fd))
 }
 
 /// 断开连接。返回 0 表示已请求关闭。
 #[no_mangle]
 pub extern "C" fn astral_stop() -> i32 {
-    if STATE.load(Ordering::SeqCst) != STATE_RUNNING {
-        set_state(STATE_IDLE, "已停止");
-        return 0;
+    // ① 先立起停止标志并唤醒工作线程 —— 它 park 在启动/运行循环里，
+    //    不 unpark 的话会一直挂着，连同它的 runtime 一起泄漏。
+    STOP_FLAG.store(1, Ordering::SeqCst);
+    if let Ok(g) = worker_store().lock() {
+        if let Some(h) = g.as_ref() {
+            h.thread().unpark();
+        }
     }
+
+    // ② 有实例就异步关掉：删实例 → 关 fd → 清会话
     let id = session_store().lock().ok().and_then(|g| g.as_ref().map(|s| s.instance_id));
     match id {
         Some(id) => {
-            // 用一个临时 runtime 执行异步关闭
+            set_state(STATE_IDLE, "正在断开…");
             std::thread::spawn(move || {
                 let rt = tokio::runtime::Builder::new_current_thread()
                     .enable_all()
@@ -350,12 +397,27 @@ pub extern "C" fn astral_stop() -> i32 {
                         push_log(&format!("关闭实例失败: {e}"));
                     }
                 }
-                *session_store().lock().unwrap() = None;
+                // 实例删掉之后才关 fd：EasyTier 是 close_fd_on_drop(false)，
+                // 这个 fd 从注入那刻起就没人替我们关了。
+                let fd = session_store()
+                    .lock()
+                    .ok()
+                    .and_then(|mut g| g.take().map(|s| s.tun_fd));
+                match fd {
+                    Some(fd) if fd >= 0 => {
+                        unsafe { libc::close(fd) };
+                        push_log(&format!("已关闭 utun fd={fd}"));
+                    }
+                    Some(_) => {}
+                    None => push_log("断开时没有活跃会话（可能仍在启动中）"),
+                }
                 set_state(STATE_IDLE, "已停止");
+                push_log("已断开");
             });
             0
         }
         None => {
+            // 还在 STARTING 阶段：标志已置，bring_up 完成后会自己清理
             set_state(STATE_IDLE, "已停止");
             0
         }
