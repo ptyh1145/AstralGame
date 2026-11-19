@@ -69,6 +69,7 @@ int CCRandomGenerateBytes(void *bytes, size_t count) {
 @property (nonatomic, strong) UISwitch *dhcpSwitch;
 @property (nonatomic, strong) UIButton *createButton;
 @property (nonatomic, strong) UIButton *connectButton;
+@property (nonatomic, strong) UIScrollView *scroll;
 @property (nonatomic, strong) UILabel *stateLabel;
 @property (nonatomic, strong) UITextView *peersView;
 @property (nonatomic, strong) UITextView *logView;
@@ -88,10 +89,25 @@ int CCRandomGenerateBytes(void *bytes, size_t count) {
     // iOS 7+ 用 topLayoutGuide 取导航栏高度；iOS 6 没有该 API，运行时判断，
     // 退回固定 56pt（状态栏20 + 导航栏44 的经典高度），保证老设备不 crash。
     CGFloat topSafe = 56;
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
+    // topLayoutGuide 是 iOS 7 才有的属性：用 6.1 SDK 编译时必须整段跳过，
+    // 否则连"属性不存在"都过不了编译（运行时 respondsToSelector 挡不住编译期报错）。
     if ([self respondsToSelector:@selector(topLayoutGuide)]) {
         topSafe = (CGFloat)self.topLayoutGuide.length;
     }
-    CGFloat y = topSafe + 8;
+#endif
+
+    // iPhone 5（320×568，可用高约 504pt）放不下这一整屏表单：
+    // 原先日志框用「剩余高度」计算，在小屏上会得到负值，日志和"复制日志"按钮
+    // 直接被挤到屏幕外。改成整页可滚动，日志框给固定高度。
+    self.scroll = [[UIScrollView alloc] initWithFrame:
+                   CGRectMake(0, topSafe, w,
+                              self.view.bounds.size.height - topSafe)];
+    self.scroll.alwaysBounceVertical = YES;
+    self.scroll.backgroundColor = [UIColor colorWithWhite:0.96 alpha:1.0];
+    [self.view addSubview:self.scroll];
+
+    CGFloat y = 8;
 
     // 房间码：官方短码服务（astral-share），输入 6 位码即可自动拉取房间配置
     self.codeField = [self makeField:@"房间码（6 位，可留空）" y:y]; y += 46;
@@ -100,7 +116,7 @@ int CCRandomGenerateBytes(void *bytes, size_t count) {
     [self.joinButton setTitle:@"用房间码加入" forState:UIControlStateNormal];
     [self.joinButton addTarget:self action:@selector(joinByCode)
               forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:self.joinButton];
+    [self.scroll addSubview:self.joinButton];
     y += 44;
 
     self.roomField = [self makeField:@"房间名" y:y]; y += 46;
@@ -115,13 +131,13 @@ int CCRandomGenerateBytes(void *bytes, size_t count) {
     UILabel *dhcpLabel = [[UILabel alloc] initWithFrame:CGRectMake(16, y + 8, w - 90, 28)];
     dhcpLabel.text = @"自动分配虚拟IP";
     dhcpLabel.font = [UIFont systemFontOfSize:15];
-    [self.view addSubview:dhcpLabel];
+    [self.scroll addSubview:dhcpLabel];
     self.dhcpSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(w - 70, y + 6, 51, 31)];
     // 默认开，与 AstralGame 的 isDhcp=true 一致。TOML 里写的是
     // dhcp = "100.100.100.0/24"（不是裸 true，否则 EasyTier 会落到默认网段，
     // 和安卓端不在同一个虚拟网络）。地址由 EasyTier 协商，daemon 读回后配进 utun。
     self.dhcpSwitch.on = YES;
-    [self.view addSubview:self.dhcpSwitch];
+    [self.scroll addSubview:self.dhcpSwitch];
     y += 48;
 
     CGFloat halfW = (w - 32 - 8) / 2;
@@ -131,7 +147,7 @@ int CCRandomGenerateBytes(void *bytes, size_t count) {
     self.createButton.titleLabel.font = [UIFont boldSystemFontOfSize:16];
     [self.createButton addTarget:self action:@selector(createRoom)
                 forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:self.createButton];
+    [self.scroll addSubview:self.createButton];
 
     self.connectButton = [UIButton buttonWithType:UIButtonTypeSystem];
     self.connectButton.frame = CGRectMake(16 + halfW + 8, y, halfW, 44);
@@ -139,14 +155,14 @@ int CCRandomGenerateBytes(void *bytes, size_t count) {
     self.connectButton.titleLabel.font = [UIFont boldSystemFontOfSize:18];
     [self.connectButton addTarget:self action:@selector(toggleConnect)
                  forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:self.connectButton];
+    [self.scroll addSubview:self.connectButton];
     y += 52;
 
     self.stateLabel = [[UILabel alloc] initWithFrame:CGRectMake(16, y, w - 32, 24)];
     self.stateLabel.font = [UIFont systemFontOfSize:14];
     self.stateLabel.textColor = [UIColor darkGrayColor];
     self.stateLabel.text = @"状态：未连接";
-    [self.view addSubview:self.stateLabel];
+    [self.scroll addSubview:self.stateLabel];
     y += 28;
 
     // 房间成员：谁在房间里、各自的虚拟 IP（数据来自 daemon 的 PEERS 命令）
@@ -156,11 +172,11 @@ int CCRandomGenerateBytes(void *bytes, size_t count) {
                           ?: [UIFont systemFontOfSize:11];
     self.peersView.backgroundColor = [UIColor colorWithWhite:0.95 alpha:1.0];
     self.peersView.text = @"房间成员：（未连接）";
-    [self.view addSubview:self.peersView];
+    [self.scroll addSubview:self.peersView];
     y += 102;
 
-    self.logView = [[UITextView alloc] initWithFrame:CGRectMake(16, y, w - 32,
-                                    self.view.bounds.size.height - y - 56)];
+    // 固定高度：滚动布局里不能再吃「剩余高度」（iPhone 5 上会算成负数）
+    self.logView = [[UITextView alloc] initWithFrame:CGRectMake(16, y, w - 32, 150)];
     self.logView.editable = NO;
     self.logView.font = [UIFont fontWithName:@"Menlo" size:11] ?: [UIFont systemFontOfSize:11];
     self.logView.backgroundColor = [UIColor whiteColor];
@@ -171,13 +187,19 @@ int CCRandomGenerateBytes(void *bytes, size_t count) {
                  g_uid_before, g_uid_after);
         self.logView.text = [NSString stringWithUTF8String:buf];
     }
-    [self.view addSubview:self.logView];
+    [self.scroll addSubview:self.logView];
+    y += 158;
 
     UIButton *copyBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-    copyBtn.frame = CGRectMake(w - 140, self.view.bounds.size.height - 44, 130, 32);
+    copyBtn.frame = CGRectMake(w - 146, y, 130, 32);
     [copyBtn setTitle:@"复制日志" forState:UIControlStateNormal];
     [copyBtn addTarget:self action:@selector(copyLog) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:copyBtn];
+    [self.scroll addSubview:copyBtn];
+    y += 40;
+
+    // 内容总高：小屏（iPhone 5 = 320×568）靠滚动看到底部，
+    // 大屏（4.7" 以上）也不会出现"日志框被压成一条缝"。
+    self.scroll.contentSize = CGSizeMake(w, y + 16);
 
     // iOS 8 兼容：用 NSTimer 轮询，而不是 CADisplayLink / async
     // 读回上次的配置，避免每次都要重输
@@ -209,7 +231,7 @@ int CCRandomGenerateBytes(void *bytes, size_t count) {
     f.returnKeyType = UIReturnKeyDone;
     f.delegate = self;
     f.text = @"";
-    [self.view addSubview:f];
+    [self.scroll addSubview:f];
     return f;
 }
 
