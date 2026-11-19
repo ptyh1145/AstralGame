@@ -106,10 +106,21 @@ pub struct Member {
     pub peer_id: u32,
     /// 到该节点的跳数（0/1 = 直连）。与 KVNodeInfo.cost 同类型（i32）。
     pub cost: i32,
+    /// EasyTier 版本（对端上报）
+    pub version: String,
+    /// UDP NAT 类型（对端探测结果，如 Unknown / OpenCone）
+    pub nat: String,
+    /// 当前连接协议（udp / tcp / quic / wg…），取首选
+    pub conn_type: String,
 }
 
 impl Member {
-    /// 一行可读文本：`[我] Astral 100.100.100.3 (peer=1234, cost=0)`
+    /// 两行可读文本（第二行 = 设备信息行，对齐安卓成员卡片的副标题）：
+    ///   [我] Astral  100.100.100.114  (peer=1234, cost=0)
+    ///        2.7.0-xxx · NAT Unknown · udp
+    /// 注意：安卓那行里的「地区运营商 / 操作系统 / 防火墙」来自 peer-RPC
+    /// （user.getInfo 主动上报），这里暂时显示路由表里有的字段，
+    /// RPC 管道移植后补齐。
     pub fn to_line(&self) -> String {
         let me = if self.local { "[我] " } else { "" };
         let name = if self.hostname.is_empty() {
@@ -122,8 +133,11 @@ impl Member {
         } else {
             self.ipv4.clone()
         };
+        let ver = if self.version.is_empty() { "-" } else { &self.version };
+        let nat = if self.nat.is_empty() { "-" } else { &self.nat };
+        let conn = if self.conn_type.is_empty() { "-" } else { &self.conn_type };
         format!(
-            "{me}{name}  {ip}  (peer={}, cost={})",
+            "{me}{name}  {ip}  (peer={}, cost={})\n    {ver} · NAT {nat} · {conn}",
             self.peer_id, self.cost
         )
     }
@@ -154,6 +168,15 @@ fn members_from_info(info: easytier::proto::api::manage::NetworkInstanceRunningI
     let mut out: Vec<Member> = Vec::new();
     for p in &pairs {
         let Some(r) = p.route.as_ref() else { continue };
+        // 设备信息行字段：nat / conn 与 AstralGame 的 KVNodeInfo 同源
+        // （p.get_udp_nat_type / p.get_conn_protos，见 p2p.rs:815-830 的用法）
+        let nat = p.get_udp_nat_type();
+        let conn = p
+            .get_conn_protos()
+            .first()
+            .cloned()
+            .unwrap_or_default();
+        let ver = r.version.clone();
         out.push(Member {
             local: r.inst_id == "local" || r.peer_id == 0,
             hostname: r.hostname.clone(),
@@ -165,6 +188,9 @@ fn members_from_info(info: easytier::proto::api::manage::NetworkInstanceRunningI
                 .unwrap_or_default(),
             peer_id: r.peer_id,
             cost: r.cost,
+            version: ver,
+            nat,
+            conn_type: conn,
         });
     }
 
@@ -185,6 +211,9 @@ fn members_from_info(info: easytier::proto::api::manage::NetworkInstanceRunningI
                         .unwrap_or_default(),
                     peer_id: me.peer_id,
                     cost: 0,
+                    version: me.version.clone(),
+                    nat: "-".to_string(),
+                    conn_type: "local".to_string(),
                 },
             );
         }
