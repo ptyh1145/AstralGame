@@ -196,8 +196,8 @@ async fn main() -> Result<()> {
                 p = p.display()
             ),
             None => println!(
-                "路由: 未找到 route 命令！需 Cydia 装 inetutils/network-cmds，\
-                 或手动执行 route -n add -net {subnet} -interface {ifname}"
+                "路由: 未找到 route 命令（不影响：已改用 PF_ROUTE 内核接口加路由）。\
+                 想手动诊断可 Cydia 装 network-cmds（含 ping/netstat/ifconfig）"
             ),
         }
         return Ok(());

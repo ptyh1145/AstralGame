@@ -161,8 +161,8 @@ pub fn tools() -> &'static Tools {
         );
         if t.route.is_none() {
             println!(
-                "[probe] 警告: 没有任何 route 命令，网段路由需要手动添加\
-                 （Cydia 装 inetutils 或 network-cmds 可解决）"
+                "[probe] route 命令未找到：加路由将走 PF_ROUTE 内核接口（无需任何包）。\
+                 network-cmds 仍建议装，方便手动 ping/netstat 诊断"
             );
         }
         t
