@@ -393,21 +393,41 @@ fn configure_on_sock(sock: RawFd, ifname: &str, ip: Ipv4Addr, mask: Ipv4Addr) ->
         rq.put_flags(rq.flags() | IFF_UP);
         do_ioctl(sock, SIOCSIFFLAGS, &mut rq).context("SIOCSIFFLAGS")?;
 
-        // ⑥ 读回自证：让日志直接显示最终生效的地址/MTU/UP 状态，
-        //    不用再上机敲 ifconfig 去猜配置到底有没有落下。
+        // ⑥ 读回自证：**比对**，不是打印完就算数。
+        //
+        // EasyTier 内部说"分到 100.100.100.7"不算数——那只是它自己内存里的
+        // 字符串。真正能说明"这个地址已经生效"的，只有从内核读回来的值。
+        // 三个都必须成立：地址等于期望、接口 UP、MTU 对。
         let mut ra = IfReq::new(ifname)?;
-        if libc::ioctl(sock, SIOCGIFADDR, &mut ra as *mut IfReq) == 0 {
-            let addr = ra.get_ipv4();
-            let mut rm = IfReq::new(ifname)?;
-            let mtu = if libc::ioctl(sock, SIOCGIFMTU, &mut rm as *mut IfReq) == 0 {
-                rm.get_mtu()
-            } else {
-                -1
-            };
-            let mut rf = IfReq::new(ifname)?;
-            let up = libc::ioctl(sock, SIOCGIFFLAGS, &mut rf as *mut IfReq) == 0
-                && (rf.flags() & IFF_UP) != 0;
-            println!("[utun] 读回 {ifname}: addr={addr} mtu={mtu} up={up}");
+        if libc::ioctl(sock, SIOCGIFADDR, &mut ra as *mut IfReq) < 0 {
+            bail!(
+                "读回 {ifname} 地址失败（配置可能未生效）: {}",
+                std::io::Error::last_os_error()
+            );
+        }
+        let got_addr = ra.get_ipv4();
+
+        let mut rm = IfReq::new(ifname)?;
+        let got_mtu = if libc::ioctl(sock, SIOCGIFMTU, &mut rm as *mut IfReq) == 0 {
+            rm.get_mtu()
+        } else {
+            -1
+        };
+
+        let mut rf = IfReq::new(ifname)?;
+        let is_up = libc::ioctl(sock, SIOCGIFFLAGS, &mut rf as *mut IfReq) == 0
+            && (rf.flags() & IFF_UP) != 0;
+
+        println!("[utun] 读回 {ifname}: addr={got_addr} mtu={got_mtu} up={is_up}");
+
+        if got_addr != ip {
+            bail!("{ifname} 地址未生效：期望 {ip}，内核实际 {got_addr}");
+        }
+        if !is_up {
+            bail!("{ifname} 未处于 UP 状态");
+        }
+        if got_mtu != TUN_MTU {
+            println!("[utun] 警告: MTU 期望 {TUN_MTU}，内核实际 {got_mtu}（大包可能不通）");
         }
     }
     Ok(())
