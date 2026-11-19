@@ -181,6 +181,7 @@ fn members_from_info(info: easytier::proto::api::manage::NetworkInstanceRunningI
                         .virtual_ipv4
                         .as_ref()
                         .and_then(|a| a.address.clone())
+                        .map(|ip| ip.to_string())
                         .unwrap_or_default(),
                     peer_id: me.peer_id,
                     cost: 0,
