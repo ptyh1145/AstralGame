@@ -73,6 +73,10 @@ int CCRandomGenerateBytes(void *bytes, size_t count) {
 @property (nonatomic, strong) UILabel *stateLabel;
 @property (nonatomic, strong) UITextView *peersView;
 @property (nonatomic, strong) UITextView *logView;
+/// 选中的游戏类型（payload 的 game_id / game_name），与安卓的 picker 对应
+@property (nonatomic, copy) NSString *gameId;
+@property (nonatomic, copy) NSString *gameName;
+@property (nonatomic, strong) UIView *gameBar;
 @property (nonatomic, strong) NSTimer *pollTimer;
 @end
 
@@ -109,6 +113,51 @@ int CCRandomGenerateBytes(void *bytes, size_t count) {
 
     CGFloat y = 8;
 
+    // 游戏类型选择：与安卓 picker 同一数据源（assets/games/rules.json 的
+    // show_in_picker 项）。选中的 game_id 会进建房 payload。
+    // iOS 6 上用横向滚动的按钮条，不引 UIPickerView（占半屏）。
+    self.gameId = @"other";
+    self.gameName = @"其他游戏";
+    self.gameBar = [[UIView alloc] initWithFrame:CGRectMake(0, y, w, 40)];
+    UIScrollView *gs = [[UIScrollView alloc]
+        initWithFrame:CGRectMake(16, y, w - 32, 40)];
+    gs.showsHorizontalScrollIndicator = NO;
+    static NSString *const kIds[] = {
+        @"other", @"minecraft", @"grand_theft_auto_v", @"baldurs_gate_3",
+        @"sid_meier's_civilization_vi", @"raft", @"stardew_valley", @"terraria",
+        @"valheim", @"palworld", @"factorio", @"dont_starve_together",
+        @"project_zomboid", @"v_rising", @"seven_days_to_die", @"ark",
+        @"rust", @"left_4_dead", @"left_4_dead_2", @"mindustry",
+    };
+    static NSString *const kZh[] = {
+        @"其他游戏", @"我的世界", @"GTA5", @"博德之门3", @"文明6", @"木筏求生",
+        @"星露谷", @"泰拉瑞亚", @"英灵神殿", @"幻兽帕鲁", @"异星工厂", @"饥荒",
+        @"僵尸毁灭工程", @"夜族崛起", @"七日杀", @"方舟", @"腐蚀",
+        @"求生之路", @"求生之路2", @"像素工厂",
+    };
+    CGFloat gx = 0;
+    for (NSUInteger i = 0; i < sizeof(kIds) / sizeof(kIds[0]); i++) {
+        UIButton *b = [UIButton buttonWithType:UIButtonTypeSystem];
+        CGSize sz = [kZh[i] sizeWithFont:[UIFont systemFontOfSize:13]];
+        CGRect f = CGRectMake(gx, 4, sz.width + 24, 30);
+        b.frame = f;
+        [b setTitle:kZh[i] forState:UIControlStateNormal];
+        b.titleLabel.font = [UIFont systemFontOfSize:13];
+        b.layer.cornerRadius = 6;
+        b.layer.borderWidth = 1;
+        b.layer.borderColor = [[UIColor grayColor] CGColor];
+        b.tag = 100 + i;
+        [b addTarget:self action:@selector(pickGame:)
+              forControlEvents:UIControlEventTouchUpInside];
+        [gs addSubview:b];
+        gx = f.origin.x + f.size.width + 8;
+    }
+    gs.contentSize = CGSizeMake(gx, 40);
+    self.gameBar = gs;
+    [self.scroll addSubview:gs];
+    [self refreshGameButtons];
+    y += 48;
+
     // 房间码：官方短码服务（astral-share），输入 6 位码即可自动拉取房间配置
     self.codeField = [self makeField:@"房间码（6 位，可留空）" y:y]; y += 46;
     self.joinButton = [UIButton buttonWithType:UIButtonTypeSystem];
@@ -119,10 +168,10 @@ int CCRandomGenerateBytes(void *bytes, size_t count) {
     [self.scroll addSubview:self.joinButton];
     y += 44;
 
-    self.roomField = [self makeField:@"房间名" y:y]; y += 46;
-    self.roomField.text = @"test";
-    self.secretField = [self makeField:@"密码" y:y]; y += 46;
-    self.secretField.text = @"123456";
+    // 房间名/密码留空：点「创建房间」时自动生成（ag_xxx / 16 位），
+    // 与安卓一致——用户只需要选游戏类型、点一下创建。
+    self.roomField = [self makeField:@"房间名（留空自动生成）" y:y]; y += 46;
+    self.secretField = [self makeField:@"密码（留空自动生成）" y:y]; y += 46;
     self.peerField = [self makeField:@"服务器 (tcp://ip:11010)" y:y]; y += 46;
     self.nickField = [self makeField:@"用户名（房间成员列表显示）" y:y]; y += 46;
     self.nickField.text = @"iPhone";
@@ -218,6 +267,56 @@ int CCRandomGenerateBytes(void *bytes, size_t count) {
                                                     selector:@selector(poll)
                                                     userInfo:nil
                                                      repeats:YES];
+}
+
+// 选中游戏按钮的高亮
+- (void)refreshGameButtons {
+    static NSString *const kIds[] = {
+        @"other", @"minecraft", @"grand_theft_auto_v", @"baldurs_gate_3",
+        @"sid_meier's_civilization_vi", @"raft", @"stardew_valley", @"terraria",
+        @"valheim", @"palworld", @"factorio", @"dont_starve_together",
+        @"project_zomboid", @"v_rising", @"seven_days_to_die", @"ark",
+        @"rust", @"left_4_dead", @"left_4_dead_2", @"mindustry",
+    };
+    static NSString *const kZh[] = {
+        @"其他游戏", @"我的世界", @"GTA5", @"博德之门3", @"文明6", @"木筏求生",
+        @"星露谷", @"泰拉瑞亚", @"英灵神殿", @"幻兽帕鲁", @"异星工厂", @"饥荒",
+        @"僵尸毁灭工程", @"夜族崛起", @"七日杀", @"方舟", @"腐蚀",
+        @"求生之路", @"求生之路2", @"像素工厂",
+    };
+    for (UIView *v in self.gameBar.subviews) {
+        if (![v isKindOfClass:[UIButton class]]) continue;
+        UIButton *b = (UIButton *)v;
+        NSUInteger idx = b.tag - 100;
+        if (idx >= sizeof(kIds) / sizeof(kIds[0])) continue;
+        BOOL on = [self.gameId isEqualToString:kIds[idx]];
+        [b setTitleColor:(on ? [UIColor whiteColor]
+                            : self.view.tintColor)
+               forState:UIControlStateNormal];
+        b.backgroundColor = on ? [UIColor colorWithRed:0 green:0.45 blue:0.85 alpha:1]
+                               : [UIColor clearColor];
+    }
+}
+
+- (void)pickGame:(UIButton *)sender {
+    static NSString *const kIds[] = {
+        @"other", @"minecraft", @"grand_theft_auto_v", @"baldurs_gate_3",
+        @"sid_meier's_civilization_vi", @"raft", @"stardew_valley", @"terraria",
+        @"valheim", @"palworld", @"factorio", @"dont_starve_together",
+        @"project_zomboid", @"v_rising", @"seven_days_to_die", @"ark",
+        @"rust", @"left_4_dead", @"left_4_dead_2", @"mindustry",
+    };
+    static NSString *const kZh[] = {
+        @"其他游戏", @"我的世界", @"GTA5", @"博德之门3", @"文明6", @"木筏求生",
+        @"星露谷", @"泰拉瑞亚", @"英灵神殿", @"幻兽帕鲁", @"异星工厂", @"饥荒",
+        @"僵尸毁灭工程", @"夜族崛起", @"七日杀", @"方舟", @"腐蚀",
+        @"求生之路", @"求生之路2", @"像素工厂",
+    };
+    NSUInteger idx = sender.tag - 100;
+    if (idx >= sizeof(kIds) / sizeof(kIds[0])) return;
+    self.gameId = kIds[idx];
+    self.gameName = kZh[idx];
+    [self refreshGameButtons];
 }
 
 - (UITextField *)makeField:(NSString *)placeholder y:(CGFloat)y {
@@ -504,17 +603,14 @@ static NSString *virtualIpv4(NSString *nick, NSString *room) {
     }
     NSDictionary *payload = @{
         @"v": @1,
-        // 与 AstralGame 的 assets/games/rules.json 对齐：id=other / name_zh=其他游戏。
-        // 不绑定具体游戏，也就不会套用某个游戏的端口转发/魔法墙规则。
-        @"game_id": @"other",
-        @"game_name": @"\u5176\u4ed6\u6e38\u620f",
+        // 游戏类型来自顶部按钮条（与安卓 picker 同源）；display_name 与官方
+        // 一致取 gameName（房间标签），不是玩家名。
+        @"game_id": self.gameId ?: @"other",
+        @"game_name": self.gameName ?: @"其他游戏",
         @"network_name": room,
         @"network_secret": secret,
         @"peers": peerArr,
-        // 与官方一致：display_name 是**房间标签**（安卓端房间卡片上显示的
-        // 名字），默认 = gameName，不是玩家名。玩家名是 EasyTier 的 hostname，
-        // 在成员列表里显示，两者别混。
-        @"display_name": @"\u5176\u4ed6\u6e38\u620f",
+        @"display_name": self.gameName ?: @"其他游戏",
         @"transport": @"easytier"
     };
     NSData *body = [NSJSONSerialization dataWithJSONObject:payload options:0 error:NULL];
