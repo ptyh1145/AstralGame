@@ -494,7 +494,6 @@ const RTF_STATIC_DARWIN: i32 = 0x800;
 const RTA_DST: i32 = 0x1;
 const RTA_GW: i32 = 0x2;
 const RTA_MASK: i32 = 0x8;
-const RTMSG_HDR_LEN: usize = 136;
 const SOCK_IN_LEN: usize = 16;
 
 fn put_i32(buf: &mut [u8], off: usize, v: i32) {
@@ -514,10 +513,18 @@ pub fn add_route_pf(ifname: &str, cidr: &str) -> Result<()> {
     }
 
     let mask = prefix_to_v4(prefix)?;
-    let total = RTMSG_HDR_LEN + SOCK_IN_LEN * 3;
+
+    // **头部大小随指针宽度变**：rt_metrics 是 12×u_long，
+    //   64 位（arm64/x86_64）：u_long=8 → rt_msghdr = 136 字节
+    //   32 位（armv7，iPhone 5！）：u_long=4 → rt_msghdr = 84 字节
+    // 之前写死 136：armv7 内核按 84 解析，我们在 136 处放的 sockaddr
+    // 全部落进内核眼里的"垃圾区"——write 不报错，但路由被静默拒收。
+    // 这就是「PF_ROUTE 已提交、路由却永远不通」的原因。
+    let hdr = if std::mem::size_of::<usize>() == 8 { 136usize } else { 84usize };
+    let total = hdr + SOCK_IN_LEN * 3;
     let mut buf = vec![0u8; total];
 
-    // rt_msghdr
+    // rt_msghdr（两个平台的前 36 字节布局相同：int 字段在 offset 8 起）
     put_u16(&mut buf, 0, total as u16); // rtm_msglen
     buf[2] = RTM_VERSION_DARWIN;
     buf[3] = RTM_ADD_DARWIN;
@@ -525,11 +532,11 @@ pub fn add_route_pf(ifname: &str, cidr: &str) -> Result<()> {
     put_i32(&mut buf, 8, RTF_UP_DARWIN | RTF_STATIC_DARWIN);
     put_i32(&mut buf, 12, RTA_DST | RTA_GW | RTA_MASK); // rtm_addrs
     put_i32(&mut buf, 16, unsafe { libc::getpid() } as i32); // rtm_pid
-    put_i32(&mut buf, 20, 1); // rtm_seq（一次一条，固定值即可）
+    put_i32(&mut buf, 20, 1); // rtm_seq（ack 里按这个匹配）
     // rtm_errno / rtm_use / rtm_inits / rtm_rmx 全 0
 
     // RTA_DST: sockaddr_in（网段地址）
-    let dst = RTMSG_HDR_LEN;
+    let dst = hdr;
     buf[dst] = SOCK_IN_LEN as u8;
     buf[dst + 1] = AF_INET_DARWIN;
     buf[dst + 4..dst + 8].copy_from_slice(&net.octets());
@@ -551,17 +558,73 @@ pub fn add_route_pf(ifname: &str, cidr: &str) -> Result<()> {
         if s < 0 {
             bail!("PF_ROUTE socket 创建失败: {}", std::io::Error::last_os_error());
         }
+
+        // ack 读取限时 1 秒：内核无响应也不能把 bring_up 卡死
+        let tv = libc::timeval { tv_sec: 1, tv_usec: 0 };
+        libc::setsockopt(
+            s,
+            libc::SOL_SOCKET,
+            libc::SO_RCVTIMEO,
+            &tv as *const libc::timeval as *const libc::c_void,
+            std::mem::size_of::<libc::timeval>() as libc::socklen_t,
+        );
+
         let w = libc::write(s, buf.as_ptr() as *const libc::c_void, buf.len());
-        let w_err = std::io::Error::last_os_error();
-        libc::close(s);
         if w < 0 {
-            bail!("写路由消息失败: {w_err}");
+            let e = std::io::Error::last_os_error();
+            libc::close(s);
+            bail!("写路由消息失败: {e}");
         }
+
+        // **write 成功不算数**：routing socket 会异步回 RTM_ADD 的 ack，
+        // rtm_errno 才是内核的真实裁决。之前不读 ack，内核拒收我们也不知道。
+        let mut result: Result<()> = Ok(());
+        let mut ack = [0u8; 512];
+        for _ in 0..8 {
+            let n = libc::read(s, ack.as_mut_ptr() as *mut libc::c_void, ack.len());
+            if n <= 0 {
+                break; // 超时/无消息
+            }
+            let n = n as usize;
+            if n < 28 || ack[3] != RTM_ADD_DARWIN {
+                continue; // 别的路由事件，跳过
+            }
+            let seq = i32::from_ne_bytes([ack[20], ack[21], ack[22], ack[23]]);
+            if seq != 1 {
+                continue;
+            }
+            let errno = i32::from_ne_bytes([ack[24], ack[25], ack[26], ack[27]]);
+            match errno {
+                0 => println!("[utun] 内核确认路由已添加 (errno=0)"),
+                e if e == libc::EEXIST as i32 => {
+                    println!("[utun] 路由已存在（内核 EEXIST），视为成功");
+                }
+                e => {
+                    result = Err(anyhow::anyhow!(
+                        "内核拒绝路由: errno={e}（{}）",
+                        errno_desc(e)
+                    ));
+                }
+            }
+            break;
+        }
+
+        libc::close(s);
+        result?;
     }
     println!(
         "[utun] PF_ROUTE 已提交路由: {net}/{prefix} -> {ifname} (if_index={if_index})"
     );
     Ok(())
+}
+
+fn errno_desc(e: i32) -> &'static str {
+    match e {
+        17 => "EEXIST 已存在",
+        51 => "ENETUNREACH 网络不可达（gateway 无效？）",
+        22 => "EINVAL 参数无效（消息格式问题）",
+        _ => "未知错误",
+    }
 }
 
 fn parse_cidr(cidr: &str) -> Result<(Ipv4Addr, u8)> {
