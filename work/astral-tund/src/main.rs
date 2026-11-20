@@ -358,9 +358,25 @@ async fn handle_daemon_cmd(line: &str) -> String {
             astral_tund::astral_set_quic(on);
             "rc=0\n".to_string()
         }
+        // STOP —— **同步**完整清理：删实例 → 关 fd → 复位状态，全部完成后
+        // 才回 rc=0。之前走 astral_stop 的异步路径，UI 断开立刻重连时会跟
+        // 新实例竞态：旧实例没删完、新实例已入网（房间两个节点），
+        // 甚至误关新会话的 fd。
         "STOP" => {
-            let rc = astral_tund::astral_stop();
-            format!("rc={rc}\n")
+            astral_tund::begin_stop();
+            if let Some(id) = astral_tund::current_instance_id() {
+                if let Err(e) = astral_tund::bridge::close_instance(id).await {
+                    println!("[daemon] 关闭实例失败: {e}");
+                }
+            }
+            if let Some(fd) = astral_tund::take_session_fd() {
+                if fd >= 0 {
+                    unsafe { libc::close(fd) };
+                    println!("[daemon] 已关闭 utun fd={fd}");
+                }
+            }
+            astral_tund::finish_stop();
+            "rc=0\n".to_string()
         }
         "STATUS" => {
             let st = astral_tund::astral_state();

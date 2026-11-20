@@ -146,6 +146,10 @@ static SESSION: OnceLock<Mutex<Option<Session>>> = OnceLock::new();
 /// 断开请求：让停在 park() 的工作线程退出（光靠 park 会永远卡住）。
 static STOP_FLAG: AtomicU8 = AtomicU8::new(0);
 
+/// 「正在断开」标志：astral_stop 是异步清理，期间 astral_start 必须拒绝启动，
+/// 否则旧实例还没删完新实例就入网——房间里出现两个节点，甚至误关新会话的 fd。
+static STOPPING: AtomicU8 = AtomicU8::new(0);
+
 /// 工作线程句柄，astral_stop 用 `thread().unpark()` 唤醒它。
 static WORKER: OnceLock<Mutex<Option<std::thread::JoinHandle<()>>>> = OnceLock::new();
 
@@ -155,6 +159,46 @@ fn worker_store() -> &'static Mutex<Option<std::thread::JoinHandle<()>>> {
 
 fn stop_requested() -> bool {
     STOP_FLAG.load(Ordering::SeqCst) != 0
+}
+
+/// 进入停止流程（daemon 的 STOP 与 astral_stop 共用的第一步）
+pub fn begin_stop() {
+    STOP_FLAG.store(1, Ordering::SeqCst);
+    STOPPING.store(1, Ordering::SeqCst);
+    if let Ok(g) = worker_store().lock() {
+        if let Some(h) = g.as_ref() {
+            h.thread().unpark();
+        }
+    }
+}
+
+/// 停止流程收尾：关 fd、复位状态与标志
+pub fn finish_stop() {
+    let fd = session_store()
+        .lock()
+        .ok()
+        .and_then(|mut g| g.take().map(|s| s.tun_fd));
+    if let Some(fd) = fd {
+        if fd >= 0 {
+            unsafe { libc::close(fd) };
+            push_log(&format!("已关闭 utun fd={fd}"));
+        }
+    }
+    STOPPING.store(0, Ordering::SeqCst);
+    set_state(STATE_IDLE, "已停止");
+    push_log("已断开");
+}
+
+/// daemon 断开时取走会话里的 fd（close_instance 之后调用）
+pub fn take_session_fd() -> Option<RawFd> {
+    session_store()
+        .lock()
+        .ok()
+        .and_then(|mut g| g.take().map(|s| s.tun_fd))
+}
+
+pub fn is_stopping() -> bool {
+    STOPPING.load(Ordering::SeqCst) != 0
 }
 
 fn session_store() -> &'static Mutex<Option<Session>> {
@@ -201,6 +245,12 @@ pub extern "C" fn astral_start(
             }
         };
 
+    if is_stopping() {
+        // 上一轮断开的异步清理还没做完就来了新连接请求：
+        // 放行会造成"旧实例未删、新实例入网"的双节点，甚至误关新 fd。
+        push_log("正在断开中，拒绝启动；请稍候 1-2 秒再连接");
+        return -3;
+    }
     if STATE.load(Ordering::SeqCst) == STATE_RUNNING || STATE.load(Ordering::SeqCst) == STATE_STARTING {
         push_log("已经在运行/启动中，忽略重复请求");
         return -2;
@@ -378,16 +428,10 @@ async fn bring_up(room: &str, secret: &str, ipv4: &str, peer: &str) -> Result<(u
 /// 断开连接。返回 0 表示已请求关闭。
 #[no_mangle]
 pub extern "C" fn astral_stop() -> i32 {
-    // ① 先立起停止标志并唤醒工作线程 —— 它 park 在启动/运行循环里，
-    //    不 unpark 的话会一直挂着，连同它的 runtime 一起泄漏。
-    STOP_FLAG.store(1, Ordering::SeqCst);
-    if let Ok(g) = worker_store().lock() {
-        if let Some(h) = g.as_ref() {
-            h.thread().unpark();
-        }
-    }
+    // ① 立标志 + 唤醒工作线程
+    begin_stop();
 
-    // ② 有实例就异步关掉：删实例 → 关 fd → 清会话
+    // ② 有实例就异步关掉：删实例 → 关 fd → 复位状态
     let id = session_store().lock().ok().and_then(|g| g.as_ref().map(|s| s.instance_id));
     match id {
         Some(id) => {
@@ -401,28 +445,13 @@ pub extern "C" fn astral_stop() -> i32 {
                         push_log(&format!("关闭实例失败: {e}"));
                     }
                 }
-                // 实例删掉之后才关 fd：EasyTier 是 close_fd_on_drop(false)，
-                // 这个 fd 从注入那刻起就没人替我们关了。
-                let fd = session_store()
-                    .lock()
-                    .ok()
-                    .and_then(|mut g| g.take().map(|s| s.tun_fd));
-                match fd {
-                    Some(fd) if fd >= 0 => {
-                        unsafe { libc::close(fd) };
-                        push_log(&format!("已关闭 utun fd={fd}"));
-                    }
-                    Some(_) => {}
-                    None => push_log("断开时没有活跃会话（可能仍在启动中）"),
-                }
-                set_state(STATE_IDLE, "已停止");
-                push_log("已断开");
+                finish_stop();
             });
             0
         }
         None => {
             // 还在 STARTING 阶段：标志已置，bring_up 完成后会自己清理
-            set_state(STATE_IDLE, "已停止");
+            finish_stop();
             0
         }
     }
