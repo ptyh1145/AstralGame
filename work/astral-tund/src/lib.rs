@@ -87,15 +87,19 @@ fn state_text_store() -> &'static Mutex<CString> {
 pub fn init_tracing() {
     static ONCE: OnceLock<()> = OnceLock::new();
     ONCE.get_or_init(|| {
+        // 数据面诊断期临时开到 DEBUG：EasyTier 的 tun 层每收/发一个包都有
+        // debug 日志（convert zc packet to tun packet / opened shared
+        // virtual nic mobile tun）。ping 不通时它能把"包没进 tun"还是
+        // "包进了但转发失败"直接区分开。问题定位后调回 INFO（刷屏）。
         let installed = tracing_subscriber::fmt()
-            .with_max_level(tracing::Level::INFO)
+            .with_max_level(tracing::Level::DEBUG)
             .with_target(true)
             .with_ansi(false)
             .with_writer(std::io::stderr)
             .try_init()
             .is_ok();
         if installed {
-            push_log("tracing 已启用：EasyTier 内部日志（peer/IP/tun）会一并输出");
+            push_log("tracing 已启用（DEBUG 级）：EasyTier 内部日志（peer/IP/tun/包流）会一并输出");
         } else {
             push_log("tracing 初始化失败（可能已有全局 subscriber），继续运行");
         }
