@@ -60,7 +60,7 @@ tokio = { version = "1", features = [
 # 直接依赖 EasyTier（与 AstralGame 用的是同一个 fork/分支），
 # 刻意**不**依赖 rust_lib_astral_game：那个 crate 会拉进 flutter_rust_bridge，
 # 而 FRB 在 Apple 上依赖 oslog（需要 os/log.h，iOS 10+），iOS 6 编不过。
-easytier = { git = "https://github.com/ldoubil/EasyTier.git", branch = "main-astral", features = [
+easytier = { git = "https://github.com/ptyh1145/EasyTier.git", branch = "main-astral", features = [
     "wireguard",
     "websocket",
     "quic",
@@ -72,4 +72,4 @@ easytier = { git = "https://github.com/ldoubil/EasyTier.git", branch = "main-ast
     "magic-dns",
     "zstd",
 ] }
-easytier-core = { git = "https://github.com/ldoubil/EasyTier.git", branch = "main-astral" }
+easytier-core = { git = "https://github.com/ptyh1145/EasyTier.git", branch = "main-astral" }
