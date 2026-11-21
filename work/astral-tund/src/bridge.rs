@@ -66,11 +66,32 @@ pub fn create_instance(toml: &str) -> Result<Uuid> {
 }
 
 /// 把宿主的 tun fd 交给 EasyTier（与安卓 VpnService 同一条路径）。
-pub fn attach_tun_fd(id: Uuid, fd: i32) -> Result<()> {
-    MANAGER
-        .attach_tun_fd(id, fd)
-        .map_err(|e| anyhow::anyhow!("attach_tun_fd 失败: {e}"))
-        .context("EasyTier 未能接管 tun fd")
+/// 把宿主的 tun fd 交给 EasyTier。
+///
+/// 用官方 mobile 入口 `attach_mobile_tun_fd`（factory/mobile_tun.rs:189，
+/// Android VpnService 与 iOS 共用的共享 tun 仲裁层）：带 completion oneshot，
+/// open_tun 卡住/失败都会**同步暴露**。
+///
+/// 之前用的 `MANAGER.attach_tun_fd` 是 fire-and-forget：消息进 mpsc 通道后
+/// 由内部任务异步安装，失败只打内部日志不回传——我们的日志里既没有
+/// 「opened mobile tun」也没有失败记录，fd 静默丢失却显示连接成功。
+/// 10 秒超时兜底：内部卡死时 bring_up 明确报错，绝不假连接。
+pub async fn attach_tun_fd(id: Uuid, fd: i32) -> Result<()> {
+    let cfg = tokio::time::timeout(
+        std::time::Duration::from_secs(10),
+        easytier::instance::factory::attach_mobile_tun_fd(&MANAGER, fd, Some(&[id])),
+    )
+    .await
+    .map_err(|_| {
+        anyhow::anyhow!("attach TUN 超时（10s）：EasyTier 内部 mobile tun 安装未完成（疑似卡在 tun::create）")
+    })?
+    .map_err(|e| anyhow::anyhow!("attach TUN 失败: {e}"))?;
+
+    println!(
+        "[bridge] mobile TUN 已附加: addresses={:?} routes={:?} dns={:?}",
+        cfg.addresses, cfg.routes, cfg.dns
+    );
+    Ok(())
 }
 
 /// 读回本机被 EasyTier 分配的虚拟 IPv4（DHCP 协商结果），去掉 `/prefix`。

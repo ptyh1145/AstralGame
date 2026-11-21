@@ -383,7 +383,7 @@ async fn bring_up(room: &str, secret: &str, ipv4: &str, peer: &str) -> Result<(u
     let id = bridge::create_instance(&toml)?;
     push_log(&format!("instance_id = {id}"));
 
-    bridge::attach_tun_fd(id, fd)?;
+    bridge::attach_tun_fd(id, fd).await?;
     // fd 所有权已交给 EasyTier，禁止 guard 再 close（否则关闭它持有的 fd）
     fd_guard.0 = -1;
     push_log("tun fd 已注入：EasyTier 接管 utun");
