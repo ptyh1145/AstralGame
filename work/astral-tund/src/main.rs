@@ -220,7 +220,7 @@ async fn main() -> Result<()> {
     println!("[main] instance_id = {instance_id}");
 
     // ④ 把 utun fd 注入（与安卓 VpnService 完全同一条路径）
-    bridge::attach_tun_fd(instance_id, fd)?;
+    bridge::attach_tun_fd(instance_id, fd).await?;
     println!("[main] tun fd attached -> 组网已启动（Ctrl-C 退出）");
 
     // ⑤ 常驻；收到 Ctrl-C 时优雅关闭
