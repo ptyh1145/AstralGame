@@ -533,3 +533,4 @@ if [ -d "$OUT/AstralGame.app" ] && [ -f "$OUT/astral-tund" ]; then
 else
   warn "缺少 App/CLI，跳过 deb"
 fi
+// trigger rebuild: dispatcher open_tun 分步打点
