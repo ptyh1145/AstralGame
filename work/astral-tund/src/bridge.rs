@@ -77,13 +77,37 @@ pub fn create_instance(toml: &str) -> Result<Uuid> {
 /// 「opened mobile tun」也没有失败记录，fd 静默丢失却显示连接成功。
 /// 10 秒超时兜底：内部卡死时 bring_up 明确报错，绝不假连接。
 pub async fn attach_tun_fd(id: Uuid, fd: i32) -> Result<()> {
+    // ★ run_network_instance 是 spawn 异步启动的：返回 id 时实例还在 Starting。
+    // attach_mobile_tun_fd 的过滤器只认 Running——过早调用会被静默筛掉
+    //（members 为空 → 返回空 config 且 Ok），fd 永不注入。
+    // 此前每次「已附加 addresses=[]」都是这个假象。轮询等 Running 再注入。
+    let mut waited_ms = 0u32;
+    loop {
+        let running = MANAGER
+            .instance(id)
+            .map(|inst| inst.state() == easytier_core::instance::CoreInstanceState::Running)
+            .unwrap_or(false);
+        if running {
+            break;
+        }
+        anyhow::ensure!(
+            waited_ms < 20_000,
+            "实例 20 秒内未进入 Running 状态，放弃注入 fd"
+        );
+        tokio::time::sleep(std::time::Duration::from_millis(200)).await;
+        waited_ms += 200;
+    }
+    if waited_ms > 0 {
+        println!("[bridge] 实例已 Running（等待 {waited_ms}ms），开始注入 fd");
+    }
+
     let cfg = tokio::time::timeout(
-        std::time::Duration::from_secs(10),
+        std::time::Duration::from_secs(30),
         easytier::instance::factory::attach_mobile_tun_fd(&MANAGER, fd, Some(&[id])),
     )
     .await
     .map_err(|_| {
-        anyhow::anyhow!("attach TUN 超时（10s）：EasyTier 内部 mobile tun 安装未完成（疑似卡在 tun::create）")
+        anyhow::anyhow!("attach TUN 超时（30s）：EasyTier 内部 mobile tun 安装未完成（疑似卡在 tun::create）")
     })?
     .map_err(|e| anyhow::anyhow!("attach TUN 失败: {e}"))?;
 

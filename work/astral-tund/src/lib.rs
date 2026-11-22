@@ -395,9 +395,9 @@ async fn bring_up(room: &str, secret: &str, ipv4: &str, peer: &str) -> Result<(u
     // 地址：DHCP 要等 EasyTier 协商完（与 AstralGame 的 get_network_status 同一来源）
     let mut final_ip = ip.clone();
     if dhcp {
-        push_log("等待 EasyTier 分配虚拟 IP（DHCP）...");
+        push_log("等待 EasyTier 分配虚拟 IP（DHCP，最长 30 秒）...");
         let mut got: Option<String> = None;
-        for _ in 0..24 {
+        for _ in 0..60 {
             tokio::time::sleep(std::time::Duration::from_millis(500)).await;
             if let Some(a) = bridge::my_ipv4(id).await {
                 got = Some(a);
@@ -409,9 +409,15 @@ async fn bring_up(room: &str, secret: &str, ipv4: &str, peer: &str) -> Result<(u
                 push_log(&format!("EasyTier 已分配 {a}"));
                 final_ip = a;
             }
-            None => push_log(&format!(
-                "12 秒内未拿到 DHCP 地址，回退到 ipv4 参数 {ip}"
-            )),
+            None => {
+                // 回退到 UI 的固定 IP 会让接口与 EasyTier 分配的地址不一致
+                //（EasyTier 已给自己分了号，不认别的 IP 的包）——宁可明确失败
+                // 也不要「接口配了 A、EasyTier 认 B」的假连接。
+                anyhow::bail!(
+                    "30 秒内未拿到 EasyTier 分配的虚拟 IP（DHCP）。请确认能连上服务器后重试；\
+                     若要固定 IP 请关闭「自动分配虚拟IP」开关"
+                );
+            }
         }
     }
 
