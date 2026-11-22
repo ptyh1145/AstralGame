@@ -336,8 +336,13 @@ if [ -d "$BUILD_DIR" ]; then
 fi
 
 say "编译"
+# EasyTier 的 cfg_aliases! 宏在 iOS CI 上未生效（实测 cfg(mobile)=false，
+# tun_mobile/dispatcher 整条链被裁剪 → fd 注入变空操作）。命令行显式注入，
+# 100% 可控；--check-cfg 抑制 unexpected_cfgs 噪音。
+export RUSTFLAGS="--cfg mobile --check-cfg cfg(mobile)"
 cargo +nightly -Zjson-target-spec -Z build-std=std,panic_abort \
   build --release --target "$SPEC"
+unset RUSTFLAGS
 RC=$?
 if [ $RC -ne 0 ]; then
   # 失败时把 ring 的中间产物打印出来（排 ring 汇编问题用，只读不写）
@@ -396,9 +401,11 @@ say "编译 arm64（64 位设备）"
 export CARGO_TARGET_AARCH64_APPLE_IOS_RUSTFLAGS="\
 -C link-arg=-Wl,-U,__tlv_bootstrap \
 -C link-arg=-Wl,-U,__tlv_atexit"
+export RUSTFLAGS="--cfg mobile --check-cfg cfg(mobile)"
 cargo +nightly -Zjson-target-spec -Z build-std=std,panic_abort \
   build --release --target aarch64-apple-ios \
   || die "arm64 编译失败"
+unset RUSTFLAGS
 unset CARGO_TARGET_AARCH64_APPLE_IOS_RUSTFLAGS
 BIN64="$CRATE/target/aarch64-apple-ios/release/astral-tund"
 [ -f "$BIN64" ] || die "找不到 arm64 产物"
