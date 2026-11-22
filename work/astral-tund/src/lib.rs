@@ -104,6 +104,10 @@ pub fn init_tracing() {
             push_log("tracing 初始化失败（可能已有全局 subscriber），继续运行");
         }
     });
+    // cfg(mobile) 注入验证：RUSTFLAGS --cfg mobile 对所有 crate 生效（含 EasyTier）。
+    // false → EasyTier 的 tun_mobile/dispatcher 整条链没被编译——fd 注入落空操作、
+    // tun 永不打开。这是数据面诊断的分水岭。
+    push_log(&format!("[astral] cfg(mobile) = {}", cfg!(mobile)));
 }
 
 /// 追加一行日志（同时打印到 stderr，方便 Xcode / Console 里看）
