@@ -534,3 +534,5 @@ else
   warn "缺少 App/CLI，跳过 deb"
 fi
 # trigger rebuild: dispatcher open_tun 分步打点
+
+# rebuild trigger: pull fork cfg(mobile) fallback (ca65026)
