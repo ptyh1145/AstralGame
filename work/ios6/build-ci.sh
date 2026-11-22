@@ -545,3 +545,5 @@ fi
 # rebuild trigger: pull fork cfg(mobile) fallback (ca65026)
 
 # rebuild trigger: attach full-chain diag instrumentation (2b246fd)
+
+# rebuild trigger: install/dispatcher chain instrumentation (c2518c2)
