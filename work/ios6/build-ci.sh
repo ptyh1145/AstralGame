@@ -543,3 +543,5 @@ fi
 # trigger rebuild: dispatcher open_tun 分步打点
 
 # rebuild trigger: pull fork cfg(mobile) fallback (ca65026)
+
+# rebuild trigger: attach full-chain diag instrumentation (2b246fd)
